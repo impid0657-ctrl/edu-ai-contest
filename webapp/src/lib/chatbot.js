@@ -173,3 +173,56 @@ export async function logConversation({
     console.error("Log conversation error:", error.message);
   }
 }
+
+/**
+ * Log a fallback event when Gemini fails and OpenRouter is used.
+ */
+export async function logFallbackEvent({
+  originalProvider,
+  originalModel,
+  fallbackProvider,
+  fallbackModel,
+  errorMessage,
+  description,
+}) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient.from("chatbot_fallback_logs").insert({
+      original_provider: originalProvider,
+      original_model: originalModel,
+      fallback_provider: fallbackProvider,
+      fallback_model: fallbackModel,
+      error_message: errorMessage,
+      description: description,
+    });
+    if (error) console.error("Fallback log error:", error.message);
+  } catch (err) {
+    console.error("logFallbackEvent exception:", err.message);
+  }
+}
+
+/**
+ * Log a health check result.
+ */
+export async function logHealthCheck({
+  provider,
+  model,
+  status,
+  errorMessage,
+  latencyMs,
+}) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient.from("chatbot_health_checks").insert({
+      provider,
+      model,
+      status,
+      error_message: errorMessage,
+      latency_ms: latencyMs,
+      checked_at: new Date().toISOString(),
+    });
+    if (error) console.error("Health check log error:", error.message);
+  } catch (err) {
+    console.error("logHealthCheck exception:", err.message);
+  }
+}

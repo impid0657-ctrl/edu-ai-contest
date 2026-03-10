@@ -7,15 +7,18 @@ import {
   isBlockedTopic,
   checkDailyLimit,
   logConversation,
+  logFallbackEvent,
 } from "@/lib/chatbot";
+import { callOpenRouterStream, DEFAULT_FALLBACK_MODEL } from "@/lib/openrouter";
 import { rateLimit, getClientIP } from "@/lib/rateLimit";
 
 const chatLimiter = rateLimit({ interval: 60_000, limit: 20 });
 
 /**
  * POST /api/chat
- * Streaming RAG chatbot endpoint using Google Gemini.
- * Embeds query → cosine search → Gemini stream → log.
+ * Streaming RAG chatbot endpoint.
+ * Primary: Google Gemini. Fallback: OpenRouter (non-Google models).
+ * Embeds query → cosine search → AI stream → log.
  */
 export async function POST(request) {
   const startTime = Date.now();
@@ -68,7 +71,7 @@ export async function POST(request) {
         userQuery: message,
         aiResponse: blockedResponse,
         isBlocked: true,
-        provider: "google",
+        provider: settings.provider || "google",
         model: settings.model_name,
         latencyMs: Date.now() - startTime,
       });
@@ -99,9 +102,37 @@ export async function POST(request) {
     // Build prompt
     const systemPrompt = `${settings.system_prompt}\n\n--- 참고 문서 ---\n${contextText}\n--- 참고 문서 끝 ---`;
 
-    // Gemini streaming
-    const ai = getGeminiClient();
+    const activeProvider = settings.provider || "google";
     const modelName = settings.model_name || "gemini-3-flash-preview";
+    const autoFallback = settings.auto_fallback !== false; // default true
+
+    // ─── Try primary provider ───
+    if (activeProvider === "google") {
+      return await tryGeminiWithFallback({
+        settings, modelName, systemPrompt, message, session_id, startTime, autoFallback,
+      });
+    } else if (activeProvider === "openrouter") {
+      return await handleOpenRouterStream({
+        settings, model: modelName, systemPrompt, message, session_id, startTime, isFallback: false,
+      });
+    } else {
+      // Unknown provider, try Gemini as default
+      return await tryGeminiWithFallback({
+        settings, modelName, systemPrompt, message, session_id, startTime, autoFallback,
+      });
+    }
+  } catch (err) {
+    console.error("POST /api/chat error:", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
+
+/**
+ * Try Gemini first, fallback to OpenRouter on failure.
+ */
+async function tryGeminiWithFallback({ settings, modelName, systemPrompt, message, session_id, startTime, autoFallback }) {
+  try {
+    const ai = getGeminiClient();
 
     const response = await ai.models.generateContentStream({
       model: modelName,
@@ -113,7 +144,7 @@ export async function POST(request) {
       contents: message,
     });
 
-    // Create SSE response stream
+    // Gemini streaming
     let fullResponse = "";
     const encoder = new TextEncoder();
 
@@ -124,17 +155,13 @@ export async function POST(request) {
             const content = chunk.text || "";
             if (content) {
               fullResponse += content;
-              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\\n\\n`));
             }
           }
-
-          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.enqueue(encoder.encode("data: [DONE]\\n\\n"));
           controller.close();
 
-          // Estimate tokens (Gemini doesn't always return usage in stream)
           const estimatedTokens = Math.ceil((message.length + fullResponse.length) / 4);
-
-          // Log conversation after stream completes
           await logConversation({
             sessionId: session_id,
             userQuery: message,
@@ -146,11 +173,11 @@ export async function POST(request) {
             latencyMs: Date.now() - startTime,
           });
         } catch (err) {
-          console.error("Stream error:", err);
+          console.error("Gemini stream error:", err);
           controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify({ content: "\n\n오류가 발생했습니다." })}\n\n`)
+            encoder.encode(`data: ${JSON.stringify({ content: "\\n\\n오류가 발생했습니다." })}\\n\\n`)
           );
-          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.enqueue(encoder.encode("data: [DONE]\\n\\n"));
           controller.close();
         }
       },
@@ -163,8 +190,117 @@ export async function POST(request) {
         Connection: "keep-alive",
       },
     });
-  } catch (err) {
-    console.error("POST /api/chat error:", err);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  } catch (geminiError) {
+    console.error("Gemini API failed, error:", geminiError.message);
+
+    if (!autoFallback) {
+      return NextResponse.json({ error: "AI 서비스에 일시적 문제가 발생했습니다." }, { status: 503 });
+    }
+
+    // ─── Fallback to OpenRouter ───
+    const fallbackModel = settings.fallback_model || DEFAULT_FALLBACK_MODEL;
+    const errorDesc = `Gemini API 오류로 OpenRouter(${fallbackModel})로 자동 전환되었습니다. 오류: ${geminiError.message}`;
+
+    // Log fallback event (async, don't block)
+    logFallbackEvent({
+      originalProvider: "google",
+      originalModel: modelName,
+      fallbackProvider: "openrouter",
+      fallbackModel: fallbackModel,
+      errorMessage: geminiError.message,
+      description: errorDesc,
+    }).catch(() => {});
+
+    console.log(`Falling back to OpenRouter: ${fallbackModel}`);
+
+    return await handleOpenRouterStream({
+      settings,
+      model: fallbackModel,
+      systemPrompt,
+      message,
+      session_id,
+      startTime,
+      isFallback: true,
+    });
   }
+}
+
+/**
+ * Handle OpenRouter streaming response.
+ */
+async function handleOpenRouterStream({ settings, model, systemPrompt, message, session_id, startTime, isFallback }) {
+  const orStream = await callOpenRouterStream({
+    model,
+    systemPrompt,
+    userMessage: message,
+    maxTokens: settings.max_tokens || 1000,
+    temperature: parseFloat(settings.temperature) || 0.7,
+  });
+
+  let fullResponse = "";
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder();
+
+  const readable = new ReadableStream({
+    async start(controller) {
+      try {
+        const reader = orStream.getReader();
+        let buffer = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              const data = line.slice(6).trim();
+              if (data === "[DONE]") continue;
+              try {
+                const parsed = JSON.parse(data);
+                const content = parsed.choices?.[0]?.delta?.content || "";
+                if (content) {
+                  fullResponse += content;
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\\n\\n`));
+                }
+              } catch {}
+            }
+          }
+        }
+
+        controller.enqueue(encoder.encode("data: [DONE]\\n\\n"));
+        controller.close();
+
+        const estimatedTokens = Math.ceil((message.length + fullResponse.length) / 4);
+        await logConversation({
+          sessionId: session_id,
+          userQuery: message,
+          aiResponse: fullResponse,
+          isBlocked: false,
+          tokensUsed: estimatedTokens,
+          provider: "openrouter",
+          model: model,
+          latencyMs: Date.now() - startTime,
+        });
+      } catch (err) {
+        console.error("OpenRouter stream error:", err);
+        controller.enqueue(
+          encoder.encode(`data: ${JSON.stringify({ content: "\\n\\n오류가 발생했습니다." })}\\n\\n`)
+        );
+        controller.enqueue(encoder.encode("data: [DONE]\\n\\n"));
+        controller.close();
+      }
+    },
+  });
+
+  return new Response(readable, {
+    headers: {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      Connection: "keep-alive",
+    },
+  });
 }

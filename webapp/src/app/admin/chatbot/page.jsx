@@ -3,6 +3,14 @@
 import { useState, useEffect, useCallback } from "react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
+// OpenRouter 모델 목록 (서버의 openrouter.js와 동기화)
+const OPENROUTER_MODELS = [
+  { id: "anthropic/claude-3.5-haiku", name: "Claude 3.5 Haiku", desc: "빠르고 저렴, 한국어 우수" },
+  { id: "meta-llama/llama-3.3-70b-instruct", name: "Llama 3.3 70B", desc: "고성능, 저비용" },
+  { id: "mistralai/mistral-small-3.1-24b-instruct", name: "Mistral Small 3.1", desc: "중간 성능, 빠른 응답" },
+  { id: "qwen/qwen-2.5-72b-instruct", name: "Qwen 2.5 72B", desc: "다국어 우수, 고성능" },
+];
+
 /**
  * Admin Chatbot Page — /admin/chatbot
  * C-2: RAG document management (add/edit/delete)
@@ -47,6 +55,11 @@ function ChatbotSettingsTab() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
+  const [healthStatus, setHealthStatus] = useState(null);
+  const [healthLoading, setHealthLoading] = useState(false);
+  const [fallbackLogs, setFallbackLogs] = useState([]);
+  const [logsOpen, setLogsOpen] = useState(false);
+  const [logsLoading, setLogsLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -56,7 +69,39 @@ function ChatbotSettingsTab() {
       } catch (err) { console.error(err); }
       finally { setLoading(false); }
     })();
+    // Load health status
+    (async () => {
+      try {
+        const res = await fetch("/api/admin/chatbot/healthcheck");
+        if (res.ok) { const data = await res.json(); setHealthStatus(data.latest); }
+      } catch {}
+    })();
   }, []);
+
+  const runHealthCheck = async () => {
+    setHealthLoading(true);
+    try {
+      const res = await fetch("/api/admin/chatbot/healthcheck", { method: "POST" });
+      if (res.ok) {
+        const data = await res.json();
+        setHealthStatus(data);
+        setMessage({ type: data.status === "ok" ? "success" : "warning", text: data.status === "ok" ? "헬스체크 정상 통과" : `헬스체크 실패: ${data.error_message}` });
+      }
+    } catch { setMessage({ type: "danger", text: "헬스체크 요청 실패" }); }
+    finally { setHealthLoading(false); }
+  };
+
+  const loadFallbackLogs = async () => {
+    if (!logsOpen) {
+      setLogsLoading(true);
+      try {
+        const res = await fetch("/api/admin/chatbot/fallback-logs");
+        if (res.ok) { const data = await res.json(); setFallbackLogs(data.logs || []); }
+      } catch {}
+      finally { setLogsLoading(false); }
+    }
+    setLogsOpen(!logsOpen);
+  };
 
   const handleChange = (field, value) => { setSettings((prev) => ({ ...prev, [field]: value })); setMessage({ type: "", text: "" }); };
 
@@ -89,54 +134,64 @@ function ChatbotSettingsTab() {
                 <label className="form-label fw-semibold">AI 제공자</label>
                 <select className="form-select" value={settings.provider} onChange={(e) => { handleChange("provider", e.target.value); }}>
                   <option value="google">Google Gemini</option>
-                  <option value="openai">OpenAI</option>
-                  <option value="anthropic">Anthropic Claude</option>
+                  <option value="openrouter">OpenRouter</option>
                 </select>
               </div>
               <div className="mb-16">
                 <label className="form-label fw-semibold">모델명</label>
-                <input type="text" className="form-control" value={settings.model_name} onChange={(e) => handleChange("model_name", e.target.value)} list="model-suggestions" />
-                <datalist id="model-suggestions">
-                  {settings.provider === "google" && (
-                    <>
+                {settings.provider === "openrouter" ? (
+                  <select className="form-select" value={settings.model_name} onChange={(e) => handleChange("model_name", e.target.value)}>
+                    {OPENROUTER_MODELS.map((m) => (
+                      <option key={m.id} value={m.id}>{m.name} — {m.desc}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <>
+                    <input type="text" className="form-control" value={settings.model_name} onChange={(e) => handleChange("model_name", e.target.value)} list="model-suggestions" />
+                    <datalist id="model-suggestions">
                       <option value="gemini-3-flash-preview" />
                       <option value="gemini-2.5-flash-preview-05-20" />
                       <option value="gemini-2.0-flash" />
                       <option value="gemini-2.0-flash-lite" />
-                    </>
-                  )}
-                  {settings.provider === "openai" && (
-                    <>
-                      <option value="gpt-4o" />
-                      <option value="gpt-4o-mini" />
-                      <option value="gpt-4.1" />
-                      <option value="gpt-4.1-mini" />
-                      <option value="o3-mini" />
-                    </>
-                  )}
-                  {settings.provider === "anthropic" && (
-                    <>
-                      <option value="claude-sonnet-4-20250514" />
-                      <option value="claude-3-5-haiku-20241022" />
-                      <option value="claude-3-5-sonnet-20241022" />
-                    </>
-                  )}
-                </datalist>
+                    </datalist>
+                  </>
+                )}
                 <small className="text-muted mt-4 d-block">
                   {settings.provider === "google" && "Google Gemini 모델 — GEMINI_API_KEY 필요"}
-                  {settings.provider === "openai" && "OpenAI 모델 — OPENAI_API_KEY 필요"}
-                  {settings.provider === "anthropic" && "Anthropic 모델 — ANTHROPIC_API_KEY 필요"}
+                  {settings.provider === "openrouter" && "OpenRouter 모델 — OPENROUTER_API_KEY 필요"}
                 </small>
               </div>
               <div className="mb-16">
                 <label className="form-label fw-semibold">API 키</label>
                 <div className="input-group">
-                  <input type="password" className="form-control" value={settings.api_key || ""} onChange={(e) => handleChange("api_key", e.target.value)} placeholder={`${settings.provider === "google" ? "GEMINI" : settings.provider === "openai" ? "OPENAI" : "ANTHROPIC"}_API_KEY`} />
+                  <input type="password" className="form-control" value={settings.api_key || ""} onChange={(e) => handleChange("api_key", e.target.value)} placeholder={`${settings.provider === "google" ? "GEMINI" : "OPENROUTER"}_API_KEY`} />
                   <button className="btn btn-outline-secondary" type="button" onClick={(e) => { const inp = e.target.previousElementSibling; inp.type = inp.type === "password" ? "text" : "password"; }}>
                     <Icon icon="mdi:eye" />
                   </button>
                 </div>
                 <small className="text-muted mt-4 d-block">비워두면 서버 환경변수(.env.local)의 키를 사용합니다.</small>
+              </div>
+              {/* Fallback Settings */}
+              <div className="mt-16 pt-16 border-top">
+                <h6 className="fw-semibold mb-12"><Icon icon="mdi:swap-horizontal" className="me-1" />자동 폴백 설정</h6>
+                <div className="d-flex align-items-center justify-content-between mb-12">
+                  <div>
+                    <span className="fw-semibold">자동 폴백</span>
+                    <small className="text-muted d-block">Gemini 장애 시 OpenRouter로 자동 전환</small>
+                  </div>
+                  <div className="form-check form-switch mb-0">
+                    <input className="form-check-input" type="checkbox" checked={settings.auto_fallback !== false} onChange={(e) => handleChange("auto_fallback", e.target.checked)} />
+                  </div>
+                </div>
+                <div className="mb-12">
+                  <label className="form-label fw-semibold" style={{ fontSize: "13px" }}>폴백 모델</label>
+                  <select className="form-select form-select-sm" value={settings.fallback_model || "anthropic/claude-3.5-haiku"} onChange={(e) => handleChange("fallback_model", e.target.value)}>
+                    {OPENROUTER_MODELS.map((m) => (
+                      <option key={m.id} value={m.id}>{m.name} — {m.desc}</option>
+                    ))}
+                  </select>
+                  <small className="text-muted mt-4 d-block">Gemini 장애 시 사용할 OpenRouter 모델 (Google 모델 제외)</small>
+                </div>
               </div>
               <div className="row g-3">
                 <div className="col-6">
@@ -185,6 +240,83 @@ function ChatbotSettingsTab() {
                 <input type="number" className="form-control" value={settings.daily_limit} onChange={(e) => handleChange("daily_limit", parseInt(e.target.value, 10) || 1000)} />
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Health Check & Fallback Logs */}
+      <div className="row g-4 mt-0">
+        <div className="col-12">
+          <div className="card shadow-none border">
+            <div
+              className="card-header border-bottom bg-base py-16 px-24 d-flex justify-content-between align-items-center"
+              style={{ cursor: "pointer" }}
+              onClick={loadFallbackLogs}
+            >
+              <div className="d-flex align-items-center gap-8">
+                <h6 className="text-lg fw-semibold mb-0">
+                  <Icon icon="mdi:alert-circle-outline" className="me-2" />로그 확인
+                </h6>
+                {/* 신호등 아이콘 */}
+                {healthStatus ? (
+                  <span className="d-flex align-items-center gap-4 ms-8">
+                    <span style={{
+                      width: 12, height: 12, borderRadius: "50%",
+                      backgroundColor: healthStatus.status === "ok" ? "#22c55e" : "#ef4444",
+                      display: "inline-block",
+                      boxShadow: healthStatus.status === "ok" ? "0 0 6px #22c55e" : "0 0 6px #ef4444",
+                    }} />
+                    <small className={healthStatus.status === "ok" ? "text-success" : "text-danger"}>
+                      {healthStatus.status === "ok" ? "정상 작동 중" : "이슈 발생"}
+                    </small>
+                    <small className="text-muted">
+                      마지막 체크: {healthStatus.checked_at ? new Date(healthStatus.checked_at).toLocaleString("ko-KR") : "-"}
+                    </small>
+                  </span>
+                ) : (
+                  <small className="text-muted ms-8">체크 이력 없음</small>
+                )}
+              </div>
+              <div className="d-flex align-items-center gap-2">
+                <button className="btn btn-sm btn-outline-primary" onClick={(e) => { e.stopPropagation(); runHealthCheck(); }} disabled={healthLoading}>
+                  {healthLoading ? "체크 중..." : "지금 체크"}
+                </button>
+                <Icon icon={logsOpen ? "mdi:chevron-up" : "mdi:chevron-down"} className="text-xl" />
+              </div>
+            </div>
+            {logsOpen && (
+              <div className="card-body p-24">
+                {logsLoading ? (
+                  <div className="text-center py-3"><div className="spinner-border spinner-border-sm text-primary" /></div>
+                ) : fallbackLogs.length === 0 ? (
+                  <div className="text-center text-muted py-3">
+                    <Icon icon="mdi:check-circle-outline" className="text-success text-3xl mb-2 d-block mx-auto" />
+                    폴백 이벤트가 없습니다. 정상 운영 중입니다.
+                  </div>
+                ) : (
+                  <div className="table-responsive">
+                    <table className="table bordered-table mb-0" style={{ fontSize: "13px" }}>
+                      <thead>
+                        <tr><th>시간</th><th>상태</th><th>설명</th></tr>
+                      </thead>
+                      <tbody>
+                        {fallbackLogs.map((log) => (
+                          <tr key={log.id}>
+                            <td className="text-nowrap">{new Date(log.created_at).toLocaleString("ko-KR")}</td>
+                            <td>
+                              <span className="badge bg-warning-focus text-warning-600">
+                                {log.original_provider} → {log.fallback_provider}
+                              </span>
+                            </td>
+                            <td>{log.description || log.error_message || "-"}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

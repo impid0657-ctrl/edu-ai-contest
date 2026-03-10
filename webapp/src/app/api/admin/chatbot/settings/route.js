@@ -24,6 +24,9 @@ const DEFAULTS = {
   blocked_topics: ["정치", "성인 콘텐츠", "개인정보", "욕설"],
   is_active: true,
   daily_limit: 1000,
+  auto_fallback: true,
+  fallback_provider: "openrouter",
+  fallback_model: "anthropic/claude-3.5-haiku",
   example_questions: [
     "참가 자격은 어떻게 되나요?",
     "AI 이용권은 어떻게 받나요?",
@@ -123,7 +126,7 @@ export async function PATCH(request) {
     const allowedFields = [
       "provider", "model_name", "system_prompt", "max_tokens",
       "temperature", "allowed_topics", "blocked_topics", "is_active", "daily_limit",
-      "example_questions",
+      "example_questions", "auto_fallback", "fallback_provider", "fallback_model",
     ];
 
     // 현재 설정 로드
