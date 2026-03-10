@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
@@ -9,6 +9,14 @@ import { createClient } from "@/lib/supabase/client";
  * Username-based login. Internally maps "admin" → "admin@contest.admin" for Supabase.
  */
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<div style={styles.wrapper}><div style={styles.card}><p style={{textAlign:'center'}}>로딩 중...</p></div></div>}>
+      <LoginContent />
+    </Suspense>
+  );
+}
+
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirect") || "/admin";
