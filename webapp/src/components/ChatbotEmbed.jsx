@@ -177,7 +177,7 @@ export default function ChatbotEmbed() {
             {hasConversation && (
               <div ref={chatContainerRef} className="secondary-border01 mb-25" style={{
                 borderRadius: "16px",
-                maxHeight: "400px",
+                maxHeight: "600px",
                 overflowY: "auto",
                 padding: "24px",
                 background: "#fff",
