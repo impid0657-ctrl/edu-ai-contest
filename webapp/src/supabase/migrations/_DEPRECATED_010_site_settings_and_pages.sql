@@ -1,0 +1,3 @@
+-- THIS FILE IS DEPRECATED — replaced by 009b_pages_and_site_settings.sql (Antigravity) + 011_site_settings_enhancements.sql (Claude)
+-- DO NOT RUN THIS FILE. It was superseded to resolve migration conflict.
+-- See sync.md for details.

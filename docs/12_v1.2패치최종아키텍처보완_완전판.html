@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      제8회 교육 공공데이터 AI활용대회 홈페이지 개발 가이드 - 12장. 최종 아키텍처 보완 및 오류 수정 (v1.2 패치)
+    </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        max-width: 210mm;
+        margin: 0 auto;
+        padding: 20mm;
+        font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+        line-height: 1.6;
+        color: #000;
+        background-color: #fff;
+        box-sizing: border-box;
+        text-align: justify;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #000;
+        border-bottom: 2px solid #000;
+        padding-bottom: 20px;
+        font-weight: 700;
+      }
+      h2 {
+        font-size: 18pt;
+        color: #003366;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+      h3 {
+        font-size: 14pt;
+        color: #004d99;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+      h4 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      p {
+        margin-bottom: 10px;
+        text-align: justify;
+      }
+      ul,
+      ol {
+        margin-bottom: 15px;
+        padding-left: 25px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        font-size: 10pt;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #000;
+        padding: 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background-color: #f2f2f2;
+        font-weight: 700;
+        text-align: center;
+      }
+      tr:nth-child(even) {
+        background-color: #fafafa;
+      }
+      code {
+        font-family: 'Consolas', 'Courier New', monospace;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
+      pre {
+        font-family: 'Consolas', 'Courier New', monospace;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 15px;
+        font-size: 9pt;
+        line-height: 1.4;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        margin-bottom: 20px;
+      }
+      .cover-info {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 11pt;
+        color: #555;
+      }
+      .warning-box {
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        padding: 15px;
+        margin-bottom: 20px;
+        color: #856404;
+        border-left: 5px solid #ffc107;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>12장. 최종 아키텍처 보완 및 오류 수정 (v1.2 패치)</h1>
+
+    <div class="cover-info">
+      <p><strong>문서명:</strong> 제8회 교육 공공데이터 AI활용대회 홈페이지 개발 가이드</p>
+      <p><strong>작성일:</strong> 2026년 3월 7일 | <strong>버전:</strong> v1.2 (최종본)</p>
+    </div>
+
+    <div class="warning-box">
+      <strong>⚠ 🚨 절대 우선 규칙 (CRITICAL OVERRIDE) 🚨</strong><br />
+      이 장은 앞선 1장~11장의 모든 내용보다 최우선으로 적용(Override)되는 절대 규칙입니다.<br />
+      1~11장에 기술된 내용 중 이 12장과 충돌하는 모든 항목은 즉시 이 12장의 내용으로 대체되며, 개발자는 반드시 이 장을
+      먼저 숙지한 후 개발을 시작해야 합니다.
+    </div>
+
+    <h2>📋 목차</h2>
+    <ul>
+      <li>12.1 폴더 구조의 템플릿 우선주의 (4장 보완)</li>
+      <li>12.2 에듀핏 500명 '검수 및 일괄 승인(Bulk Action)' 시스템 도입 (1.4장 및 7.3장 보완)</li>
+      <li>12.3 비회원(Guest) 인증 세션 커스텀 구현 (7.3장 보완)</li>
+      <li>12.4 AI 심사 수동 트리거 강제 (10.3장 보완)</li>
+      <li>12.5 누락된 핵심 DB 스키마 DDL 추가 (8.5장 보완)</li>
+      <li>12.6 비회원 파일 업로드 권한(RLS) 에러 우회 (10.2장 보완)</li>
+      <li>12.7 Vercel 타임존(Timezone) KST 고정 (시스템 전역)</li>
+    </ul>
+
+    <h2>12.1 폴더 구조의 템플릿 우선주의 (4장 보완)</h2>
+
+    <h3>🔥 기존 규정 폐기</h3>
+    <p>
+      4장에 명시된 Next.js 기본 폴더 구조는 '참고용 예시'로 격하합니다. 해당 구조를 실제 프로젝트에 강제 적용하는 것을
+      금지합니다.
+    </p>
+
+    <h3>✅ 신규 절대 규칙: 엔바토(Envato) 템플릿 우선주의</h3>
+    <ul>
+      <li>
+        실제 개발 시에는 도입하는 엔바토(Envato) 프리미엄 템플릿의 고유 폴더 구조와 라우팅 방식을 100% 최우선으로
+        따릅니다
+      </li>
+      <li>템플릿 고유의 디렉터리 명명 규칙, 컴포넌트 구조, 라우팅 파일 위치 등을 변경하지 않습니다</li>
+      <li>4장 예시 구조에 맞추기 위해 템플릿을 억지로 수정(강제 맞춤)하는 행위를 절대 금지합니다</li>
+      <li>Supabase 연동 코드, 환경 변수, API 호출 로직은 템플릿의 기존 폴더 구조 안에 자연스럽게 녹여 넣습니다</li>
+    </ul>
+
+    <h3>📊 적용 원칙 요약 표</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>기존 (4장)</th>
+          <th>신규 (12장 Override)</th>
+          <th>우선순위</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>폴더 구조 기준</td>
+          <td>Next.js 기본 예시</td>
+          <td>Envato 템플릿 고유 구조</td>
+          <td><strong>템플릿 실물 기준</strong></td>
+        </tr>
+        <tr>
+          <td>라우팅 방식</td>
+          <td>예시 기반</td>
+          <td>템플릿 라우터 100% 준수</td>
+          <td><strong>절대 금지 강제 맞춤</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>12.2 에듀핏 500명 '검수 및 일괄 승인(Bulk Action)' 시스템 도입 (1.4장 및 7.3장 보완)</h2>
+
+    <h3>🔥 기존 규정 폐기</h3>
+    <p>
+      1.4장 및 7.3장에 기술된 "선착순 500명 자동 승인(approved)" 로직을 전면 폐기합니다. 무조건 자동 승인은 장난성 신청,
+      중복 신청, 자격 미달 신청자를 필터링할 수 없는 치명적인 운영 허점을 가지고 있습니다.
+    </p>
+
+    <h3>✅ 신규 절대 규칙: 검수 후 일괄 승인(Bulk Approve) 시스템</h3>
+
+    <h4>기본 상태값 정책</h4>
+    <ul>
+      <li>모든 신규 신청자의 기본 상태는 <strong>pending(대기중)</strong>으로 DB에 저장됩니다</li>
+      <li>시스템이 자동으로 approved로 변경하는 로직을 작성하지 않습니다</li>
+    </ul>
+
+    <h4>관리자 대시보드 필수 구현 기능</h4>
+    <p>관리자 대시보드에는 반드시 아래 기능이 구현되어야 합니다.</p>
+    <ol>
+      <li>
+        <strong>체크박스 다중 선택 (Multi-Select)</strong>
+        <ul>
+          <li>신청자 목록의 각 행(row)에 체크박스를 배치합니다</li>
+          <li>'전체 선택' 체크박스를 헤더에 추가합니다</li>
+        </ul>
+      </li>
+      <li>
+        <strong>고급 필터링 (Advanced Filtering)</strong>
+        <ul>
+          <li>학교명 검색 필터</li>
+          <li>신청 날짜 범위 필터</li>
+          <li>중복 IP 주소 감지 및 강조 표시 필터</li>
+          <li>상태값(pending / approved / rejected) 필터</li>
+        </ul>
+      </li>
+      <li>
+        <strong>일괄 액션 버튼 (Bulk Action Buttons)</strong>
+        <ul>
+          <li>[선택 항목 일괄 승인] 버튼: 선택된 모든 항목의 상태를 approved로 일괄 변경</li>
+          <li>[선택 항목 일괄 반려] 버튼: 선택된 모든 항목의 상태를 rejected로 일괄 변경</li>
+        </ul>
+      </li>
+      <li>
+        <strong>CSV 다운로드 (Filtered Export)</strong>
+        <ul>
+          <li>approved 상태인 신청자만 CSV로 다운로드하는 버튼을 별도로 구현합니다</li>
+          <li>CSV에는 이름, 학교, 이메일, 승인일시, 접수번호 등이 포함됩니다</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h4>500명 마감 기준 변경 (중요)</h4>
+    <p>
+      ⚠ 절대 규칙: 500명 마감 카운트 기준은 '신청자(pending 포함) 수'가 아니라,
+      <strong>'최종 approved(승인) 상태인 자의 수'</strong>를 기준으로 합니다.
+    </p>
+    <pre>
+-- 500명 마감 여부 확인 쿼리 (신규 기준)
+SELECT COUNT(*) as approved_count FROM edufit_applications WHERE status = 'approved';
+
+-- approved_count >= 500 이면 신규 승인 처리 불가 (관리자에게 경고 표시)
+</pre
+    >
+
+    <h4>관리자 일괄 승인 API 명세</h4>
+    <pre>
+// POST /api/admin/applications/bulk-approve
+// Body: { ids: string[], action: 'approve' | 'reject' }
+
+export async function POST(req: Request) {
+  const { ids, action } = await req.json();
+
+  if (action === 'approve') {
+    // approved 카운트가 500명 미만인지 먼저 확인
+    const { count } = await supabaseAdmin
+      .from('edufit_applications')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'approved');
+
+    if ((count ?? 0) + ids.length > 500) {
+      return Response.json({ error: '승인 가능 인원(500명)을 초과합니다.' }, { status: 400 });
+    }
+  }
+
+  const newStatus = action === 'approve' ? 'approved' : 'rejected';
+  const { error } = await supabaseAdmin
+    .from('edufit_applications')
+    .update({ status: newStatus, updated_at: new Date().toISOString() })
+    .in('id', ids);
+
+  if (error) return Response.json({ error }, { status: 500 });
+  return Response.json({ success: true, updated: ids.length });
+}
+</pre
+    >
+
+    <div class="page-break"></div>
+
+    <h2>12.3 비회원(Guest) 인증 세션 커스텀 구현 (7.3장 보완)</h2>
+
+    <h3>🔥 기존 규정 폐기</h3>
+    <p>
+      <strong
+        >7.3장에 기술된 "Supabase Auth를 통한 비회원 접수번호+비밀번호 로그인" 구현 시도를 전면 금지합니다.</strong
+      >
+    </p>
+    <p>
+      ⚠ 근본 원인: Supabase Auth는 이메일/소셜 OAuth 기반으로 설계되었으며, '접수번호+비밀번호' 형태의 커스텀
+      자격증명(Custom Credential) 로그인을 공식 지원하지 않습니다. 이를 억지로 구현하면 인증 세션 관리, 토큰 갱신 등에서
+      예측 불가능한 오류가 발생합니다.
+    </p>
+
+    <h3>✅ 신규 절대 규칙: 독자적인 커스텀 인증 세션 구현</h3>
+
+    <h4>비회원 인증 아키텍처</h4>
+    <p>
+      [브라우저] → 접수번호 + 비밀번호 입력 → POST /api/guest/login (Next.js API Route) → DB에서 application_number로
+      레코드 조회 → bcrypt.compare(입력 비밀번호, DB 해시 비밀번호) 대조 → 일치 시: 커스텀 JWT 생성 또는 암호화된
+      HttpOnly 쿠키 발급 → 이후 요청에서 쿠키/토큰으로 신원 확인
+    </p>
+
+    <h4>구현 필수 요소</h4>
+    <ol>
+      <li>
+        <strong>비밀번호 저장 방식:</strong> DB에 비밀번호를 저장할 때 반드시 bcrypt(saltRounds: 12 이상)로 해시하여
+        저장합니다. 평문 저장 절대 금지.
+      </li>
+      <li>
+        <strong>세션 유지 방식:</strong> 두 가지 방법 중 하나를 선택하여 구현합니다.
+        <ul>
+          <li>방법 A (권장): HttpOnly + Secure + SameSite=Strict 속성을 가진 암호화 쿠키 발급</li>
+          <li>방법 B: 커스텀 JWT 발급 (서버 측 비밀키로 서명, 만료 시간 2시간)</li>
+        </ul>
+      </li>
+      <li>
+        <strong>미들웨어 보호:</strong> /api/guest/* 경로는 Next.js 미들웨어에서 쿠키/JWT 유효성 검사를 수행합니다.
+      </li>
+    </ol>
+
+    <h4>핵심 코드 예시</h4>
+    <pre>
+// /api/guest/login/route.ts
+import bcrypt from 'bcryptjs';
+import { SignJWT } from 'jose';
+import { cookies } from 'next/headers';
+
+export async function POST(req: Request) {
+  const { applicationNumber, password } = await req.json();
+
+  // 1. DB에서 접수번호로 신청자 조회 (Supabase Admin Client 사용)
+  const { data: application } = await supabaseAdmin
+    .from('applications')
+    .select('id, password_hash, applicant_name')
+    .eq('application_number', applicationNumber)
+    .single();
+
+  if (!application) {
+    return Response.json({ error: '존재하지 않는 접수번호입니다.' }, { status: 401 });
+  }
+
+  // 2. bcrypt로 비밀번호 대조
+  const isValid = await bcrypt.compare(password, application.password_hash);
+  if (!isValid) {
+    return Response.json({ error: '비밀번호가 올바르지 않습니다.' }, { status: 401 });
+  }
+
+  // 3. 커스텀 JWT 발급 (방법 B 선택 시)
+  const secret = new TextEncoder().encode(process.env.GUEST_JWT_SECRET);
+  const token = await new SignJWT({ sub: application.id, applicationNumber, type: 'guest' })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setExpirationTime('2h')
+    .sign(secret);
+
+  // 4. HttpOnly 쿠키로 설정 (방법 A 선택 시 토큰 대신 쿠키 발급)
+  cookies().set('guest_session', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    maxAge: 60 * 60 * 2, // 2시간
+    path: '/',
+  });
+
+  return Response.json({ success: true, applicantName: application.applicant_name });
+}
+</pre
+    >
+
+    <h4>환경 변수 추가 필수</h4>
+    <pre>
+# .env.local에 반드시 추가
+GUEST_JWT_SECRET=your_very_long_random_secret_key_here_minimum_32_chars
+</pre
+    >
+
+    <div class="page-break"></div>
+
+    <h2>12.4 AI 심사 수동 트리거 강제 (10.3장 보완)</h2>
+
+    <h3>🔥 기존 규정 폐기</h3>
+    <p>
+      10.3장에 기술된 <strong>"파일 업로드 시 DB INSERT 이벤트로 자동 AI 심사를 트리거하는 Webhook 방식"</strong>을 전면
+      폐기합니다.
+    </p>
+    <p>
+      ⚠ 폐기 사유: Vercel 서버리스 함수의 최대 실행 시간(1060초)과 AI API 호출 시간(수십 초수분)의 충돌로 인해, 파일
+      업로드 즉시 AI 심사를 실행하면 타임아웃(504 Gateway Timeout) 에러가 100% 발생합니다. 또한 다수의 동시 업로드 시 AI
+      API 요금이 폭발적으로 증가합니다.
+    </p>
+
+    <h3>✅ 신규 절대 규칙: 관리자 수동 트리거 + 백그라운드 큐 방식</h3>
+
+    <h4>확정된 AI 심사 아키텍처</h4>
+    <p>
+      [파일 업로드 완료] → DB applications 테이블에 ai_review_status = 'pending' 으로만 저장 → (AI 심사는 이 시점에서
+      실행되지 않음)
+    </p>
+    <p>
+      [관리자 대시보드] → '📋 AI 심사 일괄 실행' 버튼 클릭 → POST /api/admin/ai-review/trigger → ai_review_status =
+      'pending'인 항목들을 ai_review_queue 테이블에 일괄 등록 → 백그라운드 워커(Inngest / BullMQ / Vercel Cron)가 큐를
+      순차 처리 → 처리 완료 시 ai_review_status = 'completed', ai_score, ai_feedback 컬럼 업데이트
+    </p>
+
+    <h4>관리자 트리거 API 명세</h4>
+    <pre>
+// POST /api/admin/ai-review/trigger
+// 관리자 세션 인증 필수 (미들웨어로 보호)
+
+export async function POST(req: Request) {
+  // 1. pending 상태의 심사 대상 조회
+  const { data: pendingApps } = await supabaseAdmin
+    .from('applications')
+    .select('id, file_url, application_number')
+    .eq('ai_review_status', 'pending');
+
+  if (!pendingApps || pendingApps.length === 0) {
+    return Response.json({ message: '처리할 대기 항목이 없습니다.' });
+  }
+
+  // 2. ai_review_queue 테이블에 일괄 등록
+  const queueItems = pendingApps.map(app => ({
+    application_id: app.id,
+    file_url: app.file_url,
+    status: 'queued',
+    created_at: new Date().toISOString(),
+  }));
+
+  const { error } = await supabaseAdmin
+    .from('ai_review_queue')
+    .insert(queueItems);
+
+  if (error) return Response.json({ error }, { status: 500 });
+
+  // 3. applications 테이블 상태를 'queued'로 업데이트
+  await supabaseAdmin
+    .from('applications')
+    .update({ ai_review_status: 'queued' })
+    .in('id', pendingApps.map(a => a.id));
+
+  return Response.json({
+    success: true,
+    queued: pendingApps.length,
+    message: `${pendingApps.length}건의 AI 심사가 큐에 등록되었습니다.`
+  });
+}
+</pre
+    >
+
+    <h4>AI 심사 상태값 정의</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>상태값</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>pending</td>
+          <td>파일 업로드 완료, 심사 대기 중</td>
+        </tr>
+        <tr>
+          <td>queued</td>
+          <td>관리자가 트리거 → 큐에 등록됨</td>
+        </tr>
+        <tr>
+          <td>processing</td>
+          <td>백그라운드 워커가 AI 분석 중</td>
+        </tr>
+        <tr>
+          <td>completed</td>
+          <td>AI 심사 완료, 점수/피드백 저장됨</td>
+        </tr>
+        <tr>
+          <td>failed</td>
+          <td>AI API 호출 실패 (재시도 가능)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>12.5 누락된 핵심 DB 스키마 DDL 추가 (8.5장 보완)</h2>
+    <p>8.5장에서 누락된 3개의 핵심 테이블 DDL을 아래에 확정합니다. 이 DDL은 기존 8.5장 스키마에 추가되는 항목입니다.</p>
+
+    <h3>테이블 1: chatbot_settings (AI 챗봇 설정 테이블)</h3>
+    <pre>
+-- AI 챗봇 제공자 및 동작 설정을 저장하는 테이블
+-- 관리자가 대시보드에서 설정값을 변경할 수 있도록 DB 기반으로 관리
+
+CREATE TABLE public.chatbot_settings (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+
+  -- AI 제공자 설정
+  provider TEXT NOT NULL DEFAULT 'openai' CHECK (provider IN ('openai', 'anthropic', 'google', 'ollama')),
+  model_name TEXT NOT NULL DEFAULT 'gpt-4o-mini',
+  api_key_env_var TEXT NOT NULL DEFAULT 'OPENAI_API_KEY', -- 실제 키가 아닌 env 변수명 저장
+
+  -- 챗봇 동작 설정
+  system_prompt TEXT NOT NULL DEFAULT '당신은 제8회 교육 공공데이터 AI활용대회의 안내 도우미입니다.',
+  max_tokens INTEGER NOT NULL DEFAULT 1000,
+  temperature DECIMAL(3,2) NOT NULL DEFAULT 0.7 CHECK (temperature BETWEEN 0.0 AND 2.0),
+
+  -- 답변 범위 제한 설정
+  allowed_topics JSONB NOT NULL DEFAULT '["대회 일정", "신청 방법", "참가 자격", "제출 양식", "시상 내역"]',
+  blocked_topics JSONB NOT NULL DEFAULT '["정치", "성인 콘텐츠", "개인정보"]',
+
+  -- 운영 설정
+  is_active BOOLEAN NOT NULL DEFAULT true,
+  daily_limit INTEGER DEFAULT 1000, -- 일일 최대 호출 횟수 (비용 제어)
+
+  -- 메타데이터
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_by UUID REFERENCES auth.users(id) -- 마지막으로 수정한 관리자 ID
+);
+
+-- 설정은 단일 행으로 유지 (싱글톤 패턴)
+-- INSERT 전에 기존 행 수 확인 로직 필요
+
+-- RLS 정책
+ALTER TABLE public.chatbot_settings ENABLE ROW LEVEL SECURITY;
+
+-- 읽기: 인증된 사용자 모두 허용 (챗봇 동작에 필요)
+CREATE POLICY "chatbot_settings_read" ON public.chatbot_settings FOR SELECT USING (true);
+
+-- 쓰기: 관리자(admin role)만 허용
+CREATE POLICY "chatbot_settings_write" ON public.chatbot_settings FOR ALL USING (
+  EXISTS (
+    SELECT 1 FROM public.user_profiles WHERE user_id = auth.uid() AND role = 'admin'
+  )
+);
+
+-- updated_at 자동 갱신 트리거
+CREATE TRIGGER update_chatbot_settings_updated_at
+BEFORE UPDATE ON public.chatbot_settings
+FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+</pre
+    >
+
+    <h3>테이블 2: file_upload_settings (파일 업로드 설정 테이블)</h3>
+    <pre>
+-- 파일 업로드 허용 크기, 확장자, 스토리지 경로 등을 DB에서 동적으로 관리
+-- 코드 수정 없이 관리자 대시보드에서 변경 가능하도록 설계
+
+CREATE TABLE public.file_upload_settings (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+
+  -- 업로드 유형 구분 (신청서, 발표자료, 보고서 등 각각 다른 설정 가능)
+  upload_type TEXT NOT NULL UNIQUE CHECK (upload_type IN ('application_file', 'presentation', 'report', 'profile_image')),
+  display_name TEXT NOT NULL, -- UI에 표시될 이름 (예: "신청서 파일")
+
+  -- 크기 제한
+  max_file_size_mb INTEGER NOT NULL DEFAULT 10 CHECK (max_file_size_mb BETWEEN 1 AND 500),
+
+  -- 허용 확장자 (배열)
+  allowed_extensions JSONB NOT NULL DEFAULT '["pdf", "hwp", "docx"]',
+  allowed_mime_types JSONB NOT NULL DEFAULT '["application/pdf", "application/msword"]',
+
+  -- 스토리지 설정
+  storage_bucket TEXT NOT NULL DEFAULT 'contest-files',
+  storage_path_prefix TEXT NOT NULL DEFAULT 'applications/', -- 예: applications/{year}/{id}/
+
+  -- 운영 설정
+  is_active BOOLEAN NOT NULL DEFAULT true,
+  max_files_per_user INTEGER NOT NULL DEFAULT 1,
+  overwrite_allowed BOOLEAN NOT NULL DEFAULT false, -- 기존 파일 덮어쓰기 허용 여부
+
+  -- 메타데이터
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- 기본 설정 데이터 삽입
+INSERT INTO public.file_upload_settings 
+(upload_type, display_name, max_file_size_mb, allowed_extensions, allowed_mime_types, storage_path_prefix)
+VALUES
+('application_file', '대회 신청서', 10, '["pdf","hwp","docx"]', 
+ '["application/pdf","application/haansofthwp","application/msword","application/vnd.openxmlformats-officedocument.wordprocessingml.document"]', 'applications/'),
+('presentation', '발표 자료', 50, '["pdf","ppt","pptx"]', 
+ '["application/pdf","application/vnd.ms-powerpoint","application/vnd.openxmlformats-officedocument.presentationml.presentation"]', 'presentations/'),
+('report', '최종 보고서', 30, '["pdf","hwp","docx"]', 
+ '["application/pdf","application/haansofthwp","application/msword"]', 'reports/');
+
+-- RLS 정책
+ALTER TABLE public.file_upload_settings ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "file_upload_settings_read_all" ON public.file_upload_settings FOR SELECT USING (true);
+
+CREATE POLICY "file_upload_settings_admin_write" ON public.file_upload_settings FOR ALL USING (
+  EXISTS (
+    SELECT 1 FROM public.user_profiles WHERE user_id = auth.uid() AND role = 'admin'
+  )
+);
+</pre
+    >
+
+    <h3>테이블 3: ai_review_queue (비동기 AI 심사 대기열 관리 테이블)</h3>
+    <pre>
+-- AI 심사 비동기 처리를 위한 큐(Queue) 관리 테이블
+-- 관리자가 수동 트리거 시 이 테이블에 항목이 등록되고, 워커가 순차 처리
+
+CREATE TABLE public.ai_review_queue (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+
+  -- 연결 정보
+  application_id UUID NOT NULL REFERENCES public.applications(id) ON DELETE CASCADE,
+  file_url TEXT NOT NULL, -- 심사 대상 파일 경로
+
+  -- 큐 상태 관리
+  status TEXT NOT NULL DEFAULT 'queued' CHECK (status IN ('queued', 'processing', 'completed', 'failed', 'skipped')),
+  priority INTEGER NOT NULL DEFAULT 5, -- 낮을수록 먼저 처리 (1: 긴급, 10: 낮음)
+
+  -- 처리 결과
+  ai_score DECIMAL(5,2), -- AI 평가 점수 (0.00 ~ 100.00)
+  ai_feedback JSONB, -- AI 상세 피드백 (JSON 구조)
+  ai_provider TEXT, -- 실제 사용된 AI 제공자 (openai, anthropic 등)
+  ai_model TEXT, -- 실제 사용된 모델명
+
+  -- 오류 처리
+  error_message TEXT, -- 실패 시 오류 메시지
+  retry_count INTEGER NOT NULL DEFAULT 0, -- 재시도 횟수
+  max_retries INTEGER NOT NULL DEFAULT 3, -- 최대 재시도 횟수
+
+  -- 시간 추적
+  queued_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  started_at TIMESTAMPTZ, -- 워커가 처리 시작한 시각
+  completed_at TIMESTAMPTZ, -- 처리 완료 시각
+
+  -- 트리거한 관리자 정보
+  triggered_by UUID REFERENCES auth.users(id),
+
+  -- 인덱스용 메타데이터
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- 성능 인덱스
+CREATE INDEX idx_ai_review_queue_status ON public.ai_review_queue(status);
+CREATE INDEX idx_ai_review_queue_application_id ON public.ai_review_queue(application_id);
+CREATE INDEX idx_ai_review_queue_priority ON public.ai_review_queue(status, priority, queued_at);
+
+-- RLS 정책 (관리자만 접근)
+ALTER TABLE public.ai_review_queue ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "ai_review_queue_admin_only" ON public.ai_review_queue FOR ALL USING (
+  EXISTS (
+    SELECT 1 FROM public.user_profiles WHERE user_id = auth.uid() AND role = 'admin'
+  )
+);
+
+-- 큐 처리 워커용 서비스 롤 접근은 RLS 우회 (Service Role Key 사용 시 자동 적용)
+</pre
+    >
+
+    <div class="page-break"></div>
+
+    <h2>12.6 비회원 파일 업로드 권한(RLS) 에러 우회 (10.2장 보완)</h2>
+
+    <h3>🔥 기존 방식의 치명적 결함</h3>
+    <p>10.2장에 기술된 Storage RLS 정책은 auth.uid()를 기반으로 동작합니다.</p>
+    <p>
+      ⚠ 치명적 버그: 비회원(Guest) 사용자는 Supabase Auth에 로그인하지 않으므로 auth.uid()가 항상 NULL을 반환합니다.
+      따라서 비회원이 브라우저에서 Supabase Storage에 직접 파일을 업로드하면, RLS 정책에 의해 100% 403 Forbidden 에러가
+      발생합니다.
+    </p>
+
+    <h3>✅ 신규 절대 규칙: 서버 경유 우회 업로드 (API Route Proxy Upload)</h3>
+
+    <h4>비회원 파일 업로드 아키텍처</h4>
+    <p>[브라우저 - 비회원] → 파일을 직접 Supabase Storage에 업로드 시도 ❌ (절대 금지)</p>
+    <p>
+      [올바른 방법] → 파일을 POST /api/guest/upload (Next.js API Route) 로 전송 → API Route 서버에서 Supabase Service
+      Role Key를 사용하여 업로드 → Service Role Key는 RLS를 완전히 우회하는 최고 관리자 권한 → 업로드 성공 후 파일 URL을
+      브라우저에 반환
+    </p>
+
+    <h4>구현 코드</h4>
+    <pre>
+// /api/guest/upload/route.ts
+import { createClient } from '@supabase/supabase-js';
+
+// Service Role Key를 사용하는 Admin Client (서버 측에서만 사용, 절대 브라우저 노출 금지)
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!, // ← RLS 우회 핵심
+  {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false
+    }
+  }
+);
+
+export async function POST(req: Request) {
+  // 1. 비회원 세션 토큰 검증 (12.3장에서 발급한 커스텀 JWT 확인)
+  const sessionToken = req.headers.get('x-guest-session');
+  if (!sessionToken) {
+    return Response.json({ error: '인증되지 않은 요청입니다.' }, { status: 401 });
+  }
+  // ... JWT 검증 로직 ...
+
+  // 2. multipart/form-data로 파일 수신
+  const formData = await req.formData();
+  const file = formData.get('file') as File;
+  const applicationId = formData.get('applicationId') as string;
+
+  if (!file) {
+    return Response.json({ error: '파일이 없습니다.' }, { status: 400 });
+  }
+
+  // 3. 파일 크기 및 확장자 서버 측 검증
+  const maxSizeMb = 10;
+  if (file.size > maxSizeMb * 1024 * 1024) {
+    return Response.json({ error: `파일 크기는 ${maxSizeMb}MB를 초과할 수 없습니다.` }, { status: 400 });
+  }
+
+  const allowedExtensions = ['pdf', 'hwp', 'docx'];
+  const fileExtension = file.name.split('.').pop()?.toLowerCase();
+  if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+    return Response.json({ error: '허용되지 않는 파일 형식입니다.' }, { status: 400 });
+  }
+
+  // 4. 안전한 파일명 생성 (경로 순회 공격 방지)
+  const safeFileName = `guest-${applicationId}-${Date.now()}.${fileExtension}`;
+  const storagePath = `applications/${safeFileName}`;
+
+  // 5. Service Role Key로 RLS 우회 업로드 (핵심)
+  const fileBuffer = await file.arrayBuffer();
+  const { data, error } = await supabaseAdmin.storage
+    .from('contest-files')
+    .upload(storagePath, fileBuffer, {
+      contentType: file.type,
+      upsert: false,
+    });
+
+  if (error) {
+    console.error('Storage upload error:', error);
+    return Response.json({ error: '파일 업로드에 실패했습니다.' }, { status: 500 });
+  }
+
+  // 6. 업로드된 파일의 공개 URL 반환
+  const { data: { publicUrl } } = supabaseAdmin.storage
+    .from('contest-files')
+    .getPublicUrl(storagePath);
+
+  return Response.json({ success: true, fileUrl: publicUrl, storagePath });
+}
+</pre
+    >
+
+    <h4>보안 주의사항</h4>
+    <p>
+      🔒 SUPABASE_SERVICE_ROLE_KEY는 절대로 NEXT_PUBLIC_ 접두사를 붙이지 않습니다. 브라우저에 노출되는 순간 DB 전체가
+      위험에 처합니다.
+    </p>
+    <pre>
+# .env.local
+NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co  # ✅ 공개 가능
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJxxx...            # ✅ 공개 가능 (RLS로 보호)
+SUPABASE_SERVICE_ROLE_KEY=eyJxxx...                # ❌ 절대 NEXT_PUBLIC_ 붙이지 않음
+</pre
+    >
+
+    <h2>12.7 Vercel 타임존(Timezone) KST 고정 (시스템 전역)</h2>
+
+    <h3>🔥 발생 가능한 치명적 버그</h3>
+    <p>Vercel 서버리스 환경의 기본 시간대는 UTC입니다. 이로 인해 발생하는 버그:</p>
+    <p>
+      ⚠ 시나리오: 대회 신청 마감일이 "2026년 5월 31일 23:59 KST"일 때, Vercel 서버의 new Date()는 UTC 기준이므로
+      실제로는 2026년 6월 1일 08:59 UTC가 마감 시간이 됩니다. 즉, 한국 시간으로 6월 1일 오전 9시까지 신청을 받는 심각한
+      오류가 발생합니다.
+    </p>
+
+    <h3>✅ 신규 절대 규칙: 시스템 전역 KST(Asia/Seoul) 고정</h3>
+
+    <h4>규칙 1: date-fns-tz 라이브러리 의무 사용</h4>
+    <pre>npm install date-fns date-fns-tz</pre>
+    <pre>
+// /lib/dateUtils.ts - 전역 날짜 유틸리티 (모든 날짜 처리는 이 파일을 통해 수행)
+import { toZonedTime, fromZonedTime, format } from 'date-fns-tz';
+
+export const KST_TIMEZONE = 'Asia/Seoul';
+
+/** UTC Date를 KST 기준으로 포맷팅 */
+export function formatKST(date: Date | string, formatStr: string = 'yyyy-MM-dd HH:mm:ss'): string {
+  const d = typeof date === 'string' ? new Date(date) : date;
+  return format(toZonedTime(d, KST_TIMEZONE), formatStr, { timeZone: KST_TIMEZONE });
+}
+
+/** KST 기준 현재 시각 반환 */
+export function nowKST(): Date {
+  return toZonedTime(new Date(), KST_TIMEZONE);
+}
+
+/** KST 날짜 문자열 → UTC Date 변환 (DB 저장용) */
+export function kstStringToUTC(kstDateStr: string): Date {
+  return fromZonedTime(new Date(kstDateStr), KST_TIMEZONE);
+}
+
+/** 마감 시간 초과 여부 확인 (KST 기준) */
+export function isDeadlinePassed(deadlineKST: string): boolean {
+  const deadline = fromZonedTime(new Date(deadlineKST), KST_TIMEZONE);
+  return new Date() > deadline;
+}
+</pre
+    >
+
+    <h4>규칙 2: 마감일 환경 변수 설정 (KST 명시)</h4>
+    <pre>
+# .env.local - 마감 시간은 반드시 KST 기준으로 작성
+CONTEST_DEADLINE_KST=2026-05-31T23:59:59+09:00  # ISO 8601 + KST 오프셋
+</pre
+    >
+
+    <h4>규칙 3: API Route에서의 마감일 검증</h4>
+    <pre>
+// /api/apply/route.ts - 신청 접수 API
+
+import { isDeadlinePassed } from '@/lib/dateUtils';
+
+export async function POST(req: Request) {
+  // KST 기준으로 마감 시간 검증 (절대 new Date() 직접 비교 금지)
+  const deadlineKST = process.env.CONTEST_DEADLINE_KST!;
+
+  if (isDeadlinePassed(deadlineKST)) {
+    return Response.json({ error: '신청 기간이 종료되었습니다. (마감: 2026년 5월 31일 23:59 KST)' }, { status: 400 });
+  }
+
+  // ... 신청 처리 로직 ...
+}
+</pre
+    >
+
+    <h4>규칙 4: DB TIMESTAMPTZ 컬럼 처리 원칙</h4>
+    <pre>
+-- Supabase(PostgreSQL)의 TIMESTAMPTZ는 내부적으로 UTC로 저장됩니다.
+-- 조회 시 KST로 변환하려면 AT TIME ZONE을 사용합니다.
+
+-- KST 기준 조회 예시
+SELECT id, applicant_name, created_at AT TIME ZONE 'Asia/Seoul' AS created_at_kst
+FROM applications
+ORDER BY created_at DESC;
+
+-- 마감일 비교 시 (DB 레벨)
+SELECT COUNT(*) FROM applications 
+WHERE created_at < '2026-05-31 23:59:59+09:00'; -- KST 오프셋 명시
+</pre
+    >
+
+    <h4>규칙 5: Next.js 미들웨어 KST 로그</h4>
+    <pre>
+// middleware.ts - 모든 요청 로그에 KST 시각 기록
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const kstTime = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+  console.log(`[${kstTime} KST] ${request.method} ${request.nextUrl.pathname}`);
+  return NextResponse.next();
+}
+</pre
+    >
+
+    <h4>✅ KST 적용 체크리스트</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>적용 위치</th>
+          <th>❌ 금지 패턴</th>
+          <th>✅ 올바른 패턴</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>마감일 비교</td>
+          <td>new Date() > deadline</td>
+          <td>isDeadlinePassed(deadlineKST)</td>
+        </tr>
+        <tr>
+          <td>날짜 포맷 출력</td>
+          <td>date.toLocaleDateString()</td>
+          <td>formatKST(date, 'yyyy-MM-dd')</td>
+        </tr>
+        <tr>
+          <td>DB 저장</td>
+          <td>KST 문자열 직접 저장</td>
+          <td>kstStringToUTC() 변환 후 저장</td>
+        </tr>
+        <tr>
+          <td>환경 변수 마감일</td>
+          <td>2026-05-31T23:59:59</td>
+          <td>2026-05-31T23:59:59+09:00</td>
+        </tr>
+        <tr>
+          <td>로그 출력</td>
+          <td>new Date().toString()</td>
+          <td>formatKST(new Date())</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>📊 12장 적용 우선순위 요약</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>패치 번호</th>
+          <th>항목</th>
+          <th>보완 대상 장</th>
+          <th>중요도</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>12.1</td>
+          <td>폴더 구조 템플릿 우선주의</td>
+          <td>4장</td>
+          <td>🔴 최우선</td>
+        </tr>
+        <tr>
+          <td>12.2</td>
+          <td>검수 후 일괄 승인(Bulk Action) 시스템</td>
+          <td>1.4장, 7.3장</td>
+          <td>🔴 최우선</td>
+        </tr>
+        <tr>
+          <td>12.3</td>
+          <td>비회원 커스텀 인증 세션 구현</td>
+          <td>7.3장</td>
+          <td>🔴 최우선</td>
+        </tr>
+        <tr>
+          <td>12.4</td>
+          <td>AI 심사 수동 트리거 강제</td>
+          <td>10.3장</td>
+          <td>🔴 최우선</td>
+        </tr>
+        <tr>
+          <td>12.5</td>
+          <td>누락 DB 스키마 DDL 추가</td>
+          <td>8.5장</td>
+          <td>🟠 중요</td>
+        </tr>
+        <tr>
+          <td>12.6</td>
+          <td>비회원 RLS 우회 업로드</td>
+          <td>10.2장</td>
+          <td>🔴 최우선</td>
+        </tr>
+        <tr>
+          <td>12.7</td>
+          <td>Vercel KST 타임존 고정</td>
+          <td>시스템 전역</td>
+          <td>🔴 최우선</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="warning-box">
+      <strong>📌 최종 경고</strong><br /><br />
+      ⚠ 🚨 이 12장을 숙지하지 않고 1~11장만 참고하여 코딩을 시작하면, 위에 명시된 모순으로 인해 실제 서비스 환경에서
+      동작하지 않는 코드가 생성됩니다. 반드시 12장을 먼저 숙지하고 개발을 시작하십시오. 🚨<br /><br />
+      이 12장은 1~11장의 모든 내용에 우선하며, 충돌 시 12장의 규칙이 절대적으로 적용됩니다.
+    </div>
+
+    <div class="cover-info">
+      <p>
+        문서 버전: v1.2 패치 (최종 아키텍처 보완) | 작성일: 2026년 3월 7일 | 적용 범위: 제8회 교육 공공데이터 AI활용대회
+        웹사이트 개발 전 과정
+      </p>
+    </div>
+  </body>
+</html>

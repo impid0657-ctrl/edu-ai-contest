@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <title>제8회 교육 공공데이터 AI활용대회 홈페이지 개발 가이드 - 6장. 작업지시서 템플릿</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        max-width: 210mm;
+        margin: 0 auto;
+        padding: 20mm;
+        font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+        line-height: 1.6;
+        color: #000;
+        background-color: #fff;
+        box-sizing: border-box;
+        text-align: justify;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #000;
+        border-bottom: 2px solid #000;
+        padding-bottom: 20px;
+        font-weight: 700;
+      }
+      h2 {
+        font-size: 18pt;
+        color: #003366;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+      h3 {
+        font-size: 14pt;
+        color: #004d99;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+      h4 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      p {
+        margin-bottom: 10px;
+        text-align: justify;
+      }
+      ul,
+      ol {
+        margin-bottom: 15px;
+        padding-left: 25px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        font-size: 10pt;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #000;
+        padding: 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background-color: #f2f2f2;
+        font-weight: 700;
+        text-align: center;
+      }
+      tr:nth-child(even) {
+        background-color: #fafafa;
+      }
+      code {
+        font-family: 'Consolas', 'Courier New', monospace;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
+      pre {
+        font-family: 'Consolas', 'Courier New', monospace;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 15px;
+        font-size: 9pt;
+        line-height: 1.4;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+      .cover-info {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 11pt;
+        color: #555;
+      }
+      .template-box {
+        background-color: #fcfcfc;
+        border: 1px solid #ccc;
+        padding: 0;
+        margin-bottom: 25px;
+      }
+      .template-box pre {
+        margin: 0;
+        border: none;
+        background-color: transparent;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>6장. 작업지시서 템플릿</h1>
+
+    <div class="cover-info">
+      <p><strong>문서명:</strong> 제8회 교육 공공데이터 AI활용대회 홈페이지 개발 가이드</p>
+      <p><strong>작성일:</strong> 2026년 3월 7일 | <strong>버전:</strong> v1.2 (최종본)</p>
+    </div>
+
+    <h2>6.1 초기 개발 작업지시서 템플릿</h2>
+    <div class="template-box">
+      <pre>
+# 작업지시서 [번호] - [작업명]
+
+1. 작업 개요
+- 작업 ID: WO-XXX
+- 작성일: YYYY-MM-DD
+- 작성자: Claude
+- 할당자: Antigravity
+- 우선순위: High / Medium / Low
+- 예상 소요 시간: X시간
+- 완료 기한: YYYY-MM-DD
+
+2. 작업 배경
+[이 작업이 왜 필요한지, 어떤 문제를 해결하는지 설명]
+
+관련 문서:
+- 개발계획서: [파일 경로]
+- 기능명세서: [파일 경로]
+
+3. 구현 요구사항
+3.1 기능 요구사항
+[구현해야 할 기능을 명확하게 나열]
+
+주요 기능:
+1. [기능 1 설명]
+2. [기능 2 설명]
+3. [기능 3 설명]
+
+3.2 비기능 요구사항
+- 성능: [응답 시간, 처리량 등]
+- 보안: [인증, 권한, 데이터 보호 등]
+- 접근성: [웹 접근성 기준 준수]
+
+3.3 기술 요구사항
+- 기술 스택: Frontend, Backend, Database
+- 외부 API: [카카오 인증 API 등]
+
+4. 입력 데이터
+4.1 참조 문서
+- [문서명]: [파일 경로]
+
+5. 예상 산출물
+5.1 필수 산출물
+- [ ] [파일명.확장자] - [설명]
+- [ ] README.md - 코드 설명 및 실행 방법
+- [ ] 완료보고서 - 간단한 완료 보고
+
+6. 완료 기준 (Definition of Done)
+6.1 기능 완료 기준
+- [ ] [기능 1]이 정상 동작
+- [ ] [기능 2]가 정상 동작
+
+6.2 품질 완료 기준
+- [ ] 코드에 주석이 충분히 달려 있음
+- [ ] 자체 테스트를 수행하고 통과함
+
+8. 작업 흐름 (Workflow)
+[1단계] 환경 설정 → [2단계] 기능 구현 → [3단계] 자체 테스트 → [4단계] 문서화 → [5단계] 완료 보고
+
+8. 참고사항
+[주의할 점, 팁]
+
+---
+작성자: Claude
+작성일: YYYY-MM-DD
+버전: v1.0
+</pre
+      >
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>6.2 수정 작업지시서 템플릿</h2>
+    <div class="template-box">
+      <pre>
+# 수정지시서 [ID] - [작업명]
+
+1. 이슈 요약
+- 이슈 ID: BUG-XXX
+- 심각도: Critical / Major / Minor / Trivial
+- 발견일: YYYY-MM-DD
+- 발견자: Cowork
+- 할당자: Antigravity
+- 완료 기한: YYYY-MM-DD
+
+2. 문제 상황
+[구체적으로 어떤 문제가 발생했는지 설명]
+
+재현 단계:
+1. [단계 1]
+2. [단계 2] → [문제 발생]
+
+3. 원인 분석
+[문제의 근본 원인이 무엇인지 분석]
+
+4. 수정 지시사항
+4.1 수정할 파일 목록
+- [ ] [파일명]: [수정 내용]
+
+4.2 상세 수정 방법
+[파일명]
+```
+[수정 전 코드] → [수정 후 코드]
+```
+
+5. 테스트 시나리오
+5.1 회귀 테스트 (Regression Test)
+- [ ] 기존 기능이 여전히 정상 동작하는지 확인
+
+5.2 수정 사항 테스트
+- [ ] [테스트 시나리오 1]
+
+6. 완료 기준
+- [ ] 이슈가 더 이상 재현되지 않음
+- [ ] 모든 테스트 시나리오 통과
+
+---
+작성자: Claude
+작성일: YYYY-MM-DD
+버전: v1.0
+</pre
+      >
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>6.3 리뷰 보고서 템플릿</h2>
+    <div class="template-box">
+      <pre>
+# 리뷰 보고서 [번호] - [작업명]
+
+1. 리뷰 개요
+- 리뷰 ID: REV-XXX
+- 리뷰 대상: 작업XXX_[작업명]
+- 리뷰 일자: YYYY-MM-DD
+- 리뷰어: Cowork
+
+2. 전체 평가
+2.1 종합 점수
+총점: XX/100
+
+| 평가 항목 | 점수 | 만점 |
+|----------|------|------|
+| 기능 완성도 | XX | 30 |
+| 코드 품질 | XX | 25 |
+| 성능 | XX | 15 |
+| 보안 | XX | 15 |
+| 문서화 | XX | 15 |
+
+2.2 승인 여부
+- ✅ 승인 (이슈 없음, 배포 가능)
+- ⚠ 조건부 승인 (Minor 이슈 수정 후 배포 가능)
+- ❌ 반려 (Critical/Major 이슈 수정 후 재검증 필요)
+
+3. 발견된 이슈
+[Critical] BUG-XXX: [이슈 제목]
+우선순위: Critical
+발견 위치: [파일명:라인번호]
+문제 설명: [구체적인 문제 설명]
+권장 조치: [수정 방법 제안]
+
+---
+
+[Major] BUG-XXX: [이슈 제목]
+[위와 동일한 형식]
+
+4. 긍정적 요소
+- ✅ [긍정적 요소 1]
+
+5. 개선 제안
+- 💡 [제안 1]
+
+6. 체크리스트 결과
+- [✅/❌] 모든 요구사항이 구현되었는가?
+- [✅/❌] 기능이 정상적으로 동작하는가?
+- [✅/❌] 예외 상황을 적절히 처리하는가?
+
+8. 다음 단계
+8.1 즉시 조치 필요 (Critical)
+- [ ] BUG-XXX 수정
+
+---
+리뷰어: Cowork
+리뷰 일자: YYYY-MM-DD
+버전: v1.0
+</pre
+      >
+    </div>
+  </body>
+</html>

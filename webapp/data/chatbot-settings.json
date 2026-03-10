@@ -1,0 +1,27 @@
+{
+  "provider": "google",
+  "model_name": "gemini-3-flash-preview",
+  "system_prompt": "당신은 제8회 교육 공공데이터 AI활용대회의 안내 도우미입니다.",
+  "max_tokens": 1000,
+  "temperature": 0.7,
+  "allowed_topics": [
+    "대회 일정",
+    "신청 방법",
+    "참가 자격"
+  ],
+  "blocked_topics": [
+    "정치",
+    "성인 콘텐츠",
+    "개인정보",
+    "욕설"
+  ],
+  "is_active": true,
+  "daily_limit": 1000,
+  "example_questions": [
+    "참가 자격은 어떻게 되나요?",
+    "AI 이용권은 어떻게 받나요?",
+    "작품 접수 마감일은 언제인가요?",
+    "팀으로 참가할 수 있나요?",
+    "초등학생은 어떻게 신청 하나요?"
+  ]
+}

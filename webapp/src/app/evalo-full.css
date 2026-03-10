@@ -1,0 +1,5332 @@
+/* evalo-full.css — PostCSS로 .evalo-home 스코프 자동 변환 */
+/* 이 파일은 자동 생성됨. 직접 수정 금지. */
+
+
+/* ===== default.css ===== */
+/* Default form css */
+.evalo-home *::-moz-selection {
+	background: #fc8459;
+	color: #fff;
+	text-shadow: none;
+}
+.evalo-home ::-moz-selection {
+	background: #444;
+	color: #fff;
+	text-shadow: none;
+}
+.evalo-home ::selection {
+	background: #444;
+	color: #fff;
+	text-shadow: none;
+}
+.evalo-home *::-moz-placeholder {
+	color: #858585;
+	font-size: 14px;
+	opacity: .6;
+}
+.evalo-home *::placeholder {
+	color: #858585;
+	font-size: 14px;
+	opacity: .6;
+}
+
+
+/* Default Margin & Padding */
+/*-- Margin Top --*/
+.evalo-home .mt--5 {
+	margin-top: -5px;
+}
+.evalo-home .mt5 {
+	margin-top: 5px;
+}
+.evalo-home .mt-10 {
+	margin-top: 10px;
+}
+.evalo-home .mt-12 {
+	margin-top: 10px;
+}
+.evalo-home .mt-15 {
+	margin-top: 15px;
+}
+.evalo-home .mt-18 {
+	margin-top: 18px;
+}
+.evalo-home .mt-20 {
+	margin-top: 20px;
+}
+.evalo-home .mt-22 {
+	margin-top: 22px;
+}
+.evalo-home .mt-25 {
+	margin-top: 25px;
+}
+.evalo-home .mt-30 {
+	margin-top: 30px;
+}
+.evalo-home .mt-35 {
+	margin-top: 35px;
+}
+.evalo-home .mt-40 {
+	margin-top: 40px;
+}
+.evalo-home .mt-45 {
+	margin-top: 45px;
+}
+.evalo-home .mt-47 {
+	margin-top: 47px;
+}
+.evalo-home .mt-50 {
+	margin-top: 50px;
+}
+.evalo-home .mt-55 {
+	margin-top: 55px;
+}
+.evalo-home .mt-60 {
+	margin-top: 60px;
+}
+.evalo-home .mt-65 {
+	margin-top: 65px;
+}
+.evalo-home .mt-70 {
+	margin-top: 70px;
+}
+.evalo-home .mt-75 {
+	margin-top: 75px;
+}
+.evalo-home .mt-80 {
+	margin-top: 80px;
+}
+.evalo-home .mt-85 {
+	margin-top: 85px;
+}
+.evalo-home .mt-90 {
+	margin-top: 90px;
+}
+.evalo-home .mt-95 {
+	margin-top: 95px;
+}
+.evalo-home .mt-100 {
+	margin-top: 100px;
+}
+.evalo-home .mt-105 {
+	margin-top: 105px;
+}
+.evalo-home .mt-110 {
+	margin-top: 110px;
+}
+.evalo-home .mt-115 {
+	margin-top: 115px;
+}
+.evalo-home .mt-120 {
+	margin-top: 120px;
+}
+.evalo-home .mt-125 {
+	margin-top: 125px;
+}
+.evalo-home .mt-130 {
+	margin-top: 130px;
+}
+.evalo-home .mt-135 {
+	margin-top: 135px;
+}
+.evalo-home .mt-140 {
+	margin-top: 140px;
+}
+.evalo-home .mt-145 {
+	margin-top: 145px;
+}
+.evalo-home .mt-150 {
+	margin-top: 150px;
+}
+.evalo-home .mt-155 {
+	margin-top: 155px;
+}
+.evalo-home .mt-160 {
+	margin-top: 160px;
+}
+.evalo-home .mt-165 {
+	margin-top: 165px;
+}
+.evalo-home .mt-170 {
+	margin-top: 170px;
+}
+.evalo-home .mt-175 {
+	margin-top: 175px;
+}
+.evalo-home .mt-180 {
+	margin-top: 180px;
+}
+.evalo-home .mt-185 {
+	margin-top: 185px;
+}
+.evalo-home .mt-190 {
+	margin-top: 190px;
+}
+.evalo-home .mt-195 {
+	margin-top: 195px;
+}
+.evalo-home .mt-200 {
+	margin-top: 200px;
+}
+/*-- Margin Bottom --*/
+
+.evalo-home .mb-5 {
+	margin-bottom: 5px;
+}
+.evalo-home .mb-6 {
+	margin-bottom: 6px;
+}
+.evalo-home .mb-10 {
+	margin-bottom: 10px;
+}
+.evalo-home .mb-12 {
+	margin-bottom: 12px;
+}
+.evalo-home .mb-15 {
+	margin-bottom: 15px;
+}
+.evalo-home .mb-18 {
+	margin-bottom: 18px;
+}
+.evalo-home .mb-20 {
+	margin-bottom: 20px;
+}
+.evalo-home .mb-22 {
+	margin-bottom: 22px;
+}
+.evalo-home .mb-25 {
+	margin-bottom: 25px;
+}
+.evalo-home .mb-30 {
+	margin-bottom: 30px;
+}
+.evalo-home .mb-35 {
+	margin-bottom: 35px;
+}
+.evalo-home .mb-40 {
+	margin-bottom: 40px;
+}
+.evalo-home .mb-45 {
+	margin-bottom: 45px;
+}
+.evalo-home .mb-50 {
+	margin-bottom: 50px;
+}
+.evalo-home .mb-55 {
+	margin-bottom: 55px;
+}
+.evalo-home .mb-60 {
+	margin-bottom: 60px;
+}
+.evalo-home .mb-65 {
+	margin-bottom: 65px;
+}
+.evalo-home .mb-70 {
+	margin-bottom: 70px;
+}
+.evalo-home .mb-75 {
+	margin-bottom: 75px;
+}
+.evalo-home .mb-80 {
+	margin-bottom: 80px;
+}
+.evalo-home .mb-85 {
+	margin-bottom: 85px;
+}
+.evalo-home .mb-90 {
+	margin-bottom: 90px;
+}
+.evalo-home .mb-95 {
+	margin-bottom: 95px;
+}
+.evalo-home .mb-100 {
+	margin-bottom: 100px;
+}
+.evalo-home .mb-105 {
+	margin-bottom: 105px;
+}
+.evalo-home .mb-110 {
+	margin-bottom: 110px;
+}
+.evalo-home .mb-115 {
+	margin-bottom: 115px;
+}
+.evalo-home .mb-120 {
+	margin-bottom: 120px;
+}
+.evalo-home .mb-125 {
+	margin-bottom: 125px;
+}
+.evalo-home .mb-130 {
+	margin-bottom: 130px;
+}
+.evalo-home .mb-135 {
+	margin-bottom: 135px;
+}
+.evalo-home .mb-140 {
+	margin-bottom: 140px;
+}
+.evalo-home .mb-145 {
+	margin-bottom: 145px;
+}
+.evalo-home .mb-150 {
+	margin-bottom: 150px;
+}
+.evalo-home .mb-155 {
+	margin-bottom: 155px;
+}
+.evalo-home .mb-160 {
+	margin-bottom: 160px;
+}
+.evalo-home .mb-165 {
+	margin-bottom: 165px;
+}
+.evalo-home .mb-170 {
+	margin-bottom: 170px;
+}
+.evalo-home .mb-175 {
+	margin-bottom: 175px;
+}
+.evalo-home .mb-180 {
+	margin-bottom: 180px;
+}
+.evalo-home .mb-185 {
+	margin-bottom: 185px;
+}
+.evalo-home .mb-190 {
+	margin-bottom: 190px;
+}
+.evalo-home .mb-195 {
+	margin-bottom: 195px;
+}
+.evalo-home .mb-200 {
+	margin-bottom: 200px;
+}
+.evalo-home .mr-10{margin-right: 10px;}
+.evalo-home .mr-25{margin-right: 25px;}
+.evalo-home .mr-30{margin-right: 30px;}
+.evalo-home .mr-100{
+	margin-right: 100px;
+}
+.evalo-home .mr-120{
+	margin-right: 120px;
+}
+.evalo-home .mr-150{
+	margin-right: 180px;
+}
+.evalo-home .mr-200{
+	margin-right: 200px;
+}
+.evalo-home .mr-20{margin-right:20px;}
+.evalo-home .mr--30{margin-right:-30px;}
+
+.evalo-home .ml-20{margin-left: 20px;}
+.evalo-home .ml-15{margin-left: 15px;}
+.evalo-home .ml-30{margin-left: 30px;}
+.evalo-home .ml-100{
+	margin-left: 100px;
+}
+.evalo-home .ml-130{
+	margin-left: 130px;
+}
+.evalo-home .ml-150{
+	margin-left: 150px;
+}
+.evalo-home .ml-200{
+	margin-left: 200px;
+}
+.evalo-home .ml-300{
+	margin-left: 300px;
+}
+.evalo-home .ml-200{
+	margin-left: 200px;
+}
+.evalo-home .mt--10 {
+	margin-top: -10px;
+}
+.evalo-home .mt--20 {
+	margin-top: -20px;
+}
+.evalo-home .mt--30 {
+	margin-top: -30px;
+}
+.evalo-home .mt--45 {
+	margin-top: -45px;
+}
+.evalo-home .mt--100 {
+	margin-top: -100px;
+}
+.evalo-home .pt-220{padding-top: 220px;}
+/*-- Padding Top --*/
+
+.evalo-home .pt5 {
+	padding-top: 5px;
+}
+.evalo-home .pt-10 {
+	padding-top: 10px;
+}
+.evalo-home .pt-15 {
+	padding-top: 15px;
+}
+.evalo-home .pt-18 {
+	padding-top: 18px;
+}
+.evalo-home .pt-20 {
+	padding-top: 20px;
+}
+.evalo-home .pt-22 {
+	padding-top: 22px;
+}
+.evalo-home .pt-25 {
+	padding-top: 25px;
+}
+.evalo-home .pt-30 {
+	padding-top: 30px;
+}
+.evalo-home .pt-32 {
+	padding-top: 32px;
+}
+.evalo-home .pt-35 {
+	padding-top: 35px;
+}
+.evalo-home .pt-40 {
+	padding-top: 40px;
+}
+.evalo-home .pt-45 {
+	padding-top: 45px;
+}
+.evalo-home .pt-46 {
+	padding-top: 46px;
+}
+.evalo-home .pt-50 {
+	padding-top: 50px;
+}
+.evalo-home .pt-55 {
+	padding-top: 55px;
+}
+.evalo-home .pt-60 {
+	padding-top: 60px;
+}
+.evalo-home .pt-62 {
+	padding-top: 62px;
+}
+.evalo-home .pt-65 {
+	padding-top: 65px;
+}
+.evalo-home .pt-70 {
+	padding-top: 70px;
+}
+.evalo-home .pt-75 {
+	padding-top: 75px;
+}
+.evalo-home .pt-80 {
+	padding-top: 80px;
+}
+.evalo-home .pt-85 {
+	padding-top: 85px;
+}
+.evalo-home .pt-90 {
+	padding-top: 90px;
+}
+.evalo-home .pt-95 {
+	padding-top: 95px;
+}
+.evalo-home .pt-100 {
+	padding-top: 100px;
+}
+.evalo-home .pt-105 {
+	padding-top: 105px;
+}
+.evalo-home .pt-110 {
+	padding-top: 110px;
+}
+.evalo-home .pt-115 {
+	padding-top: 115px;
+}
+.evalo-home .pt-120 {
+	padding-top: 120px;
+}
+.evalo-home .pt-125 {
+	padding-top: 125px;
+}
+.evalo-home .pt-130 {
+	padding-top: 130px;
+}
+.evalo-home .pt-135 {
+	padding-top: 135px;
+}
+.evalo-home .pt-140 {
+	padding-top: 140px;
+}
+.evalo-home .pt-145 {
+	padding-top: 145px;
+}
+.evalo-home .pt-150 {
+	padding-top: 150px;
+}
+.evalo-home .pt-155 {
+	padding-top: 155px;
+}
+.evalo-home .pt-160 {
+	padding-top: 160px;
+}
+.evalo-home .pt-165 {
+	padding-top: 165px;
+}
+.evalo-home .pt-170 {
+	padding-top: 170px;
+}
+.evalo-home .pt-175 {
+	padding-top: 175px;
+}
+.evalo-home .pt-180 {
+	padding-top: 180px;
+}
+.evalo-home .pt-185 {
+	padding-top: 185px;
+}
+.evalo-home .pt-190 {
+	padding-top: 190px;
+}
+.evalo-home .pt-195 {
+	padding-top: 195px;
+}
+.evalo-home .pt-200 {
+	padding-top: 200px;
+}
+.evalo-home .pt-230 {
+	padding-top: 230px;
+}
+.evalo-home .pt-250 {
+	padding-top: 250px;
+}
+.evalo-home .pt-300 {
+	padding-top: 300px;
+}
+.evalo-home .pt-400 {
+	padding-top: 400px;
+}
+/*-- Padding Bottom --*/
+
+.evalo-home .pb-6 {
+	padding-bottom: 5px;
+}
+.evalo-home .pb-10 {
+	padding-bottom: 10px;
+}
+.evalo-home .pb-15 {
+	padding-bottom: 15px;
+}
+.evalo-home .pb-20 {
+	padding-bottom: 20px;
+}
+.evalo-home .pb-25 {
+	padding-bottom: 25px;
+}
+.evalo-home .pb-30 {
+	padding-bottom: 30px;
+}
+.evalo-home .pb-35 {
+	padding-bottom: 35px;
+}
+.evalo-home .pb-40 {
+	padding-bottom: 40px;
+}
+.evalo-home .pb-45 {
+	padding-bottom: 45px;
+}
+.evalo-home .pb-50 {
+	padding-bottom: 50px;
+}
+.evalo-home .pb-55 {
+	padding-bottom: 55px;
+}
+.evalo-home .pb-60 {
+	padding-bottom: 60px;
+}
+.evalo-home .pb-65 {
+	padding-bottom: 65px;
+}
+.evalo-home .pb-70 {
+	padding-bottom: 70px;
+}
+.evalo-home .pb-75 {
+	padding-bottom: 75px;
+}
+.evalo-home .pb-80 {
+	padding-bottom: 80px;
+}
+.evalo-home .pb-85 {
+	padding-bottom: 85px;
+}
+.evalo-home .pb-90 {
+	padding-bottom: 90px;
+}
+.evalo-home .pb-95 {
+	padding-bottom: 95px;
+}
+.evalo-home .pb-100 {
+	padding-bottom: 100px;
+}
+.evalo-home .pb-105 {
+	padding-bottom: 105px;
+}
+.evalo-home .pb-110 {
+	padding-bottom: 110px;
+}
+.evalo-home .pb-115 {
+	padding-bottom: 115px;
+}
+.evalo-home .pb-120 {
+	padding-bottom: 120px;
+}
+.evalo-home .pb-125 {
+	padding-bottom: 125px;
+}
+.evalo-home .pb-130 {
+	padding-bottom: 130px;
+}
+.evalo-home .pb-135 {
+	padding-bottom: 135px;
+}
+.evalo-home .pb-140 {
+	padding-bottom: 140px;
+}
+.evalo-home .pb-145 {
+	padding-bottom: 145px;
+}
+.evalo-home .pb-148 {
+	padding-bottom: 148px;
+}
+.evalo-home .pb-150 {
+	padding-bottom: 150px;
+}
+.evalo-home .pb-155 {
+	padding-bottom: 155px;
+}
+.evalo-home .pb-160 {
+	padding-bottom: 160px;
+}
+.evalo-home .pb-165 {
+	padding-bottom: 165px;
+}
+.evalo-home .pb-170 {
+	padding-bottom: 170px;
+}
+.evalo-home .pb-175 {
+	padding-bottom: 175px;
+}
+.evalo-home .pb-180 {
+	padding-bottom: 180px;
+}
+.evalo-home .pb-185 {
+	padding-bottom: 185px;
+}
+.evalo-home .pb-190 {
+	padding-bottom: 190px;
+}
+.evalo-home .pb-195 {
+	padding-bottom: 195px;
+}
+.evalo-home .pb-200 {
+	padding-bottom: 200px;
+}
+.evalo-home .pb-230 {
+	padding-bottom: 230px;
+}
+.evalo-home .pb-250 {
+	padding-bottom: 250px;
+}
+
+
+/*-- Padding Left --*/
+.evalo-home .pl-0 {
+	padding-left: 0px;
+}
+.evalo-home .pl-05 {
+	padding-left: 5px;
+}
+.evalo-home .pb5 {
+	padding-bottom: 5px;
+}
+.evalo-home .pb-05 {
+	padding-bottom: 5px;
+}
+.evalo-home .pl-10 {
+	padding-left: 10px;
+}
+.evalo-home .pl-15 {
+	padding-left: 15px;
+}
+.evalo-home .pl-20{
+	padding-left: 20px;
+}
+.evalo-home .pl-22{
+	padding-left: 22px;
+}
+.evalo-home .pb-22 {
+	padding-bottom: 22px;
+}
+.evalo-home .pl-25 {
+	padding-left: 25px;
+}
+.evalo-home .pl-30 {
+	padding-left: 30px;
+}
+.evalo-home .pl-35 {
+	padding-left: 35px;
+}
+
+.evalo-home .pl-35 {
+	padding-left: 35px;
+}
+
+.evalo-home .pl-40 {
+	padding-left: 40px;
+}
+
+.evalo-home .pl-45 {
+	padding-left: 45px;
+}
+
+.evalo-home .pl-50 {
+	padding-left: 50px;
+}
+
+.evalo-home .pl-55 {
+	padding-left: 55px;
+}
+
+.evalo-home .pl-60 {
+	padding-left: 60px;
+}
+.evalo-home .pl-65 {
+	padding-left: 65px;
+}
+.evalo-home .pl-70 {
+	padding-left: 70px;
+}
+.evalo-home .pl-75 {
+	padding-left: 75px;
+}
+.evalo-home .pl-80 {
+	padding-left: 80px;
+}
+.evalo-home .pl-85 {
+	padding-left: 80px;
+}
+.evalo-home .pl-90 {
+	padding-left: 90px;
+}
+.evalo-home .pl-95 {
+	padding-left: 95px;
+}
+.evalo-home .pl-100 {
+	padding-left: 100px;
+}
+.evalo-home .pl-140 {
+	padding-left: 140px;
+}
+.evalo-home .pl-230 {
+	padding-left: 230px;
+}
+
+/*-- Padding Right --*/
+.evalo-home .pr-0 {
+	padding-right: 0px;
+}
+.evalo-home .pr-05 {
+	padding-right: 5px;
+}
+.evalo-home .pr-10 {
+	padding-right: 10px;
+}
+.evalo-home .pr-15 {
+	padding-right: 15px;
+}
+.evalo-home .pr-20{
+	padding-right: 20px;
+}
+.evalo-home .pr-25 {
+	padding-right: 25px;
+}
+.evalo-home .pr-28 {
+	padding-right: 28px;
+}
+.evalo-home .pr-35 {
+	padding-right: 35px;
+}
+.evalo-home .pr-30 {
+	padding-right: 30px;
+}
+.evalo-home .pr-35 {
+	padding-right: 35px;
+}
+
+.evalo-home .pr-35 {
+	padding-right: 35px;
+}
+
+.evalo-home .pr-40 {
+	padding-right: 40px;
+}
+
+.evalo-home .pr-45 {
+	padding-right: 45px;
+}
+
+.evalo-home .pr-50 {
+	padding-right: 50px;
+}
+
+.evalo-home .pr-55 {
+	padding-right: 55px;
+}
+
+.evalo-home .pr-60 {
+	padding-right: 60px;
+}
+.evalo-home .pr-65 {
+	padding-right: 65px;
+}
+.evalo-home .pr-70 {
+	padding-right: 70px;
+}
+.evalo-home .pr-75 {
+	padding-right: 75px;
+}
+.evalo-home .pr-80 {
+	padding-right: 80px;
+}
+.evalo-home .pr-85 {
+	padding-right: 80px;
+}
+.evalo-home .pr-90 {
+	padding-right: 90px;
+}
+.evalo-home .pr-95 {
+	padding-right: 95px;
+}
+.evalo-home .pr-100 {
+	padding-right: 100px;
+}
+.evalo-home .pr-125 {
+	padding-right: 125px;
+}
+.evalo-home .pr-130 {
+	padding-right: 130px;
+}
+.evalo-home .pr-140 {
+	padding-right: 140px;
+}
+.evalo-home .pr-150 {
+	padding-right: 150px;
+}
+.evalo-home .pr-200 {
+	padding-right: 200px;
+}
+.evalo-home .pr-230 {
+	padding-right: 230px;
+}
+.evalo-home .pl-120 {
+	padding-left: 120px;
+}
+.evalo-home .pr-120 {
+	padding-right: 120px;
+}
+.evalo-home .pb-260{padding-bottom: 260px;}
+.evalo-home .pb-400{padding-bottom: 400px;}
+.evalo-home .mt--50{margin-top: -50px;}
+.evalo-home .mb-32{margin-bottom: 32px;}
+
+/* Background Color */
+.evalo-home .theme-bg{
+	background: #6c63ff;
+}
+.evalo-home .primary-bg{
+	background: #f0f6fb;
+}
+
+.evalo-home .white-bg {
+	background: #fff;
+}
+.evalo-home .black-bg {
+	background: #222222;
+}
+.evalo-home .dark-black-bg {background: #000000 !important;}
+.evalo-home .gray-bg {background: #D4D4D4;}
+.evalo-home .gray-bg2 {background: #f7f7f7;}
+.evalo-home .light-gray-bg {background: #f5f5f5;;}
+
+
+/* Color */
+.evalo-home .theme-color{
+	color: #6c63ff;
+}
+.evalo-home .dark-black-color{color: #000000;}
+.evalo-home .primary-color{
+	color: #f0f6fb;
+}
+.evalo-home .secondary-color{color: #666666;}
+.evalo-home .secondary-color2{color: #777777;}
+.evalo-home .secondary-color3{color: #999999;}
+.evalo-home .white-color{
+	color: #fff;
+}
+.evalo-home .black-color {
+	color: #222222;
+}
+
+/* hover */
+.evalo-home .theme-hover:hover{color: #6c63ff;}
+
+
+
+/* border */
+.evalo-home .theme-border{border:1px solid #6c63ff}
+.evalo-home .primary-border{border: 1px solid #d1dbe5 !important;}
+.evalo-home .white-border{border:1px solid #fff}
+.evalo-home .secondary-border01{border: 1px solid #d8d7e6;}
+.evalo-home .theme-border-bottom2{border-bottom:2px solid #6c63ff}
+.evalo-home .footer-border-bottom{border-bottom: 1px solid #dcdce1;}
+
+/* social-link-color */
+.evalo-home .facebook-color{color: #3b5998 !important;}
+.evalo-home .twitter-color{color: #1da1f2 !important;}
+.evalo-home .youtube-color{color: #ff1e00 !important;}
+.evalo-home .instagram-color{color: #dd4b39 !important;}
+.evalo-home .google-plus-color{color: #dd4b39 !important;}
+.evalo-home .linked-in-color{color: #0077b5 !important;}
+/* black overlay */
+.evalo-home .white-overly::before{
+	position: absolute;
+	content: "";
+	background-color: rgb(243, 249, 251);
+	opacity: 0.629;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+/* black overlay */
+.evalo-home [data-overlay] {
+	position: relative;
+}
+.evalo-home [data-overlay]::before {
+	background: #000 none repeat scroll 0 0;
+	content: "";
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+}
+.evalo-home [data-overlay="3"]::before {
+	opacity: 0.3;
+}
+.evalo-home [data-overlay="4"]::before {
+	opacity: 0.4;
+}
+.evalo-home [data-overlay="5"]::before {
+	opacity: 0.5;
+}
+.evalo-home [data-overlay="6"]::before {
+	opacity: 0.6;
+}
+.evalo-home [data-overlay="7"]::before {
+	opacity: 0.7;
+}
+.evalo-home [data-overlay="8"]::before {
+	opacity: 0.8;
+}
+.evalo-home [data-overlay="9"]::before {
+	opacity: 0.9;
+}
+
+/* common-css */
+.evalo-home .line-height-1{line-height: 1;}
+
+/* ===== style.css ===== */
+/*
+  Theme Name: Evalo | Minimal Startup & Agency PSD Landing Page
+  Date Created: February 7, 2023
+  Last Update: February 7, 2023
+  Author: eThemeStudio
+  Support: xuwelkhan@gmail.com
+  Description: Creative  HTML5 template.
+  Version: 1.0
+*/
+
+/* CSS Index
+-----------------------------------
+1. Theme default css
+2. header
+3. slider
+4. brand area
+5. about area
+6. service area
+7. feature area
+8. facts area
+9. screenshot area
+10. faq area
+11. work area
+12. portfolio area
+13. price area
+14. review area
+15. sp offer area
+16. home3 project area
+17. testimonial area
+18. banner area
+19. team area
+20. blog area
+21. about us page
+22. blog page area
+23. contact area
+24. login area
+25. error page
+26. footer area
+*/
+
+
+/* 1. Theme default css
+-------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
+.evalo-home {
+	font-family: 'Poppins', sans-serif;
+	font-weight: 400;
+}
+.evalo-home h1,.evalo-home h2,.evalo-home h3,.evalo-home h4,.evalo-home h5,.evalo-home h6 {color: #222222;font-weight: 700;}
+.evalo-home h1 a,.evalo-home h2 a,.evalo-home h3 a,.evalo-home h4 a,.evalo-home h5 a,.evalo-home h6 a {color: inherit;}
+.evalo-home h1 a:hover,.evalo-home h2 a:hover,.evalo-home h3 a:hover,.evalo-home h4 a:hover,.evalo-home h5 a:hover,.evalo-home h6 a:hover {color: #6c63ff}
+.evalo-home h3 {font-size: 48px;}
+.evalo-home h4 {font-size: 36px;}
+.evalo-home h5 {font-size: 24px;}
+.evalo-home h6 {font-size: 21px;line-height: 1.45;}
+.evalo-home p {
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 28px;
+	color: #666666;
+}
+.evalo-home .flat-family {font-family: "Flaticon";}
+.evalo-home span,
+.evalo-home input,
+.evalo-home img{
+	max-width: 100%;
+	transition: all 0.3s ease-out 0s;
+	-webkit-transition: all 0.3s ease-out 0s;
+	-moz-transition: all 0.3s ease-out 0s;
+	-ms-transition: all 0.3s ease-out 0s;
+	-o-transition: all 0.3s ease-out 0s;
+}
+.evalo-home ul {
+	margin: 0px;
+	padding: 0px;
+}
+.evalo-home li {list-style: none}
+.evalo-home a,.evalo-home button,.evalo-home li{
+	transition: all 0.3s ease-out 0s;
+	-webkit-transition: all 0.3s ease-out 0s;
+	-moz-transition: all 0.3s ease-out 0s;
+	-ms-transition: all 0.3s ease-out 0s;
+	-o-transition: all 0.3s ease-out 0s;
+}
+.evalo-home .pointer{cursor: pointer;}
+.evalo-home .over-hidden{overflow: hidden;}
+.evalo-home .clear-both{clear: both !important;}
+.evalo-home .over-scroll{overflow: scroll;}
+.evalo-home .over-x-hidden{overflow-x: hidden;}
+.evalo-home .over-x-scroll{ overflow-y: scroll;}
+.evalo-home .transition03{ transition: all 0.3s ease-out 0s; -webkit-transition: all 0.3s ease-out 0s; -moz-transition: all 0.3s ease-out 0s; -ms-transition: all 0.3s ease-out 0s; -o-transition: all 0.3s ease-out 0s; }
+.evalo-home .transition3{ transition: .3s; -webkit-transition: .3s; -moz-transition: .3s; -ms-transition: .3s; -o-transition: .3s; }
+.evalo-home .transition5{ transition: .5s; -webkit-transition: .5s; -moz-transition: .5s; -ms-transition: .5s; -o-transition: .5s; }
+.evalo-home a:focus,.evalo-home button:focus,.evalo-home .btn:focus {
+	text-decoration: none;
+	outline: 0;
+	box-shadow: none;
+}
+.evalo-home a:focus,.evalo-home a:hover,.evalo-home .portfolio-cat a:hover,.evalo-home .footer-menu li a:hover {
+	color: #222222;
+	text-decoration: none;
+	outline: 0 none;
+}
+.evalo-home .btn:focus{outline: 0 none;}
+.evalo-home .cursor-pointer{cursor: pointer;}
+.evalo-home .f-400{font-weight: 400;}
+.evalo-home .f-500{font-weight: 500;}
+.evalo-home .f-600{font-weight: 600;}
+.evalo-home .f-800{font-weight: 800;}
+.evalo-home .f-700{font-weight: 700;}
+.evalo-home .f-900{font-weight: 900;}
+.evalo-home .z-index11{z-index: 11;}
+.evalo-home .z-index1{z-index: 1;}
+.evalo-home .z-index-1{z-index: -1;}
+.evalo-home .top-0{top: 0;}
+.evalo-home .left-0{left: 0;}
+.evalo-home .right-0{right:0}
+.evalo-home .bottom-0{bottom: 0;}
+.evalo-home .w100{width: 100%;}
+.evalo-home .h100{height: 100%;}
+.evalo-home .bg-no-repeat{background-repeat: no-repeat;}
+.evalo-home .bg-cover{background-size: cover;}
+.evalo-home .img{transition: all 1.5s cubic-bezier(0, 0, 0.2, 1);}
+.evalo-home .img-transition5{ transition: .5s; -webkit-transition: .5s; -moz-transition: .5s; -ms-transition: .5s; -o-transition: .5s; }
+.evalo-home .zoom-img-hover:hover img{ transform:scale(1.1) ; -webkit-transform:scale(1.1) ; -moz-transform:scale(1.1) ; -ms-transform:scale(1.1) ; -o-transform:scale(1.1) ; }
+.evalo-home .container-wrapper{margin: 0 auto;}
+/* title */
+.evalo-home .title span {
+	font-size: 21px;
+	line-height: 2;
+}
+.evalo-home .title h3 {font-size: 48px;line-height: 1.25;}
+.evalo-home .title h4 {font-size: 36px;line-height: 1.32;}
+/* button */
+.evalo-home .my-btn .btn {
+	padding: 11px 57px;
+	font-size: 16px;
+	font-weight: 600;
+	border: 1px solid #6c63ff;
+	border-radius: 28px;
+	box-shadow: 0px 5px 15px 0px rgba(8, 0, 140, 0.19);
+	color: #fff;
+	outline: 0 none;
+	text-transform: capitalize;
+	transition: all 0.5s ease-out 0s;
+	-webkit-border-radius: 28px;
+	-moz-border-radius: 28px;
+	-ms-border-radius: 28px;
+	-o-border-radius: 28px;
+	-webkit-transition: all 0.5s ease-out 0s;
+	-moz-transition: all 0.5s ease-out 0s;
+	-ms-transition: all 0.5s ease-out 0s;
+	-o-transition: all 0.5s ease-out 0s;
+}
+.evalo-home .my-btn .btn:hover{color: #6c63ff;background: #ffffff;}
+.evalo-home .my-btn .btn.f-18 {
+	font-size: 18px;
+	padding: 12.5px 46px;
+}
+.evalo-home .my-btn .btn.transparent-bg{color: #222222; box-shadow: none;}
+.evalo-home .my-btn .btn.transparent-bg:hover{background: #6c63ff; color: #fff;	box-shadow: 0px 5px 15px 0px rgba(8, 0, 140, 0.19);}
+.evalo-home .btn-2 a{font-size: 18px;}
+.evalo-home .btn-2 a::before,
+.evalo-home .btn-2 a::after {
+	position: absolute;
+	content: "";
+	background: #6c63ff;
+	height: 2px;
+	bottom: -2px;
+	left: 0;
+	right: 0;
+	width: 100%;
+}
+.evalo-home .btn-2 a::after {
+	background: #222222;
+	width: 0;
+	transition: .5s;
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	-ms-transition: .5s;
+	-o-transition: .5s;
+}
+.evalo-home .btn-2:hover >a::before{width: 0;}
+.evalo-home .btn-2:hover >a::after{width: 100%;}
+/* slick-arrow */
+.evalo-home .slick-arrow .l-a, .evalo-home .slick-arrow .r-a {
+	position: absolute;
+	bottom: -52px;
+	color: #b8bac5;
+	z-index: 1;
+	font-size: 34px;
+	transition: .4s;
+	-webkit-transition: .4s;
+	-moz-transition: .4s;
+	-ms-transition: .4s;
+	-o-transition: .4s;
+	left: 15px;
+}
+.evalo-home .slick-arrow .r-a {left: 70px; }
+.evalo-home .slick-arrow .r-a:hover,.evalo-home .slick-arrow .l-a:hover{ cursor: pointer; color: #6c63ff; transform: scale(1.25); -webkit-transform: scale(1.25); -moz-transform: scale(1.25); -ms-transform: scale(1.25); -o-transform: scale(1.25); }
+/* home2 */
+.evalo-home .testimonial-active2 .slick-arrow .l-a, .evalo-home .testimonial-active2 .slick-arrow .r-a {bottom: -45px;}
+/* home3 */
+.evalo-home .testimonial-active3 .slick-arrow {
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	width: 80px;
+}
+.evalo-home .testimonial-active3 .slick-arrow .l-a, .evalo-home .testimonial-active3 .slick-arrow .r-a{
+	position: inherit;
+	bottom: 0;
+	left: 0;
+}
+.evalo-home .testimonial-active3 .slick-arrow .r-a {left: auto; right: 0;}
+/* home5 */
+.evalo-home .testimonial-active-home5 .slick-arrow .l-a, .evalo-home .testimonial-active-home5 .slick-arrow .r-a {
+	bottom: 0;
+	left: auto;
+	right: 70px;
+}
+.evalo-home .testimonial-active-home5 .slick-arrow .r-a {right: 20px;}
+/* testimonial-active-home6 */
+.evalo-home .testimonial-active-home6 .slick-arrow .l-a,.evalo-home .testimonial-active-home6 .slick-arrow .r-a {
+	bottom: 0;
+	left: 15px;
+}
+.evalo-home .testimonial-active-home6 .slick-arrow .r-a{left: 70px;}
+/* blog-gallery-page */
+.evalo-home .blog-gallery-page .slick-arrow .l-a, .evalo-home .blog-gallery-page .slick-arrow .r-a {
+	top: 50%;
+	font-size: 22px;
+	left: 30px;
+	background: #fff;
+	width: 45px;
+	height: 45px;
+	line-height: 45px;
+	border-radius: 50%;
+	transform: translateY(-50%);
+	text-align: center;
+	display: inline-block;
+	box-shadow: 0px 5px 15px 0px rgba(8, 0, 140, 0.19);
+}
+.evalo-home .blog-gallery-page .slick-arrow .r-a {left: auto; right: 30px;}
+/* slick-dots css */
+.evalo-home .slick-dots {
+	position: absolute;
+	left: 50%;
+	bottom: 0%;
+	transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	z-index: 11;
+}
+.evalo-home .slick-dots li {
+	display: inline-block;
+	border-radius: 50%;
+	background: transparent;
+	margin: auto 7px;
+	cursor: pointer;
+}
+.evalo-home .slick-dots button {
+	width: 15px;
+	height: 15px;
+	background: #d9e4eb;
+	display: block;
+	text-indent: 1000px;
+	overflow: hidden;
+	border: 0;
+	border-radius: 50%;
+	margin: 4px auto;	
+	box-shadow: 0.469px 2.963px 10px 0px rgba(0, 0, 213, 0.09);
+	cursor: pointer;
+}
+.evalo-home .slick-dots li.slick-active button{background: #6c63ff;}
+/* home5 */
+.evalo-home .testimonial-active-home5 .slick-dots {
+	position: absolute;
+	left: 50px;
+}
+
+
+/* 2. header
+--------------------------------------------------- */
+.evalo-home .transparent-header {
+	position: absolute;
+	left: 0;
+	top:0;
+	width: 100%;
+	z-index: 22;
+	transition: .3s;;
+	transition: .5s;
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	-ms-transition: .5s;
+	-o-transition: .5s;
+}
+.evalo-home .body-overlay {
+	background-color: rgba(0, 0, 0, 0.5);
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 999;
+	left: 0;
+	opacity: 0;
+	visibility: hidden;
+	transition: all .5s ease-out  ;
+	-webkit-transition: all .5s ease-out  ;
+	-moz-transition: all .5s ease-out  ;
+	-ms-transition: all .5s ease-out  ;
+	-o-transition: all .5s ease-out  ;
+}
+.evalo-home .body-overlay.opened {opacity: 1;visibility: visible;}
+.evalo-home .sticky-menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 22;
+	width: 100%;
+	z-index: 99;
+	transition: .3s;
+	-webkit-transition: .3s;
+	-moz-transition: .3s;
+	-ms-transition: .3s;
+	-o-transition: .3s;
+}
+.evalo-home .sticky-menu .header{
+	background: #f0f6fb;
+	-webkit-box-shadow: 0 8px 4px -7px rgba(115,115,115,0.3);
+	-moz-box-shadow: 0 8px 4px -7px rgba(115,115,115,0.3);
+	box-shadow: 0 8px 4px -7px rgba(115,115,115,0.3);
+	transition: .5s;
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	-ms-transition: .5s;
+	-o-transition: .5s;
+}
+.evalo-home .sticky-menu .main-menu ul >li a{margin-top: 20px;margin-bottom: 20px;}
+.evalo-home .sticky-menu .logo img {max-width: 90%;}
+.evalo-home .main-menu ul li {
+	display: inline-block;
+	margin-right: 32px;
+	position: relative;
+}
+.evalo-home .main-menu ul li > a {
+	color: #222222;
+	font-size: 18px;
+	font-weight: 700;
+	display: inline-block;
+	text-transform: capitalize;
+	position: relative;
+	margin-top: 55px;
+	margin-bottom: 55px;
+}
+.evalo-home .main-menu ul li:hover > a {color: #6c63ff;}
+/* mega menu */
+.evalo-home .main-menu ul li .mega-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	min-width: 200px;
+	height: auto;
+	margin: 0 15px;
+	opacity: 0;
+	visibility: hidden;
+	transition: .3s;
+	z-index: 2;
+	box-shadow: 0 0 30px 0 rgba(0,0,0,0.1);
+	-ms-transform-origin: 50% 0;
+	transform-origin: 50% 0;
+	-webkit-transform-origin: 50% 0;
+	transition: .5s;
+	-webkit-transition: transform 500ms ease, opacity 500ms ease;
+	-moz-transition: transform 500ms ease, opacity 500ms ease;
+	-ms-transition: transform 500ms ease, opacity 500ms ease;
+	-o-transition: transform 500ms ease, opacity 500ms ease;
+	transform: scaleY(0);
+	-ms-transform: scaleY(0);
+	-webkit-transform: scaleY(0);
+}
+.evalo-home .main-menu ul li .mega-menu.full-mega-menu{top: 115px; width: 97.5%;}
+.evalo-home .sticky-menu .main-menu ul li .mega-menu.full-mega-menu{top: 67px;}
+.evalo-home .header-area.white-bg .mega-menu{top: 100%;}
+.evalo-home .main-menu ul li:hover> .mega-menu{opacity: 1; visibility: visible; transform: scaleY(1);}
+.evalo-home .main-menu ul li.full-mega-menu-position {position: static;}
+.evalo-home .main-menu ul li .mega-menu li{margin: 0;}
+.evalo-home .full-mega-menu1 li{width: 24%;}
+.evalo-home .full-mega-menu1 li img{max-height: 250px;}
+.evalo-home .main-menu ul li .mega-menu a {
+	font-size: 16px;
+	color: #222222;
+	display: block;
+	font-weight: 600;
+	margin: 0;
+}
+.evalo-home .main-menu ul li .mega-menu.full-mega-menu1 a{
+	color: #ffffff;
+}
+.evalo-home .main-menu ul li .mega-menu.full-mega-menu2 a.mega-title{
+	margin-bottom: 15px;
+}
+.evalo-home .main-menu ul li .mega-menu a.mega-title{font-size: 18px; font-weight: 700;}
+.evalo-home .mega-menu.full-mega-menu.full-mega-menu2 li {display: block;padding-bottom: 8px;}
+.evalo-home .mega-menu.full-mega-menu.full-mega-menu2 > li {width: 25%;}
+.evalo-home .rbm-text h6 {font-size: 16px;}
+.evalo-home .rbm-text span{font-size: 14px;}
+.evalo-home .rbm-img img{min-width: 72px;}
+/* dropdown menu */
+.evalo-home .mega-menu.mega-dropdown-menu li {
+	display:block;
+	padding: 10px 10px 10px 30px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.evalo-home .mega-menu.mega-dropdown-menu li:last-child{border-bottom: none;}
+.evalo-home .main-menu ul li .mega-menu.mega-dropdown-menu{top:85%}
+.evalo-home .main-menu ul li .mega-menu.mega-sub-menu {left: 185px; top:0}
+.evalo-home .mega-menu.mega-dropdown-menu,.evalo-home .main-menu ul li .mega-menu.mega-sub-menu{box-shadow: 9px 15.588px 30px 0px rgba(6, 7, 7, 0.12);}
+/* header-right */
+.evalo-home .header-login a{font-size: 18px;}
+.evalo-home .side-mobile-menu h6{font-size: 18px;}
+/* home4 */
+.evalo-home .home4 .main-menu ul .full-mega-menu1 li a{
+	margin-right: 0;
+}
+.evalo-home .home4 .main-menu ul li .mega-menu.full-mega-menu {
+	max-width: 1100px;
+}
+.evalo-home .home4 .main-menu ul li:last-child{margin-right: 0;}
+.evalo-home .home4 .header-right{margin-left: 60px;}
+.evalo-home .home4 .header-right .my-btn .btn {
+	padding: 10px 43px;
+}
+.evalo-home .show-language{
+	min-width: 150px;
+	display: none;
+}
+.evalo-home .show-language li a,.evalo-home .side-menu-search.header-search-content input::placeholder{
+	font-size: 14px;
+	color: #666666;
+	padding-bottom: 10px;
+	display: block;
+}
+.evalo-home .side-menu-search.header-search-content a{font-size: 14px;}
+.evalo-home .header-search-content input {
+	border: none;
+	border-bottom: 1px solid #ccc;
+	outline: none;
+}
+.evalo-home .header-search-details .close-icon a{
+	font-size: 22px;
+}
+.evalo-home .header-search-content a {
+	font-size: 18px;
+}
+.evalo-home .header-search-content input::placeholder {
+	color: #666666;
+	font-size: 24px;
+	opacity: 1;
+}
+.evalo-home .header-search-content input::-moz-placeholder{
+	color: #666666;
+	font-size: 24px;
+	opacity: 1;
+}
+.evalo-home .home4 .header-right .social-link a {
+	font-size: 18px;
+}
+
+/* header12 */
+.evalo-home .menu-bar-home12{
+	display: flex;
+	flex: 1;
+	justify-content: flex-end;
+	margin-right: 15px;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.4s ease;
+	-webkit-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	-ms-transition: all 0.4s ease;
+}
+.evalo-home .show-menu {
+	opacity: 1;
+	visibility: visible;
+}
+.evalo-home .home12-menu span {font-size: 24px; line-height: 1;}
+.evalo-home .home12-menu {
+	cursor: pointer; 
+	width: 30px; 
+	height: 30px; 
+}
+.evalo-home .click-close-menu-h12,.evalo-home .show-menu .click-show-menu-h12 {display: none;}
+.evalo-home .show-menu .click-close-menu-h12 {display: block;}
+/* home6 */
+.evalo-home .header .my-btn .btn.transparent-bg {
+	padding: 12px 45px;
+	font-size: 18px;
+}
+.evalo-home .sticky-menu .header .my-btn .btn.transparent-bg {
+	padding: 10px 40px;
+	font-size: 16px;
+}
+
+/* 3. slider
+-------------------------------------------------------------- */
+/* home1 */
+.evalo-home .single-slider.slider-height1{
+	height: 1105px;
+	background-repeat: no-repeat;
+	background-position: top left;
+	background-size: contain;
+}
+.evalo-home .slider-content span {
+	font-size: 30px;
+	line-height: 1.4;
+}
+.evalo-home .slider-content h1 {
+	font-size: 60px;
+}
+.evalo-home .slider-content p{
+	font-size: 24px;
+	line-height: 1.4;
+	color: #5e5858;
+}
+.evalo-home .video-player-btn span {font-size: 24px;}
+.evalo-home .video-play{font-size: 16px;}
+.evalo-home .video-play {
+	width: 72px;
+	height: 72px;
+	line-height: 72px;
+	border-radius: 50%;
+	transition: all 1s cubic-bezier(0, 0, 0.2, 1) !important;
+	-webkit-transition: all 1s cubic-bezier(0, 0, 0.2, 1) !important;
+	-o-transition: all 1s cubic-bezier(0, 0, 0.2, 1) !important;
+	padding: all 1s cubic-bezier(0, 0, 0.2, 1) !important;
+}
+.evalo-home .video-play:hover {
+	-webkit-transform: scale3d(1.1, 1.1, 1.1);
+	transform: scale3d(1.1, 1.1, 1.1);
+	-moz-transform: scale3d(1.1, 1.1, 1.1);
+	-ms-transform: scale3d(1.1, 1.1, 1.1);
+	-o-transform: scale3d(1.1, 1.1, 1.1);
+	opacity: .9;
+}
+.evalo-home .slider-img1 {margin-right: -290px;}
+.evalo-home .slider-right-dotted {
+	right: -42px;
+	top: -75px;
+}
+.evalo-home .slider-left-dotted {
+	left: 100px;
+	bottom: 200px;
+}
+/* home2 */
+.evalo-home .slider-height2{height: 1080px;}
+
+/* home5 */
+.evalo-home .slider-height5,.evalo-home .slider-height6,.evalo-home .slider-height3,.evalo-home .blog-details-slider-area .page-height{min-height: 1080px;}
+/* home6 */
+.evalo-home .home6 .slider-content h1 {font-size: 90px;}
+.evalo-home .slider-content span {font-size: 36px;}
+.evalo-home .slider-social-link-area{transform: rotate(-90deg);}
+.evalo-home .slider-social-link-area .social-link {margin: 13px 23px;}
+.evalo-home .slider-email-area { transform: rotate(90deg); -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -ms-transform: rotate(90deg); -o-transform: rotate(90deg); }
+.evalo-home .slider-email-area a {font-size: 24px;}
+/* home7 */
+.evalo-home .slider-height7{min-height: 600px;}
+.evalo-home .slider-height7 .slider-content h1,.evalo-home .slider-height7 .slider-content span {
+	font-size:48px;
+	line-height: 1.25;
+}
+/* others page */
+.evalo-home .page-height{min-height: 570px;}
+.evalo-home .breadcrumb-item.active {color: #999999;}
+.evalo-home .single-page span{font-size: 18px;}
+.evalo-home .single-page h1{font-size: 60px;}
+
+
+
+/* 4. brand area
+-------------------------------------------------------------- */
+.evalo-home .single-brand img{ transition:.5s ; -webkit-transition:.5s ; -moz-transition:.5s ; -ms-transition:.5s ; -o-transition:.5s ; }
+.evalo-home .single-brand img:hover{ filter: invert(0) sepia(0) hue-rotate(0deg) brightness(0.4); -webkit-filter: invert(0) sepia(0) hue-rotate(0deg) brightness(.2); }
+
+
+/* 5. about area
+------------------------------------------------------------- */
+.evalo-home .img-left-margin {margin-left: -250px;}
+.evalo-home .img-right-margin {margin-right: -190px;}
+/* home4 */
+.evalo-home .about-area.home4{padding-bottom: 500px;}
+.evalo-home .home4 .about-bg-right {
+	top: 50%;
+	transform: translateY(-65%);
+	-webkit-transform: translateY(-65%);
+	-moz-transform: translateY(-65%);
+	-ms-transform: translateY(-65%);
+	-o-transform: translateY(-65%);
+}
+.evalo-home .home4 .about-bg-left {top: 22%;}
+.evalo-home .about-dotted-shape {
+	top: 57.5%;
+	right: 186px;
+}
+/* home5 */
+.evalo-home .home5-about-margin {
+	margin-top: -450px;
+}
+.evalo-home .home5-about-bg {
+	padding-top: 490px;
+}
+.evalo-home .home5-about-left-img {
+	margin-bottom: -225px;
+	margin-left: -125px;
+}
+/* home3 */
+.evalo-home .home3-about-img-wrapper-margin{margin-right: -150px;}
+.evalo-home .home3-about-img-border {
+	border: 6px solid rgb(108, 99, 255);
+	width: 571px;
+	height: 397px;
+	opacity: .6;
+}
+.evalo-home .about-img1 {
+	left: -80px;
+	top: -90px;
+}
+.evalo-home .about-img2 {
+	right: -80px;
+	bottom: -85px;
+}
+/* home6 */
+.evalo-home .home6-about-img p {
+	font-size: 21px;
+	line-height: 1.6;
+}
+.evalo-home .home6.about-area {
+	margin-top: -75px;
+}
+
+
+/* 6. service area
+------------------------------------------------------------- */
+.evalo-home .ser-icon {width: 60px;}
+.evalo-home .single-service-content:hover{transform: translateY(-10px); box-shadow: 0 .2rem 2.5rem rgba(0, 0, 0, .08); -webkit-transform: translateY(-10px); -moz-transform: translateY(-10px); -ms-transform: translateY(-10px); -o-transform: translateY(-10px);}
+/* .home2 .single-service-content:hover{box-shadow: 0px 5px 40px 0px rgba(0, 23, 88, 0.2);} */
+.evalo-home .single-service-content:hover .ser-icon{ transform: translate3d(0, -7px, 0); -webkit-transform: translate3d(0, -7px, 0); -moz-transform: translate3d(0, -7px, 0); -ms-transform: translate3d(0, -7px, 0); -o-transform: translate3d(0, -7px, 0); } 
+
+/* home3 intro */
+.evalo-home .home3-single-intro-content::before,.evalo-home .home3-single-intro-content::after{
+	position: absolute;
+	content: "";
+	border-radius: 50%;
+	transition: .6s;
+	-webkit-transition: .6s;
+	-moz-transition: .6s;
+	-ms-transition: .6s;
+	-o-transition: .6s;
+}
+.evalo-home .home3-single-intro-content::before {
+	background-color: rgb(245, 253, 252);
+	left: -100px;
+	top: -180px;
+	width: 292px;
+	height: 292px;
+
+}
+.evalo-home .home3-single-intro-content::after {
+	background-color: rgb(108, 99, 255);
+	right: -18px;
+	bottom: -80px;
+	width: 118px;
+	height: 118px;
+}
+.evalo-home .home3-single-intro-content{	box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.06);}
+.evalo-home .home3-single-intro-content:hover.home3-single-intro-content::before{	left: -160px;top: -220px;}
+.evalo-home .home3-single-intro-content:hover.home3-single-intro-content::after{right: -60px;bottom: -85px;}
+.evalo-home .home3-single-intro-content .home3-intro-text a{font-size:40px}
+/* home3 */
+.evalo-home .home3-single-service-content {box-shadow: 14.562px 10.58px 48px 0px rgba(0, 0, 0, 0.06);}
+.evalo-home .home3-service-icon  {
+	width: 90px;
+	height: 90px;
+} 
+.evalo-home .home3-single-service-content a{font-size: 18px;}
+.evalo-home .home3-service-icon span{width: 40px;} 
+.evalo-home .home3-single-service-border{border-top: 3px solid #6c63ff;}
+.evalo-home .home3-single-service-content .ser-icon {width: 90px;}
+.evalo-home .home3-single-service-content .ser-icon span {
+	width: 85px;
+	height: 85px;
+	line-height: 85px;
+	font-size: 35px;
+}
+.evalo-home .home3-single-service-content::after {
+	position: absolute;
+	content: "";
+	left: 0;
+	top: 0;
+	right: 0;
+	height: 0;
+	background: #6c63ff;
+	-webkit-transition: all 0.5s ease-out 0s;
+	-moz-transition: all 0.5s ease-out 0s;
+	-ms-transition: all 0.5s ease-out 0s;
+	-o-transition: all 0.5s ease-out 0s;
+	transition: all 0.5s ease-out 0s;
+	-webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+	transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+}
+.evalo-home .home3-single-service-content:hover::after {height: 100%;}
+.evalo-home .home3-single-service-content:hover .single-service h5,.evalo-home .home3-single-service-content:hover .single-service p,.evalo-home .home3-single-service-content:hover .single-service a{color: #fff;}
+
+/* home4 */
+.evalo-home .service-area-margin {margin-top: -355px;}
+.evalo-home .service-list li span{font-size: 22px;}
+.evalo-home .service-list li {
+	text-align: left;
+	line-height: 1.35;
+}
+.evalo-home .service-bg-right {top: 40%;}
+
+/* 7. feature area
+------------------------------------------------------------- */
+.evalo-home .feature-bg {
+	background-repeat: no-repeat;
+	background-position: top right;
+	padding-top: 230px;
+}
+.evalo-home .feature-ser-icon span{font-size: 30px;} 
+/* .sp-feature-area */
+.evalo-home .sp-feature-bg{background-position: top left;}
+.evalo-home .sp-feature-icon {font-size: 21px;}
+.evalo-home .sp-feature-text p {margin-bottom: 12px;}
+.evalo-home .sp-feature-content .my-btn .btn {padding: 11px 37px;}
+/* home2 */
+.evalo-home .img-left-margin2 {margin-left: -250px;}
+.evalo-home .feature-bg-left {bottom: -410px;}
+.evalo-home .title-icon img {width: 35px;}
+.evalo-home .title-icon span {font-size: 35px;}
+.evalo-home span.title-icon{
+	width: 96px;
+	height: 96px;
+	line-height: 95px;
+}
+.evalo-home .home2 .feature-ser-icon span {font-size: 20px;}
+.evalo-home .home2 .feature-text li {
+	width: 50%;
+	float: left;
+}
+.evalo-home .img-right-margin2 {margin-right: -335px;}
+.evalo-home .feature-bg-right {bottom: -300px;}
+.evalo-home .home2.feature-area3 .img-left-margin2 {margin-left: -395px;}
+/* home3 */
+.evalo-home .home3-feature-product-img-wrapper-margin.mb-10.d-flex.justify-content-end {
+	margin-right: -68%;
+}
+
+/* home4 */
+.evalo-home .home4.feature-area4 .about-bg-left {
+	top: -108px;
+}
+.evalo-home .home4 .feature-img {
+	margin-left: -240px;
+}
+.evalo-home .ser-icon span {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	line-height: 60px;
+	font-size: 21px;
+	margin-bottom: 20px;
+}
+.evalo-home .home4-feature2-img-margin{margin-right: -400px;}
+.evalo-home .home4-feature-product-bg {
+	background: #f3f9fb;
+}
+.evalo-home .home4-feature-product-img {
+	margin-left: -60px;
+}
+/* home5 */
+.evalo-home .home5-feature-area .ser-icon span {
+	width: 74px;
+	height: 74px;
+	line-height: 74px;
+	margin-bottom: 22px;
+}
+.evalo-home .home5-feature-area .ser-icon {
+	width: 74px;
+}
+.evalo-home .home5-feature-wrapper2 .service-text span {font-size: 18px;}
+.evalo-home .home5-feature-wrapper2 .service-text li {font-size: 18px;}
+/* .sp-feature-area */
+.evalo-home .home5-sp-feature-margin {margin-top: -120px;}
+.evalo-home .home5-sp-feature-bg{padding-top: 230px;}
+.evalo-home .home5-sp-feature-img {
+	margin-right: -290px;
+}
+/* more feature icon */
+.evalo-home .more-feature-icon span{width: 45px;}
+.evalo-home .home5-more-feature-bg {padding-bottom: 380px;}
+/* service-page */
+.evalo-home .service-cta-banner-bg{padding-bottom: 325px;}
+.evalo-home .feature-area.service-page .ser-icon {
+	width: 120px;
+}
+.evalo-home .feature-area.service-page .ser-icon span {
+	width: 120px;
+	height: 120px;
+	line-height: 120px;
+}
+.evalo-home .feature-area.service-page .ser-icon span img{width: 45px;}
+.evalo-home .service-page .single-service h4{font-size: 24px;} 
+.evalo-home .service-cta-banner-img-wrapper-margin {
+	margin-top: -60px;
+	margin-left: -300px;
+}
+/* 8. facts area
+-------------------------------------------------------------- */
+.evalo-home .single-facts{
+	width: 260px;
+	height: 192px;
+	box-shadow: 38.833px 28.214px 90px 0px rgba(0, 0, 0, 0.05);
+}
+.evalo-home .single-facts span {font-size: 42px;}
+.evalo-home .single-facts-margin-left {margin-left: -37px;}
+.evalo-home .theme-bg-fact {top: 90px;}
+/* home4 */
+.evalo-home .facts-area.home4 {margin-top: -170px;}
+.evalo-home .home4 .single-f-counter,.evalo-home .about-us-fact-wrapper {
+	box-shadow: 0 .2rem 2.5rem rgba(0, 0, 0, .08);
+}
+.evalo-home .home4 .single-f-counter:hover {background: #6c63ff;}
+.evalo-home .home4 .single-f-counter:hover .f-count span,.evalo-home .home4 .single-f-counter:hover p{color: #ffffff;}
+
+
+/* 9. screenshot area
+-------------------------------------------------------------- */
+.evalo-home .screenshot-wrapper img{
+	padding: 10px;
+	background: #ffffff;
+	box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .3);
+}
+/* home5 */
+.evalo-home .single-screenshot{box-shadow: 0px 5px 18px 0px rgba(0, 0, 0, 0.08);}
+.evalo-home .single-screenshot:hover{box-shadow: 0px 5px 18px 0px rgba(0, 0, 0, 0.19);}
+.evalo-home .home5-screenshot-wrapper .slick-track {
+	padding-top: 85px;
+}
+.evalo-home .home5-screenshot-area .slick-slide img{
+	opacity: 0.7;
+	-webkit-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+	-webkit-transform: scale(0.7, 0.7);
+	transform: scale(0.7, 0.7);
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+}
+.evalo-home .home5-screenshot-area .slick-slide.slick-current.slick-active.slick-center img {
+	opacity: 1;
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	box-shadow: 0px 5px 18px 0px rgba(0, 0, 0, 0.08);
+}
+
+
+
+/* 10. faq area
+-------------------------------------------------------------- */
+.evalo-home .faq-img.img-right-margin {
+	margin-right: -370px;
+}
+.evalo-home .faq-area .faq-wrapper .card-header-top{border-top: 1px solid #e6e6ed}
+.evalo-home .faq-wrapper .btn {
+	text-decoration: none;
+	padding: 24px 46px;
+	font-size: 18px;
+}
+.evalo-home .faq-wrapper .btn:hover {color: #6c63ff;}
+.evalo-home .faq-wrapper .card-body {padding: 22px 5px 25px 46px;}
+.evalo-home .faq-wrapper h6 a.btn::after{
+	content: " \f068";
+	font-family: "Font Awesome 5 pro";
+	position: absolute;
+	left: 0;
+	top: 27px;
+	font-size: 20px;
+	color: #6c63ff;
+}
+.evalo-home .faq-wrapper h6 a.btn.collapsed::after {content: "\f067";}
+/*faq page*/
+.evalo-home .faq-wrapper .card-header {
+	border-bottom: 1px solid #e6e6ed;
+	border-top: 0;
+}
+.evalo-home .faq-wrapper .card-body {
+	border-bottom: 1px solid #e6e6ed;
+}
+.evalo-home .faq-content .nav-pills .nav-link {
+	font-size: 18px;
+	color: #222222;
+	font-weight: 700;
+	border-bottom: 1px solid #d1dbe5;
+	border-radius: 0;
+	padding: 15px 40px 15px 40px;
+}
+.evalo-home .faq-content .nav-pills .nav-link.active, .evalo-home .faq-content .nav-pills .show > .nav-link {
+	background-color: transparent;
+	border-right: 5px solid #6c63ff;
+}
+.evalo-home .faq-page-area .faq-wrapper .card-body {padding: 0px 0 18px 46px;}
+.evalo-home .faq-wrapper .card-header .btn-link.collapsed{border-bottom: 1px solid #e6e6ed;}
+.evalo-home .faq-page-area .card-header .btn-link{font-size: 21px;}
+
+/* 11. work area
+-------------------------------------------------------------- */
+.evalo-home .single-work-content {
+	margin-left: 35px;
+	box-shadow: 14.562px 10.58px 48px 0px rgba(18, 11, 149, 0.04);
+	padding: 56px 60px 60px 58px;
+	transition: .5s !important;
+	-webkit-transition: .5s !important;
+	-moz-transition: .5s !important;
+	-ms-transition: .5s !important;
+	-o-transition: .5s !important;
+}
+.evalo-home .single-work-content:hover{ box-shadow: 0px 10px 40px 0px rgba(0, 23, 88, 0.2);}
+.evalo-home .work-icon span{
+	width: 60px;
+	line-height: 1;
+}
+.evalo-home .item-tag-wrapper {
+	position: absolute;
+	width: 72px;
+	height: 72px;
+	line-height: 72px;
+	background: #dfddff;
+	left: -35px;
+	top: -35px;
+	transition: .5s;
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	-ms-transition: .5s;
+	-o-transition: .5s;
+}
+.evalo-home .single-work-content:hover .item-tag-wrapper{
+	transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+	-moz-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	-o-transform: scale(1.2);
+}
+.evalo-home .item-tag {
+	width: 54px;
+	height: 54px;
+	line-height: 54px;
+}
+.evalo-home .item-tag span{font-size: 18px;}
+/* home2 */
+.evalo-home .work-img{margin-right: -130px;min-height: 595px; margin-left: 85px;}
+.evalo-home .tools {box-shadow: 14.562px 10.58px 48px 0px rgba(0, 0, 0, 0.08);}
+.evalo-home .tool-item1{
+	top: 128px;
+	left: 152px;
+}
+.evalo-home .tool-item2 { top: 50px;left: 85px;}
+.evalo-home .tool-item3{
+	right: 140px;
+}
+.evalo-home .tool-item4{
+	right: 0;
+	top: 85px;
+}
+.evalo-home .tool-item5{
+	right: 0;
+	top: 50%;
+	transition: translateY(50%);
+	-webkit-transition: translateY(50%);
+	-moz-transition: translateY(50%);
+	-ms-transition: translateY(50%);
+	-o-transition: translateY(50%);
+}
+.evalo-home .tool-item7{
+	left: 15px;
+	top: 45%;
+}
+.evalo-home .tool-item6{
+	bottom: 80px;
+	left: 0;
+}
+.evalo-home .tool-item8.position-absolute.tools {
+	bottom: 95px;
+	left: 230px;
+}
+.evalo-home .tool-item9.position-absolute.tools {
+	right: 80px;
+	bottom: 0;
+}
+/* home6 */
+.evalo-home .progress {
+	height: 10px;
+	overflow: visible;
+}
+.evalo-home .progress-bar span {
+	text-align: right;
+	margin-top: -46px;
+	color: #6c63ff;
+	font-size: 16px;
+	font-weight: 700;
+}
+.evalo-home .progress-bar {
+	border-radius: 10px;
+	background-color: #6c63ff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+}
+.evalo-home .bar-title h4{font-size: 18px;}
+
+.evalo-home .blog-page3-img::before,.evalo-home .blog-portfolio-overly::before{
+	position: absolute;
+	content: "";
+	background-color: #6c63ff;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	opacity: 0;
+	visibility: hidden;
+	transition: .5s;
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	-ms-transition: .5s;
+	-o-transition: .5s;
+}
+.evalo-home .blog-page3-content-wrapper:hover .blog-page3-img::before,.evalo-home .blog-page3-content-wrapper:hover .blog-port-hover-icon{ visibility: visible; opacity: 0.6; }
+.evalo-home .blog-port-hover-icon  {
+	top: 50%;
+	font-size: 100px;
+	z-index: 111;
+	cursor: pointer;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	opacity: 0;
+	visibility: hidden;
+}
+.evalo-home .blog-portfolio-over-content .blog-page-content-info span{color: #ffffff !important;font-weight: 300;}
+.evalo-home .blog-portfolio-overly::before {
+  background-color: rgb(0, 0, 0);
+  opacity: 0;
+}
+.evalo-home .blog-portfolio-overly:hover::before{opacity: 0.239;visibility: visible;}
+.evalo-home .blog-portfolio-over-content{
+	bottom: -90px;
+	opacity: 0;
+	visibility: hidden;
+}
+.evalo-home .blog-portfolio:hover .blog-portfolio-over-content{bottom: 0; opacity: 1; visibility: visible;}
+.evalo-home .blog-portfolio-content-shadow {	box-shadow: 0px 6px 72px 0px rgba(0, 0, 0, 0.2);}
+.evalo-home .blog-portfolio:hover .blog-portfolio-content-shadow {	box-shadow: 0px 6px 72px 0px rgba(0, 0, 0, 0.3);}
+
+   
+/* 12. portfolio area
+-------------------------------------------------------------- */
+.evalo-home .portfolio-area .portfolio-menu button {
+	border: 0;
+	background: transparent;
+	font-weight: 700;
+	font-size: 18px;
+	padding: 10px 18px;
+	color: #2e2e37;
+	cursor: pointer;
+}
+.evalo-home .portfolio-menu button.active,.evalo-home .portfolio-menu button:hover {color: #6c63ff;}
+.evalo-home .single-portfolio img {
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+}
+.evalo-home .single-portfolio::before {
+	content: "";
+	background: #6c63ff;
+	width: 100%;
+	height: 100%;
+	top: 0%;
+	left: 0%;
+	position: absolute;
+	opacity: 0;
+	transition: 0.5s;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	z-index: 1;
+}
+.evalo-home .single-portfolio:hover::before {opacity: .7;}
+.evalo-home .port-content {
+	right: 30px;
+	top: -10px;
+	font-size: 18px;
+	visibility: hidden;
+	opacity: 0;
+	z-index: 11;
+	cursor: pointer;
+	background: #fff;
+	width: 60px;
+	height: 60px;
+	line-height: 60px;
+	border-radius: 50%;
+}
+.evalo-home .single-portfolio:hover .port-content{ top: 30px; transition: 0.6s; opacity: 1; visibility: visible; -webkit-transition: 0.6s; -moz-transition: 0.6s; -ms-transition: 0.6s; -o-transition: 0.6s; }
+.evalo-home .port-over-content{bottom: -30px;opacity: 0;transition: 0.6s;}
+.evalo-home .single-portfolio:hover .port-over-content {bottom: 0%;opacity: 1;transition: 0.6s;}
+.evalo-home .port-over-content h3{font-size:30px; line-height: 1.2;}
+.evalo-home .award-content h3 {
+	font-size: 30px;
+	line-height: 1.3;
+}
+.evalo-home .portfolio-modal-content .modal-content h2 {padding-left: 0;padding-right: 0;}
+.evalo-home .home7 .port-over-content h3,.evalo-home .home8 .port-over-content h3,.evalo-home .home4 .port-over-content h3 {font-size: 20px;}
+.evalo-home .home7 .port-over-content {padding-left: 25px;z-index: 1;}
+.evalo-home .home6 .port-over-content h3 {font-size: 22px;}
+.evalo-home .single-product { border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; -ms-border-radius: 10px; -o-border-radius: 10px; }
+.evalo-home .modal-content .close-icon {
+	z-index: 11;
+	position: relative;
+}
+.evalo-home h4.modal-title {font-size: 30px;}
+/* 13. price area
+-------------------------------------------------------------- */
+.evalo-home .switch{width: 62px;height: 25px;}
+.evalo-home .slider.round{
+	border: 1px solid #d8d7e6;
+	background: #ffffff;
+	border-radius: 30px;
+}
+.evalo-home .slider.round::before{
+	position: absolute;
+	content: "";
+	width: 18px;
+	height: 18px;
+	background: #6c63ff;
+	border-radius: 50% ;
+	padding: 0;
+	line-height: 18px;
+	-webkit-border-radius: 50% ;
+	-moz-border-radius: 50% ;
+	-ms-border-radius: 50% ;
+	-o-border-radius: 50% ;
+	transition: 0.4s;
+	left: 8px;
+	bottom: 3px;
+}
+.evalo-home .switch input{
+	opacity: 0;
+	width: 0;
+	height: 0;
+ }
+.evalo-home input:checked + .slider{ background-color: transparent;}
+.evalo-home input:focus + .slider{ box-shadow: none}
+.evalo-home input:checked + .slider::before{ transform: translateX(26px);}
+.evalo-home .packages {border: 1px solid #d7d6e5; }
+.evalo-home .packages:hover {border: 1px solid transparent;	box-shadow: 0px 5px 42px 0px rgba(0, 0, 0, 0.06);}
+.evalo-home .packages:hover .my-btn .btn.transparent-bg{background: #6c63ff; color: #fff;	box-shadow: 0px 5px 15px 0px rgba(8, 0, 140, 0.19);}
+.evalo-home .price span.p-p{font-size: 24px;}
+.evalo-home .price-item-list {
+	display: inline-block;
+	margin: 0 auto;
+	min-height: 275px;
+}
+.evalo-home .price span {font-size: 18px;color: #b9b8c2;}
+.evalo-home .price-item-list span{font-size: 19px;}
+.evalo-home .pricing-plan-section .tab-content .table-content .price-table {
+  width: 370px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1;
+  transition: all 0.7s ease;
+  -moz-transition: all 0.7s ease;
+  -webkit-transition: all 0.7s ease;
+  -ms-transition: all 0.7s ease;
+  -o-transition: all 0.7s ease;
+  -webkit-transform: scale(0.8,0.8) translateX(225px);
+  transform: scale(0.8,0.8) translateX(225px);
+  box-shadow: 0px 30px 72px 0px rgba(0, 0, 0, 0.06);
+}
+.evalo-home .pricing-plan-section .tab-content .table-content .price-table.active {
+  position: relative;
+  z-index: 5;
+  -webkit-transform: scale(1) translateX(0);
+          transform: scale(1) translateX(0);
+}
+.evalo-home .pricing-plan-section .tab-content .table-content .price-table .col-inner {
+  position: relative;
+  padding: 55px 15px 60px 15px;
+  text-align: center;
+  background: #ffffff;
+  -webkit-box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.05);
+  -ms-box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.05);
+  -o-box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.05);
+  box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.05);
+}
+/* price-nav */
+.evalo-home .pricing-plan-section ul.price-nav {
+	display: inline-block;
+	box-shadow: 0px 5px 30px 0px rgba(8, 0, 140, 0.06);
+	border-radius: 30px;
+}
+.evalo-home .pricing-plan-section ul.price-nav li a {
+	padding: 20px 40px;
+	line-height: 1;
+	color: #222222;
+	font-size: 18px;
+	font-weight: 600;
+	box-shadow: 0px 5px 30px 0px rgba(8, 0, 140, 0.06);
+	border-radius:30px 0px 0px 30px;
+     display: block;
+}
+.evalo-home .pricing-plan-section ul.price-nav li a.active {
+	border-radius:30px 0px 0px 30px;
+	-webkit-border-radius:30px 0px 0px 30px;
+	-moz-border-radius:30px 0px 0px 30px;
+	-ms-border-radius:30px 0px 0px 30px;
+	-o-border-radius:30px 0px 0px 30px;	
+     background:#6c63ff;
+	color: #ffffff;
+}
+.evalo-home .pricing-plan-section ul.price-nav li:nth-child(2) a {
+	border-radius: 0px 30px 30px 0px;
+	-webkit-border-radius: 0px 30px 30px 0px;
+	-moz-border-radius: 0px 30px 30px 0px;
+	-ms-border-radius: 0px 30px 30px 0px;
+	-o-border-radius: 0px 30px 30px 0px;
+     margin-left: -5px;
+}
+.evalo-home .pricing-plan-section ul.price-nav li {display: inline-block}
+
+/* 14. review area
+-------------------------------------------------------------- */
+.evalo-home .review-area-home5-margin {
+	margin-top: -390px;
+}
+.evalo-home .home5-review-bg{padding-top: 500px;}
+.evalo-home .review-rate li a{color: #e9a859;}
+.evalo-home .quit img {
+	width: 30px;
+}
+.evalo-home .review-rate li a{font-size: 20px;}
+.evalo-home .testimonial-text5 p {
+	font-size: 21px;
+	line-height: 1.6;
+}
+
+
+/* 15. sp offer area
+-------------------------------------------------------------- */
+.evalo-home .sp-offer-bg {background-position: right top;}
+.evalo-home .sp-offer-img-left-margin {margin-left: -59%;}
+
+
+/* 16. home3 project area
+-------------------------------------------------------------- */
+.evalo-home .home3-single-facts p {font-size: 24px;}
+.evalo-home .home3-single-facts span {font-size: 48px;}
+.evalo-home .home3-project-bg {padding-top: 560px;}
+.evalo-home .home3-project-wrapper{margin-top: -210px;}
+.evalo-home .home3-project-margin{margin-top: -130px;}
+.evalo-home .home3-single-project::before {
+	content: "";
+	background-color: #6c63ff;
+	opacity: 0.859;
+	width: 100%;
+	height: 100%;
+	top: 0%;
+	left: 0%;
+	position: absolute;
+	opacity: 0;
+	transition: 0.5s;
+	z-index: 1;
+}
+.evalo-home .home3-single-project:hover::before {opacity: .7;}
+.evalo-home .project-content{
+	left: 50%;
+	top: 40%;
+	transform: translate(-50%, -50%);
+	visibility: hidden;
+	opacity: 0;
+	z-index: 11;
+	cursor: pointer;
+	width: 90px;
+	height: 90px;
+	line-height: 60px;
+	border-radius: 50%;
+}
+.evalo-home .project-content span{font-size: 90px;}
+.evalo-home .home3-single-project:hover .project-content{ 
+	top:50%; transition: 0.6s; 
+	opacity: 1; 
+	visibility: visible; 
+	-webkit-transition: 0.6s; 
+	-moz-transition: 0.6s; 
+	-ms-transition: 0.6s; 
+	-o-transition: 0.6s; 
+}
+.evalo-home .project-over-content{ bottom: -30px;opacity: 0;transition: 0.6s;}
+.evalo-home .home3-single-project:hover .project-over-content {bottom: 0%;opacity: 1;transition: 0.6s;}
+
+
+/* 17. testimonial area
+-------------------------------------------------------------- */
+.evalo-home .testimonial-img {margin-left: -160px;}
+.evalo-home .testimonial-text p {font-size: 24px;line-height: 1.5;}
+.evalo-home .avatar-info p {font-size: 16px;}
+.evalo-home .quit {top: -95px;}
+.evalo-home .quit span{font-size: 50px;}
+/* home2 */
+.evalo-home .testimonial-text2,.evalo-home .testimonial-text4{ box-shadow: 0 2px 18px 0px rgba(0, 0, 213, 0.08);}
+.evalo-home .testimonial-text2:hover,.evalo-home .testimonial-text4:hover{ filter: drop-shadow(0 12px 10px rgba(180, 180, 180, .4)); -webkit-filter: drop-shadow(0 12px 10px rgba(180, 180, 180, .4)); }
+.evalo-home .testimonial-bg-left {top: -80px;}
+.evalo-home .testimonial-wrapper{margin-right: -100%;}
+.evalo-home .testimonial-active2-variable-width .slick-slide {width: 590px;}
+.evalo-home .product-active4-variable-width .slick-slide {width: 590px;}
+/* home3 */
+.evalo-home .home3-testimonial-product-bg{padding-bottom: 250px;}
+.evalo-home .testimonial-text3 p{font-size: 24px;line-height: 1.5;}
+.evalo-home .testimonial-text3 .quit img {width: 40px;}
+.evalo-home .home3-testimonial-area .rounded-circle img{ border-radius:50% ; -webkit-border-radius:50% ; -moz-border-radius:50% ; -ms-border-radius:50% ; -o-border-radius:50% ; }
+.evalo-home .home3-testimonial-person-img1 {
+	left: 145px;
+	top: 20%;
+}
+.evalo-home .home3-testimonial-person-img2 {
+	left: 290px;
+	top: 31%;
+}
+.evalo-home .home3-testimonial-person-img3 {
+	left: 70px;
+	bottom:40%;
+}
+.evalo-home .home3-testimonial-person-img4 {
+	left: 260px;
+	bottom: 28%;
+}
+.evalo-home .home3-testimonial-person-img5 {
+	right: 155px;
+	top: 30%;
+}
+.evalo-home .home3-testimonial-person-img6 {
+	right: 22px;
+	bottom: 50%;
+}.evalo-home .home3-testimonial-person-img7 {
+	right: 290px;
+	bottom: 38%;
+}
+.evalo-home .home3-testimonial-person-img8 {
+	right: 60px;
+	bottom: 23%;
+}
+.evalo-home .home3-testimonial-shape1 {
+	border-radius: 50%;
+	background: #6c63ff;
+	width: 23px;
+	height: 23px;
+	left: 150px;
+	top: 33%;
+}
+.evalo-home .home3-testimonial-shape2 {
+	border: 5px solid #6c63ff;
+	border-radius: 50%;
+	background: transparent;
+	left: 328px;
+	top: 52%;
+	width: 50px;
+	height: 50px;
+}   
+.evalo-home .home3-testimonial-shape3 {
+	border-radius: 50%;
+	background: #6c63ff;
+	right: 400px;
+	top: 28%;
+	width: 19px;
+	height: 19px;
+	z-index: 80;
+}
+.evalo-home .home3-testimonial-shape4 {
+	border-radius: 50%;
+	background: #6c63ff;
+	right: 160px;
+	bottom: 40%;
+	width: 29px;
+	height: 29px;
+	z-index: 81;
+}
+/* home4 */
+/* .testimonial-text4{box-shadow: 0.469px 2.963px 30px 0px rgba(0, 0, 213, 0.06); } */
+.evalo-home .testimonial-wrapper4 .quit span {font-size: 24px;}
+.evalo-home .testimonial-text4{	box-shadow: 0.469px 2.963px 20px 0px rgba(0, 0, 213, 0.04);}
+.evalo-home .testimonial-text4 img {
+	height: 30px;
+}
+.evalo-home .testimonial-text4:hover{box-shadow: 0.469px 2.963px 20px 0px rgba(0, 0, 213, 0.06);}
+.evalo-home .testimonial-text4::after {
+	position: absolute;
+	content: "";
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 25px 12.5px 0 12.5px;
+	border-color: #ffffff transparent transparent transparent;
+	bottom: -25px;
+	left: 60px;
+	z-index: 999;
+}
+/* home6 */
+.evalo-home .testimonial-text6 {box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.06);}
+.evalo-home .testimonial-text6 > p{font-size:24px;line-height:1.5}
+.evalo-home .testimonial-text6 .quit span{font-size: 75px;}
+.evalo-home .testimonial-text6 .quit{top: -40px;left: 65px;}
+
+
+/* 18. banner area
+-------------------------------------------------------------- */
+.evalo-home .banner-margin-bottom {bottom: -112px;}
+.evalo-home .banner-border{
+	border-top: 8px solid #6c63ff;
+	box-shadow: 0px 18px 90px 0px rgba(0, 0, 0, 0.03);
+}
+.evalo-home .banner-border:hover{box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, .08) } 
+/* home2 */
+.evalo-home .home2 .banner-content h4{font-size: 30px;line-height: 1.4;}
+/* home4 */
+.evalo-home .banner-border4{border: 4px solid #6c63ff;}
+
+/* 19. team area
+-------------------------------------------------------------- */
+.evalo-home .home3-team-img-wrapper-margin{margin-left: -180px;margin-right: 85px;}
+.evalo-home .home3-team-img{min-height: 560px;}
+.evalo-home .home3-team-img-border,.evalo-home .home3-team-primary-border {
+	border: 6px solid rgb(108, 99, 255);
+	width: 197px;
+	height: 197px;
+	opacity: .6;
+	left: 150px;
+	top: 180px;
+}
+.evalo-home .home3-team-primary-border {
+	width: 76px;
+	height: 76px;
+	opacity: 0.18;
+	left: -32px;
+	top: 57.5%;
+}
+.evalo-home .home3-team-theme-box {
+	width: 29px;
+	height: 29px;
+	bottom: 70px;
+	left: 53%;
+}
+.evalo-home .home3-team-dotted {bottom: 70px;}
+.evalo-home .team-img1 {
+	left: 0;
+	top: 0;
+}
+.evalo-home .team-img2 {
+	right: 55px;
+	top: 95px;
+} 
+.evalo-home .team-img3 {
+	left: 90px;
+	bottom: 0;
+}
+/* home6 */
+.evalo-home .home6-team-content h3{font-size: 24px;}
+.evalo-home .home6-team-content h4{ font-size: 18px;}
+.evalo-home .home6-team-wrapper .social-link {
+	margin-bottom: -50px;
+} 
+.evalo-home .home6-team-wrapper:hover .social-link{ margin-top: 15px; margin-bottom: 10px; }  
+.evalo-home .home6-team-content { 
+	box-shadow: 14.562px 10.58px 48px 0px rgba(0, 0, 0, 0.08);
+	bottom: -60px;
+} 
+   
+/* 20. blog area
+-------------------------------------------------------------- */
+.evalo-home .single-blog-content{
+	box-shadow: 0px 6px 30px 0px rgba(7, 7, 7, 0.08);
+}
+.evalo-home .single-blog{ transition:.5s; -webkit-transition:.5s; -moz-transition:.5s; -ms-transition:.5s; -o-transition:.5s; }
+.evalo-home .single-blog:hover {box-shadow: 0px 10px 80px 0px rgba(193, 193, 193, 0.41);}
+.evalo-home .single-blog-content h4{font-size: 18px; font-weight: 700;line-height: 1.4;}
+/* modal */
+.evalo-home .modal-dialog {max-width: 1100px;margin: 0 auto;}
+.evalo-home .modal-content h2 {font-size: 36px;padding: 50px 80px 20px 80px;line-height: 1.32;}
+.evalo-home .home3-project-area .modal-content h2 {padding-left: 0;padding-right: 0;}
+.evalo-home .pro-modal-footer h6{font-size: 16px;}
+.evalo-home .meta-wrapper{ border-radius:10px; -webkit-border-radius:10px; -moz-border-radius:10px; -ms-border-radius:10px; -o-border-radius:10px; }
+.evalo-home .item-meta li{padding-bottom: 16px;}
+.evalo-home .meta-wrapper .btn {
+	font-size: 14px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+/* home6 */
+.evalo-home .home6-blog-area .single-blog-content h4{font-size: 16px;}
+.evalo-home .home6-blog-area .single-blog-content span{font-size: 16px;}
+.evalo-home .home6-blog-area .single-blog:hover .single-blog-content{	background: transparent}
+.evalo-home .home6-blog-area .single-blog:hover .single-blog-content span,.evalo-home .home6-blog-area .single-blog:hover .single-blog-content h6,.evalo-home .home6-blog-area .single-blog:hover .single-blog-content h4{color: #fff;}
+.evalo-home .home6-blog-img::before {
+	position: absolute;
+	content: "";
+	background: #000;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	opacity: 0.302;
+}
+.evalo-home .home6-blog-area .single-blog .single-blog-content{border: 3px solid #d8dadb;}
+.evalo-home .home6-blog-area .single-blog:hover .single-blog-content{border:3px solid transparent;}
+
+
+/* 21. about us page
+-------------------------------------------------------------- */
+.evalo-home .about-us-img-wrapper {
+	margin-right: -150px;
+}
+.evalo-home .about-us-marker,.evalo-home .about-us-marker-text {
+	box-shadow: 14.562px 10.58px 48px 0px rgba(0, 0, 0, 0.08);
+	width: 197px;
+	height: 181px;
+	right: -100px;
+	top: -70px;
+	display: table-cell;vertical-align: middle;
+}
+.evalo-home .about-us-marker h3{font-size: 24px;}
+.evalo-home .about-us-about-icon {
+	width: 112px;
+	height: 112px;
+	top: -50px;
+	left: -50px;
+	transform: rotate(-15deg);
+	-webkit-transform: rotate(-15deg);
+	-moz-transform: rotate(-15deg);
+	-ms-transform: rotate(-15deg);
+	-o-transform: rotate(-15deg);
+}
+.evalo-home .about-us-about-icon span{font-size: 50px;}  
+.evalo-home .about-us-img-wrapper .about-us-img2 {
+	left: -100px;
+	bottom: -115px;
+}
+.evalo-home .about-us-fact-bg .home3-single-facts span {font-size: 72px;line-height: 1.35;}
+.evalo-home .speciality-area .single-service-content:hover{ box-shadow: none; }
+.evalo-home .our-team-social-link {
+	top: 30%;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-50%);
+}
+.evalo-home .our-team-wrapper:hover .our-team-social-link{ 
+	top: 50%;
+	opacity: 1;
+	visibility: visible;
+}
+.evalo-home .single-team-img{padding-left: 20px;padding-right: 20px;}
+.evalo-home .our-team-social-link li a {
+	width: 48px;
+	height: 48px;
+	line-height: 48px;
+	text-align: center;
+	color: #6c63ff;
+}
+.evalo-home .our-team-info{
+	bottom: -100px;
+	clip-path: polygon(0 0, 100% 18%, 100% 100%, 0% 100%);
+}
+.evalo-home .our-team-info h3 {
+	font-size: 24px;
+}
+.evalo-home .our-team-wrapper:hover .our-team-info h3,.evalo-home .our-team-wrapper:hover .our-team-info span{color: #fff;}
+.evalo-home .our-team-wrapper:hover .our-team-info{background: #6c63ff;}
+.evalo-home .our-team-bg {padding-bottom: 370px;}
+.evalo-home .our-team-wrapper{margin-bottom: 110px;}
+.evalo-home .team-page .our-team-info{clip-path: none;	box-shadow: 14.562px 10.58px 48px 0px rgba(0, 0, 0, 0.06);}
+.evalo-home .team-page .our-team-wrapper:hover .our-team-info{clip-path: polygon(0 0, 100% 18%, 100% 100%, 0% 100%);}
+.evalo-home .speciality-area .ser-icon img {max-height: 50px;}
+.evalo-home .about-page .single-service-content:hover .ser-icon{
+	transform: translateY(-10px);
+	box-shadow: 0 .2rem 2.5rem rgba(0, 0, 0, .08);
+	-webkit-transform: translateY(-10px);
+	-moz-transform: translateY(-10px);
+	-ms-transform: translateY(-10px);
+	-o-transform: translateY(-10px);
+	box-shadow: none;
+}
+.evalo-home .about-page .single-service-content:hover{
+	transform: translateY(0);
+	-webkit-transform: translateY(0);
+	-moz-transform: translateY(0);
+	-ms-transform: translateY(0);
+	-o-transform: translateY(0);
+} 
+
+/* 22. blog page area
+-------------------------------------------------------------- */ 
+.evalo-home .blog-page-content-info span {color: #999999;}
+.evalo-home .blog-page-sidebar h4,.evalo-home .review-text h3{font-size: 18px; font-weight: 700;}
+.evalo-home .sidebar-widget h4 span{font-size: 12px;}
+.evalo-home .single-blog-info span{font-size: 12px;}
+.evalo-home .blog-search input {
+	height: 56px;
+	border-radius: 0;
+	padding: 0 16px;
+}
+.evalo-home .form-control {border: 1px solid #d1dbe5;}
+.evalo-home .blog-search input:focus{border: 1px solid #ced4da;;}
+.evalo-home .blog-search a {
+	width: 60px;
+}
+.evalo-home .blog-search a span,.evalo-home .blog-page-social-link .social-link a{font-size: 18px;}
+.evalo-home .recent-post h3,.evalo-home .blog-page-social-link span,.evalo-home .author-post .btn-2 a{font-size: 16px;}
+.evalo-home .sidebar-widget .r-post-content h3 a,.evalo-home .r-comments span,.evalo-home .sidebar-widget .r-comments a,.evalo-home .sidebar-widget a{color: #222222;}
+.evalo-home .recent-post img {
+	max-width: 70px;
+	max-height: 75px;
+}
+.evalo-home .search-tag li {display: inline-block;}
+.evalo-home .search-tag li a {
+	border: 1px solid #ced4da;
+	padding: 7px 20px;
+	margin-bottom: 10px;
+	display: inline-block;
+	border-radius: 30px;
+	font-size: 14px;
+	margin-right:5px;
+}
+.evalo-home .search-tag li a:hover,.evalo-home .search-tag li a:hover span{background: #6c63ff;color: #fff;}
+.evalo-home .r-post-content span,.evalo-home .modal-tags h6,.evalo-home .review-head span{font-size: 14px;}
+.evalo-home .blog-page .my-btn .btn {padding: 10px 38px;font-size: 16px;}
+.evalo-home .blog-page4-area .blog-page1-content {box-shadow: 0px 6px 72px 0px rgba(0, 0, 0, 0.1);}
+.evalo-home .blog-page2-height{min-height: 440px;}
+.evalo-home .page-title h2{font-size: 42px;}
+.evalo-home .blog-page3-content p {line-break: anywhere;}
+.evalo-home .single-author-post h4{font-size: 18px;line-height: 1.6;}
+.evalo-home .contact-form input,.evalo-home .comment textarea {
+	border: 1px solid #e5e5e5;
+	height: 60px;
+}
+.evalo-home .comment textarea{min-height: 155px;}
+.evalo-home .quote-area {background: #f9fcfd;}
+.evalo-home .quote-area span{font-size: 21px;}
+.evalo-home .quote-area .blockquote p{font-size: 24px;}
+.evalo-home .blog-slider-overly::before{
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background-color: rgb(0, 0, 0);
+	opacity: 0.502;
+}
+.evalo-home .blog-slider-overly .blog-page-content-info span{color: #ffffff;font-weight: 300;}
+.evalo-home .blog-overly-header .main-menu ul li > a,.evalo-home .blog-overly-header .mobile-menubar {color: #ffffff;}
+.evalo-home .black-header .main-menu ul .mega-menu li a {color: #222;}
+.evalo-home .blog-overly-header .btn {border: 1px solid #ffffff;}
+.evalo-home .blog-overly-header .btn:hover {border: 1px solid #6c63ff;}
+.evalo-home .blog-overly-header.sticky-menu .header {background: rgb(0, 0, 0);opacity: 0.8;}
+.evalo-home .blockquote img {width: 30px;}
+.evalo-home .blockquote-icon{width: 105px;}
+/* pagination */
+.evalo-home .pagination-page .page-link {
+	width: 46px;
+	height: 46px;
+	text-align: center;
+	color: #888;
+	border: 1px solid #d1dbe5;
+	margin-right: 10px;
+	line-height: 30px;
+	display: block;
+	font-size: 16px;
+}
+.evalo-home .pagination-page .page-link:hover,.evalo-home .pagination-page .page-item.active .page-link  {
+	background-color: #6c63ff;
+	border-color:#6c63ff;
+	color: #fff;
+}
+.evalo-home .pagination-page .page-link:focus{box-shadow: none;}
+.evalo-home .pagination-page .pagination.justify-content-center .page-link {margin: 0 5px;}
+.evalo-home .blockquote span{font-size: 32px;}
+.evalo-home .blockquote p{font-size: 21px;}
+.evalo-home .review-comments-area h4{font-size: 30px;}
+
+
+/* 23. contact area
+-------------------------------------------------------------- */
+.evalo-home .contact-icon {
+	width: 72px;
+	height: 72px;
+	line-height: 72px;
+	border-radius: 50%;
+}
+.evalo-home .contact-text h4 {
+	font-size: 21px;
+}
+.evalo-home .contact-icon span,.evalo-home .contact-info input,.evalo-home .contact-info textarea {font-size: 18px;}
+.evalo-home .contact-info .massage{min-height: 200px;}
+.evalo-home .contact-form .form-message.success{color:green}
+.evalo-home .contact-form .form-message.error{color: red;}
+/* map */
+.evalo-home .map-wrapper {
+	width: 100%;
+	min-height: 430px;
+	background: #f9f9f9;
+	margin-right: 90px;
+	border-radius: 10px;
+}
+.evalo-home .leaflet-marker-icon {width: 55px;}
+
+
+/* 24. login area
+-------------------------------------------------------------- */
+.evalo-home .login-form label,.evalo-home .login-form .login-check p,.evalo-home .f-get-pass a,.evalo-home .register-form label,.evalo-home .register-form input{
+	font-size: 14px;
+	color: #222222;
+}
+.evalo-home .login-register-area input{height: 55px; border-radius:0}
+.evalo-home .login-register-area input.form-control:focus {
+	border-color: #7d7d7d;
+	border: 2px solid #7d7d7d;
+	box-shadow: none;
+}
+.evalo-home .f-get-pass a {border-bottom: 2px solid #222;}
+.evalo-home .register-form h6 {font-size: 16px;}
+.evalo-home .register-form p {
+	font-size: 14px;
+	line-height: 26px;
+	color: #555;
+}
+
+/* 25. error page
+-------------------------------------------------------------- */
+.evalo-home .error-search input {
+	height: 60px;
+}
+.evalo-home .error-back li{font-size: 16px;}
+.evalo-home .error-back li a{font-size: 18px;}
+
+
+
+/* 26. footer area
+-------------------------------------------------------------- */
+.evalo-home .footer-area li,.evalo-home .footer-area span,.evalo-home .footer-top a{
+	color: #666666;
+	font-size: 18px;
+	line-height: 1.556;
+	transition: .3s;
+	-webkit-transition: .3s;
+	-moz-transition: .3s;
+	-ms-transition: .3s;
+	-o-transition: .3s;
+	margin-bottom: 5px;
+}
+.evalo-home .footer-top a:hover,.evalo-home .footer-bottom a:hover,.evalo-home .footer-bottom a.c-theme:hover{color: #6c63ff;}
+.evalo-home .footer-area span.f-icon {
+	width: 18px; 
+}
+.evalo-home .sub-name,.evalo-home .home4 .copyright-area h3 {font-size: 18px;}
+.evalo-home .sub-name.form-control::placeholder {color: #666666;font-size: 18px;}
+.evalo-home .sub-name.form-control:focus {box-shadow: none;background: #f0f4f9;}
+.evalo-home .subscribe-info span {
+	right: 20px;
+	top: 16px;
+	font-size: 18px;
+}
+.evalo-home .social-link a{font-size: 21px;}
+.evalo-home .phone-contact a {font-size: 30px;}
+.evalo-home .phone-contact span{font-size: 20px;line-height: 1;}
+.evalo-home .phone-contact span {
+	font-size: 22px;
+	color: #6c63ff;
+}
+/* home2 */
+.evalo-home .f-count span {font-size: 48px;color:#6c63ff;}
+.evalo-home .single-f-counter p {max-width: 90px;line-height: 1.43;}
+/* home3 */
+.evalo-home .home3-f-about-info li {
+	width: 50%;
+	float: left;
+}
+/* home5 */
+.evalo-home .footer-blog span{font-size: 16px;}
+.evalo-home .footer-blog h6{font-size: 18px;}
+
+/* extra css  */
+/* header-search-details */
+.evalo-home .header-search-details {
+	width: 100%;
+	position: fixed;
+	top: -250%;
+	left: 0;
+	z-index: 555;
+	height: 100%;
+	transition: .5s;
+}
+.evalo-home .header-search-details.open-search-info {
+	top: 0;
+}
+
+
+/* ===== responsive.css ===== */
+/* XL Device :5000px. */
+@media screen and (min-width: 1921px) and (max-width: 5000px) {
+     .evalo-home .container-wrapper{max-width: 1920px;}
+     .evalo-home .home5-about-bg,.evalo-home .home5-sp-feature-bg,.evalo-home .home5-more-feature-bg,.evalo-home .home5-review-bg,.evalo-home .service-cta-banner-bg,.evalo-home .about-us-fact-bg,.evalo-home .our-team-bg,.evalo-home .home3-project-bg,.evalo-home .home3-about-bg,.evalo-home .home3-feature-product-bg,.evalo-home .home3-testimonial-product-bg,.evalo-home .home3-testimonial-area,.evalo-home .feature-bg,.evalo-home .home5-about-bg,.evalo-home .home5-more-feature-bg{background: #F3F9FB;background-image: none !important;}
+     .evalo-home .home3-project-bg {padding-top: 155px;padding-bottom: 170px;}
+     .evalo-home .home3-project-margin {margin-top: 90px;}
+     .evalo-home .home3-about-bg {padding-top: 115px;padding-bottom: 190px;}
+     .evalo-home .home3-feature-product-left-content{padding-top: 0;}
+     .evalo-home .home3-feature-product-img-wrapper-margin {margin-top: 0;}
+     .evalo-home .home3-feature-product-bg{padding-top: 180px;padding-bottom: 140px;}
+     .evalo-home .home3-testimonial-area{padding-top: 0;margin-top: 170px;}
+     .evalo-home .home3-testimonial-product-bg { padding-bottom: 135px;}
+     .evalo-home .feature-bg {padding-top: 0; background: transparent;}
+     .evalo-home .sp-feature-bg{padding-top: 40px;padding-bottom: 90px;}
+     .evalo-home .slider-height5 .slider-content,.evalo-home .home5-about-margin,.evalo-home .home5-sp-feature-margin {margin-top: 0;}
+     .evalo-home .home5-about-bg {padding-top: 70px;}
+     .evalo-home .home5-sp-feature-bg { padding-top: 80px;padding-bottom: 120px;margin-top: 130px;}
+     .evalo-home .home5-screenshot-area.mb-160.mt-90 {margin-top: 155px;}
+     .evalo-home .review-area-home5-margin { margin-top: 70px;}
+     .evalo-home .home5-review-bg {padding-top: 145px;}
+     .evalo-home .home5-more-feature-bg {padding-bottom: 140px;}
+     .evalo-home .price-area.home5-price-tab-area {padding-top: 160px;}
+
+
+}
+
+
+
+@media screen and (min-width: 1200px) and (max-width: 1800px) {
+     .evalo-home .slider-img1 {margin-right: -200px;padding-left:40px;}
+     .evalo-home .single-slider.slider-height1 { height: 1000px;}
+     .evalo-home .faq-img.img-right-margin { margin-right: -230px;}
+     .evalo-home .testimonial-img {margin-left: -30px;}
+     .evalo-home .sp-offer-img-left-margin {margin-left: -40%;}
+     /* home2 */
+     .evalo-home .home2.feature-area3 .img-left-margin2 {margin-left: -370px;padding-right: 0;}
+     .evalo-home .about-us-img-wrapper {
+          margin-right: -120px;
+     }
+
+
+
+
+
+     
+
+
+
+
+
+}
+
+
+/* XL Device :1920px. */
+@media screen and (min-width: 1200px) and (max-width: 1600px) {
+     .evalo-home .slider-img1 { margin-right: -120px; padding-left: 0;}
+     .evalo-home .single-slider.slider-height1 { height: 970px;}
+     .evalo-home .slider-left-dotted {left: 55px;bottom: 162px;}
+     .evalo-home .img-left-margin { margin-left: -140px;}
+     .evalo-home .faq-img.img-right-margin { margin-right: -130px;}
+     .evalo-home .sp-offer-img-left-margin {margin-left: -26%;}
+     /* home2 */
+     .evalo-home .home2.feature-area3 .img-left-margin2 {margin-left: -215px;padding-right: 20px;}
+     .evalo-home .img-right-margin2 { margin-right: -230px;}
+     .evalo-home .testimonial-active2-variable-width .slick-slide,.evalo-home .product-active4-variable-width .slick-slide{width: 570px;}
+     .evalo-home .about-us-img-wrapper {
+          margin-right: -50px;margin-left: 30px;
+     }
+     /* home4 */
+     .evalo-home .home4 .header-right {  margin-left: 0;}
+     .evalo-home .about-dotted-shape {
+          right: 50px;
+     }
+     .evalo-home .home4 .feature-img {
+          margin-left: -200px;
+     }
+
+}
+   
+
+@media screen and (min-width: 1200px) and (max-width: 1440px) {
+
+     /* home1 */
+     .evalo-home .single-slider.slider-height3,.evalo-home .single-slider.slider-height1 { height: 100vh;}
+     .evalo-home .single-slider.slider-height1,.evalo-home .slider-height5,.evalo-home .slider-height6,.evalo-home .slider-height3,.evalo-home .blog-details-slider-area .page-height { min-height: 100vh;}
+     .evalo-home .slider-img1 {  margin-right: -50px; padding-left: 10px;}
+     .evalo-home .s-dotted img { max-width: 75%;}
+     .evalo-home .slider-left-dotted {left: 20px;bottom: 142px;}
+     .evalo-home .slider-right-dotted { right: -50px;top: -55px;}
+     .evalo-home .slider-height1 .slider-content h1 {font-size: 48px;}
+     .evalo-home .slider-height1 .slider-content span {font-size: 30px;}
+     .evalo-home .slider-content {padding-right: 70px;}
+     .evalo-home .shape { max-width: 50px;}
+     .evalo-home .shape.s-shape{max-width: 12px;}
+     .evalo-home .img-left-margin { margin-left: -90px;}
+     .evalo-home .hm2-bg-shape10 {
+          right: 0%;
+          bottom: 26%;
+     }
+     .evalo-home .hm2-shape-8 {
+          right: 4%;
+          bottom: 30%;
+     }
+     .evalo-home .hm2-middle-dotted {
+          right: 0px;
+          top: -70px;
+     }
+     .evalo-home .hm2-shape {max-width: 50px;}
+     .evalo-home .about-us-img-wrapper {
+          margin-right: -30px;margin-left: 25px;
+     }
+     .evalo-home .about-text {margin-top: 40px;}
+     .evalo-home .img-right-margin {margin-right: -130px;}
+     .evalo-home .faq-img.img-right-margin { margin-right: -120px;}
+     .evalo-home .sp-offer-img-left-margin {margin-left: -12%; padding-right: 20px;}
+     /* home2 */
+     .evalo-home .slider-height2 {height: 1000px;}
+     .evalo-home .home2 .slider-content {  padding-top: 170px;}
+     .evalo-home .home2.feature-area3 .img-left-margin2 {margin-left: -115px;padding-right: 10px;}
+     .evalo-home .img-left-margin2 { margin-left: -40px;padding-right: 10px;}
+     .evalo-home .img-right-margin2 { margin-right: -170px;}
+     .evalo-home .work-img { margin-right: -45px; margin-left: 0;}
+     .evalo-home .slider-img {padding-left: 80px;padding-right: 80px;}
+     .evalo-home .testimonial-active2-variable-width .slick-slide,.evalo-home .product-active4-variable-width .slick-slide {width: 535px;}
+     /* home3 */
+     .evalo-home .slider-height1 .slider-content {margin-top: 0px;}
+     .evalo-home .slider-height1 .row {margin-top: 95px;}
+     .evalo-home .home3-about-img-wrapper-margin {margin-right: -55px;}
+     .evalo-home .about-img1 { left: -55px;}
+     .evalo-home .about-img2 {right: -55px;}
+     .evalo-home .home3-team-img-wrapper-margin {
+          margin-left: -66px;
+          margin-right: 0;
+     }
+     .evalo-home .team-img2 {right: 30px;}
+     .evalo-home .home3-team-primary-border { left: -18px;}
+     .evalo-home .home3-testimonial-person-img1 {left: 40px;}
+     .evalo-home .home3-testimonial-person-img2 {left: 180px;}
+     .evalo-home .home3-testimonial-person-img3 {left: 20px;}
+     .evalo-home .home3-testimonial-person-img4 {left: 180px;}
+     .evalo-home .home3-testimonial-person-img7 {right: 170px;}
+     .evalo-home .home3-testimonial-person-img8 {  right: 20px;}
+     .evalo-home .home3-testimonial-shape1 {
+          left: 61px;
+          top: 40%;
+     }
+     .evalo-home .home3-testimonial-shape2 {left: 195px;}
+     .evalo-home .home3-testimonial-shape4 {right: 60px;}
+     .evalo-home .home5 .slider-content h1 {
+          font-size: 55px;
+     }
+     .evalo-home .slider-content span {
+          font-size: 30px;
+     }
+     .evalo-home .video-play {
+          width: 60px;
+          height: 60px;
+          line-height: 60px;
+     }
+     /* home4 */
+     .evalo-home .home4 .main-menu ul li {
+          margin-right: 19px;
+     } 
+     .evalo-home .home4 .header-right .my-btn .btn {
+          padding: 8px 30px;
+          font-size: 15px;
+     }
+     .evalo-home .home4 .header-right .my-btn {
+          padding: 0 20px;
+     }
+     .evalo-home .home4 .slider-img1 {  margin-right: 0; padding-left: 10px;}
+     .evalo-home .facts-area.home4 {
+          margin-top: 20px;
+     }
+     .evalo-home .home4 .about-bg-right {
+          right: -100px;
+     }
+     .evalo-home .home4 .about-text {
+          margin-top: 0;
+     }
+     .evalo-home .about-dotted-shape {
+          bottom: -105px;
+          right: 20px;
+          z-index: -1;
+     }
+     .evalo-home .home4 .feature-img {
+          margin-left: -80px;
+          padding-right: 30px;
+     }
+     .evalo-home .home4 .title h3 {
+          font-size: 38px;
+          margin-bottom: 30px;
+     }
+     .evalo-home .home4-feature2-img-margin {
+          margin-right: -80px;
+     }
+     .evalo-home .service-bg-right { right: -20%;}
+     .evalo-home .home4.feature-area4 .about-bg-left {left: -15%;}
+     /* home5 */
+     .evalo-home .home5-about-margin {
+          margin-top: -350px;
+     }
+     .evalo-home .home5 .download-logo {
+          padding-top: 15px;
+          padding-bottom: 5px;
+     }
+     .evalo-home .home5 .slider-img1 {
+          margin-top: 90px;
+          margin-right: 0;
+          padding-left: 0;
+     }
+     .evalo-home .home5-about-margin {
+          margin-top: -280px;
+     }
+     .evalo-home .home5-about-left-img {
+          margin-left: -90px;
+     }
+     .evalo-home .home5-sp-feature-img {
+          margin-right: -100px;
+     }
+     .evalo-home .home5-sp-feature-bg {
+          padding-top: 170px;
+     }
+     .evalo-home .home5-screenshot-area {
+          margin-top: 155px;
+     }
+     .evalo-home .service-cta-banner-img-wrapper-margin { margin-left: -85px;}
+     .evalo-home .service-cta-banner-content {
+          margin-top: 85px;
+     }
+     .evalo-home .service-cta-banner-bg {
+          padding-bottom: 418px;
+     }
+     .evalo-home .about-us-marker {right: -75px;}
+     .evalo-home .slider-social-link-area { left: -40px;}
+     .evalo-home .slider-email-area {right: -60px;}
+     .evalo-home .hm4-shape-2 {left: 6%;}
+     .evalo-home .hm4-shape-6{right: 0;}
+     .evalo-home .hm5-round-shape-5 {
+          right: 2%;
+          top: 55%;
+     }
+     .evalo-home .hm5-round-shape-2 {
+          left: 45%;
+          bottom: 22%;
+     }
+     .evalo-home .hm3-shape-1 { left: 3%;}
+     .evalo-home .hm3-shape-9 {left: 45%;}
+     .evalo-home .hm3-shape-3 {bottom: 19%;}
+     .evalo-home .hm3-shape-8 {
+          right: 18%;
+          top: 18%;
+     }
+     .evalo-home .home3 .slider-height3 .row{ margin-top: 60px;}
+     .evalo-home .slider-height3 .slider-content h1 { font-size: 54px;}
+     .evalo-home .hm3-left-dotted{left:1%;}
+     .evalo-home .hm3-bg-shape{max-width: 30%;}
+     .evalo-home .hm3-bg-shape1{left: 0;}
+     .evalo-home .hm3-bg-shape5 {
+          left: 22%;
+          bottom: -15px;
+     }
+     .evalo-home .about-us-marker, .evalo-home .about-us-marker-text {
+          width: 180px;
+          height: 175px;
+     }
+     .evalo-home .about-us-marker h3 {
+          font-size: 22px;
+     }
+
+
+}
+
+
+
+@media screen and (min-width: 1200px) and (max-width: 1320px) {
+     .evalo-home .slider-img1 {margin-right: -20px;padding-left: 0;}
+     .evalo-home .slider-left-dotted {left: -10px;bottom: 120px;}
+     .evalo-home .single-slider.slider-height1 { height: 100vh;}
+     .evalo-home .img-left-margin { margin-left: -50px;}
+     .evalo-home .faq-img.img-right-margin { margin-right: -90px;}
+     .evalo-home .sp-offer-img-left-margin {margin-left: -2%;}
+     .evalo-home .home3-team-img-wrapper-margin {
+          margin-left: -52px;
+     }
+     .evalo-home .home3-team-primary-border {left: 0;}
+     .evalo-home .home4 .main-menu ul li {
+          margin-right: 17px;
+     } 
+     .evalo-home .home4 .main-menu ul li >a {
+          font-size: 17px;
+     } 
+     .evalo-home .about-dotted-shape {
+          right: 0;
+     }
+     .evalo-home .home3-about-img-wrapper-margin {
+          margin-right: -50px;
+     }
+     .evalo-home .home4 .feature-img {
+          margin-left: -30px;
+     }
+     .evalo-home .home4-feature2-img-margin {
+          margin-right: -30px;
+     }
+     .evalo-home .home4-feature3 .home4-feature-product-img {
+          margin-left: -30px;
+     }
+     .evalo-home .home5-about-left-img {
+          margin-left: -60px;
+     }
+     .evalo-home .home5-sp-feature-img {
+          margin-right: -90px;
+     }
+     .evalo-home .service-cta-banner-img-wrapper-margin { margin-left: -40px;}
+     .evalo-home .about-us-marker {right: -40px;}
+     .evalo-home .about-us-img-wrapper {
+          margin-right: -20px;margin-left: 15px;
+     }
+
+
+}
+
+
+
+
+
+/* LG Device :992px. */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+
+    /* home1 */
+     .evalo-home .main-menu ul li {
+          margin-right: 22px;
+     }
+     .evalo-home .my-btn .btn { padding: 10px 45px;}
+     .evalo-home .ser-icon {
+          width: 50px;
+     }
+     .evalo-home .single-slider.slider-height1 { height: 700px;}
+     .evalo-home .slider-img1 {  margin-right: -50px; padding-left: 20px;}
+     .evalo-home .s-dotted img { max-width: 75%;}
+     .evalo-home .slider-left-dotted {left: -10px;bottom: 122px;}
+     .evalo-home .slider-right-dotted { right: -50px;top: -55px;}
+     .evalo-home .slider-content span {font-size: 24px;}
+     .evalo-home .slider-content h1 {font-size: 40px;padding-right: 30px;margin-bottom: 0;}
+     .evalo-home .slider-content p { font-size: 21px;}
+     .evalo-home .shape { max-width: 40px; max-height: 25px;}
+     .evalo-home .shape.s-shape{max-width: 11px;}
+     .evalo-home .hm4-shape-2 {left: 3%;}
+     .evalo-home .hm4-shape-6{right: 0;}
+     .evalo-home .hm2-bg-shape10 {
+          right: 0%;
+          bottom: 26%;
+     }
+     .evalo-home .hm2-shape-8 {
+          right: 4%;
+          bottom: 30%;
+     }
+     .evalo-home .hm2-middle-dotted {
+          right: 0px;
+          top: -70px;
+     }
+     .evalo-home .hm2-shape {max-width: 42px;max-height: 22px;}
+     .evalo-home .hm2-shape.s-shape, .evalo-home .hm5-shape.s-shape {max-width: 15px;}
+     .evalo-home .hm5-shape{max-width: 40px;max-height: 16px;}
+     .evalo-home .video-play { width: 60px; height: 60px;line-height: 61px;}
+     .evalo-home .wave-pulse::before, .evalo-home .wave-pulse::after { width: 90px; height: 90px;}
+     .evalo-home .video-player-btn { margin-top: 35px;}
+     .evalo-home .img-left-margin { margin-left: -40px;}
+     .evalo-home .title span {font-size: 19px;}
+     .evalo-home .title h3 {font-size: 35px;}
+     .evalo-home .about-area{margin-top: 60px;margin-bottom: 70px;}
+     .evalo-home .about-text {margin-top: 30px;}
+     .evalo-home h6 {font-size: 18px;}
+     .evalo-home p {font-size: 17px;}
+     .evalo-home .single-service-content {padding: 40px 25px 18px 28px;}
+     .evalo-home .home2 .single-service-content {
+          padding: 48px 25px 22px 28px;
+     }
+     .evalo-home .home2 .ser-icon { margin-bottom: 25px;}
+     .evalo-home .feature-ser-icon {margin-right: 8px;}
+     .evalo-home .img-right-margin {margin-right: -70px;}
+     .evalo-home .single-facts { width: 212px; height: 170px;padding-top: 35px;padding-bottom: 40px;}
+     .evalo-home .single-facts p{margin-top: 0 !important;}
+     .evalo-home .screenshot-wrapper { margin-top: 140px;}
+     .evalo-home .faq-area .row{align-items: center;}
+     .evalo-home .faq-img.img-right-margin { margin-right: -75px;}
+     .evalo-home .faq-area {padding-top: 75px;}
+     .evalo-home .single-work-content {padding: 55px 30px 56px 38px;}
+     .evalo-home .work-icon {margin-right: 15px;}
+     .evalo-home .work-icon span {width: 50px;}
+     .evalo-home .single-work-content h5 {font-size: 20px; }
+     .evalo-home .testimonial-img {margin-left: -50px;}
+     .evalo-home .my-btn .btn.f-18 {padding: 12.5px 34px;}
+     /* home2 */
+     .evalo-home .slider-height2 {height: 800px;}
+     .evalo-home .home2 .slider-content {  padding-top: 150px;}
+     .evalo-home .home2.feature-area3 .img-left-margin2 {margin-left: -75px;padding-right: 5px;}
+     .evalo-home .img-left-margin2 { margin-left: -40px;padding-right: 10px;}
+     .evalo-home .img-right-margin2 { margin-right: -170px;}
+     .evalo-home .work-img { margin-right: -40px; margin-left: -15px;}
+     .evalo-home .home2 .slider-img {padding-left: 80px;padding-right: 80px;margin-top: 60px;}
+     .evalo-home .f-count span { font-size: 38px;}
+     .evalo-home .sp-offer-img-left-margin {margin-left: -12%; padding-right: 0;}
+     .evalo-home .tool-item1 { top: 120px; left: 140px;}
+     .evalo-home .testimonial-active2-variable-width .slick-slide,.evalo-home .product-active4-variable-width .slick-slide {width: 440px;}
+     /* home3 */
+     .evalo-home .home3 .slider-img1 {
+          padding-left: 0;
+     }
+     .evalo-home .home3 .slider-content.mt--30 {margin-top: 0;}
+     .evalo-home .home3-single-intro-content {
+          padding-left: 25px;
+          padding-right: 25px;
+     }
+     .evalo-home .home3-about-img-wrapper-margin {
+          margin-right: 0;
+     }
+     .evalo-home .home3-about-img-border {
+          width: 430px;
+          height: 320px;
+     }
+     .evalo-home .about-img1 {
+          left: -35px;
+          top: -40px;
+          width: 65%;
+     }
+     .evalo-home .about-img2 {
+          right: -35px;
+          bottom: -40px;
+          width: 65%;
+     }
+     .evalo-home .home3-single-service-border {
+          padding-left: 30px;
+          padding-right: 28px;
+     }
+     .evalo-home .home3-single-service-content .ser-icon { margin-right: 20px;}
+     .evalo-home .home3-project-bg,.evalo-home .home3-about-bg{background-image: none !important; background: #f0f6fb;}
+     .evalo-home .home3-service-area.home3 { margin-top: 135px;}
+     .evalo-home .home3-project-margin {margin-top: 70px;}
+     .evalo-home .home3-project-bg { padding-top: 140px; padding-bottom: 150px;}
+     .evalo-home .home3-project-wrapper {margin-top: -200px;}
+     .evalo-home .home3-about-bg {padding-bottom: 110px;padding-top: 50px;}
+     .evalo-home .intro-area.home3 { margin-top: 140px;margin-bottom: 120px;}
+     .evalo-home .home3-facts-area { margin-top: 140px;}
+     .evalo-home .home3-feature-product-img-wrapper-margin.d-flex.justify-content-end.mt--45 {margin-top: 120px;     }
+     .evalo-home .home3-feature-product-area {padding-top: 122px;}
+     .evalo-home .home3-team-img-wrapper-margin { margin-left: -25px; margin-right: 0;}
+     .evalo-home .team-img2 {right: 0; top: 95px;}
+     .evalo-home .team-img1 {z-index: 1;}
+     .evalo-home .home3-team-img-border {left: 75px;}
+     .evalo-home .home3-team-primary-border {left: -20px;}
+     .evalo-home .home3-team-area {padding-top: 150px;padding-bottom: 80px;}
+     .evalo-home .home3-team-primary-border { left: -18px;}
+     .evalo-home .home3-testimonial-area {padding-top: 150px;}
+     .evalo-home .home3-testimonial-product-bg {padding-bottom: 250px;padding-top: 140px;}
+     .evalo-home .home3-testimonial-area img {
+          max-width: 60px;
+     }
+     .evalo-home .home3-testimonial-person-img1 {left: 30px;}
+     .evalo-home .home3-testimonial-person-img2 {left: 150px;}
+     .evalo-home .home3-testimonial-person-img3 {left: 10px;}
+     .evalo-home .home3-testimonial-person-img4 {left: 150px;}
+     .evalo-home .home3-testimonial-person-img7 {right: 120px;}
+     .evalo-home .home3-testimonial-person-img8 {  right: 10px;}
+     .evalo-home .home3-testimonial-shape1 {
+          left: 61px;
+          top: 40%;
+     }
+     .evalo-home .home3-testimonial-shape2 {
+          left: 150px;
+          width: 40px;
+          height: 40px;
+     }
+     .evalo-home .home3-testimonial-shape4 {right: 60px;}
+     .evalo-home .testimonial-text3 p {
+          font-size: 22px;
+     }
+     .evalo-home .blog-area.home3 {
+          padding-top: 120px;
+          padding-bottom: 130px;
+     }
+     .evalo-home .home3 .footer-heading h4 {font-size: 30px;}
+     .evalo-home .home3-single-service-content .service-text h5{font-size: 20px;} 
+     /* home4 */
+     .evalo-home .home4 .header-right {  margin-left: 0;}
+     .evalo-home .home4 .main-menu ul li { margin-right: 20px;}
+     .evalo-home .facts-area.home4 {
+          margin-top: -60px;
+     }
+     .evalo-home .facts-area.home4 {
+          margin-top: 45px;
+          margin-bottom: 115px;
+          padding-bottom: 0;
+     }
+     .evalo-home .home4 .about-bg-right {
+          right: -150px;
+     }
+     .evalo-home .home4 .about-text {
+          margin-top: 0;
+     }
+     .evalo-home .about-dotted-shape {
+          bottom: -105px;
+          right: 20px;
+          z-index: -1;
+     }
+     .evalo-home .service-area.home4 {
+          margin-bottom: 95px;
+     }
+     .evalo-home .service-area-margin{margin-top: -115px;}
+     .evalo-home .service-area.home4 .single-service-content {padding: 55px 15px 45px 15px;}
+     .evalo-home .home4 .feature-img {
+          margin-left: -50px;
+          padding-right: 10px;
+     }
+     .evalo-home .home4 .title h3 {
+          margin-bottom: 25px;
+     }
+     .evalo-home .about-area.home4 { padding-bottom: 170px;}
+     .evalo-home .testimonial-text4 {
+          padding-left: 30px;
+          padding-right: 30px;
+     }
+     .evalo-home .product-area.home4 { padding-bottom: 172px;}
+     .evalo-home .banner-area.home4 {
+          margin-top: 115px;
+          margin-bottom: 112px;
+     }
+     .evalo-home .home4-feature-product-area.home4 {padding-top: 152px;}
+     .evalo-home .testimonial-area.home4 {padding-top: 124px;padding-bottom: 127px;}
+     .evalo-home .blog-area.home4 {
+          padding-top: 140px;
+          padding-bottom: 110px;
+     }
+     .evalo-home .home4-feature2-img-margin {
+          margin-right: -60px;
+     }
+     .evalo-home .home4-feature3 .home4-feature-product-img {
+          margin-left: -30px;
+     }
+     .evalo-home .title h4 {
+          font-size: 34px;
+     }
+     .evalo-home .blog-area.home4 .btn-2 {padding-top: 50px;}
+     .evalo-home .home4 .footer-widget.f-subscriber-area {
+          padding-right: 0;
+     }
+     .evalo-home .service-bg-right { right: -40%;}
+     .evalo-home .home4 .about-bg-left {left: -30%;top: 12%;}
+     .evalo-home .about-dotted-shape {top: 65%;}
+     .evalo-home .home4 .banner-content h4{font-size: 30px;}
+     .evalo-home .home4-feature2 { padding-right: 0;}
+     
+     /* home5 */
+     .evalo-home .menu-bar-home12 {
+          margin-right: 0;
+     }
+     .evalo-home .home5-cta-feature-bg {padding-bottom: 115px;padding-top: 110px;}
+     .evalo-home .slider-height5,.evalo-home .slider-height6,.evalo-home .slider-height3,.evalo-home .blog-details-slider-area .page-height { min-height: 700px;}
+     .evalo-home .home5-about-bg {
+          padding-top: 30px;
+          padding-bottom: 122px;
+     }
+     .evalo-home .home5-about-margin {
+          margin-top: 0;
+          padding-bottom: 45px;
+     }
+     .evalo-home .home5 .download-logo {
+          padding-top: 25px;
+          padding-bottom: 15px;
+     }
+     .evalo-home .home5 .slider-img1 {
+          margin-top: 60px;
+          margin-right: 0;
+          padding-left: 0;
+     }
+     .evalo-home .slider-height5 .slider-content {
+          margin-top: 40px;
+     }
+     .evalo-home .home5-about-left-img {
+          margin-left: 0px;
+          margin-bottom: 0;
+     }
+     .evalo-home .home5-sp-feature-margin {
+          margin-top: 105px;
+     }
+     .evalo-home .home5-sp-feature-img {
+          margin-right: -50px;
+     }
+     .evalo-home .home5-about-bg,.evalo-home .home5-sp-feature-bg,.evalo-home .home5-more-feature-bg,.evalo-home .home5-review-bg,.evalo-home .service-cta-banner-bg,.evalo-home .our-team-bg,.evalo-home .about-us-fact-area{background: #F3F9FB;background-image: none !important;}
+     .evalo-home .home5-sp-feature-bg {
+          padding-top: 55px;
+          padding-bottom: 90px;
+     }
+     .evalo-home .home5-screenshot-area {
+          margin-top: 115px;
+          margin-bottom: 115px;
+     }
+     .evalo-home .home5-screenshot-area .slick-slide.slick-current.slick-active.slick-center img {
+          height: 590px;
+          margin-top: -55px;
+     }
+     .evalo-home .home5-screenshot-area .title h4 {padding-bottom: 0;}
+     .evalo-home .home5-more-feature-bg {
+          padding-bottom: 100px;
+          padding-top: 115px;
+     }
+     .evalo-home .home5-more-feature-wrapper{
+          margin-top: 20px;
+     }
+     .evalo-home .title.mt-15 {
+          margin-top: -10px;
+     }
+     .evalo-home .home5-price-tab-area {
+          padding-top: 130px;padding-bottom: 130px;
+     }
+     .evalo-home .review-area-home5-margin {
+          margin-top: 0;
+     }
+     .evalo-home .home5-review-bg {
+          padding-top: 125px;
+          padding-bottom: 120px;
+     }
+     .evalo-home .home5 .testimonial-text5 {
+          padding-right: 22px;
+          padding-left: 25px;
+     }
+     .evalo-home .home5 .testimonial-text5 p {
+          font-size: 18px;
+     }
+     .evalo-home .home5.faq-area {
+          padding-top: 115px;
+          margin-bottom: 0;
+     }
+     .evalo-home .home5-cta-banner-area {
+          margin-top: 105px;
+     }
+     .evalo-home .home5 .title p {
+          margin-top: 20px;
+     }
+     .evalo-home .home5 .footer-widget {
+          padding-right: 0;
+     }
+     .evalo-home .home3-project-area .meta-wrapper {
+          padding-left: 40px;
+          padding-right: 30px;
+     }
+     /* home6 */
+     .evalo-home .home6 .slider-content h1 { font-size: 75px;}
+     .evalo-home .home6-blog-area .single-blog .single-blog-content {padding-top: 25px;padding-bottom: 20px;}
+     .evalo-home .home6.about-area {padding-bottom: 30px;}
+     .evalo-home .home6-about-content { padding-top: 180px;}
+     .evalo-home .home6-work-area {padding-top: 135px;padding-bottom: 100px;}
+     .evalo-home .portfolio-area { padding-top: 135px;padding-bottom: 60px;}
+     .evalo-home .home3-service-area.home3.home6 { margin-top: 90px; padding-top: 135px;padding-bottom: 70px;}
+     .evalo-home .home6-team-area.home6 {padding-top: 135px;padding-bottom: 140px;}
+     .evalo-home .home6-testimonial-area {padding-top: 135px;padding-bottom: 140px;}
+     .evalo-home .testimonial-text6 > p {font-size: 20px;}
+     .evalo-home .testimonial-text6 { padding: 80px 30px 40px 30px;}
+     .evalo-home .testimonial-text6 .quit {left: 30;}
+     .evalo-home .home6-testimonial-area .testi-info {margin-top: 30px;}
+     .evalo-home .blog-area.home6 { padding-top: 150px; padding-bottom: 120px;}
+     .evalo-home .home6 .port-button { margin-top: 40px;  margin-bottom: 45px;}
+     .evalo-home .home6 .port-over-content h3 {font-size: 18px;}
+     .evalo-home .home6 .port-over-content {
+          padding-left: 25px;
+          padding-right: 19px;
+     }
+     /* home7 */
+     .evalo-home .slider-height7 .slider-content h1, .evalo-home .slider-height7 .slider-content span {font-size: 38px;}
+     .evalo-home .slider-height7{min-height: 550px;}
+     .evalo-home .slider-height7 .slider-content {margin-top: 145px;}
+     .evalo-home .home7.portfolio-area {
+          padding-top: 0;
+          padding-bottom: 150px;
+     }
+     .evalo-home .port-content {
+          font-size: 14px;
+          width: 45px;
+          height: 45px;
+          line-height: 45px;
+     }
+     .evalo-home .home6 .port-over-content {
+          padding-top: 10px;
+          padding-bottom: 20px;
+     }
+     .evalo-home .single-portfolio:hover .port-content {top: 20px;}
+     .evalo-home .home7-cta-banner-area{padding-top: 140px;padding-bottom: 140px;}
+     .evalo-home .home8.portfolio-area{padding-bottom: 60px;}
+     .evalo-home .testimonial-area.home8.home4 {padding-top: 135px;padding-bottom: 135px;}
+     .evalo-home .service-cta-banner-img-wrapper-margin {margin-left: -20px;margin-top: 0;}
+     .evalo-home .service-cta-banner-content {padding-top: 0;}
+     .evalo-home .service-cta-banner-area { padding-top: 12px;}
+     .evalo-home .service-cta-banner-bg {padding-bottom: 120px;padding-top: 130px;}
+     .evalo-home .feature-area.feature-area4.home4.service-page { padding-bottom: 105px;}
+     .evalo-home .faq-service-page-area {padding-top: 115px;padding-bottom: 80px;}
+     .evalo-home .testimonial-area.service-page {margin-top: 95px;margin-bottom: 95px;}
+     .evalo-home .footer-area.service-page { padding-top: 95px;}
+     .evalo-home .speciality-area .single-service-content { padding: 0;}
+     .evalo-home .our-team-info h3 {  font-size: 20px;}
+     .evalo-home .home3-single-facts p {font-size: 22px;}
+     .evalo-home .about-us-marker, .evalo-home .about-us-marker-text {
+          width: 170px;
+          height: 160px;
+     }
+     .evalo-home .about-us-marker h3 {
+          font-size: 20px;
+     }
+     .evalo-home .about-us-marker {right: -30px;}
+     .evalo-home .about-us-fact-bg{padding-bottom: 60px;}
+     .evalo-home .about-us-fact-bg.home3-facts-area { margin-top: 55px;}
+     .evalo-home .speciality-area {padding-top: 135px;padding-bottom: 85px;}
+     .evalo-home .our-team-bg{padding-top: 135px;padding-bottom: 140px;}
+     .evalo-home .partner-area{padding-top: 135px;}
+     .evalo-home .single-page h1 {font-size: 52px;}
+     .evalo-home .page-height {min-height: 520px;}
+     .evalo-home .blog-page-sidebar {padding-left: 0;padding-right: 0;}
+     .evalo-home .blog-page2-area .blog-page1-content { padding-left: 40px; padding-right: 40px;}
+     .evalo-home .blog-page2-area .blog-page1-content.blog-page3-content {padding-left: 0;padding-right: 30px;}
+     .evalo-home .blog-page1-area.portfolio-area.blog-page {margin-top: 0;margin-bottom: 95px;}
+     .evalo-home .blog-portfolio-content.blog-portfolio-content-shadow {padding-left: 25px;padding-right: 20px;}
+     .evalo-home .blog-portfolio-content.blog-portfolio-content-shadow h6 { font-size: 17px;}
+     .evalo-home .page-title {margin-top: 60px;}
+     .evalo-home .slider-middle-dotted {
+          top: 0px;
+          left: 20px;
+          max-width: 130px;
+          max-height: 130px;
+     }
+     .evalo-home .hm4-slider-right-dotted {right: 0;}
+     .evalo-home .hm3-shape-1 { left: 3%;}
+     .evalo-home .hm3-shape-9 {left: 25%;}
+     .evalo-home .hm3-shape-3 {bottom: 19%;}
+     .evalo-home .hm3-shape-8 {
+          right: 18%;
+          top: 18%;
+        }
+     .evalo-home .home3 .slider-height3 .row{ margin-top: 60px;}
+     .evalo-home .hm3-left-dotted{left:1%;}
+     .evalo-home .hm3-bg-shape{max-width: 40%;}
+     .evalo-home .hm3-bg-shape1{left: 0;}
+     .evalo-home .pricing-plan-section .tab-content{padding-left: 10px;}
+     .evalo-home .pricing-plan-section{padding-bottom: 130px;padding-top: 135px;}
+     .evalo-home .home3 .modal-body {
+          padding-left: 40px;
+          padding-right: 40px;
+     }
+     .evalo-home .about-us-img-wrapper {
+          margin-right: 0px;margin-left: 0px;
+     }
+
+
+}
+
+
+/* MD Device :768px. */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+     /* home1 */
+     .evalo-home .header {padding: 22px 0;}
+     .evalo-home .sticky-menu .header {padding: 6px 0;}
+     .evalo-home .logo img {max-width: 85%;}
+     .evalo-home .my-btn .btn { padding: 8px 36px;font-size: 14px;}
+     .evalo-home .container {
+          max-width: 760px;
+     }
+     .evalo-home .single-slider.slider-height1 { height: 600px;}
+     .evalo-home .slider-img1 {  margin-right: -25px; padding-left: 0;}
+     .evalo-home .s-dotted img { max-width: 60%;}
+     .evalo-home .slider-left-dotted {left: -15px;bottom: 92px;}
+     .evalo-home .slider-right-dotted { right: -90px;top: -45px;}
+     .evalo-home .slider-content span {font-size: 18px;}
+     .evalo-home .slider-content h1 {font-size: 36px;margin-bottom: 0;}
+     .evalo-home .slider-content p { font-size: 17px;}
+     .evalo-home .shape { max-width: 30px;max-height: 25px;}
+     .evalo-home .shape.s-shape{max-width: 10px;}
+     .evalo-home .hm4-shape-2 {left: 3%;}
+     .evalo-home .hm4-shape-6{right: 0;}
+     .evalo-home .video-play { width: 40px; height: 40px;line-height: 40px;font-size: 12px;}
+     .evalo-home .wave-pulse::before, .evalo-home .wave-pulse::after { width: 60px; height: 60px;}
+     .evalo-home .video-player-btn { margin-top: 35px;}
+     .evalo-home .video-player-btn span {font-size: 15px;padding-left: 12px;}
+     .evalo-home .img-left-margin { margin-left: 0;margin-top: 0;}
+     .evalo-home .brand-area{margin-top: 50px;}
+     .evalo-home .about-area{margin-top: 30px;}
+     .evalo-home .title h3 {font-size: 33px;
+     }
+     .evalo-home .about-text {margin-top: 25px;}
+     .evalo-home p {font-size: 17px;}
+     .evalo-home .about-area{margin-top: 55px;margin-bottom: 50px;}
+     .evalo-home .feature-area { margin-top: 90px;}
+     .evalo-home .single-service-content {padding:35px 15px 14px 20px}
+     .evalo-home .home2 .single-service-content {
+          padding: 40px 15px 14px 20px;
+     }
+     .evalo-home .service-area .col-12 { padding-left: 10px; padding-right: 10px;}
+     .evalo-home .ser-icon {width: 50px;}
+     .evalo-home .ser-icon {margin-bottom: 12px;}
+     .evalo-home .home2 .ser-icon {
+          margin-bottom: 20px;
+     }
+     .evalo-home .feature-bg,.evalo-home .work-bg,.evalo-home .sp-offer-bg {
+          padding-top: 28px;
+          background-image: none !important;
+          background-color: #f0f6fb;
+     }
+     .evalo-home .feature-bg{padding-top: 95px;}
+     .evalo-home .sp-feature-bg.feature-bg{padding-top: 30px;padding-bottom: 35px;}
+     .evalo-home .sp-feature-area {padding-bottom: 105px;margin-top: 0;}
+     .evalo-home .img-right-margin {margin-right:0;margin-top: 0;}
+     .evalo-home .sp-feature-content {  margin-top: 0;padding-bottom: 60px;}
+     .evalo-home .facts-area { padding-bottom: 170px;}
+     .evalo-home .facts-wrapper {margin-top:50px}
+     .evalo-home .single-facts { width: 174px; height: 135px;padding-top: 32px;padding-bottom: 40px;}
+     .evalo-home .single-facts p{margin-top: 0 !important;font-size: 16px;}
+     .evalo-home .single-facts span { font-size: 25px;}
+     .evalo-home .theme-bg-fact {top: 112px; }
+     .evalo-home .single-facts-margin-left {margin-left: -40px;}
+     .evalo-home .screenshot-wrapper { margin-top: 50px;}
+     .evalo-home .screenshot-area {padding-top: 105px;margin-top: 40px;}
+     .evalo-home .faq-img.img-right-margin {margin-right: 0;}
+     .evalo-home .faq-area {padding-top: 0;}
+     .evalo-home .faq-content { margin-top: 38px }
+     .evalo-home .work-bg {padding-top: 115px;padding-bottom: 10px;}
+     .evalo-home .single-work-content {text-align:center;padding:65px 30px 56px 38px; margin-left: 10px;}
+     .evalo-home .work-icon {margin-right: 0;}
+     .evalo-home .single-work-content h5 {font-size: 20px;margin-bottom: 10px;margin-top: 20px;}
+     .evalo-home .item-tag-wrapper {margin: 0 auto;left: 0;right: 0;}
+     .evalo-home .work-wrapper {padding-bottom: 30px;}
+     .evalo-home .testimonial-area {margin-top: 85px;margin-bottom: 5px;}
+     .evalo-home .testimonial-img {margin-left: 0;margin-bottom: 40px; text-align: center;}
+     .evalo-home .testimonial-wrapper { margin-top: 30px;}
+     .evalo-home .quit { top: -80px;}
+     .evalo-home .banner-wrapper {padding: 47px 40px 62px 50px;}
+     .evalo-home .banner-area { bottom: -150px;margin-top: -78px;}
+     .evalo-home .footer-top {padding-top: 30px;padding-bottom: 40px;}
+     .evalo-home .side-mobile-menu h6 {font-size: 12px;}
+     /* home2 */
+     .evalo-home .slider-height2 {height: 800px;}
+     .evalo-home .home2 .slider-content {  padding-top: 150px;}
+     .evalo-home .home2.feature-area3 .img-left-margin2 {margin-left: 0;padding-right: 0;}
+     .evalo-home .img-left-margin2 { margin-left: 0;padding-right: 0;}
+     .evalo-home .img-right-margin2 { margin-right: 0;padding-right: 0;}
+     .evalo-home .work-img { margin-right: 0; margin-left: 0;}
+     .evalo-home .home2 .slider-img {margin-top: 60px;}
+     .evalo-home .f-count span { font-size: 38px;}
+     .evalo-home .sp-offer-img-left-margin {margin-left: -12%; padding-right: 0;}
+     .evalo-home .tool-item1 { top: 120px; left: 140px;}
+     .evalo-home .sp-offer-img-left-margin {margin-left: 30px; padding-right: 0;}
+     .evalo-home .home2.banner-area {bottom: -180px;margin-top: -110px;}
+     .evalo-home .home2.service-area h6 { font-size: 20px;}
+     .evalo-home .img-reverse .feature-content{margin-top: 50px;}
+     .evalo-home .price-item-list span {padding-right: 5px;}
+     .evalo-home .home3 .price-item-list { padding-left: 15px; padding-right: 10px;}
+     .evalo-home h3 {font-size: 35px;}
+     .evalo-home .sp-offer-bg{padding-top: 120px; padding-bottom: 0;}
+     .evalo-home .home2 .banner-content h4 {font-size: 25px; }
+     .evalo-home .home2.testimonial-area{padding-top: 50px;}
+     .evalo-home .testimonial-active2-variable-width .slick-slide,.evalo-home .product-active4-variable-width .slick-slide{width: 540px;}
+     /* home3 */
+     .evalo-home .home3 .slider-img1 {
+          padding-left: 0;
+     }
+     .evalo-home .home3 .slider-content.mt--30 {margin-top: 0;}
+     .evalo-home .home3-about-img-wrapper-margin {margin-right: 0; margin-top: 110px; justify-content: center !important;}
+     .evalo-home .home3-single-service-border {
+          padding-left: 35px;
+          padding-right: 30px;
+     }
+     .evalo-home .home3-single-service-content .ser-icon { margin-right: 20px;}
+     .evalo-home .home3-project-bg,.evalo-home .home3-about-bg,.evalo-home .home3-feature-product-bg,.evalo-home .home3-feature-product-area,.evalo-home .home3-testimonial-product-bg{background-image: none !important; background: #f0f6fb;}
+     .evalo-home .home3-service-area.home3 { margin-top: 115px;}
+     .evalo-home .home3-service-wrapper {padding-top: 70px;}
+     .evalo-home .home3-project-margin {margin-top: 50px;}
+     .evalo-home .home3-project-bg { padding-top: 120px; padding-bottom: 130px;}
+     .evalo-home .home3-project-wrapper {margin-top: -200px;}
+     .evalo-home .home3-about-bg {padding-bottom: 205px;padding-top: 30px;}
+     .evalo-home .intro-area.home3 { margin-top: 120px;margin-bottom: 100px;}
+     .evalo-home .home3-facts-area { margin-top: 120px;}
+     .evalo-home .home3-single-facts.theme-bg.mt-60 {margin-top: 0;}
+     .evalo-home .row.home3-facts-wrapper {margin-top: 60px;}
+     .evalo-home .home3-feature-product-img-wrapper-margin {margin-top: 75px;  justify-content: center !important; }
+     .evalo-home .home3-feature-product-area {padding-top: 0;margin-top: 100px;}
+     .evalo-home .home3-feature-product-left-content {padding-top: 115px;}
+     .evalo-home .home3-feature-product-bg {padding-bottom: 120px;}
+     .evalo-home .home3-team-img-wrapper-margin { margin-left: 0; margin-right: 0; margin-top: 50px;}
+     .evalo-home .home3-team-area {padding-top: 115px;padding-bottom: 10px;}
+     .evalo-home .home3-team-primary-border { left: -10px;}
+     .evalo-home .home3-testimonial-area {padding-top: 130px;}
+     .evalo-home .home3-testimonial-product-bg {padding-bottom: 95px;padding-top: 120px;}
+     .evalo-home .t-person-width {
+          max-width: 45px;
+     }
+     .evalo-home .home3-testimonial-person-img1 {left: 30px;}
+     .evalo-home .home3-testimonial-person-img2 {left: 120px;}
+     .evalo-home .home3-testimonial-person-img3 {left: 10px;}
+     .evalo-home .home3-testimonial-person-img4 {left: 120px;}
+     .evalo-home .home3-testimonial-person-img7 {right: 90px;}
+     .evalo-home .home3-testimonial-person-img8 {  right: 10px;}
+     .evalo-home .home3-testimonial-shape1 {
+          left: 61px;
+          top: 40%;
+          width: 15px;
+          height: 15px;
+     }
+     .evalo-home .home3-testimonial-shape2 {
+          left: 100px;
+          width: 20px;
+          height: 20px;
+     }
+     .evalo-home .home3-testimonial-shape3 {
+          width: 10px;
+          height: 10px;
+          right: 220px
+     }
+     .evalo-home .home3-testimonial-shape4 {
+          width: 20px;
+          height: 20px;
+     }
+     .evalo-home .home3-testimonial-shape4 {right: 60px;}
+     .evalo-home .testimonial-text3 p { font-size: 20px;}
+     .evalo-home .blog-area.home3 {
+          padding-top: 115px;
+          padding-bottom: 90px;
+     }
+     .evalo-home .home3 .single-blog-content {padding-left: 25px;}
+     .evalo-home .home3 .footer-heading h4 {font-size: 32px;}
+     .evalo-home .home3-blog-wrapper { margin-top: 60px;}
+     .evalo-home .footer-heading .my-btn {margin-top: 30px; margin-bottom: 20px;}
+     .evalo-home .home3 .footer-top { padding-top: 0;}
+     .evalo-home .home3 .project-over-content {padding: 30px 10px 20px 10px;}
+     .evalo-home .home3 .project-over-content h6 {
+          font-size: 20px;
+          line-height: 1;
+     }
+     .evalo-home .home3 .project-content span { font-size: 50px;}
+     .evalo-home .blog-area .modal-content h2 {font-size: 28px;}
+     .evalo-home .blog-area .blog-meta {width: 60% !important;}
+     .evalo-home .home3-single-service-content::after { z-index: -1;}
+     /* home4 */
+     .evalo-home .home4 .header-right {  margin-left: 0;}
+     .evalo-home .home4 .header-right .my-btn {
+          padding: 0 22px;padding-left: 0;
+     }
+     .evalo-home .home4 .header-right .my-btn .btn {
+          padding: 10px 32px;
+     }
+     .evalo-home .home4 .banner-btn {margin-top: 32px;}
+     .evalo-home .facts-area.home4 {
+          margin-top: 0;
+          margin-bottom: 105px;
+          padding-bottom: 0;
+     }
+     .evalo-home .home4 .about-left-content {  margin-bottom: 35px;}
+     .evalo-home .home4 .about-bg-right {
+          right: -140px;
+          top: 66%;
+     }
+     .evalo-home .home4 .about-text {
+          margin-top: 0;
+     }
+     .evalo-home .about-area.home4 .btn-2 {
+          padding-top: 30px;
+     }
+     .evalo-home .about-dotted-shape {
+          bottom: -105px;
+          right: 20px;
+          z-index: -1;
+     }
+     .evalo-home .service-area.home4 {
+          margin-top: 0;
+          margin-bottom: 86px;
+     }
+     .evalo-home .service-text h5 {
+          font-size: 20px;
+     }
+     .evalo-home .service-area.home4 .single-service-content {padding: 55px 15px 45px 15px;}
+     .evalo-home .service-area.home4 .ser-icon {
+          margin-bottom: 30px;
+     }
+     .evalo-home .home4 .feature-img {
+          margin-left: 0px;
+          padding-right: 0px;
+          margin-bottom: 50px;
+     }
+     .evalo-home .home4 .title h3 {
+          margin-bottom: 25px;
+     }
+     .evalo-home .product-area.home4 {
+          padding-bottom: 150px;
+     }
+     .evalo-home .home4.banner-area {
+          margin-top: 90px;
+     }
+     .evalo-home .home4 .ser-icon {
+          width: 75px;
+     }
+     .evalo-home .home4 .title h3 {
+          margin-bottom: 25px;
+     }
+     .evalo-home .product-area.home4 {
+          padding-bottom: 75px;
+     }
+     .evalo-home .home4.banner-area {
+          margin-top: 70px;
+          margin-bottom: 110px;
+     }
+     .evalo-home .home4 .ser-icon {
+          width: 65px;
+     }
+     .evalo-home .home4 .banner-wrapper {
+          padding-bottom: 55px;
+     }
+     .evalo-home .home4-feature2.home4 .title h3{margin-bottom: 0;}
+     .evalo-home .home4-feature2-img-margin {
+          margin-right: 0;
+          margin-top: 75px;
+     }
+     .evalo-home .home4-feature3 .home4-feature-product-img {
+          margin-left: 0;margin-top: 60px;
+     }
+     .evalo-home .home4-feature3 {
+          background: #F3F9FB;
+          margin-top: 125px;
+          padding-top: 55px;
+          padding-bottom: 65px;
+     }
+     .evalo-home .blog-area.home4 {
+          padding-top: 120px;
+          padding-bottom: 100px;
+     }
+     .evalo-home .blog-area.home4 .btn-2 {
+          padding-top: 0px;padding-bottom: 20px;
+     }
+     .evalo-home .home4 .footer-widget.f-subscriber-area {
+          padding-right: 0;
+     }
+     .evalo-home .footer-area.home4 {
+          padding-top: 70px;
+     }
+     .evalo-home .home4 .testimonial-wrapper {margin-top: 0;}
+     .evalo-home .service-bg-right { right: -50%;top: 25%;}
+     .evalo-home .home4 .about-bg-left {left: -40%;top: 12%;}
+     .evalo-home .about-dotted-shape {top: 70%;}
+     .evalo-home .about-area.home4 { padding-bottom: 116px;margin-bottom: 0;}
+     .evalo-home .home4.home4-feature3 {margin-top: 115px;
+          padding-top: 62px;
+          padding-bottom: 72px;
+     }
+     .evalo-home .home4.testimonial-area {padding-top: 45px;padding-bottom: 120px;}
+     /* home5 */
+     .evalo-home .slider-height5, .evalo-home .slider-height6, .evalo-home .slider-height3, .evalo-home .blog-details-slider-area .page-height{ min-height: 600px;}
+     .evalo-home .home5 .download-logo {
+          padding-top: 25px;
+          padding-bottom: 15px;
+     }
+     .evalo-home .home5 .slider-img1 {
+          margin-top: 20px;
+          margin-right: -50px;
+          padding-left: 0;
+     }
+     .evalo-home .slider-height5 .slider-content {
+          margin-top: 0;
+     }
+     .evalo-home .home5 .download-logo img {
+          max-width: 130px;
+     }
+     .evalo-home .home5-about-left-img {
+          margin-left: 0px;
+          margin-bottom: 0;
+     }
+     .evalo-home .home5-about-bg,.evalo-home .home5-sp-feature-bg,.evalo-home .home5-more-feature-bg,.evalo-home .home5-review-bg,.evalo-home .service-cta-banner-bg,.evalo-home .about-us-fact-bg,.evalo-home .our-team-bg{background: #F3F9FB;background-image: none;}
+    .evalo-home .home5-about-margin {margin-top: 0;padding-bottom: 25px;}
+    .evalo-home .home5-about-bg {
+          padding-top: 30px;
+          padding-bottom: 120px;
+     }
+     .evalo-home .home5-sp-feature-bg {
+          padding-top: 42px;
+          padding-bottom: 110px;
+     }
+     .evalo-home .home5-sp-feature-margin {
+          margin-top: 105px;
+     }
+     .evalo-home .home5-sp-feature-img {
+          margin-right: 0;margin-top: 20px;
+     }
+     .evalo-home .home5-screenshot-area {
+          margin-top: 105px;margin-bottom: 105px;
+     }
+     .evalo-home .home5-screenshot-wrapper .slick-track {padding-top: 70px;}
+     .evalo-home .home5-more-feature-bg {
+          padding-bottom: 90px;
+          padding-top: 105px;
+     }
+     .evalo-home .home5-more-feature-wrapper{
+          margin-top: 20px;
+     }
+     .evalo-home .home5 .title p {
+          margin-top: 30px;
+     }
+     .evalo-home .title.mt-15 {
+          margin-top: -10px;
+     }
+     .evalo-home .home5-price-tab-area {
+          padding-top: 130px;padding-bottom: 130px;
+     }
+     .evalo-home .review-area-home5-margin {
+          margin-top: 0;
+     }
+     .evalo-home .home5-review-bg {
+          padding-top: 125px;
+          padding-bottom: 120px;
+     }
+     .evalo-home .home5.faq-area {
+          padding-top: 90px;
+          margin-bottom: 0;
+     }
+     .evalo-home .home5-cta-banner-area {
+          margin-top: 95px;
+     }
+     .evalo-home .home5 .title p {
+          margin-top: 20px;
+     }
+     .evalo-home .home5-cta-banner-area {
+          margin-top: 95px;
+     }
+     .evalo-home .home5-cta-feature-bg {
+          padding-top: 155px;
+          padding-bottom: 115px;
+     }
+     .evalo-home .home3-project-area .meta-wrapper {margin-top: 50px;}
+     /* home6 */
+     .evalo-home .slider-email-area {right: -55px;}
+     .evalo-home .slider-social-link-area {left: -20px;}
+     .evalo-home .home6 .slider-content h1 { font-size: 60px;}
+     .evalo-home .home6.about-area { margin-top: 0;padding-bottom: 45px;}
+     .evalo-home .home6-about-content { padding-top: 85px;}
+     .evalo-home .home6-work-area {padding-top: 115px;padding-bottom: 80px;}
+     .evalo-home .portfolio-area { padding-top: 115px;padding-bottom: 40px;}
+     .evalo-home .home3-service-area.home3.home6 { margin-top: 90px; padding-top: 115px;padding-bottom: 50px;}
+     .evalo-home .home6-team-area.home6 {padding-top: 115px;padding-bottom: 120px;}
+     .evalo-home .home6-testimonial-area {padding-top: 115px;padding-bottom: 120px;}
+     .evalo-home .blog-area.home6 { padding-top: 125px; padding-bottom: 100px;}
+     .evalo-home .home6 .port-button { margin-top: 40px;  margin-bottom: 45px;}
+     .evalo-home .home6 .port-over-content h3 {font-size: 18px;}
+     /* home7 */
+     .evalo-home .slider-height7 .slider-content h1, .evalo-home .slider-height7 .slider-content span {font-size: 32px;}
+     .evalo-home .slider-height7{min-height: 500px;}
+     .evalo-home .slider-height7 .slider-content {margin-top: 130px;}
+     .evalo-home .home7.portfolio-area {padding-top: 0;padding-bottom: 130px;}
+     .evalo-home .port-content {
+          font-size: 14px;
+          width: 45px;
+          height: 45px;
+          line-height: 45px;
+     }
+     .evalo-home .home6 .port-over-content { padding-top: 10px;padding-bottom: 20px;}
+     .evalo-home .single-portfolio:hover .port-content {top: 20px;}
+     .evalo-home .home7-cta-banner-area{padding-top: 120px;padding-bottom: 120px;}
+     .evalo-home .home8.portfolio-area{padding-bottom: 40px;}
+     .evalo-home .testimonial-area.home8.home4 {padding-top: 45px;padding-bottom: 115px;}
+     .evalo-home .page-height {min-height: 470px;}
+     .evalo-home .page-title {margin-top: 100px;}
+     .evalo-home .service-cta-banner-img-wrapper-margin {margin-left: 0;margin-top: 0;margin-top: 60px;}
+     .evalo-home .service-cta-banner-content {padding-top: 0;}
+     .evalo-home .service-cta-banner-area { padding-top: 12px;}
+     .evalo-home .service-cta-banner-bg {padding-bottom: 115px;padding-top: 105px;}
+     .evalo-home .feature-area.feature-area4.home4.service-page { padding-bottom: 95px;padding-top: 15px;}
+     .evalo-home .faq-service-page-area {padding-top: 105px;padding-bottom: 70px;}
+     .evalo-home .faq-service-page-area .faq-wrapper{margin-top: 20px;}
+     .evalo-home .testimonial-area.service-page {margin-top: 85px;margin-bottom: 75px;}
+     .evalo-home .footer-area.service-page { padding-top: 60px;}
+     .evalo-home .feature-area.service-page.home4 .ser-icon { width: 90px;}
+     .evalo-home .feature-area.service-page .ser-icon span {width: 90px; height: 90px;line-height: 90px;}
+     .evalo-home .feature-area.service-page .ser-icon span img{width: 35px;}
+     .evalo-home .banner-area.service-page{margin-top: 0;padding-top: 2px;}
+     .evalo-home .banner-area.service-page .banner-btn {margin-top: 30px;}
+     .evalo-home .service-page.home4 .ser-icon { width: 50px;}
+     /* about-us */
+     .evalo-home .speciality-area .single-service-content { padding: 0;}
+     .evalo-home .our-team-info h3 {  font-size: 20px;}
+     .evalo-home .home3-single-facts p {font-size: 22px;}
+     .evalo-home .about-us-about-area{padding-top: 115px;}
+     .evalo-home .about-us-fact-bg{padding-bottom: 50px;padding-top: 60px;}
+     .evalo-home .about-us-fact-bg.home3-facts-area { margin-top: 105px;}
+     .evalo-home .speciality-area {padding-top: 115px;padding-bottom: 70px;}
+     .evalo-home .our-team-bg{padding-top: 115px;padding-bottom: 110px;}
+     .evalo-home .our-team-wrapper {margin-bottom: 85px;}
+     .evalo-home .about-us-team .our-team-wrapper {margin-bottom: 135px;}
+     .evalo-home .our-team-wrapper-margin {padding-top: 25px;}
+     .evalo-home .partner-area{padding-top: 115px;padding-bottom: 70px;}
+     .evalo-home .partner-wrapper  {padding-top: 40px;}
+     .evalo-home .single-page h1 {font-size: 48px;}
+     .evalo-home .header .my-btn .btn.transparent-bg,.evalo-home .sticky-menu .header .my-btn .btn.transparent-bg {padding: 10px 30px;font-size: 16px;}
+     .evalo-home .our-team-area.team-page{padding-top: 100px;padding-bottom: 150px;}
+     .evalo-home .blog-page-sidebar {padding-left: 0;padding-right: 0;}
+     .evalo-home .blog-page{margin-top: 62px;margin-bottom: 130px;}
+     .evalo-home .blog-page2-area.blog-page{margin-top: 0;margin-bottom: 130px;}
+     .evalo-home .blog-page2-height .page-title {  margin-top: 0;}
+     .evalo-home .blog-page2-area .blog-page1-content { padding-left: 20px; padding-right: 20px;}
+     .evalo-home .blog-page2-height{min-height: 400px;}
+     .evalo-home .page-title h2 {font-size: 35px;}
+     .evalo-home .blog-page2-area .blog-page1-content.blog-page3-content {padding-left: 0;padding-right: 0;}
+     .evalo-home .blog-page2-area .blog-page1-content.blog-page3-content h4 {font-size: 30px;}
+     .evalo-home .blog-page1-area.portfolio-area.blog-page {margin-top: 0;margin-bottom: 95px;}
+     .evalo-home .blog-portfolio-content.blog-portfolio-content-shadow {padding-left: 28px;padding-right: 22px;}
+     .evalo-home .blog-portfolio-content.blog-portfolio-content-shadow h6 { font-size: 17px;}
+     .evalo-home .page-title {margin-top: 50px;}
+     .evalo-home .quote-area { padding: 50px 40px 50px 40px;}
+     .evalo-home .error-area{margin-top: 130px;margin-bottom: 130px;}
+     .evalo-home .contact-icon {margin-right: 0;margin-bottom: 20px;}
+     .evalo-home .map-wrapper{margin-top: 110px;}
+     .evalo-home .slider-middle-dotted {
+          top: 0px;
+          left: 10px;
+          max-width: 100px;
+          max-height: 100px;
+     }
+     .evalo-home .hm2-bg-shape10 {
+          right: 0%;
+          bottom: 34%;
+     }
+     .evalo-home .hm2-shape-8 {
+          right: 4%;
+          bottom: 40%;
+     }
+     .evalo-home .hm2-middle-dotted {
+          right: -30px;
+          top: -28px;
+     }
+     .evalo-home .hm2-shape {max-width: 35px;max-height: 22px;}
+     .evalo-home .hm2-shape.s-shape, .evalo-home .hm5-shape.s-shape {max-width: 12px;}
+     .evalo-home .hm5-shape{max-width: 30px;max-height: 16px;}
+     .evalo-home .hm2-middle-dotted img {max-width: 150px;}
+     .evalo-home .hm2-left-dotted img,.evalo-home .hm2-right-dotted img{max-height: 80px;}
+     .evalo-home .hm3-shape-1 { left: 1%;}
+     .evalo-home .hm3-shape-9 {left: 42%;}
+     .evalo-home .hm3-shape-3 {bottom: 12%;}
+     .evalo-home .hm3-shape-8 {
+          right: 18%;
+          top: 18%;
+     }
+     .evalo-home .hm3-shape-2,.evalo-home .hm3-shape-5{max-width: 35px;}
+     .evalo-home .hm3-shape.s-shape{max-width: 12px;}
+     .evalo-home .hm3-left-dotted{left:0;}
+     .evalo-home .hm3-shape{max-width: 45px;}
+     .evalo-home .hm3-bg-shape{max-width: 40%;}
+     .evalo-home .hm3-bg-shape1{left: 0;}
+     .evalo-home .slider-area.home2 { padding-bottom: 115px;}
+     .evalo-home .service-area.home2 {
+          margin-top: 77px;
+          padding-bottom: 50px;
+     }
+     .evalo-home .feature-area.home2 {  margin-top: 115px; }
+     .evalo-home .feature-area.home2.hm2-feature-area2 { margin-top: 55px;}
+     .evalo-home .feature-area.feature-area3.home2{ margin-top: 62px;margin-bottom: 115px;}
+     .evalo-home .home2.feature-area .feature-img{margin-top: 40px;}
+     .evalo-home .home2 .work-bg {
+          padding-top: 90px;
+          padding-bottom: 75px;
+     }
+     .evalo-home .price-area.home2 {
+          margin-top: 118px;
+          margin-bottom: 90px;
+     }
+     .evalo-home .home2 .sp-offer-bg {
+          padding-top: 107px;
+          padding-bottom: 65px;
+     }
+     .evalo-home .home2 .sp-feature-content{margin-bottom: 0;}
+     .evalo-home .home2.testimonial-area {
+          padding-top: 30px;padding-bottom: 160px;
+     }
+     .evalo-home .home2.banner-area {
+          bottom: -100px;
+          margin-top: -110px;
+     }
+     .evalo-home .mean-container .mean-nav ul li a span {
+          text-align: left !important;
+     }
+     .evalo-home .faq-area {
+          margin-bottom: 80px;
+     }
+     .evalo-home .banner-btn {
+          margin-top: 30px;
+     }
+     .evalo-home .copyright-text {
+          margin-top: 65px;
+     }
+     .evalo-home .home6-blog-area  .single-blog-content {padding-top: 60px;padding-left: 60px;padding-right: 60px;}
+     .evalo-home .home6-blog-area .single-blog-content h6{font-size: 28px;}
+     .evalo-home .testimonial-wrapper { margin-right: 0;}
+     .evalo-home .avatar-info h6 {font-size: 18px;}
+     .evalo-home .testimonial-text2, .evalo-home .testimonial-text4 {
+          padding-left: 30px;
+          padding-right: 20px;
+     }
+     .evalo-home .home2 .testimonial-wrapper {
+          padding-top: 0;
+          margin-top: 10px;
+     }
+     .evalo-home .footer-area.home2 {padding-top: 160px;}
+     .evalo-home .home7 .footer-widget.pr-100 {  padding-right: 0;}
+     .evalo-home .testimonial-active-home6 {
+          margin-top: 30px;
+     }
+     .evalo-home .pricing-plan-section .tab-content{padding-left: 0;}
+     .evalo-home .pricing-plan-section {padding-top: 120px; padding-bottom: 130px;}
+     .evalo-home .tool-item5 {right: 24px;}
+     .evalo-home .review-area-home5 .testimonial-active-home5 .slick-dots {left: 65px;}
+     .evalo-home .our-team-info {
+          bottom: -80px;
+          padding-top: 70px;
+     }
+     .evalo-home .about-us-img-wrapper {
+          margin-right: 20px;
+          margin-left: 0;
+     }
+
+
+
+}
+
+
+
+/* Extra small Device. */
+@media screen and (max-width: 767px) {
+
+     /* home1 */
+     .evalo-home .header {padding: 14px 0;}
+     .evalo-home .sticky-menu .header {padding: 6px 0;}
+     .evalo-home .logo img {max-width: 78%;}
+     .evalo-home .sticky-menu .logo img {max-width: 75%;}
+     .evalo-home .my-btn .btn { padding: 6px 32px; font-size: 14px;}
+     .evalo-home .slider-content {margin-top: 0px;}
+     .evalo-home .home4 .slider-content,.evalo-home .home3 .slider-content {margin-top: 30px;}
+     .evalo-home .single-slider.slider-height1 { height: 820px;background-size: cover;}
+     .evalo-home .single-slider.slider-height1 { height: 750px;background-size: cover;}
+     .evalo-home .slider-img1 {  margin-right: 0; padding-left: 0; margin-top: 50px;}
+     .evalo-home .slider-content span {font-size: 15px;}
+     .evalo-home .slider-content h1 {font-size: 30px;margin-bottom: 0;}
+     .evalo-home .slider-content p { font-size: 14px;}
+     .evalo-home .shape { max-width: 20px;max-height: 15px;}
+     .evalo-home .shape.s-shape{max-width: 8px;}
+     .evalo-home .hm4-shape-2 {left: 5%;}
+     .evalo-home .slider-middle-dotted {
+          top: -13px;
+          left: 0;
+          max-width: 80px;
+          max-height: 80px;
+     }
+     .evalo-home .login-area h4,.evalo-home .register-area  h4 {
+          font-size: 25px;
+     }
+     .evalo-home .hm4-shape-6{right: 0;}
+     .evalo-home .page-shape-2 {left: 5%;top: 100px;}
+     .evalo-home .page-shape-3 {left: 8%;bottom: 60px;}
+     .evalo-home .page-shape-7 {top: 80px;}
+     .evalo-home .video-play { width: 40px; height: 40px;line-height: 40px;font-size: 12px;}
+     .evalo-home .wave-pulse::before, .evalo-home .wave-pulse::after { width: 60px; height: 60px;}
+     .evalo-home .video-player-btn { margin-top: 35px;}
+     .evalo-home .video-player-btn span {font-size: 15px;padding-left: 12px;}
+     .evalo-home .brand-active {margin-top: 20px;}
+     .evalo-home .brand-area{margin-top: 50px;}
+     .evalo-home .home2.brand-area{margin-top: 0px;}
+     .evalo-home .about-area{margin-top: 30px;}
+     .evalo-home .img-left-margin { margin-left: 0;}
+     .evalo-home .testimonial-wrapper { margin-right: 0;}
+     .evalo-home .pricing-plan-section .tab-content{padding-left: 0;}
+     .evalo-home .pricing-plan-section {padding-top: 80px; padding-bottom: 100px;}
+     .evalo-home .pricing-plan-section .tab-content .table-content .price-table {width: 300px;}
+     .evalo-home .home2 .testimonial-wrapper {
+          padding-top: 0;
+          margin-top: 10px;
+     }
+     .evalo-home .feature-text2.mt-40 {
+          margin-top: 10px;
+     }
+     .evalo-home .modal-tags h6 {
+          padding-bottom: 10px;
+     }
+     .evalo-home .footer-area.home2 {padding-top: 155px;}
+     .evalo-home .testimonial-text2 {
+          padding-left: 20px;
+          padding-right: 20px;
+          padding-top: 3px;
+     }
+     .evalo-home .home3-single-facts-margin{margin-top: 0;}
+     .evalo-home .testimonial-text4{padding-left: 30px;padding-right: 30px;}
+     .evalo-home .title h3 {font-size: 24px;
+          margin-bottom: 10px;
+     }
+     .evalo-home .title span {font-size: 16px;}
+     .evalo-home .about-text {margin-top: 20px;}
+     .evalo-home h6 {font-size: 17px}
+     .evalo-home p {font-size: 16px;}
+     .evalo-home .my-btn .btn.f-18 {font-size: 15px;padding: 10px 32px;}
+     .evalo-home .about-area{margin-top: 20px;margin-bottom: 50px;}
+     .evalo-home .feature-area {margin-top: 55px;}
+     .evalo-home .single-service-content {padding: 42px 30px 20px 30px;margin-top: 0;}
+     .evalo-home .ser-icon {
+          width: 48px;
+     }
+     .evalo-home .sp-feature-area {padding-bottom: 80px;margin-top: 0;}
+     .evalo-home .feature-bg,.evalo-home .work-bg,.evalo-home .sp-offer-bg {
+          padding-top: 28px;
+          background-image: none !important;
+          background-color: #f0f6fb;
+     }
+     .evalo-home .feature-bg{padding-top: 70px;}
+     .evalo-home .sp-feature-bg.feature-bg {padding-bottom: 35px;padding-top: 25px;}
+     .evalo-home .img-right-margin {margin-right:0;margin-top: 0;}
+     .evalo-home .sp-feature-content {  margin-top: 0;padding-bottom: 55px;}
+     .evalo-home .facts-area { padding-bottom: 10px;}
+     .evalo-home .facts-wrapper {text-align: center;margin-top:40px}
+     .evalo-home .single-facts{ width: 151px;height: 170px; padding-top:40px; padding-bottom:30px; margin-left: auto;margin-right: auto;}
+     .evalo-home .single-facts span { font-size: 35px;}
+     .evalo-home .single-facts p{margin-top: 0 !important;font-size: 16px;}
+     .evalo-home .facts3,.evalo-home .facts5 {margin-left: 0; margin-top: 80px;}
+     .evalo-home .facts2,.evalo-home .facts4 { top: 142px;}
+     .evalo-home .facts5{margin-left: -118px; display: block !important;}
+     .evalo-home .screenshot-wrapper { margin-top: 0;}
+     .evalo-home .screenshot-area {padding-top: 80px;margin-bottom: 142px;margin-top: 50px;}
+     .evalo-home .screenshot-wrapper img {padding: 2px;}
+     .evalo-home .gallery {padding-top: 160px;}
+     .evalo-home .faq-img.img-right-margin {margin-right: 0;}
+     .evalo-home .faq-area {padding-top: 0;margin-bottom: 70px;}
+     .evalo-home .faq-content { margin-top:0 }
+     .evalo-home .faq-wrapper .btn {padding: 15px 24px; font-size: 16px;}
+     .evalo-home .faq-wrapper h6 a.btn::after {top: 20px;font-size: 10px;}
+     .evalo-home .work-bg {padding-top: 65px;}
+     .evalo-home .single-work-content {text-align:center;padding: 65px 25px 56px 25px; margin-left: 10px;}
+     .evalo-home .work-icon {margin-right: 0;}
+     .evalo-home .single-work-content h5 {font-size: 20px;margin-bottom: 10px;margin-top: 20px;}
+     .evalo-home .item-tag-wrapper {margin: 0 auto;left: 0;right: 0;}
+     .evalo-home .work-wrapper {padding-bottom: 10px;}
+     .evalo-home .testimonial-area {margin-top: 60px;margin-bottom: 0px;}
+     .evalo-home .testimonial-text {
+          padding-bottom: 5px;
+     }
+     .evalo-home .testimonial-img {margin-left: 0;margin-bottom: 70px; text-align: center;}
+     .evalo-home .testimonial-wrapper { margin-top: 20px;}
+     .evalo-home .quit { top: -70px;}
+     .evalo-home .quit span {font-size: 40px;}
+     .evalo-home .testimonial-text p {font-size: 18px;}
+     .evalo-home .testi-info { margin-top: 38px;}
+     .evalo-home .avatar-info p { font-size: 15px;}
+     .evalo-home .banner-wrapper {padding: 45px 28px 64px 38px;}
+     .evalo-home .banner-wrapper h4{  font-size: 22px;}
+     .evalo-home .banner-btn {margin-top: 25px;}
+     .evalo-home .banner-area { bottom: -175px;margin-top: -105px;}
+     .evalo-home .useful-link{margin-top: 10px;}
+     .evalo-home .useful-link li {padding-left: 0; padding: 0 10px; margin-bottom: 5px;}
+     .evalo-home .phone-contact a { font-size: 26px;}
+     .evalo-home .phone-contact span {  font-size: 18px;}
+     .evalo-home .copyright-text {   margin-top: 6px;   margin-bottom: 0;}
+     .evalo-home .f-logo{margin-bottom: 20px;}
+     .evalo-home .footer-top {padding-top: 50px;padding-bottom: 20px;}
+     .evalo-home .rbm-text { display: flex;flex-direction: column;}
+     .evalo-home .side-mobile-menu h6 {font-size: 12px;}
+     /* home2 */
+     .evalo-home .slider-height2 {height: 600px;}
+     .evalo-home .home2 .slider-content {  padding-top: 110px;}
+     .evalo-home .slider-content h1 {font-size: 25px;}
+     .evalo-home .home2.feature-area3 .img-left-margin2 {margin-left: 0;padding-right: 0;}
+     .evalo-home .img-left-margin2 { margin-left: 0;padding-right: 0;}
+     .evalo-home .img-right-margin2 { margin-right: 0;}
+     .evalo-home .work-img { margin-right: 0; margin-left: 0;}
+     .evalo-home .home2 .slider-img {margin-top: 50px;}
+     .evalo-home .f-count span { font-size: 38px;}
+     .evalo-home .sp-offer-img-left-margin {margin-left: -12%; padding-right: 0;}
+     .evalo-home .tool-item1 { top: 120px; left: 140px;}
+     .evalo-home .sp-offer-img-left-margin {margin-left: 0; padding-right: 0;}
+     .evalo-home .home2.banner-area {bottom: -180px;margin-top: -110px;}
+     .evalo-home .home2.service-area h6 { font-size: 20px;}
+     .evalo-home .img-reverse .feature-content{margin-top: 50px;}
+     .evalo-home .price-item-list span {padding-right: 5px;}
+     .evalo-home h3 {font-size: 35px;}
+     .evalo-home .sp-offer-bg{padding-top: 120px; padding-bottom: 0;}
+     .evalo-home .home2 .banner-content h4 {font-size: 25px; }
+     .evalo-home .home2.testimonial-area{padding-top: 50px;}
+     .evalo-home .sp-offer-img-left-margin {margin-left: 0; padding-right: 0;}
+     .evalo-home .home2 .banner-btn {margin-top: 8px;}
+     .evalo-home .home2.banner-area {bottom: -130px;margin-top: -75px;}
+     .evalo-home .home2 .banner-wrapper {padding: 40px 25px 55px 30px;}
+     .evalo-home .home2 .banner-wrapper h4 {  font-size: 20px;}
+     .evalo-home .home2 .copyright-area { margin-top: 0;}
+     .evalo-home .f-count span { font-size: 38px;}
+     .evalo-home .single-f-counter p {max-width: 100%;}
+     .evalo-home .title h4 {font-size: 22px;}
+     .evalo-home .home2 .feature-text li { width: 100%;float: none;}
+     .evalo-home span.title-icon {
+          width: 60px;
+          height: 60px;
+          line-height: 60px;
+     }
+     .evalo-home .title-icon img { width: 22px; }
+     .evalo-home .testimonial-active2-variable-width .slick-slide,.evalo-home .product-active4-variable-width .slick-slide {width: 320px;}
+     /* home3 */
+     .evalo-home .home3 .slider-img1 {
+          padding-left: 0;margin-top: 70px;
+     }
+     .evalo-home .home3 .slider-content.mt--30 {margin-top: 0;}
+     .evalo-home .home3-about-img-wrapper-margin {margin-right: 0; margin-top: 40px; justify-content: center !important;}
+     .evalo-home .home3-single-service-content .ser-icon { margin-right: 20px;}
+     .evalo-home .home3-project-bg,.evalo-home .home3-about-bg,.evalo-home .home3-feature-product-bg,.evalo-home .home3-feature-product-area,.evalo-home .home3-testimonial-product-bg{background-image: none !important; background: #f0f6fb;}
+     .evalo-home .home3-service-area.home3 { margin-top: 80px;}
+     .evalo-home .home3-service-wrapper {padding-top: 50px;}
+     .evalo-home .home3-project-margin {margin-top: 50px;}
+     .evalo-home .home3-project-bg { padding-top: 85px; padding-bottom: 60px;}
+     .evalo-home .home3-project-wrapper {margin-top: -200px;}
+     .evalo-home .home3-about-bg {padding-bottom: 110px;padding-top: 0;}
+     .evalo-home .intro-area.home3 { margin-top: 85px;margin-bottom: 60px;}
+     .evalo-home .row.intro-wrapper {padding-top: 35px;}
+     .evalo-home .home3-intro-text h5 {font-size: 22px;}
+     .evalo-home .home3-facts-area { margin-top: 85px;}
+     .evalo-home .home3-facts-area .title h3 { padding-bottom: 5px;}
+     .evalo-home .home3-single-facts.theme-bg.mt-60 {margin-top: 0;}
+     .evalo-home .row.home3-facts-wrapper {margin-top: 40px;}
+     .evalo-home .home3-feature-product-img-wrapper-margin {margin-top: 50px;  justify-content: center !important; }
+     .evalo-home .home3-feature-product-area {padding-top: 0;margin-top: 60px; padding-left: 0;padding-right: 0;}
+     .evalo-home .home3-feature-product-left-content {padding-top: 80px;}
+     .evalo-home .home3-feature-product-bg {padding-bottom: 70px;}
+     .evalo-home .home3-team-img-wrapper-margin { margin-left: 0; margin-right: 0; margin-top: 50px;}
+     .evalo-home .home3-team-area {padding-top: 80px;padding-bottom: 0px;}
+     .evalo-home .home3-team-primary-border { left: -10px;}
+     .evalo-home .home3-testimonial-area {padding-top: 40px;}
+     .evalo-home .home3-testimonial-product-bg {padding-bottom: 60px;padding-top: 85px;}
+     .evalo-home .row.testimonial-active3 {
+          padding-bottom: 50px;
+     }
+     .evalo-home .t-person-width {max-width: 45px;}
+     .evalo-home .home3-testimonial-shape1 {
+          left: 41px;
+          top: 40%;
+          width: 15px;
+          height: 15px;
+     }
+     .evalo-home .home3-testimonial-shape2 {
+          left: 70px;
+          width: 20px;
+          height: 20px;
+     }
+     .evalo-home .home3-testimonial-shape3 {
+          width: 10px;
+          height: 10px;
+          right: 100px
+     }
+     .evalo-home .home3-testimonial-shape4 {
+          width: 20px;
+          height: 20px;
+     }
+     .evalo-home .home3-testimonial-shape4 {right: 60px;}
+     .evalo-home .testimonial-text3 p { font-size: 18px;}
+     .evalo-home .home3 .testi-info { margin-top: 0;}
+     .evalo-home .blog-area.home3 {
+          padding-top: 85px;
+          padding-bottom: 60px;
+     }
+     .evalo-home .home3 .single-blog-content {padding-left: 25px;}
+     .evalo-home .home3 .footer-heading h4 {font-size: 20px;}
+     .evalo-home .footer-heading .my-btn { margin-bottom: 15px;}
+     .evalo-home .home3-blog-wrapper { margin-top: 50px;}
+     .evalo-home .f-heading-text {margin-top: 15px;padding-bottom: 15px;}
+     .evalo-home .home3 .footer-top { padding-top: 0;margin-top: 60px;}
+     .evalo-home .home3-project-wrapper {
+          margin-top: 50px;
+     }
+     .evalo-home .home3-project-wrapper .pt-200,.evalo-home .home3-project-wrapper .pt-250 { padding-top: 0;}
+     .evalo-home .home3-project-wrapper .pb-200,.evalo-home .home3-project-wrapper .pb-250 { padding-bottom: 0;}
+     .evalo-home .home3-single-project {margin-bottom: 30px;}
+
+     .evalo-home .home3-team-img img {
+          margin-bottom: 30px;
+          width: 78%;
+          position: static !important;
+     }
+     .evalo-home .home3-team-img { text-align: center;}
+     .evalo-home .testimonial-text3 {
+          margin-top: 0;
+     }
+     .evalo-home .quit {margin-bottom: 20px;}
+     .evalo-home .home3-single-intro-content {padding: 70px 25px 45px 30px;}
+     .evalo-home .home3-about-img-border {
+          width: 280px;
+          height: 200px;
+     }
+     .evalo-home .about-img1 {
+          left: -25px;
+          top: -32px;
+          width: 67%;
+     }
+     .evalo-home .about-img2 {
+          right: -25px;
+          bottom: -29px;
+          width: 67%;
+     }
+     .evalo-home .home3-about-bg .row.pt-90 {
+          padding-top: 80px;
+     }
+     .evalo-home .home3-single-service-border {
+          padding-left: 25px;
+          padding-right: 20px;margin-bottom: 40px;
+     }
+     .evalo-home .home3-single-service-content .ser-icon span {
+          width: 75px;
+          height: 75px;
+          line-height: 75px;
+          font-size: 30px;
+     }
+     .evalo-home .home3.brand-area {margin-top: 0; }
+     .evalo-home .home3.brand-area ul {margin-top: 40px;}
+     .evalo-home .single-brand { margin-bottom: 50px;}
+     .evalo-home .home3 .team-img1,.evalo-home .home3 .team-img1,.evalo-home .home3 .team-img1{position: static !important;}
+     .evalo-home .blog-area .modal-content h2 {font-size: 18px;padding: 40px 0 20px 0;}
+     .evalo-home .blog-area .modal-body {padding-left: 15px;padding-right: 15px;}
+     .evalo-home .blog-area .blog-meta {width: 100% !important;}
+     .evalo-home .blog-area .blog-meta li {font-size: 14px;}
+     .evalo-home .blog-area .pro-modal-footer .modal-tags h6 { margin-bottom: 10px !important;}
+     .evalo-home .home3-single-service-content::after { z-index: -1;}
+     /* home4 */
+     .evalo-home .home4 .header-right {  margin-left: 0;}
+     .evalo-home .container-wrapper {
+          padding-left: 15px;
+          padding-right: 15px;
+     }
+     .evalo-home .home4 .header-right .social-link a {
+          font-size: 16px;
+     }
+     .evalo-home .facts-area.home4 {
+          margin-top: 95px;
+          margin-bottom: 45px;
+     }
+     .evalo-home .home4 .single-slider.slider-height1 {
+          height: 650px;
+     }
+     .evalo-home .home4 .about-left-content {  margin-bottom: 25px;}
+     .evalo-home .home4 .about-bg-right {
+          right: -180px;
+          top: 88%;
+     }
+     .evalo-home .home4 .about-text {
+          margin-top: 0;
+     }
+     .evalo-home .about-area.home4 .btn-2 {
+          padding-top: 20px;margin-bottom: 0;
+     }
+     .evalo-home .about-dotted-shape {
+          bottom: -105px;
+          right: 0;
+          z-index: -1;
+     }
+     .evalo-home .service-area.home4 {
+          margin-top: 0px;
+          margin-bottom: 50px;
+     }
+     .evalo-home .home4 .title h4 {margin-bottom: 0;}
+     .evalo-home .service-text h5 {
+          font-size: 20px;
+     }
+     .evalo-home .service-area.home4 .single-service-content {padding: 55px 15px 45px 15px;}
+     .evalo-home .home4 .feature-img {
+          margin-left: 0px;
+          padding-right: 0px;
+          margin-bottom: 50px;
+     }
+     .evalo-home .home4 .title h3 {
+          margin-bottom: 25px;
+     }
+     .evalo-home .product-area.home4 {
+          padding-bottom:70px;
+     }
+     .evalo-home .home4.banner-area {
+          margin-top: 30px;
+          margin-bottom: 70px;
+     }
+     .evalo-home .home4 .ser-icon {
+          width: 65px;
+     }
+     .evalo-home .home4 .banner-wrapper h4 {
+          font-size: 24px;
+     }
+     .evalo-home .home4 .banner-wrapper {
+          padding-bottom: 55px;
+     }
+     .evalo-home .home4-feature2.home4 .title h3{margin-bottom: 0;}
+     .evalo-home .home4-feature2-img-margin {
+          margin-right: 0;
+          margin-top: 75px;
+     }
+     .evalo-home .sp-feature-text.sp-feature-text2{margin-top: 0;}
+     .evalo-home .home4-feature3 .home4-feature-product-img {
+          margin-left: 0;margin-top: 60px;
+     }
+     .evalo-home .home4-feature3 {
+          background: #F3F9FB;
+          margin-top: 110px;
+          padding-top: 45px;
+          padding-bottom: 55px;
+     }
+     .evalo-home .home4.testimonial-area {
+          margin-top: 70px;
+          padding-top: 35px;
+          padding-bottom: 105px;
+     }
+     .evalo-home .testimonial-wrapper4 {
+          padding-top: 10px;
+     }
+     .evalo-home .blog-area.home4 {
+          padding-top: 85px;
+          padding-bottom: 60px;
+     }
+     .evalo-home .blog-area.home4 .btn-2 {
+          padding-top: 0px;
+     }
+     .evalo-home .btn-2 a{ font-size: 16px;}
+     .evalo-home .home4 .footer-widget.f-subscriber-area {
+          padding-right: 0;
+     }
+     .evalo-home .footer-area.home4 {
+          padding-top: 25px;
+     }
+     .evalo-home .service-bg-right { right: -10%;top: auto; bottom: -150px; width: 50%;}
+     .evalo-home .home4 .about-bg-left {left: -30%;top: auto;bottom: 0; width: 70%;}
+     .evalo-home .about-dotted-shape {top: 75%;}
+     .evalo-home .about-area.home4 { padding-bottom: 80px;margin-bottom: 0;}
+     .evalo-home .home4.home4-feature3 {margin-top: 70px;
+          padding-top: 62px;
+          padding-bottom: 72px;
+     }
+     .evalo-home .home4.testimonial-area {padding-top: 10px;padding-bottom: 80px;}
+     .evalo-home .row.testimonial-active4 {
+          padding-bottom: 50px;
+     }
+     .evalo-home .home4-feature2.pr-90 {
+          padding-right: 0;
+     }
+     .evalo-home .home4.home4-feature-product-area{padding-top:20px;padding-bottom: 20px;}
+     /* home5 */
+     .evalo-home .slider-height5, .evalo-home .slider-height6{min-height: 800px; }
+     .evalo-home .home5-about-margin {
+          margin-top: -480px;
+     }
+     .evalo-home .home5 .download-logo {
+          padding-top: 10px;
+          padding-bottom: 0;
+     }
+     .evalo-home .home5 .slider-img1 {
+          margin-top: 50px;
+          margin-right: 0;
+          padding-left: 0;
+     }
+     .evalo-home .slider-height5 .slider-content {
+          margin-top: 40px;
+     }
+     .evalo-home .home5 .download-logo img {
+          max-width: 130px;
+     }
+     .evalo-home .home5-about-left-img {
+          margin-left: 0px;
+          margin-bottom: 0;
+     }
+    .evalo-home .home5-about-bg,.evalo-home .home5-sp-feature-bg,.evalo-home .home5-more-feature-bg,.evalo-home .home5-review-bg,.evalo-home .home5-cta-feature-bg,.evalo-home .service-cta-banner-bg,.evalo-home .our-team-bg,.evalo-home .about-us-fact-bg{background: #F3F9FB;background-image: none !important;}
+    .evalo-home .home5-about-margin {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-bottom: 80px;
+}
+    .evalo-home .home5-about-bg {
+          padding-top: 0;
+          padding-bottom: 80px;
+     }
+     .evalo-home .home5-feature-icon img {
+          max-width: 35px;
+     }
+     .evalo-home .home5-feature-icon.mb-30 {margin-bottom: 20px;}
+     .evalo-home .home5-feature-area .ser-icon span {
+          width: 55px;
+          height: 55px;
+          line-height: 55px;
+          margin-bottom: 15px;
+     }
+     .evalo-home .home5 .single-service {
+          margin-bottom: 35px;
+     }
+     .evalo-home .home5-feature-wrapper2{margin-top: 40px;}
+     .evalo-home .home5-feature-img {margin-bottom: 30px;}
+     .evalo-home .home5-sp-feature-margin {
+          margin-top: 105px;
+     }
+     .evalo-home .home5-sp-feature-bg {
+          padding-top: 20px;
+          padding-bottom: 70px;
+     }
+     .evalo-home .home5-sp-feature-img {
+          margin-right: 0;
+     }
+     .evalo-home .home5 .service-text h6 {
+          margin-bottom: 0;
+     }
+     .evalo-home .home5-screenshot-area {
+          margin-top: 0;margin-bottom: 80px;
+     }
+     .evalo-home .home5-screenshot-area .title h4 {padding-bottom: 0;margin-bottom: 0;}
+     .evalo-home .home5-screenshot-wrapper .slick-track {padding-top: 60px;}
+     .evalo-home .home5-more-feature-bg {
+          padding-bottom: 70px;
+          padding-top: 80px;
+     }
+     .evalo-home .home5-more-feature-wrapper{
+          margin-top: 20px;
+     }
+     .evalo-home .home5-package-wrapper .packages {
+          padding-top: 60px;
+          padding-bottom: 70px;
+     }
+     .evalo-home .home5-price-tab-area .over-loop-margin {margin-top: 0;}
+     .evalo-home .home5-price-tab-area .price-item-list {
+          margin-bottom: 30px;
+     }
+     .evalo-home .home5-price-tab-area .over-loop-margin {
+          position: static;
+     }
+     .evalo-home .home5-price-tab-area {
+          padding-top: 95px;
+     }
+     .evalo-home .home5 .title p {
+          margin-top: 30px;
+     }
+     .evalo-home .home5-price-tab-area .price-menu-box {
+          margin-top: 10px;margin-bottom: 20px;
+     }
+     .evalo-home .home5-price-tab-area .tab-content > .tab-pane.fade.show {
+          opacity: 1;
+     }
+     .evalo-home .home5-price-tab-area .tab-content > .tab-pane.fade {
+          opacity: 0;
+     }
+     .evalo-home .home5-price-tab-area .tab-content > .tab-pane.show {display: block;}
+     .evalo-home .home5-price-tab-area .tab-content > .tab-pane {display: none;}
+     .evalo-home .home5 .title p {
+          margin-top: 20px;
+     }
+     .evalo-home .home5-price-tab-area {padding-bottom: 120px;
+     }
+     .evalo-home .review-area-home5-margin {
+          margin-top: 0;
+     }
+     .evalo-home .home5-review-bg {
+          padding-top: 65px;
+          padding-bottom: 85px;
+     }
+     .evalo-home .home5.faq-area {
+          padding-top: 85px;
+          margin-bottom: 0;
+     }
+     .evalo-home .home5 .title p {
+          margin-top: 20px;
+     }
+     .evalo-home .home5-cta-banner-area {
+          margin-top: 90px;
+     }
+     .evalo-home .home5-cta-feature-bg {
+          padding-top: 5px;
+          padding-bottom: 75px;
+     }
+     .evalo-home .footer-area.home5 {
+          padding-top: 5px;
+     }
+     .evalo-home .home5 .footer-widget {
+          padding-right: 0;
+     }
+     .evalo-home .home3-project-area .meta-wrapper {margin-top: 40px;padding-left: 30px;padding-right: 20px;}
+     .evalo-home .home3-project-area .blog-modal-img {margin-top: 0;}
+     .evalo-home .home3-project-area .modal-body {padding-left: 20px;padding-right: 20px;}
+     .evalo-home .home3-project-area .modal-content h2 {
+          font-size: 28px;padding-top: 45px;
+     }
+     /* home6 */
+     .evalo-home .slider-email-area {right: -98px;}
+     .evalo-home .slider-social-link-area {left: -62px;}
+     .evalo-home .home6 .slider-content h1 { font-size: 32px;padding-right: 0;}
+     .evalo-home .slider-height6,.evalo-home .slider-height3 {min-height: 500px; }
+     .evalo-home .blog-details-slider-area .page-height {min-height: 400px; }
+     .evalo-home .home6.about-area { margin-top: 0;padding-bottom: 15px;}
+     .evalo-home .home6-about-content { padding-top: 50px;}
+     .evalo-home .home6-work-area {padding-top: 80px;padding-bottom: 40px;}
+     .evalo-home .portfolio-area { padding-top: 90px;padding-bottom: 0;}
+     .evalo-home .portfolio-area { padding-top: 105px;padding-bottom: 25px;}
+     .evalo-home .home3-service-area.home3.home6 { margin-top: 90px; padding-top: 102px;padding-bottom: 35px;}
+     .evalo-home .home6-team-area.home6 {padding-top: 80px;padding-bottom: 80px;}
+     .evalo-home .home6-testimonial-area {padding-top: 80px;padding-bottom: 80px;}
+     .evalo-home .testimonial-text6 > p { font-size: 20px;}
+     .evalo-home .testimonial-text6 {padding: 80px 30px 40px 30px;margin-top: 30px;}
+     .evalo-home .testimonial-text6 .quit {left: 30px;}
+     .evalo-home .blog-area.home6 { padding-top: 80px; padding-bottom: 60px;}
+     .evalo-home .home6-blog-area .single-blog-content h4,.evalo-home .home6-blog-area .single-blog-content span {font-size: 13px;}
+     .evalo-home .single-blog h6 {font-size: 16px;}
+     .evalo-home .home6-blog-area .single-blog .single-blog-content { padding: 18px 15px 20px 15px;}
+     .evalo-home .home6 .f-heading-text h3 {font-size: 26px;}
+     .evalo-home .home6 .port-over-content h3 {font-size: 22px;}
+     .evalo-home .home6.portfolio-area .portfolio-menu button { font-size: 16px;padding: 5px 12px;}
+     .evalo-home .home6 .port-button{margin-top: 25px;}
+     /* home7 */
+     .evalo-home .slider-height7 .slider-content h1, .evalo-home .slider-height7 .slider-content span {font-size: 22px;}
+     .evalo-home .slider-height7{min-height: 400px;}
+     .evalo-home .slider-height7 .slider-content {margin-top: 100px;}
+     .evalo-home .home7.portfolio-area {padding-top: 0;padding-bottom: 110px;}
+     .evalo-home .port-content {
+          font-size: 14px;
+          width: 45px;
+          height: 45px;
+          line-height: 45px;
+     }
+     .evalo-home .home7 .port-over-content {padding-top: 0;padding-bottom: 10px;padding-left: 20px;padding-right: 15px;}
+     .evalo-home .single-portfolio:hover .port-content {top: 20px;}
+     .evalo-home .home7-cta-banner-area {
+          padding-top: 82px;
+          padding-bottom: 80px;
+     }
+     .evalo-home .home7 .port-over-content h3 { font-size: 16px;}
+     .evalo-home .home7 .footer-top { padding-top: 0;}
+     .evalo-home .home8.portfolio-area{padding-bottom: 25px;}
+     .evalo-home .testimonial-area.home8.home4 {padding-top: 10px;padding-bottom: 80px;}
+     .evalo-home .page-height {min-height: 340px;}
+     .evalo-home .page-title {margin-top: 70px;}
+     .evalo-home .single-page h1 {font-size: 32px; margin: 0 0 6px 0;}
+     .evalo-home .team-page .our-team-info {text-align: center; }
+     .evalo-home .service-cta-banner-img-wrapper-margin {margin-left: 0;margin-top: 0;margin-top: 60px;}
+     .evalo-home .service-cta-banner-content {padding-top: 0;}
+     .evalo-home .service-cta-banner-area { padding-top: 12px;}
+     .evalo-home .service-cta-banner-bg {padding-bottom: 70px;padding-top: 80px;}
+     .evalo-home .feature-area.feature-area4.home4.service-page { padding-bottom: 70px;padding-top: 0;}
+     .evalo-home .faq-service-page-area {padding-top: 80px;padding-bottom: 40px;}
+     .evalo-home .faq-service-page-area .faq-wrapper{margin-top: 20px;}
+     .evalo-home .faq-service-page-area .single-faq h5 { font-size: 20px;}
+     .evalo-home .testimonial-area.service-page {margin-top: 60px;margin-bottom: 55px;}
+     .evalo-home .footer-area.service-page { padding-top: 60px;}
+     .evalo-home .feature-area.service-page.home4 .ser-icon { width: 80px;}
+     .evalo-home .feature-area.service-page .ser-icon span  {width: 80px; height: 80px;line-height: 80px;}
+     .evalo-home .feature-area.service-page .ser-icon span img{width: 30px;}
+     .evalo-home .banner-area.service-page{margin-top: 0;padding-top: 15px;}
+     .evalo-home .banner-area.service-page .banner-btn {margin-top: 30px;}
+     .evalo-home .service-page.home4 .ser-icon { width: 50px;}
+     .evalo-home .service-page .single-service h4 {font-size: 20px; margin-bottom: 0; margin-top: 10px;}
+     .evalo-home .our-team-info {
+          bottom: -75px;
+     }
+    /* about-us */
+    .evalo-home .speciality-area .single-service-content { padding: 0;}
+    .evalo-home .our-team-info h3 {  font-size: 20px;}
+    .evalo-home .home3-single-facts p {font-size: 22px;}
+    .evalo-home .about-us-about-area{padding-top: 80px;}
+    .evalo-home .about-us-marker {right: -12px;top: -40px;} 
+    .evalo-home .about-us-marker, .evalo-home .about-us-marker-text {width: 90px;height: 80px;}
+    .evalo-home .about-us-marker h3 {font-size: 12px;margin-bottom: 0;}
+    .evalo-home .about-us-img-wrapper .about-us-img2 {left: -15px;}
+    .evalo-home .about-us-fact-bg{padding-bottom: 30px;padding-top: 40px;}
+    .evalo-home .about-us-fact-bg.home3-facts-area { margin-top: 70px;}
+    .evalo-home .about-us-about-icon {
+          width: 50px;
+          height: 50px;
+          left: -10px;
+          top: -30px;
+     }
+     .evalo-home .about-us-about-icon span {
+          font-size: 22px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+     }
+    .evalo-home .speciality-area {padding-top: 75px;padding-bottom: 30px;}
+    .evalo-home .our-team-bg{padding-top: 80px;padding-bottom: 55px;}
+    .evalo-home .our-team-wrapper {
+	margin-bottom: 85px;}
+    .evalo-home .about-us-team .our-team-wrapper {margin-bottom: 135px;}
+    .evalo-home .our-team-wrapper-margin {padding-top: 25px;}
+    .evalo-home .partner-area{padding-top: 80px;padding-bottom: 30px;}
+    .evalo-home .partner-wrapper  {padding-top: 40px;}
+    .evalo-home .header .my-btn .btn.transparent-bg,.evalo-home .sticky-menu .header .my-btn .btn.transparent-bg {padding: 10px 30px;font-size: 16px;}
+    .evalo-home .our-team-area.team-page{padding-top: 45px;padding-bottom: 105px;}
+    .evalo-home .service-page .banner-wrapper {padding-left: 0;padding-right: 0;}
+    .evalo-home .blog-page-content-info span.pl-10{padding-left: 8px;}
+    .evalo-home .blog-page-content-info span.pr-10{padding-right: 8px;}
+    .evalo-home .blog-page-sidebar {padding-left: 0;padding-right: 0;}
+    .evalo-home .blog-page{margin-top: 120px;margin-bottom: 120px;}
+    .evalo-home .blog-page1-content h4 { font-size: 22px;}
+    .evalo-home .blog-page-content-info span {font-size: 14px;}
+    .evalo-home .blog-page4-area .blog-page1-content {padding-left: 25px;padding-right: 25px;}
+    .evalo-home .blog-page{margin-top: 90px;margin-bottom: 90px;}
+    .evalo-home .blog-page2-area.blog-page{margin-top: 0;margin-bottom: 90px;}
+    .evalo-home .blog-page2-height .page-title {  margin-top: 0;}
+    .evalo-home .blog-page2-area .blog-page1-content { padding-left: 0; padding-right: 0;margin-top: 15px;}
+    .evalo-home .blog-page2-height {min-height: 255px;}
+    .evalo-home .page-title h2 {font-size: 25px;}
+    .evalo-home .blog-page2-area .blog-page1-content.blog-page3-content {padding-left: 0;padding-right: 0; margin-bottom: 50px;}
+    .evalo-home .blog-page1-area.portfolio-area.blog-page {margin-top: 0;margin-bottom: 95px;}
+    .evalo-home .blog-page .my-btn .btn {margin-top: 15px;}
+    .evalo-home .page-title h3 {font-size: 22px;}
+    .evalo-home .page-title {margin-top: 40px;}
+    .evalo-home .blockquote p {font-size: 18px;}
+    .evalo-home .blockquote-icon{padding-right: 20px;}
+     .evalo-home .quote-area { padding: 50px 20px 50px 20px;}
+     .evalo-home .quote-area .blockquote p {font-size: 20px;}
+     .evalo-home .error-area{margin-top: 90px;margin-bottom: 90px;}
+     .evalo-home .error-area h3{font-size: 25px;}
+     .evalo-home .contact-area {margin-top: 80px;margin-bottom: 90px;}
+     .evalo-home .map-wrapper{margin-top: 60px;min-height: 330px;}
+     .evalo-home .faq-page-area {margin-bottom: 70px;padding-top: 90px;}
+     .evalo-home .faq-contact.contact-area {
+          margin-top: 0;
+          margin-bottom: 0;
+          padding-top: 80px;
+          padding-bottom: 70px;
+     }
+     .evalo-home .faq-page-area .card-header .btn-link {font-size: 18px;}
+     .evalo-home .faq-page-area .faq-wrapper .card-body {padding: 0px 0 18px 22px;}
+     .evalo-home .login-register-area{margin-top: 80px;margin-bottom: 25px;}
+     .evalo-home .login-form .f-get-pass{margin-top: 0px;margin-bottom: 40px;}
+     .evalo-home .hm2-bg-shape10 {
+          right: 0%;
+          bottom: 40%;
+     }
+     .evalo-home .hm2-shape-8 {
+          right: 4%;
+          bottom: 40%;
+     }
+     .evalo-home .hm2-middle-dotted {
+          right: 0px;
+          top: -70px;
+     }
+     .evalo-home .hm2-shape {display: none !important; max-width: 32px;max-height: 20px;}
+     .evalo-home .hm2-shape.s-shape, .evalo-home .hm5-shape.s-shape {max-width: 12px;}
+     .evalo-home .hm5-shape{max-width: 30px;max-height: 16px;}
+     .evalo-home .hm5-round-shape-4 {
+          right: 25%;
+          top: 10%;
+     }
+     .evalo-home .hm5-round-shape-3 {
+          left: 82%;
+          top: 16%;
+     }
+     .evalo-home .hm3-shape-1 { left: 1%;}
+     .evalo-home .hm3-shape-9 {left: 42%;top: 8%;}
+     .evalo-home .hm3-shape-3 {bottom: 12%;}
+     .evalo-home .hm3-shape-8 {
+          right: 18%;
+          top: 18%;
+     }
+     .evalo-home .hm3-shape-2,.evalo-home .hm3-shape-5{max-width: 35px;}
+     .evalo-home .hm3-shape.s-shape{max-width: 12px;}
+     .evalo-home .hm3-left-dotted{left:0;}
+     .evalo-home .slider-height3 {min-height: 700px; }
+     .evalo-home .hm3-shape{max-width: 40px;}
+     .evalo-home .hm3-bg-shape{max-width: 40%;}
+     .evalo-home .hm3-bg-shape1{left: 0;}
+     .evalo-home .slider-area.home2 { padding-bottom: 40px;}
+     .evalo-home .service-area.home2 {
+          margin-top: 18px;
+          padding-bottom: 15px;
+     }
+     .evalo-home .feature-area.home2 {  margin-top: 80px; }
+     .evalo-home .feature-area.home2.hm2-feature-area2 { margin-top: 15px;}
+     .evalo-home .feature-area.feature-area3.home2{ margin-top: 20px;margin-bottom: 90px;}
+     .evalo-home .home2 .work-content{margin-top: 0;}
+     .evalo-home .home2.feature-area .feature-img{margin-top: 30px;padding-right: 0;}
+     .evalo-home .home2 .work-bg {
+          padding-top: 80px;
+          padding-bottom: 15px;
+     }
+     .evalo-home .price-area.home2 {
+          margin-top: 80px;
+          margin-bottom: 50px;
+     }
+     .evalo-home .home2 .sp-offer-bg {
+          padding-top: 70px;
+          padding-bottom: 20px;
+     }
+     .evalo-home .home2 .sp-feature-content{margin-bottom: 0;}
+     .evalo-home .home2.testimonial-area {
+          padding-top: 20px;
+          margin-bottom: 10px;
+     }
+     .evalo-home .home2.banner-area {
+          bottom: -130px;
+          margin-top: -110px;
+     }
+     .evalo-home .tool-item1 {
+          left: 50px;
+          max-width: 40%;
+     }
+     .evalo-home .tool-item2 {
+          left: -3px;
+     }
+     .evalo-home .tool-item3 {
+          right: 82px;
+     }
+     .evalo-home .tool-item7 {
+          top: 48%;
+     }
+     .evalo-home .tool-item6 {
+          bottom: 100px;
+     }
+     .evalo-home .tool-item5 {
+          top: 38%;
+          max-width: 30%;
+     }
+     .evalo-home .bounce-animate2 {
+          animation-name: float-bob;
+          animation-duration: 3s;
+          animation-iteration-count: infinite;
+          animation-timing-function: linear;
+     }
+     .evalo-home .footer-counder-wrapper {
+          margin-bottom: 50px;
+     }
+     .evalo-home .tool-item8.position-absolute.tools {
+          bottom: 155px;
+          left: 40%;
+     }
+     .evalo-home .tool-item9.position-absolute.tools {
+          right: 0;
+          bottom: 80px;
+          max-width: 30%;
+     }
+     .evalo-home .work-img {margin-bottom: 0px;}
+     .evalo-home .home4 .testimonial-wrapper{margin-right: 0;margin-top: 0;}
+     .evalo-home .portfolio-modal-content .modal-body {
+          padding-left: 15px;
+          padding-right: 15px;
+     }
+     .evalo-home .portfolio-modal-content .modal-content h2 {font-size: 22px;}
+     .evalo-home .portfolio-modal-content .port-over-content {
+          padding-left: 20px;
+          padding-right: 20px;
+     }
+     .evalo-home .service-text-margin{margin-top: 0;}
+     .evalo-home .home5.feature-area {
+          margin-top: 0;
+          padding-bottom: 80px;
+     }
+     .evalo-home .meta-wrapper {
+          padding-left: 30px;
+          padding-right: 30px;
+     }
+     .evalo-home .portfolio-area .portfolio-menu button {
+          font-size: 17px;
+          padding: 4px 10px;
+     }
+     .evalo-home .home5-screenshot-area .slick-slide img{opacity: 1;}
+     .evalo-home .home5-screenshot-wrapper{padding-bottom: 10px;}
+     .evalo-home .pricing-plan-section ul.price-nav li a {
+          padding: 15px 25px;
+          font-size: 16px;
+     }
+     .evalo-home h4.modal-title {  font-size: 22px;}
+     .evalo-home .footer-widget {
+          padding-bottom: 15px;
+     }
+     .evalo-home .top span {
+          font-size: 12px;
+          padding: 6px 10px;
+     }
+     .evalo-home .blockquote {
+          margin-top: 25px;
+          margin-bottom: 25px;
+     }
+     .evalo-home .blog-posts {
+          padding-bottom: 20px;
+     }
+     .evalo-home .review-comments-area {
+          margin-top: 60px;
+     }
+     .evalo-home .review-comments-are {
+          margin-top: 35px;
+     }
+     .evalo-home .blog-page2-area .my-btn { margin-top: 0;}
+     .evalo-home .pagination-margin{margin-top: 0;}
+     .evalo-home .blog-page1-content.blog-page3-content { margin-top: 15px;margin-bottom: 0;}
+     .evalo-home .blog-page1-content {
+          margin-top: 16px;
+     }
+     .evalo-home .blog-page3-area .blog-page1-content.blog-page3-content { margin-bottom: 0;}
+     .evalo-home .portfolio-area {
+          padding-top: 78px;
+          padding-bottom: 0;
+     }
+     .evalo-home .blog-page4-area .my-btn,.evalo-home .blog-page5-area .my-btn { margin-top: 10px;}
+     .evalo-home .blog-details-slider-area .page-title {padding-bottom: 30px;}
+     .evalo-home .blog-details-area.blog-page {margin-top: 40px;}
+     .evalo-home .author-post-details .author-img { margin-bottom: 20px;}
+     .evalo-home .blog-gallery-page .slick-arrow .l-a, .evalo-home .blog-gallery-page .slick-arrow .r-a {
+          font-size: 18px;
+          width: 30px;
+          height: 30px;
+          line-height: 30px;
+          left: 15px;
+     }
+     .evalo-home .blog-gallery-page .slick-arrow .r-a {left: auto; right: 15px;}
+     .evalo-home .service-area.home4.service-page {
+          padding-top: 32px;
+          margin-bottom: 50px;
+     }
+     .evalo-home .work-bg .title p{margin-bottom: 0;}
+     .evalo-home .feature-ser-heading .feature-ser-icon {
+          margin-right: 10px;
+     }
+     .evalo-home .home6.portfolio-area {
+          padding-bottom: 30px;
+     }
+     .evalo-home .home3-service-area.home3.home6 { margin-top: 60px;padding-top: 80px;padding-bottom: 52px;}
+     .evalo-home .footer-area.home6 {
+          padding-top: 70px;
+     }
+     .evalo-home .home6 .footer-top {
+          padding-top: 0;
+          padding-bottom: 0;
+          margin-top: 50px;
+     }
+     .evalo-home .home6 .footer-border-bottom {
+          padding-top: 80px;
+     }
+     .evalo-home .home7.portfolio-area {
+          padding-bottom: 90px;
+     }
+     .evalo-home .home8.portfolio-area {
+          padding-bottom: 30px;
+     }
+     .evalo-home .footer-area.home7,.evalo-home .footer-area.home8 {
+          padding-top: 58px;
+     }
+     .evalo-home .blog-details-page4 .reply-form.contact-form,.evalo-home .blog-gallery-page .reply-form.contact-form,.evalo-home .blog-quote-page .reply-form.contact-form{
+          margin-bottom: 0;
+     }
+     .evalo-home .blockquote span {
+          font-size: 32px;
+          padding-right: 20px;
+     }
+     .evalo-home .about-us-img-wrapper {
+          margin-right: 5px;
+          margin-left: 25px;
+     }
+     .evalo-home .about-us-img-wrapper .about-us-img2 {
+          left: -30px;
+     }
+     .evalo-home .blog-details-slider-area .page-title h3 {
+          font-size: 22px;
+          margin-bottom: 10px;
+     }
+     .evalo-home .blog-details-area.blog-page {
+          margin-top: 18px;
+     }
+
+}
+
+
+
+@media screen and (max-width: 360px) {
+     .evalo-home .home6-blog-area .single-blog .single-blog-content { padding: 10px;}
+     .evalo-home .home6-blog-area .single-blog-content .mb-10 {margin-bottom: 4px;}
+     .evalo-home h4.modal-title {font-size: 19px;}
+
+}
+
+
+/* SM Small Device :550px. */
+@media screen and (min-width: 576px) and (max-width: 767px) {
+     .evalo-home .footer-counder-wrapper {
+          margin-bottom: 20px;
+     }
+     .evalo-home .meta-wrapper {
+          padding-left: 40px;
+          padding-right: 40px;
+     }
+     .evalo-home .modal-tags h6 {
+          padding-bottom: 0;
+     }
+     .evalo-home .screenshot-wrapper img {padding: 6px;}
+     .evalo-home .single-slider.slider-height1 { height: 1020px;}
+     .evalo-home .slider-content h1 {font-size: 37px;margin-bottom: 0;padding-right: 30px;}
+     .evalo-home .slider-content p { font-size:19px;}
+     .evalo-home .slider-img1 { margin-top: 60px;}
+     .evalo-home .single-service-content {padding: 50px 30px 25px 45px;}
+     .evalo-home .home2 .single-service-content {padding: 50px 30px 30px 30px;}
+     .evalo-home .single-facts{ width: 220px;}
+     .evalo-home .faq-wrapper h6 a.btn::after {font-size: 12px;}
+     .evalo-home .faq-wrapper .btn {font-size: 18px;}
+     .evalo-home .screenshot-area {margin-bottom: 195px;}
+     .evalo-home .single-work-content h5 {font-size: 24px}
+     .evalo-home .banner-area {  bottom: -148px;  margin-top: -76px;}
+     .evalo-home .footer-top {padding-top: 20px;padding-bottom: 20px;}
+     .evalo-home .banner-wrapper h4{  font-size: 28px;}
+     /* home2 */
+     .evalo-home .home2.banner-area {bottom: -112px;margin-top: -75px;}
+     .evalo-home .f-count span { font-size: 35px;}
+     .evalo-home .single-f-counter p {max-width: 80px;font-size: 15px;}
+     .evalo-home .testimonial-active2-variable-width .slick-slide,.evalo-home .product-active4-variable-width .slick-slide {width: 550px;}
+     /* home3 */
+     .evalo-home .home3-single-intro-content { padding: 85px 45px 65px 45px;}
+     .evalo-home .about-img1 {left: -60px;width: 80%;}
+     .evalo-home .about-img2 {right: -60px;width: 80%;}
+     .evalo-home .home3-single-service-border {padding-left: 35px;padding-right: 30px;}
+     .evalo-home .home3-team-img img { width:46%;position: absolute !important;}
+     .evalo-home .home3 .team-img1,.evalo-home .home3 .team-img1,.evalo-home .home3 .team-img1{position: absolute !important;}
+     .evalo-home .team-img2 {right: 0;}
+     .evalo-home .team-img3 {bottom: -32px;}
+     .evalo-home .home3.brand-area {margin-top: 50px;}
+     .evalo-home .home3-about-img-border {
+          width: 385px;
+          height: 320px;
+     }
+     .evalo-home .about-img1 {
+          left: -87px;
+          width: 85%;
+          top: -90px;
+     }
+     .evalo-home .about-img2 {
+          right: -85px;
+          width: 85%;
+          bottom: -85px;
+     }
+     .evalo-home .home3-about-img-wrapper-margin {margin-top: 90px;}
+     .evalo-home .home3-about-bg {padding-bottom: 190px;}
+     .evalo-home .blog-area .modal-content h2 {font-size: 24px;padding: 40px 0 20px 0;}
+     .evalo-home .blog-area .modal-body {padding-left: 35px;padding-right: 35px;}
+     .evalo-home .blog-area .blog-meta {width: 70% !important;}
+     .evalo-home .blog-area .blog-meta li {font-size: 16px;}
+     .evalo-home .blog-area .pro-modal-footer .modal-tags h6 { margin-bottom: 0px !important;}
+     /* home4 */
+     .evalo-home .home4 .single-slider.slider-height1 {height: 900px;}
+     .evalo-home .home4  .single-f-counter p {max-width: 100%;}
+     .evalo-home .home4 .f-count.pr-20 {padding-right: 0;}
+     .evalo-home .home4 .single-f-counter {text-align: center;}
+     .evalo-home .home4 .about-bg-right {
+          right: -150px;
+          top: 75%;
+     }
+     .evalo-home .title h4 {font-size: 27px;}
+     .evalo-home .service-area.home4 .single-service-content {padding: 65px 60px 55px 60px;}
+     /* home5 */
+     .evalo-home .slider-height5 {min-height: 1000px; }
+     .evalo-home .home5-price-tab-area .over-loop-margin {
+          position: absolute;
+     }
+     .evalo-home .home5-price-tab-area .tab-content > .tab-pane.fade {
+          opacity: 1;
+     }
+     .evalo-home .home5-price-tab-area .tab-content > .tab-pane {display: block;}
+     .evalo-home .home3-project-area .meta-wrapper {padding-left: 60px;padding-right: 60px;}
+     .evalo-home .home6-blog-area .single-blog .single-blog-content { padding: 40px 20px 35px 45px;}
+     .evalo-home .home6-blog-area .single-blog-content h6{font-size: 18px;}
+     .evalo-home .home7 .port-over-content {padding-bottom: 30px; padding-left: 30px;padding-right:20px}
+     .evalo-home .home7 .port-over-content h3 { font-size: 22px;}
+     .evalo-home .about-us-marker, .evalo-home .about-us-marker-text {width: 150px;height: 150px;}
+     .evalo-home .about-us-marker h3 { font-size: 20px;}
+     .evalo-home .home3-single-facts p {font-size: 20px;}
+     .evalo-home .blog-portfolio-content.blog-portfolio-content-shadow h6 { font-size: 20px;}
+     .evalo-home .blog-page .my-btn .btn {margin-top: 0;}
+     .evalo-home .page-title h3 {font-size: 26px;}
+     .evalo-home .error-area h3{font-size: 28px;}
+     .evalo-home .home6 .slider-content h1 { font-size: 42px;}
+     .evalo-home .slider-content span {font-size: 20px;}
+     .evalo-home .shape { max-width: 30px;max-height: 15px;}
+     .evalo-home .slider-middle-dotted {
+          top: 0px;
+          left: 20px;
+          max-width: 100px;
+          max-height: 100px;
+     }
+     .evalo-home .home3 .slider-height3 .slider-content{ margin-top: 50px;}
+     .evalo-home .slider-height3 {min-height: 900px; }
+     .evalo-home .tool-item6 {
+          bottom:0px;
+     }
+     .evalo-home .tool-item7 {
+          top: 65%;
+     }
+     .evalo-home .tool-item3 {
+          right: inherit;
+     }
+     .evalo-home .slider-height2 {
+          height: 720px;
+     }
+     .evalo-home .brand-area.home2 {
+          margin-top: 80px;
+     }
+     .evalo-home .testimonial-text2 {
+          padding-left: 40px;
+          padding-right: 40px;
+     }
+     .evalo-home .tool-item8.position-absolute.tools {
+          bottom: 95px;
+          left: 40%;
+     }
+     .evalo-home .tool-item9.position-absolute.tools {
+          right: 80px;
+          bottom: 0;
+          min-width:auto;
+     }
+     .evalo-home .home2 .work-bg {
+          padding-bottom: 122px;
+     }
+     .evalo-home .blog-page2-height{min-height: 360px;}
+
+     .evalo-home .testimonial-wrapper {
+          margin-right: 0;
+     }
+     .evalo-home .portfolio-modal-content .modal-content h2 {font-size: 28px;}
+     .evalo-home .portfolio-modal-content .port-over-content {
+          padding-left: 40px;
+          padding-right: 30px;
+     }
+     .evalo-home .home3 .footer-heading h4 {font-size: 28px;}
+     .evalo-home h4.modal-title {  font-size: 30px;}
+     .evalo-home .our-team-info {
+          bottom: -90px;
+     }
+     .evalo-home .about-us-img-wrapper .about-us-img2 {
+          left: -40px;
+     }
+     .evalo-home .about-us-img-wrapper {
+          margin-right: 20px;
+          margin-left: 25px;
+     }
+     .evalo-home .about-us-marker {
+          right: -30px;
+     }
+
+
+
+
+}
+
+
+
+/* SM Small Device :550px. */
+@media screen and (min-width: 400px) and (max-width: 576px) {
+     /* home1 */
+     .evalo-home .single-slider.slider-height1 { height: 920px;}
+     .evalo-home .meta-wrapper {
+          padding-left: 40px;
+          padding-right: 40px;
+     }
+     .evalo-home .single-team-img {
+          padding-left: 30px;
+          padding-right: 30px;
+     }
+     .evalo-home .slider-content span {font-size: 18px;}
+     .evalo-home .slider-content h1 {font-size: 34px;margin-bottom: 0;padding-right: 50px;}
+     .evalo-home .slider-content p { font-size: 17px;}
+     .evalo-home .title h3 {font-size: 30px;}
+     .evalo-home .my-btn .btn.f-18 {padding: 10px 35px;}
+     .evalo-home .single-service-content {padding: 42px 25px 18px 40px;}
+     .evalo-home .home2 .single-service-content {padding: 42px 30px 18px 30px;}
+     .evalo-home .single-facts{ width: 195px;}
+     .evalo-home .screenshot-area {margin-bottom: 178px;}
+     .evalo-home .screenshot-wrapper img {padding: 4px;}
+     .evalo-home .banner-area {  bottom: -148px;  margin-top: -76px;}
+     .evalo-home .footer-top {padding-top: 20px;padding-bottom: 20px;}
+     .evalo-home .home2.banner-area {bottom: -112px;margin-top: -85px;}
+     .evalo-home .testimonial-active2-variable-width .slick-slide,.evalo-home .product-active4-variable-width .slick-slide{width: 400px;}
+     .evalo-home .home4 .single-slider.slider-height1 {
+          height: 850px;
+     }
+     .evalo-home .home4 .about-bg-right {
+          top: 76%;
+     }
+     .evalo-home .title h4 {
+          font-size: 27px;
+     }
+     .evalo-home .service-area.home4 .single-service-content {padding: 55px 60px 45px 60px;}
+     /* home3 */
+     .evalo-home .home3-single-intro-content { padding: 85px 45px 65px 45px;}
+     .evalo-home .about-img1 {left: -60px;width: 80%;}
+     .evalo-home .about-img2 {right: -60px;width: 80%;}
+     .evalo-home .home3-single-service-border {padding-left: 35px;padding-right: 30px;}
+     .evalo-home .blog-area .modal-content h2 {font-size: 22px;padding: 40px 0 20px 0;}
+     .evalo-home .blog-area .blog-meta {width: 80% !important;}
+     .evalo-home .home3 .footer-heading h4 {font-size: 25px;}
+     /* home5 */
+     .evalo-home .slider-height5 {min-height: 900px; }
+     .evalo-home .home3-project-area .meta-wrapper {margin-top: 40px;padding-left: 50px;padding-right: 50px;}
+     .evalo-home .home6-blog-area .single-blog .single-blog-content { padding: 25px 15px 20px 15px;}
+     .evalo-home .home7 .port-over-content {padding-bottom: 20px;}
+     .evalo-home .home7 .port-over-content h3 { font-size: 18px;}
+     .evalo-home .slider-middle-dotted {
+          top: 0px;
+          left: 20px;
+          max-width: 100px;
+          max-height: 100px;
+     }
+     .evalo-home .home3 .slider-height3 .slider-content{ margin-top: 50px;}
+     .evalo-home .slider-height3 {min-height: 870px; }
+     .evalo-home .tool-item7 {
+          top: 50%;
+     }
+     .evalo-home .tool-item9.position-absolute.tools {
+          right: 35px;
+     }
+     .evalo-home .tool-item3 {
+	     right: 115px;
+     }
+     .evalo-home .slider-height2 {
+          height: 700px;
+     }
+     .evalo-home .tool-item1 {
+          max-width: 35%;
+     }
+     .evalo-home .portfolio-modal-content .modal-content h2 {font-size: 25px;}
+     .evalo-home .home3-about-img-border {
+          width: 280px;
+          height: 220px;
+     }
+     .evalo-home .testimonial-text2 {
+          padding-left: 40px;
+          padding-right: 40px;
+     }
+     .evalo-home h4.modal-title {  font-size: 25px;}
+
+
+
+}
+
+
+/* SM Small Device :550px. */
+@media screen and (min-width: 500px) and (max-width: 600px) {
+
+     .evalo-home .service-area.home4 .single-service-content {padding: 55px 80px 45px 80px;}
+     /* home5 */
+     .evalo-home .slider-height5 {min-height: 1000px; }
+     .evalo-home .home6-blog-area .single-blog .single-blog-content { padding: 40px 20px 35px 30px;}
+     .evalo-home .slider-height7 .slider-content h1, .evalo-home .slider-height7 .slider-content span {font-size: 25px;}
+     .evalo-home .slider-height2 {
+          height: 720px;
+     }
+     .evalo-home .tool-item1 {
+          max-width: 30%;
+     }
+     .evalo-home .home3-about-img-border {
+          width: 380px;
+          height: 300px;
+     }
+     .evalo-home .about-img1 {
+          left: -67px;
+          width: 75%;
+     }
+     .evalo-home .about-img2 {
+          right: -65px;
+          width: 75%;
+     }
+     .evalo-home .page-title h3 {
+          font-size: 26px;
+     }
+     .evalo-home .pricing-plan-section .tab-content .table-content .price-table {width: 330px;}
+}

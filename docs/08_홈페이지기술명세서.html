@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <title>제8회 교육 공공데이터 AI활용대회 홈페이지 개발 가이드 - 8장. 홈페이지 기술 명세서</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        max-width: 210mm;
+        margin: 0 auto;
+        padding: 20mm;
+        font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+        line-height: 1.6;
+        color: #000;
+        background-color: #fff;
+        box-sizing: border-box;
+        text-align: justify;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #000;
+        border-bottom: 2px solid #000;
+        padding-bottom: 20px;
+        font-weight: 700;
+      }
+      h2 {
+        font-size: 18pt;
+        color: #003366;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+      h3 {
+        font-size: 14pt;
+        color: #004d99;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+      h4 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      p {
+        margin-bottom: 10px;
+        text-align: justify;
+      }
+      ul,
+      ol {
+        margin-bottom: 15px;
+        padding-left: 25px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        font-size: 10pt;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #000;
+        padding: 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background-color: #f2f2f2;
+        font-weight: 700;
+        text-align: center;
+      }
+      tr:nth-child(even) {
+        background-color: #fafafa;
+      }
+      code {
+        font-family: 'Consolas', 'Courier New', monospace;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
+      pre {
+        font-family: 'Consolas', 'Courier New', monospace;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 15px;
+        font-size: 9pt;
+        line-height: 1.4;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        margin-bottom: 20px;
+      }
+      .cover-info {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 11pt;
+        color: #555;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+      .code-title {
+        font-weight: bold;
+        font-size: 10pt;
+        margin-bottom: 5px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>8장. 홈페이지 기술 명세서</h1>
+
+    <div class="cover-info">
+      <p><strong>문서명:</strong> 제8회 교육 공공데이터 AI활용대회 홈페이지 개발 가이드</p>
+      <p><strong>작성일:</strong> 2026년 3월 7일 | <strong>버전:</strong> v1.2 (최종본)</p>
+    </div>
+
+    <h2>8.1 프로젝트 개요</h2>
+    <p>
+      본 프로젝트는 제8회 교육 공공데이터 AI활용대회의 온라인 접수 및 운영을 위한 웹 플랫폼을 구축하는 것입니다.
+      참가자의 접근성을 높이고, 대용량 파일의 안정적인 접수, AI 기술을 활용한 사용자 지원 및 심사 보조 기능을 제공하는
+      것을 목표로 합니다.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%">항목</th>
+          <th style="width: 75%">내용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>대회 기간</strong></td>
+          <td>2026년 3월 ~ 8월 (접수: 3~5월, 심사: 6~7월, 시상: 8월)</td>
+        </tr>
+        <tr>
+          <td><strong>참가 부문</strong></td>
+          <td>
+            1. 초등(영상): AI 활용 소속 학교 홍보 영상<br />2. 중·고등(AI분석): AI 활용 아이디어 기획 및 데이터 분석<br />3.
+            일반(AI서비스): AI 활용 아이디어 기획 및 프로토타입
+          </td>
+        </tr>
+        <tr>
+          <td><strong>핵심 목표</strong></td>
+          <td>전년 대비 접수 20% 증가 (목표 500건 이상), 무중단 안정적 운영</td>
+        </tr>
+        <tr>
+          <td><strong>주요 기능</strong></td>
+          <td>AI 이용권(에듀핏) 신청, 작품 접수(대용량 파일), AI 챗봇(QA), 관리자 대시보드</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>8.2 기술 스택 상세</h2>
+    <p>본 프로젝트는 안정성, 확장성, 개발 생산성을 고려하여 검증된 최신 기술 스택을 사용합니다.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>기술 스택 및 버전</th>
+          <th>선정 이유</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Frontend</strong></td>
+          <td>Next.js 14+ (App Router), TypeScript, Tailwind CSS, Shadcn/ui</td>
+          <td>서버 사이드 렌더링(SSR)을 통한 SEO 최적화, 컴포넌트 재사용성, 빠른 스타일링</td>
+        </tr>
+        <tr>
+          <td><strong>Backend</strong></td>
+          <td>Supabase (BaaS), Next.js API Routes</td>
+          <td>PostgreSQL 기반의 강력한 DB, 실시간 기능, 인증 및 스토리지 통합 관리</td>
+        </tr>
+        <tr>
+          <td><strong>Database</strong></td>
+          <td>PostgreSQL 15+ (via Supabase)</td>
+          <td>관계형 데이터 처리, JSONB 지원, pgvector를 통한 벡터 검색 지원</td>
+        </tr>
+        <tr>
+          <td><strong>AI & Chatbot</strong></td>
+          <td>Vercel AI SDK, OpenAI API, Supabase Vector</td>
+          <td>RAG(Retrieval-Augmented Generation) 구현 용이성, 스트리밍 응답 지원</td>
+        </tr>
+        <tr>
+          <td><strong>Infrastructure</strong></td>
+          <td>Vercel (Hosting), Supabase Storage</td>
+          <td>CI/CD 자동화, 글로벌 CDN, 엣지 컴퓨팅 지원</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>8.3 프로젝트 폴더 구조</h2>
+    <p>
+      Next.js 14 App Router 기반의 폴더 구조를 따르며, 기능별로 모듈화하여 관리합니다. (단, 실제 구현 시 12.1장 엔바토
+      템플릿 우선주의에 따라 조정될 수 있습니다.)
+    </p>
+    <pre>
+webapp/
+├── .env.local                  # 환경 변수 설정 파일 (Git 제외)
+├── next.config.js              # Next.js 설정
+├── package.json                # 의존성 관리
+├── app/                        # App Router 루트
+│   ├── (auth)/                 # 인증 관련 라우트 그룹
+│   │   ├── login/
+│   │   └── callback/
+│   ├── (main)/                 # 메인 서비스 라우트 그룹
+│   │   ├── page.tsx
+│   │   ├── license-apply/      # 이용권 신청
+│   │   ├── submit/             # 작품 접수
+│   │   └── community/          # 게시판 (공지, FAQ 등)
+│   ├── admin/                  # 관리자 전용 페이지
+│   ├── api/                    # API 엔드포인트
+│   │   ├── chat/               # 챗봇 API
+│   │   └── upload/             # 파일 업로드 API
+│   └── layout.tsx              # 루트 레이아웃
+├── components/                 # 재사용 컴포넌트
+│   ├── ui/                     # Shadcn UI 컴포넌트
+│   ├── chatbot/                # 챗봇 위젯 컴포넌트
+│   └── forms/                  # 각종 신청 양식
+├── lib/                        # 유틸리티 및 라이브러리 설정
+│   ├── supabase/               # Supabase 클라이언트 설정
+│   ├── utils.ts                # 공통 유틸 함수
+│   └── constants.ts            # 상수 정의
+├── types/                      # TypeScript 타입 정의
+└── supabase/                   # Supabase 관련 파일
+    ├── migrations/             # DB 마이그레이션 SQL
+    └── seed.sql                # 초기 더미 데이터
+</pre
+    >
+
+    <h2>8.4 환경 변수 설정</h2>
+    <p>로컬 개발 및 배포 환경에서 필요한 환경 변수 목록입니다. <code>.env.local</code> 파일에 설정합니다.</p>
+    <pre>
+# Supabase Configuration
+NEXT_PUBLIC_SUPABASE_URL="https://your-project-id.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="your-anon-key"
+SUPABASE_SERVICE_ROLE_KEY="your-service-role-key"  # 서버 사이드 전용 (절대 노출 금지)
+
+# Auth Providers
+KAKAO_CLIENT_ID="your-kakao-rest-api-key"
+KAKAO_CLIENT_SECRET="your-kakao-client-secret"
+NAVER_CLIENT_ID="your-naver-client-id"
+NAVER_CLIENT_SECRET="your-naver-client-secret"
+
+# AI & Chatbot
+OPENAI_API_KEY="sk-..."
+VERCEL_AI_SDK_API_KEY="..."
+
+# Email Service (Resend or SendGrid)
+RESEND_API_KEY="re_..."
+
+# App Settings
+NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+GUEST_JWT_SECRET="your_very_long_random_secret_key_minimum_32_chars" # 비회원 인증용
+
+# [v1.2 추가] Timezone Setting (KST)
+CONTEST_DEADLINE_KST="2026-05-31T23:59:59+09:00" # KST 기준 마감일 고정
+</pre
+    >
+
+    <div class="page-break"></div>
+
+    <h2>8.5 데이터베이스 스키마 설계</h2>
+    <p>Supabase PostgreSQL 데이터베이스의 주요 테이블 DDL입니다.</p>
+
+    <div class="code-title">1. 사용자 테이블 (users)</div>
+    <pre>
+create table public.users (
+  id uuid references auth.users on delete cascade not null primary key,
+  email text,
+  name text,
+  phone text,
+  role text default 'user', -- 'user', 'admin'
+  created_at timestamp with time zone default timezone('utc'::text, now())
+);
+</pre
+    >
+
+    <div class="code-title">2. AI 이용권 신청 테이블 (license_applications)</div>
+    <pre>
+create table public.license_applications (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references public.users(id),
+  team_name text,
+  category text not null,
+  school_name text,
+  status text default 'pending', -- 'pending', 'approved', 'rejected'
+  created_at timestamp with time zone default timezone('utc'::text, now())
+);
+</pre
+    >
+
+    <div class="code-title">3. 작품 접수 테이블 (submissions)</div>
+    <pre>
+create table public.submissions (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references public.users(id), -- 비회원인 경우 null 가능
+  submission_no text unique not null, -- 접수번호
+  title text not null,
+  description text,
+  category text not null,
+  password_hash text, -- 비회원 접수용 비밀번호 (bcrypt Hashed) [v1.2 수정]
+  contact_email text, -- 비회원 연락처
+  status text default 'submitted',
+  ai_review_status text default 'pending', -- [v1.2 추가] AI 심사 상태
+  created_at timestamp with time zone default timezone('utc'::text, now())
+);
+</pre
+    >
+
+    <div class="code-title">4. 제출 파일 관리 테이블 (submission_files)</div>
+    <pre>
+create table public.submission_files (
+  id uuid default gen_random_uuid() primary key,
+  submission_id uuid references public.submissions(id) on delete cascade,
+  file_name text not null,
+  file_path text not null, -- Storage 경로
+  file_size bigint,
+  mime_type text,
+  created_at timestamp with time zone default timezone('utc'::text, now())
+);
+</pre
+    >
+
+    <div class="code-title">5. AI 심사 결과 테이블 (ai_review_results)</div>
+    <pre>
+create table public.ai_review_results (
+  id uuid default gen_random_uuid() primary key,
+  submission_id uuid references public.submissions(id) on delete cascade,
+  score jsonb, -- { "creativity": 80, "tech": 90 }
+  summary text,
+  feedback text,
+  processed_at timestamp with time zone default timezone('utc'::text, now())
+);
+</pre
+    >
+
+    <div class="code-title">6. 게시판 테이블 (posts)</div>
+    <pre>
+create table public.posts (
+  id uuid default gen_random_uuid() primary key,
+  type text not null, -- 'notice', 'faq', 'qna', 'gallery'
+  title text not null,
+  content text,
+  author_id uuid references public.users(id),
+  is_secret boolean default false,
+  view_count integer default 0,
+  created_at timestamp with time zone default timezone('utc'::text, now())
+);
+</pre
+    >
+
+    <div class="code-title">7. 챗봇 로그 테이블 (chatbot_logs)</div>
+    <pre>
+create table public.chatbot_logs (
+  id uuid default gen_random_uuid() primary key,
+  user_query text,
+  ai_response text,
+  is_blocked boolean default false,
+  tokens_used integer,
+  created_at timestamp with time zone default timezone('utc'::text, now())
+);
+</pre
+    >
+
+    <div class="code-title">8. 대회 요강 벡터 테이블 (contest_documents)</div>
+    <pre>
+create table public.contest_documents (
+  id uuid default gen_random_uuid() primary key,
+  content text,
+  embedding vector(1536), -- OpenAI embedding dimension
+  metadata jsonb
+);
+</pre
+    >
+
+    <div class="code-title">9. 관리자 페이지 트리 (pages)</div>
+    <pre>
+create table public.pages (
+  id uuid default gen_random_uuid() primary key,
+  parent_id uuid references public.pages(id),
+  title text not null,
+  path text,
+  order_index integer,
+  is_visible boolean default true
+);
+</pre
+    >
+
+    <h3>🚨 [v1.2 추가] 신규 테이블 DDL (12.5장 적용)</h3>
+
+    <div class="code-title">10. 챗봇 설정 테이블 (chatbot_settings)</div>
+    <pre>
+CREATE TABLE public.chatbot_settings (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  provider TEXT NOT NULL DEFAULT 'openai' CHECK (provider IN ('openai', 'anthropic', 'google', 'ollama')),
+  model_name TEXT NOT NULL DEFAULT 'gpt-4o-mini',
+  system_prompt TEXT NOT NULL DEFAULT '당신은 제8회 교육 공공데이터 AI활용대회의 안내 도우미입니다.',
+  allowed_topics JSONB NOT NULL DEFAULT '["대회 일정", "신청 방법", "참가 자격", "제출 양식", "시상 내역"]',
+  is_active BOOLEAN NOT NULL DEFAULT true,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+</pre
+    >
+
+    <div class="code-title">11. 파일 업로드 설정 테이블 (file_upload_settings)</div>
+    <pre>
+CREATE TABLE public.file_upload_settings (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  upload_type TEXT NOT NULL UNIQUE, -- 'application_file', 'presentation' 등
+  max_file_size_mb INTEGER NOT NULL DEFAULT 10,
+  allowed_extensions JSONB NOT NULL DEFAULT '["pdf", "hwp", "docx"]',
+  storage_bucket TEXT NOT NULL DEFAULT 'contest-files',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+</pre
+    >
+
+    <div class="code-title">12. AI 심사 큐 테이블 (ai_review_queue)</div>
+    <pre>
+CREATE TABLE public.ai_review_queue (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  application_id UUID NOT NULL REFERENCES public.submissions(id) ON DELETE CASCADE,
+  file_url TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'queued' CHECK (status IN ('queued', 'processing', 'completed', 'failed')),
+  ai_score DECIMAL(5,2),
+  ai_feedback JSONB,
+  error_message TEXT,
+  retry_count INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+</pre
+    >
+
+    <div class="page-break"></div>
+
+    <h2>8.6 주요 기능 상세 명세</h2>
+
+    <h3>8.6.1 이용권 신청 프로세스</h3>
+    <ol>
+      <li><strong>로그인/인증:</strong> 카카오/네이버/학교 이메일 인증</li>
+      <li><strong>신청서 작성:</strong> 학교명, 부문 등 입력</li>
+      <li><strong>DB 저장:</strong> 초기 상태는 <code>pending</code> (대기중)</li>
+      <li><strong>관리자 승인:</strong> 관리자가 검수 후 일괄 승인 → <code>approved</code> 상태 변경</li>
+      <li><strong>에듀핏 연동:</strong> 승인된 사용자만 CSV 추출하여 에듀핏 전달</li>
+    </ol>
+
+    <h3>8.6.2 참가작 접수 프로세스</h3>
+    <ul>
+      <li>
+        <strong>파일 업로드:</strong>
+        <ul>
+          <li>회원: Supabase Storage 직접 업로드 (RLS 적용)</li>
+          <li>비회원: <code>/api/guest/upload</code> API 경유 업로드 (Service Role Key 사용)</li>
+        </ul>
+      </li>
+      <li>
+        <strong>AI 심사:</strong> 자동 웹훅 방식 폐기. 관리자가 대시보드에서 수동 트리거 버튼 클릭 → 백그라운드 큐 처리
+      </li>
+    </ul>
+
+    <h3>8.6.3 AI 챗봇 시스템 (RAG 방식)</h3>
+    <ul>
+      <li><strong>벡터 DB:</strong> 대회 요강 데이터를 청킹하여 <code>contest_documents</code>에 저장</li>
+      <li><strong>검색 로직:</strong> 사용자 질문 벡터화 → 코사인 유사도 검색 → LLM 프롬프트 주입</li>
+      <li><strong>설정 관리:</strong> <code>chatbot_settings</code> 테이블을 통해 모델 및 프롬프트 동적 관리</li>
+    </ul>
+
+    <h3>8.6.4 게시판 시스템</h3>
+    <ul>
+      <li><strong>공지사항:</strong> 관리자만 작성, 전체 열람</li>
+      <li><strong>비밀게시판:</strong> 작성자와 관리자만 열람 (RLS 적용)</li>
+    </ul>
+
+    <h2>8.7 API 명세서</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Endpoint</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>GET</td>
+          <td>/api/auth/me</td>
+          <td>현재 로그인한 사용자 정보 및 권한 조회</td>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>/api/license/apply</td>
+          <td>AI 이용권 신청서 제출</td>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>/api/submit</td>
+          <td>작품 접수 정보 및 파일 메타데이터 저장</td>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>/api/chat</td>
+          <td>AI 챗봇 질의응답 (Streaming)</td>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>/api/guest/login</td>
+          <td>비회원 접수번호 로그인 (커스텀 세션)</td>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>/api/guest/upload</td>
+          <td>비회원 파일 업로드 (Proxy)</td>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>/api/admin/ai-review/trigger</td>
+          <td>관리자 AI 심사 수동 실행</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>8.8 인증 시스템 구현 상세</h2>
+    <ul>
+      <li><strong>Supabase Auth:</strong> 카카오, 네이버 OAuth Provider 설정</li>
+      <li><strong>학교 이메일 인증:</strong> 커스텀 OTP (Node.js + Resend API)</li>
+      <li>
+        <strong>비회원 인증:</strong> <code>bcrypt</code> 해시 비밀번호 + <code>HttpOnly Cookie/JWT</code> 커스텀 세션
+        구현 (Supabase Auth 미사용)
+      </li>
+    </ul>
+
+    <h2>8.9 파일 업로드 및 스토리지 관리</h2>
+    <ul>
+      <li><strong>저장소:</strong> Supabase Storage (Pro 플랜 권장)</li>
+      <li><strong>RLS 정책:</strong> 회원은 <code>auth.uid()</code> 기반, 비회원은 API Proxy 사용</li>
+      <li><strong>파일 관리:</strong> <code>file_upload_settings</code> 테이블에서 허용 확장자 및 크기 관리</li>
+    </ul>
+
+    <h2>8.10 AI 챗봇 설정 코드</h2>
+    <pre>
+import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { Configuration, OpenAIApi } from 'openai-edge';
+import { createClient } from '@supabase/supabase-js';
+
+export async function POST(req: Request) {
+  const { messages } = await req.json();
+  const lastMessage = messages[messages.length - 1];
+
+  // 1. Embed user query
+  const embeddingRes = await openai.createEmbedding({
+    model: 'text-embedding-ada-002',
+    input: lastMessage.content,
+  });
+  const embedding = embeddingRes.data.data[0].embedding;
+
+  // 2. Search Vector DB
+  const { data: documents } = await supabase.rpc('match_documents', {
+    query_embedding: embedding,
+    match_threshold: 0.78,
+    match_count: 5,
+  });
+
+  // 3. Construct System Prompt
+  const context = documents.map(doc => doc.content).join('\n');
+  const systemPrompt = `You are a helpful assistant for the AI competition.
+  Use the following context to answer:\n${context}`;
+
+  // 4. Generate Response
+  const response = await openai.createChatCompletion({
+    model: 'gpt-4',
+    stream: true,
+    messages: [{ role: 'system', content: systemPrompt }, ...messages],
+  });
+
+  return new StreamingTextResponse(OpenAIStream(response));
+}
+</pre
+    >
+
+    <h2>8.11 보안 정책</h2>
+    <ul>
+      <li><strong>RLS (Row Level Security):</strong> DB 레벨에서 사용자 본인 데이터만 접근 강제</li>
+      <li>
+        <strong>API 보안:</strong> Service Role Key는 오직 서버 사이드 API Route에서만 사용 (브라우저 노출 절대 금지)
+      </li>
+      <li><strong>Rate Limiting:</strong> Upstash Redis 등을 활용하여 DDoS 방지</li>
+    </ul>
+
+    <h2>8.12 배포 가이드</h2>
+    <ol>
+      <li>GitHub 레포지토리에 최신 코드 Push</li>
+      <li>Vercel Dashboard에서 프로젝트 연결</li>
+      <li>Framework Preset을 'Next.js'로 설정</li>
+      <li>
+        Environment Variables 입력 (<code>CONTEST_DEADLINE_KST</code> 포함)
+        <ul>
+          <li>
+            <strong>[중요] Timezone 설정:</strong> Vercel은 기본 UTC이므로, KST(Asia/Seoul) 타임존 처리를 위해
+            <code>date-fns-tz</code> 라이브러리를 사용하고 환경변수에 KST 시간을 명시합니다.
+          </li>
+        </ul>
+      </li>
+      <li>Deploy 클릭 (자동 빌드 및 배포)</li>
+    </ol>
+  </body>
+</html>

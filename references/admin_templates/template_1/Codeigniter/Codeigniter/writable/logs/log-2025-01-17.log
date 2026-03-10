@@ -1,0 +1,278 @@
+CRITICAL - 2025-01-17 05:27:39 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "' . asset('assets"
+[Method: GET, Route: components/%27%20.%20asset%28%27assets/js/full-calendar.js%27%29%20.%20%27]
+in SYSTEMPATH\Router\Router.php on line 737.
+ 1 SYSTEMPATH\Router\Router.php(204): CodeIgniter\Router\Router->checkDisallowedChars('components/\' . asset(\'assets/js/full-calendar.js\') . \'')
+ 2 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('components/\' . asset(\'assets/js/full-calendar.js\') . \'')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:27:39 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "' . asset('assets"
+[Method: GET, Route: components/%27%20.%20asset%28%27assets/js/flatpickr.js%27%29%20.%20%27]
+in SYSTEMPATH\Router\Router.php on line 737.
+ 1 SYSTEMPATH\Router\Router.php(204): CodeIgniter\Router\Router->checkDisallowedChars('components/\' . asset(\'assets/js/flatpickr.js\') . \'')
+ 2 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('components/\' . asset(\'assets/js/flatpickr.js\') . \'')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:27:42 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "' . asset('assets"
+[Method: GET, Route: components/%27%20.%20asset%28%27assets/js/full-calendar.js%27%29%20.%20%27]
+in SYSTEMPATH\Router\Router.php on line 737.
+ 1 SYSTEMPATH\Router\Router.php(204): CodeIgniter\Router\Router->checkDisallowedChars('components/\' . asset(\'assets/js/full-calendar.js\') . \'')
+ 2 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('components/\' . asset(\'assets/js/full-calendar.js\') . \'')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:27:42 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "' . asset('assets"
+[Method: GET, Route: components/%27%20.%20asset%28%27assets/js/flatpickr.js%27%29%20.%20%27]
+in SYSTEMPATH\Router\Router.php on line 737.
+ 1 SYSTEMPATH\Router\Router.php(204): CodeIgniter\Router\Router->checkDisallowedChars('components/\' . asset(\'assets/js/flatpickr.js\') . \'')
+ 2 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('components/\' . asset(\'assets/js/flatpickr.js\') . \'')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:53:12 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-list.php"
+[Method: GET, Route: invoice/invoice-list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-list', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(33): view('invoice/invoice-list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoiceList()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:53:12 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-list.php"
+[Method: GET, Route: invoice/invoice-list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-list', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(33): view('invoice/invoice-list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoiceList()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:53:22 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-preview.php"
+[Method: GET, Route: invoice/invoice-preview]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-preview.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-preview', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(42): view('invoice/invoice-preview', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoicePreview()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:53:22 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-preview.php"
+[Method: GET, Route: invoice/invoice-preview]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-preview.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-preview', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(42): view('invoice/invoice-preview', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoicePreview()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:53:25 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-list.php"
+[Method: GET, Route: invoice/invoice-list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-list', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(33): view('invoice/invoice-list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoiceList()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:53:25 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-list.php"
+[Method: GET, Route: invoice/invoice-list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-list', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(33): view('invoice/invoice-list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoiceList()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:54:02 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-list.php"
+[Method: GET, Route: invoice/invoice-list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-list', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(33): view('invoice/invoice-list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoiceList()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:54:03 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-list.php"
+[Method: GET, Route: invoice/invoice-list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-list', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(33): view('invoice/invoice-list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoiceList()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:54:04 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-list.php"
+[Method: GET, Route: invoice/invoice-list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-list', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(33): view('invoice/invoice-list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoiceList()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:54:04 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-list.php"
+[Method: GET, Route: invoice/invoice-list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-list', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(33): view('invoice/invoice-list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoiceList()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:55:38 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-list.php"
+[Method: GET, Route: invoice/invoice-list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-list', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(33): view('invoice/invoice-list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoiceList()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:55:38 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-list.php"
+[Method: GET, Route: invoice/invoice-list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-list', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(33): view('invoice/invoice-list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoiceList()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:58:15 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-list.php"
+[Method: GET, Route: invoice/invoice-list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-list', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(33): view('invoice/invoice-list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoiceList()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 05:58:15 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "invoice/invoice-list.php"
+[Method: GET, Route: invoice/invoice-list]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('invoice/invoice-list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('invoice/invoice-list', [], true)
+ 3 APPPATH\Controllers\InvoiceController.php(33): view('invoice/invoice-list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\InvoiceController->invoiceList()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InvoiceController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 06:04:16 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "roleAndAccess/role_access.php"
+[Method: GET, Route: role-and-access/role-access]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('roleAndAccess/role_access.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('roleAndAccess/role_access', [], true)
+ 3 APPPATH\Controllers\RoleAndAccessController.php(24): view('roleAndAccess/role_access', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RoleAndAccessController->roleAaccess()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RoleAndAccessController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 06:04:16 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "roleAndAccess/role_access.php"
+[Method: GET, Route: role-and-access/role-access]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('roleAndAccess/role_access.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('roleAndAccess/role_access', [], true)
+ 3 APPPATH\Controllers\RoleAndAccessController.php(24): view('roleAndAccess/role_access', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RoleAndAccessController->roleAaccess()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RoleAndAccessController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 06:05:08 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "roleAndAccess/roleAccess.php"
+[Method: GET, Route: role-and-access/role-access]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('roleAndAccess/roleAccess.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('roleAndAccess/roleAccess', [], true)
+ 3 APPPATH\Controllers\RoleAndAccessController.php(24): view('roleAndAccess/roleAccess', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RoleAndAccessController->roleAaccess()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RoleAndAccessController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')
+CRITICAL - 2025-01-17 06:05:09 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "roleAndAccess/roleAccess.php"
+[Method: GET, Route: role-and-access/role-access]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('roleAndAccess/roleAccess.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('roleAndAccess/roleAccess', [], true)
+ 3 APPPATH\Controllers\RoleAndAccessController.php(24): view('roleAndAccess/roleAccess', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RoleAndAccessController->roleAaccess()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RoleAndAccessController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('E:\\Dustbin\\tutorial\\WowDash\\public\\index.php')

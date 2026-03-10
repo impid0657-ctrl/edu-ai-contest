@@ -1,0 +1,910 @@
+/* ============================================================
+ * Public Site Styles — Evalo Template Design System
+ * Phase 2: Full Evalo redesign
+ * Reference: references/site_templates/template_1/main-files/css/style.css
+ * ============================================================ */
+
+/* Google Fonts — Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* Design Tokens */
+:root {
+  --evalo-primary: #6c63ff;
+  --evalo-primary-hover: #5a52e0;
+  --evalo-heading: #222222;
+  --evalo-body: #666666;
+  --evalo-bg-light: #f8f9ff;
+  --evalo-bg-alt: #f0f6fb;
+  --evalo-white: #ffffff;
+  --evalo-font: 'Poppins', sans-serif;
+  --evalo-btn-radius: 28px;
+  --evalo-btn-shadow: 0px 5px 15px 0px rgba(8, 0, 140, 0.19);
+  --evalo-card-shadow: 0px 10px 30px rgba(0, 0, 0, 0.08);
+  --evalo-card-radius: 10px;
+  --evalo-transition: all 0.3s ease-out 0s;
+  --evalo-header-height: 80px;
+}
+
+/* ============================================================
+ * 1. GLOBAL — Typography & Base
+ * ============================================================ */
+.public-main,
+.evalo-header,
+.evalo-footer {
+  font-family: var(--evalo-font);
+  color: var(--evalo-body);
+}
+
+.public-main h1, .public-main h2, .public-main h3,
+.public-main h4, .public-main h5, .public-main h6 {
+  color: var(--evalo-heading);
+  font-weight: 700;
+  font-family: var(--evalo-font);
+}
+
+.public-main p {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  color: var(--evalo-body);
+}
+
+.public-main {
+  padding-top: var(--evalo-header-height);
+}
+
+/* ============================================================
+ * 2. HEADER — Evalo Transparent/Sticky
+ * ============================================================ */
+.evalo-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: var(--evalo-transition);
+}
+
+.evalo-header__inner {
+  padding: 20px 0;
+  transition: var(--evalo-transition);
+}
+
+.evalo-header--sticky .evalo-header__inner {
+  padding: 12px 0;
+  background: var(--evalo-bg-alt);
+  box-shadow: 0 8px 4px -7px rgba(115,115,115,0.3);
+}
+
+.evalo-header__logo {
+  font-family: var(--evalo-font);
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--evalo-primary);
+  text-decoration: none;
+}
+
+.evalo-header__logo:hover {
+  color: var(--evalo-primary-hover);
+}
+
+.evalo-header__nav-link {
+  font-family: var(--evalo-font);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--evalo-heading);
+  text-decoration: none;
+  padding: 8px 16px;
+  transition: var(--evalo-transition);
+}
+
+.evalo-header__nav-link:hover,
+.evalo-header__nav-link--active {
+  color: var(--evalo-primary);
+}
+
+.evalo-header__cta {
+  padding: 8px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--evalo-primary);
+  border-radius: var(--evalo-btn-radius);
+  color: var(--evalo-primary);
+  background: transparent;
+  text-decoration: none;
+  transition: var(--evalo-transition);
+}
+
+.evalo-header__cta:hover {
+  background: var(--evalo-primary);
+  color: var(--evalo-white);
+  box-shadow: var(--evalo-btn-shadow);
+}
+
+/* Mobile menu toggle */
+.evalo-header__toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--evalo-heading);
+  cursor: pointer;
+}
+
+@media (max-width: 991px) {
+  .evalo-header__toggle { display: block; }
+  .evalo-header__nav { display: none; }
+  .evalo-header__nav--open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--evalo-white);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 16px;
+    gap: 4px;
+  }
+  .evalo-header__nav--open .evalo-header__nav-link {
+    padding: 12px 16px;
+    border-radius: 8px;
+  }
+  .evalo-header__nav--open .evalo-header__nav-link:hover {
+    background: var(--evalo-bg-light);
+  }
+}
+
+/* ============================================================
+ * 3. BUTTONS — Evalo Primary / Outline
+ * ============================================================ */
+.public-btn-primary,
+.evalo-btn {
+  background-color: var(--evalo-primary);
+  color: var(--evalo-white);
+  border: 1px solid var(--evalo-primary);
+  border-radius: var(--evalo-btn-radius);
+  box-shadow: var(--evalo-btn-shadow);
+  font-weight: 600;
+  font-size: 16px;
+  padding: 11px 57px;
+  font-family: var(--evalo-font);
+  transition: var(--evalo-transition);
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.public-btn-primary:hover,
+.evalo-btn:hover {
+  background-color: var(--evalo-white);
+  color: var(--evalo-primary);
+  transform: translateY(-2px);
+}
+
+.evalo-btn--outline {
+  background: transparent;
+  color: var(--evalo-heading);
+  border: 1px solid #ddd;
+  box-shadow: none;
+}
+
+.evalo-btn--outline:hover {
+  border-color: var(--evalo-primary);
+  color: var(--evalo-primary);
+  box-shadow: var(--evalo-btn-shadow);
+}
+
+.evalo-btn--lg {
+  font-size: 18px;
+  padding: 12.5px 46px;
+}
+
+.evalo-btn--sm {
+  font-size: 14px;
+  padding: 8px 24px;
+}
+
+.evalo-btn--white {
+  background: var(--evalo-white);
+  color: var(--evalo-primary);
+  border-color: var(--evalo-white);
+}
+
+.evalo-btn--white:hover {
+  background: transparent;
+  color: var(--evalo-white);
+  border-color: var(--evalo-white);
+}
+
+/* ============================================================
+ * 4. SECTION PATTERNS — Evalo Title + Content
+ * ============================================================ */
+.evalo-section {
+  padding: 100px 0;
+}
+
+.evalo-section--alt {
+  background: var(--evalo-bg-light);
+}
+
+.evalo-section--sm {
+  padding: 60px 0;
+}
+
+.evalo-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.evalo-title__label {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 2;
+  color: var(--evalo-primary);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.evalo-title__heading {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.32;
+  color: var(--evalo-heading);
+  margin-bottom: 16px;
+}
+
+.evalo-title__desc {
+  font-size: 18px;
+  color: var(--evalo-body);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Page Banner (breadcrumb hero) */
+.evalo-page-banner {
+  background: linear-gradient(135deg, var(--evalo-primary) 0%, #764ba2 100%);
+  padding: 120px 0 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.evalo-page-banner__title {
+  color: var(--evalo-white);
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.evalo-page-banner__breadcrumb {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.evalo-page-banner__breadcrumb li {
+  color: rgba(255,255,255,0.7);
+  font-size: 16px;
+}
+
+.evalo-page-banner__breadcrumb li a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: var(--evalo-transition);
+}
+
+.evalo-page-banner__breadcrumb li a:hover {
+  color: var(--evalo-white);
+}
+
+.evalo-page-banner__breadcrumb li.active {
+  color: var(--evalo-white);
+}
+
+/* ============================================================
+ * 5. CARDS — Evalo Elevated
+ * ============================================================ */
+.evalo-card {
+  background: var(--evalo-white);
+  border-radius: var(--evalo-card-radius);
+  box-shadow: var(--evalo-card-shadow);
+  border: none;
+  padding: 30px;
+  transition: var(--evalo-transition);
+}
+
+.evalo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.evalo-card--static:hover {
+  transform: none;
+  box-shadow: var(--evalo-card-shadow);
+}
+
+.evalo-card--lg {
+  padding: 40px;
+}
+
+/* ============================================================
+ * 6. FORMS — Evalo Style
+ * ============================================================ */
+.evalo-form .form-label {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--evalo-heading);
+  margin-bottom: 8px;
+}
+
+.evalo-form .form-control,
+.evalo-form .form-select {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-family: var(--evalo-font);
+  transition: var(--evalo-transition);
+}
+
+.evalo-form .form-control:focus,
+.evalo-form .form-select:focus {
+  border-color: var(--evalo-primary);
+  box-shadow: 0 0 0 3px rgba(108,99,255,0.1);
+}
+
+.evalo-form .form-text {
+  font-size: 13px;
+  color: #999;
+}
+
+/* ============================================================
+ * 7. FOOTER — Evalo Dark
+ * ============================================================ */
+.evalo-footer {
+  background: #1a1a2e;
+  color: rgba(255,255,255,0.7);
+  font-family: var(--evalo-font);
+}
+
+.evalo-footer h5,
+.evalo-footer h6 {
+  color: var(--evalo-white);
+  font-weight: 700;
+  font-family: var(--evalo-font);
+}
+
+.evalo-footer__links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.evalo-footer__links li {
+  margin-bottom: 10px;
+}
+
+.evalo-footer__links a {
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  transition: var(--evalo-transition);
+  position: relative;
+}
+
+.evalo-footer__links a:hover {
+  color: var(--evalo-white);
+  padding-left: 5px;
+}
+
+.evalo-footer__bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 24px 0;
+  margin-top: 40px;
+}
+
+.evalo-footer__copyright {
+  color: rgba(255,255,255,0.5);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* ============================================================
+ * 8. HERO — Evalo Primary Gradient
+ * ============================================================ */
+.evalo-hero {
+  background: linear-gradient(135deg, var(--evalo-primary) 0%, #764ba2 100%);
+  min-height: 600px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.evalo-hero__content {
+  position: relative;
+  z-index: 2;
+  padding: 140px 0 100px;
+}
+
+.evalo-hero__title {
+  color: var(--evalo-white);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.evalo-hero__subtitle {
+  color: rgba(255,255,255,0.85);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  max-width: 600px;
+}
+
+/* Decorative shapes */
+.evalo-hero__shape {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+
+.evalo-hero__shape--1 {
+  width: 300px;
+  height: 300px;
+  top: -80px;
+  right: -50px;
+}
+
+.evalo-hero__shape--2 {
+  width: 200px;
+  height: 200px;
+  bottom: 50px;
+  left: -30px;
+}
+
+.evalo-hero__shape--3 {
+  width: 150px;
+  height: 150px;
+  top: 40%;
+  right: 20%;
+}
+
+/* ============================================================
+ * 9. OAUTH BUTTONS
+ * ============================================================ */
+.btn-kakao {
+  background-color: #FEE500;
+  color: #191919;
+  border: none;
+  border-radius: var(--evalo-btn-radius);
+  font-weight: 600;
+  font-family: var(--evalo-font);
+  transition: var(--evalo-transition);
+}
+.btn-kakao:hover {
+  background-color: #e6cf00;
+  color: #191919;
+  transform: translateY(-2px);
+}
+.btn-naver {
+  background-color: #03C75A;
+  color: var(--evalo-white);
+  border: none;
+  border-radius: var(--evalo-btn-radius);
+  font-weight: 600;
+  font-family: var(--evalo-font);
+  transition: var(--evalo-transition);
+}
+.btn-naver:hover {
+  background-color: #02b351;
+  color: var(--evalo-white);
+  transform: translateY(-2px);
+}
+
+/* Aliases */
+.public-btn-kakao { composes: btn-kakao; }
+.public-btn-naver { composes: btn-naver; }
+
+/* ============================================================
+ * 10. CHATBOT — Floating + Embedded
+ * ============================================================ */
+
+/* Floating Action Button */
+.chatbot-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--evalo-primary);
+  color: #fff;
+  font-size: 28px;
+  border: none;
+  box-shadow: 0 4px 16px rgba(108, 99, 255, 0.4);
+  cursor: pointer;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--evalo-transition);
+}
+.chatbot-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(108, 99, 255, 0.5);
+}
+
+/* Chat Panel */
+.chatbot-panel {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 380px;
+  height: 520px;
+  background: var(--evalo-white);
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chatbot-header {
+  background: var(--evalo-primary);
+  color: #fff;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+.chatbot-header-title {
+  font-family: var(--evalo-font);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.chatbot-close {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.chatbot-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chatbot-msg { max-width: 85%; }
+.chatbot-msg-user { align-self: flex-end; }
+.chatbot-msg-bot { align-self: flex-start; }
+.chatbot-msg-content {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-family: var(--evalo-font);
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+.chatbot-msg-user .chatbot-msg-content {
+  background: var(--evalo-primary);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.chatbot-msg-bot .chatbot-msg-content {
+  background: #f0f0f5;
+  color: var(--evalo-heading);
+  border-bottom-left-radius: 4px;
+}
+
+.chatbot-typing {
+  display: flex;
+  gap: 4px;
+  padding: 12px 16px;
+}
+.chatbot-typing span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #999;
+  animation: chatbot-bounce 1.4s infinite ease-in-out both;
+}
+.chatbot-typing span:nth-child(1) { animation-delay: -0.32s; }
+.chatbot-typing span:nth-child(2) { animation-delay: -0.16s; }
+@keyframes chatbot-bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+.chatbot-input-area {
+  padding: 12px;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.chatbot-input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-family: var(--evalo-font);
+  outline: none;
+  transition: var(--evalo-transition);
+}
+.chatbot-input:focus { border-color: var(--evalo-primary); }
+.chatbot-send {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--evalo-primary);
+  color: #fff;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--evalo-transition);
+  flex-shrink: 0;
+}
+.chatbot-send:disabled { opacity: 0.5; cursor: not-allowed; }
+.chatbot-send:not(:disabled):hover { background: var(--evalo-primary-hover); }
+
+/* Embedded Chatbot */
+.chatbot-embed-messages {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+.chatbot-embed-bubble {
+  max-width: 80%;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+.chatbot-embed-bubble--bot {
+  background: #f0f4ff;
+  color: #1a1a2e;
+  border-bottom-left-radius: 0.25rem;
+}
+.chatbot-embed-bubble--user {
+  background: var(--evalo-primary);
+  color: #fff;
+  border-bottom-right-radius: 0.25rem;
+}
+
+/* ============================================================
+ * 11. UTILITIES
+ * ============================================================ */
+.evalo-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--evalo-font);
+}
+
+.evalo-badge--primary {
+  background: rgba(108,99,255,0.1);
+  color: var(--evalo-primary);
+}
+
+.evalo-badge--success {
+  background: rgba(40,167,69,0.1);
+  color: #28a745;
+}
+
+.evalo-badge--warning {
+  background: rgba(255,193,7,0.1);
+  color: #e6ac00;
+}
+
+.evalo-badge--danger {
+  background: rgba(220,53,69,0.1);
+  color: #dc3545;
+}
+
+/* ============================================================
+ * 12. RESPONSIVE
+ * ============================================================ */
+@media (max-width: 768px) {
+  .evalo-hero__title { font-size: 32px; }
+  .evalo-hero__subtitle { font-size: 16px; }
+  .evalo-hero__content { padding: 120px 0 60px; }
+  .evalo-section { padding: 60px 0; }
+  .evalo-title__heading { font-size: 28px; }
+  .evalo-page-banner { padding: 100px 0 40px; }
+  .evalo-page-banner__title { font-size: 28px; }
+  .evalo-card { padding: 20px; }
+  .evalo-card--lg { padding: 24px; }
+  .public-btn-primary, .evalo-btn { padding: 10px 32px; font-size: 15px; }
+}
+
+@media (max-width: 480px) {
+  .chatbot-panel {
+    width: calc(100vw - 16px);
+    height: calc(100vh - 100px);
+    bottom: 8px;
+    right: 8px;
+  }
+  .evalo-hero__title { font-size: 28px; }
+  .evalo-hero__content { padding: 110px 0 50px; }
+}
+
+/* ============================================================
+ * 13. PAGE HERO + FEATURE LIST (AG Phase 2)
+ * ============================================================ */
+
+/* Sub-page Hero Banner */
+.evalo-page-hero {
+  background: linear-gradient(135deg, var(--public-primary, #6c63ff) 0%, #764ba2 100%);
+  padding: 120px 0 80px;
+  margin-top: calc(-1 * var(--public-header-height, 80px));
+  padding-top: calc(var(--public-header-height, 80px) + 80px);
+}
+
+/* Feature list with checkmarks */
+.evalo-feature-list {
+  list-style: none;
+  padding: 0;
+}
+.evalo-feature-list li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 14px;
+  font-size: 16px;
+  color: var(--public-body-text, #666);
+  line-height: 1.6;
+}
+.evalo-feature-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--public-primary, #6c63ff);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* Category color dots */
+.evalo-category-dot {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.evalo-category-dot--elementary {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+.evalo-category-dot--secondary {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+.evalo-category-dot--general {
+  background: linear-gradient(135deg, var(--public-primary, #6c63ff) 0%, #764ba2 100%);
+}
+
+/* Step badge  highlight */
+.evalo-step-badge--highlight {
+  background: linear-gradient(135deg, var(--public-primary, #6c63ff) 0%, #764ba2 100%);
+  box-shadow: 0 4px 12px rgba(108, 99, 255, 0.4);
+}
+
+/* CTA white buttons */
+.evalo-btn-white {
+  background: #ffffff;
+  color: var(--public-primary, #6c63ff);
+  border: none;
+  border-radius: 28px;
+  font-weight: 600;
+  box-shadow: 0px 5px 15px 0px rgba(8, 0, 140, 0.19);
+  transition: all 0.3s ease-out;
+}
+.evalo-btn-white:hover {
+  background: #f0f0ff;
+  color: var(--public-primary, #6c63ff);
+  transform: translateY(-2px);
+}
+
+.evalo-btn-outline-white {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 28px;
+  font-weight: 600;
+  transition: all 0.3s ease-out;
+}
+.evalo-btn-outline-white:hover {
+  background: #ffffff;
+  color: var(--public-primary, #6c63ff);
+  transform: translateY(-2px);
+}
+
+/* Evalo text accent */
+.evalo-text-primary {
+  color: var(--public-primary, #6c63ff);
+}
+
+/* Evalo section label (for pages using public-* vars) */
+.evalo-section-label {
+  font-size: 16px;
+  line-height: 2;
+  color: var(--public-primary, #6c63ff);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Card icon */
+.evalo-card__icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+/* Step badge */
+.evalo-step-badge {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 50%;
+  background: var(--public-primary, #6c63ff);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+/* Card active border */
+.evalo-card--active {
+  border: 2px solid var(--public-primary, #6c63ff) !important;
+}
+
+/* Evalo section title h3 */
+.evalo-section__title h3 {
+  font-size: 48px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--public-heading, #222);
+  margin-top: 8px;
+}
+.evalo-section__title p {
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--public-body-text, #666);
+  margin-top: 16px;
+}
+
+/* Progress bar inside evalo-card */
+.evalo-card .progress {
+  border-radius: 3px;
+  background-color: #eee;
+}
+
+@media (max-width: 768px) {
+  .evalo-page-hero {
+    padding: 100px 0 50px;
+    padding-top: calc(var(--public-header-height, 80px) + 50px);
+  }
+  .evalo-section__title h3 {
+    font-size: 28px;
+  }
+}

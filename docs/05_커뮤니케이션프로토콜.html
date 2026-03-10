@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <title>제8회 교육 공공데이터 AI활용대회 홈페이지 개발 가이드 - 5장. 커뮤니케이션 프로토콜</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        max-width: 210mm;
+        margin: 0 auto;
+        padding: 20mm;
+        font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+        line-height: 1.6;
+        color: #000;
+        background-color: #fff;
+        box-sizing: border-box;
+        text-align: justify;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #000;
+        border-bottom: 2px solid #000;
+        padding-bottom: 20px;
+        font-weight: 700;
+      }
+      h2 {
+        font-size: 18pt;
+        color: #003366;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+      h3 {
+        font-size: 14pt;
+        color: #004d99;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+      h4 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      p {
+        margin-bottom: 10px;
+        text-align: justify;
+      }
+      ul,
+      ol {
+        margin-bottom: 15px;
+        padding-left: 25px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        font-size: 10pt;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #000;
+        padding: 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background-color: #f2f2f2;
+        font-weight: 700;
+        text-align: center;
+      }
+      tr:nth-child(even) {
+        background-color: #fafafa;
+      }
+      code {
+        font-family: 'Consolas', 'Courier New', monospace;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
+      pre {
+        font-family: 'Consolas', 'Courier New', monospace;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 15px;
+        font-size: 9pt;
+        line-height: 1.4;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+      .cover-info {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 11pt;
+        color: #555;
+      }
+      .message-box {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 20px;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 0.95em;
+        white-space: pre-wrap;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>5장. 커뮤니케이션 프로토콜</h1>
+
+    <div class="cover-info">
+      <p><strong>문서명:</strong> 제8회 교육 공공데이터 AI활용대회 홈페이지 개발 가이드</p>
+      <p><strong>작성일:</strong> 2026년 3월 7일 | <strong>버전:</strong> v1.2 (최종본)</p>
+    </div>
+
+    <h2>5.1 각 단계별 전달 정보</h2>
+
+    <h3>1단계: 젠스파크 → 클로드 챗</h3>
+    <p><strong>전달 정보:</strong></p>
+    <ul>
+      <li>✅ 완성된 문서 파일 (HTML)</li>
+      <li>✅ 파일 저장 경로</li>
+      <li>✅ 문서 버전 정보</li>
+      <li>✅ 우선순위가 높은 섹션 명시</li>
+    </ul>
+    <p><strong>전달 메시지 예시:</strong></p>
+    <div class="message-box">
+      클로드 챗님께, 제8회 교육 공공데이터 AI활용대회 홈페이지 개발계획서가 완성되었습니다. [전달 정보:] - 파일명:
+      dev-plan_v2.0_20260320.html - 저장 경로: C:\Users\min_0\Desktop\code_project\docs\ - 버전: v2.0 - 완성일:
+      2026-03-20 [우선순위 높은 작업] 1. 이용권 신청 기능 구현 (3.1장 참조) 2. 카카오 간편인증 연동 (3.1.1장 참조) 위
+      문서를 기반으로 상세 작업지시서를 작성해 주시기 바랍니다.
+    </div>
+
+    <h3>2단계: 클로드 챗 → 안티그래비티</h3>
+    <p><strong>전달 정보:</strong></p>
+    <ul>
+      <li>✅ 작업지시서 파일 (Markdown)</li>
+      <li>✅ 참조할 젠스파크 문서 경로</li>
+      <li>✅ 기존 코드 (있는 경우)</li>
+      <li>✅ 예상 소요 시간 및 완료 기한</li>
+    </ul>
+    <p><strong>전달 메시지 예시:</strong></p>
+    <div class="message-box">
+      안티그래비티님께, 이용권 신청 기능 구현을 위한 작업지시서를 전달합니다. [작업지시서] - 파일명:
+      task-002_license-apply_v1.0.md - 저장 경로: C:\Users\min_0\Desktop\code_project\specs\ [참조 문서] - 개발계획서:
+      C:\Users\min_0\Desktop\code_project\docs\dev-plan_v2.0_20260320.html (특히 3.1장 "이용권신청 페이지" 참조) [예상
+      소요 시간 / 완료 기한] - 8시간 / 2026-03-25 오후 6시 작업 완료 후 완료 보고서를 작성하고, 코워크님께 리뷰를 요청해
+      주세요.
+    </div>
+
+    <div class="page-break"></div>
+
+    <h3>3단계: 안티그래비티 → 코워크</h3>
+    <p><strong>전달 메시지 예시:</strong></p>
+    <div class="message-box">
+      코워크님께, 작업002 (이용권 신청 기능) 구현이 완료되었습니다. 리뷰를 요청드립니다. [산출물 위치] - 저장 경로:
+      C:\Users\min_0\Desktop\code_project\webapp\ - 주요 파일: app/api/auth.ts, components/forms/LicenseApplyForm.tsx
+      [완료 보고서] - 파일: 완료보고_작업002.txt [자체 테스트 결과] - 모든 필드 정상 입력 시: 정상 동작 ✅ - 유효성
+      검증: 정상 동작 ✅ 리뷰 후 피드백 부탁드립니다.
+    </div>
+
+    <h3>4단계: 코워크 → 클로드 챗</h3>
+    <p><strong>전달 메시지 예시:</strong></p>
+    <div class="message-box">
+      클로드 챗님께, 작업002 (이용권 신청 기능) 리뷰가 완료되었습니다. [리뷰 보고서] - 파일명:
+      review-002_license-apply_20260313.md - 저장 경로: C:\Users\min_0\Desktop\code_project\reviews\ [종합 평가] - 종합
+      점수: 85/100 - 승인 여부: 조건부 승인 [발견된 이슈] 1. [Critical] BUG-023: 휴대폰번호 유효성 검증 누락 2. [Major]
+      BUG-024: 에러 메시지 미표시 [다음 단계] Critical 및 Major 이슈 수정 후 재검증이 필요합니다. 수정 작업지시서 작성을
+      부탁드립니다.
+    </div>
+
+    <h3>5단계: 클로드 챗 → 안티그래비티 (수정 작업)</h3>
+    <p><strong>전달 메시지 예시:</strong></p>
+    <div class="message-box">
+      안티그래비티님께, 코워크님의 리뷰 결과를 바탕으로 수정 작업지시서를 작성했습니다. [수정 작업지시서] - 파일명:
+      fix-001_form-validation_v1.0.md - 저장 경로: C:\Users\min_0\Desktop\code_project\specs\ [참조 문서] - 리뷰 보고서:
+      C:\Users\min_0\Desktop\code_project\reviews\review-002_license-apply_20260313.md [수정 우선순위] 1. Critical
+      (BUG-023): 즉시 수정 필수 수정 완료 후 코워크님께 재검증을 요청해 주세요.
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>5.2 문제 발생 시 에스컬레이션 방법</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Level</th>
+          <th>상황</th>
+          <th>조치</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Level 1</strong><br />(담당자 간 직접 해결)</td>
+          <td>경미한 오해, 불명확한 지시사항</td>
+          <td>담당자 간 직접 커뮤니케이션으로 해결</td>
+        </tr>
+        <tr>
+          <td><strong>Level 2</strong><br />(프로젝트 관리자 개입)</td>
+          <td>기술적 의견 충돌, 우선순위 조정 필요</td>
+          <td>프로젝트 관리자(PM)가 중재 및 결정</td>
+        </tr>
+        <tr>
+          <td><strong>Level 3</strong><br />(이해관계자 보고)</td>
+          <td>일정 지연, 예산 초과, 범위 변경 필요</td>
+          <td>교육부 담당자 등 이해관계자에게 보고</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>5.3 진행 현황 추적 방법</h2>
+    <p><strong>주간 진행 현황 보고서 템플릿 (매주 금요일 작성)</strong></p>
+    <pre>
+# 주간 진행 현황 보고서 - [N주차]
+
+## 1. 보고 기간: 2026-03-10 ~ 2026-03-14
+
+## 2. 주요 성과
+- ✅ 작업001: 초기 환경 세팅 완료
+- ✅ 작업002: 이용권 신청 기능 구현 완료
+- ⏳ 작업003: 접수 시스템 구현 진행 중 (70%)
+
+## 3. 이슈 현황
+| 이슈 ID | 우선순위 | 상태 | 담당 |
+|---------|---------|------|------|
+| BUG-023 | Critical | 수정 중 | 안티그래비티 |
+| BUG-024 | Major | 수정 완료 | 안티그래비티 |
+
+## 4. 전체 진행률
+- 전체 작업: 15개
+- 완료: 5개
+- 진행 중: 3개
+- 대기 중: 7개
+- **진행률: 33%**
+</pre
+    >
+  </body>
+</html>

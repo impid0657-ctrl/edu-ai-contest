@@ -1,0 +1,5 @@
+/* globals.css — 전역 최소 CSS */
+/* 관리자 대시보드 CSS는 admin-globals.css로 분리됨 */
+
+/* BUG-027 fix: cursor-pointer utility */
+.cursor-pointer { cursor: pointer; }

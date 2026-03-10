@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <title>제8회 교육 공공데이터 AI활용대회 홈페이지 개발 가이드 - 7장. 제8회 대회 홈페이지 시스템 개요</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        max-width: 210mm;
+        margin: 0 auto;
+        padding: 20mm;
+        font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+        line-height: 1.6;
+        color: #000;
+        background-color: #fff;
+        box-sizing: border-box;
+        text-align: justify;
+      }
+      h1 {
+        font-size: 24pt;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #000;
+        border-bottom: 2px solid #000;
+        padding-bottom: 20px;
+        font-weight: 700;
+      }
+      h2 {
+        font-size: 18pt;
+        color: #003366;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+      h3 {
+        font-size: 14pt;
+        color: #004d99;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+      h4 {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      p {
+        margin-bottom: 10px;
+        text-align: justify;
+      }
+      ul,
+      ol {
+        margin-bottom: 15px;
+        padding-left: 25px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        font-size: 10pt;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #000;
+        padding: 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background-color: #f2f2f2;
+        font-weight: 700;
+        text-align: center;
+      }
+      tr:nth-child(even) {
+        background-color: #fafafa;
+      }
+      code {
+        font-family: 'Consolas', 'Courier New', monospace;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
+      pre {
+        font-family: 'Consolas', 'Courier New', monospace;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 15px;
+        font-size: 9pt;
+        line-height: 1.4;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+      .cover-info {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 11pt;
+        color: #555;
+      }
+      .box {
+        border: 1px solid #000;
+        padding: 15px;
+        margin-bottom: 20px;
+        background-color: #fff;
+      }
+      .arrow {
+        text-align: center;
+        font-weight: bold;
+        margin: 10px 0;
+        color: #004d99;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>7장. 제8회 대회 홈페이지 시스템 개요</h1>
+
+    <div class="cover-info">
+      <p><strong>문서명:</strong> 제8회 교육 공공데이터 AI활용대회 홈페이지 개발 가이드</p>
+      <p><strong>작성일:</strong> 2026년 3월 7일 | <strong>버전:</strong> v1.2 (최종본)</p>
+    </div>
+
+    <p>
+      📌 이 장의 목적: 개발 가이드를 읽기 전에, 먼저 이 장을 통해 전체 시스템의 구조와 동작 방식을 이해하시기 바랍니다.
+    </p>
+
+    <h2>7.1 시스템 구조 및 아키텍처</h2>
+
+    <h3>🏗 전체 시스템 구조</h3>
+    <pre>
+┌─────────────────────────────────────────────────────────────────┐
+│                    사용자 (참가자/관리자)                       │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│              Frontend (Next.js 14 + Tailwind CSS)               │
+│                                                                 │
+│ ┌────────────┬──────────────┬──────────────┬──────────────────┐ │
+│ │  공모요강  │ 이용권 신청  │  작품 접수   │      게시판      │ │
+│ ├────────────┼──────────────┼──────────────┼──────────────────┤ │
+│ │  AI 챗봇   │  마이페이지  │ 관리자 대시보드 │                  │ │
+│ └────────────┴──────────────┴──────────────┴──────────────────┘ │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                 API Layer (Next.js API Routes)                  │
+│                                                                 │
+│ ┌──────────────┬────────────────┬─────────────────────────────┐ │
+│ │   인증 API   │    챗봇 API    │       파일 업로드 API       │ │
+│ ├──────────────┼────────────────┼─────────────────────────────┤ │
+│ │  이용권 API  │ 작품 접수 API  │         게시판 API          │ │
+│ │  관리자 API  │ 학생 인증 API  │                             │ │
+│ └──────────────┴────────────────┴─────────────────────────────┘ │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+          ┌──────────────────┼──────────────────┐
+          │                  │                  │
+          ▼                  ▼                  ▼
+┌──────────────────┐ ┌──────────────────┐ ┌─────────────────────┐
+│     Supabase     │ │   AI Services    │ │     인증 제공자     │
+│    (Database)    │ │    ・OpenAI      │ │ ✅ 카카오 (현재)    │
+│   ・PostgreSQL   │ │    ・Anthropic   │ │ ✅ 네이버 (현재)    │
+│   ・pgvector     │ │    ・Google      │ │ ✅ 학교 이메일      │
+│   ・RLS          │ │    ・Cohere      │ │ ⏸ PASS (향후)      │
+│    (Storage)     │ │    ・Perplexity  │ │ ⏸ Payco (향후)     │
+│   ・파일 저장    │ │                  │ │ ⏸ Toss (향후)      │
+└──────────────────┘ └──────────────────┘ └─────────────────────┘
+</pre
+    >
+
+    <h2>7.2 핵심 기능 목록</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 20%">기능</th>
+          <th style="width: 40%">설명</th>
+          <th style="width: 20%">접근 권한</th>
+          <th style="width: 20%">인증 필요 여부</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>공모요강</strong></td>
+          <td>대회 안내, 접수 부문, 시상 내역, 일정</td>
+          <td>전체 공개</td>
+          <td>❌ 불필요</td>
+        </tr>
+        <tr>
+          <td><strong>AI 이용권 신청</strong></td>
+          <td>선착순 500명 에듀핏 라이선스 신청</td>
+          <td>일반 회원</td>
+          <td>✅ 필수</td>
+        </tr>
+        <tr>
+          <td><strong>작품 접수</strong></td>
+          <td>부문별 작품 온라인 제출 (파일 업로드)</td>
+          <td>비회원/회원</td>
+          <td>🔸 선택</td>
+        </tr>
+        <tr>
+          <td><strong>게시판</strong></td>
+          <td>공지사항, 문의, 갤러리, 비밀게시판, FAQ</td>
+          <td>비회원/회원</td>
+          <td>🔸 선택</td>
+        </tr>
+        <tr>
+          <td><strong>AI 챗봇</strong></td>
+          <td>대회 요강 범위 자동 질의응답</td>
+          <td>전체 공개</td>
+          <td>❌ 불필요</td>
+        </tr>
+        <tr>
+          <td><strong>마이페이지</strong></td>
+          <td>본인 신청 내역, 접수 내역, 작성한 글 목록</td>
+          <td>일반 회원</td>
+          <td>✅ 필수</td>
+        </tr>
+        <tr>
+          <td><strong>관리자 대시보드</strong></td>
+          <td>전체 데이터 조회/관리, 심사 결과 확인, 설정</td>
+          <td>관리자</td>
+          <td>✅ 필수</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>7.3 사용자 흐름 (User Flow)</h2>
+
+    <h3>🔵 흐름 1: AI 이용권 신청 (필수 인증)</h3>
+    <ol>
+      <li>사용자가 "AI 이용권 신청" 페이지 접속</li>
+      <li>"로그인 후 신청하기" 버튼 클릭</li>
+      <li>간편 인증 선택 (카카오/네이버/PASS/페이코/토스 중 관리자가 활성화한 제공자)</li>
+      <li>인증 성공 → Supabase Auth에 자동 회원 등록</li>
+      <li>본인 정보(이름, 이메일, 연락처) 자동 입력</li>
+      <li>신청 정보 입력 (학년, 학교명 등)</li>
+      <li>신청 완료 → DB에 저장 (<strong>pending 상태</strong>, 관리자 승인 대기)</li>
+      <li>관리자 검수 및 일괄 승인 → 에듀핏 라이선스 발급</li>
+    </ol>
+    <p><strong>💡 왜 인증이 필요한가?</strong></p>
+    <ul>
+      <li>무분별한 중복 신청 방지</li>
+      <li>신청자 신원 확인</li>
+      <li>에듀핏 라이선스 발급 시 본인 확인 필요</li>
+    </ul>
+
+    <h3>🟢 흐름 2: 작품 접수 (선택 인증)</h3>
+
+    <h4>Option A: 인증 접수 (간편 입력)</h4>
+    <ol>
+      <li>사용자가 "작품 접수" 페이지 접속</li>
+      <li>"로그인 후 접수" 버튼 클릭 → 간편 인증</li>
+      <li>본인 정보(이름, 이메일, 연락처) 자동 입력</li>
+      <li>작품 파일 업로드 (압축 파일, 최대 500MB)</li>
+      <li>접수 완료 → 접수번호 자동 발급 및 이메일 발송</li>
+      <li>마이페이지에서 접수 내역 확인 가능</li>
+      <li>수정 필요 시 → 로그인 후 수정 (마감 전까지)</li>
+    </ol>
+
+    <h4>Option B: 비인증 접수 (이메일/비밀번호)</h4>
+    <ol>
+      <li>사용자가 "작품 접수" 페이지 접속</li>
+      <li>"이메일로 접수" 버튼 클릭</li>
+      <li>이메일, 연락처, 비밀번호(4자리 이상) 직접 입력</li>
+      <li>작품 파일 업로드 (<strong>서버 API 경유 업로드</strong>)</li>
+      <li>접수 완료 → 접수번호 이메일 발송</li>
+      <li>
+        수정 필요 시 → <strong>커스텀 JWT/HttpOnly 쿠키 세션 사용</strong> (접수번호 + 이메일 + 비밀번호 입력으로 본인
+        확인 후 수정)
+      </li>
+    </ol>
+    <p><strong>💡 왜 선택 인증인가?</strong></p>
+    <ul>
+      <li>참가 접근성 향상 (간편 인증 없이도 참가 가능)</li>
+      <li>회원은 자동 입력으로 편의성 증대</li>
+      <li>비회원은 이메일로 접수번호 확인 및 수정 가능</li>
+    </ul>
+
+    <h3>🟡 흐름 3: 게시판 (비회원 허용)</h3>
+    <p><strong>비회원 글 작성</strong></p>
+    <ol>
+      <li>게시판 → "글쓰기" 버튼 클릭</li>
+      <li>작성자 이름, 비밀번호(4자리 이상) 입력</li>
+      <li>글 내용 작성 후 등록</li>
+      <li>수정/삭제 시 → 비밀번호 입력으로 본인 확인</li>
+    </ol>
+    <p><strong>회원 글 작성</strong></p>
+    <ol>
+      <li>게시판 → "로그인 후 글쓰기" 버튼 클릭</li>
+      <li>간편 인증 완료</li>
+      <li>작성자 이름 자동 입력, 비밀번호 불필요</li>
+      <li>글 내용 작성 후 등록</li>
+      <li>수정/삭제 시 → JWT 토큰 인증으로 본인 확인 (비밀번호 불필요)</li>
+    </ol>
+
+    <h3>🔴 흐름 4: 관리자 대시보드</h3>
+    <ol>
+      <li>관리자 계정으로 로그인 (role='admin')</li>
+      <li>관리자 대시보드 접속</li>
+      <li>
+        주요 기능:
+        <ul>
+          <li>이용권 신청 목록 (검수 후 일괄 승인/반려)</li>
+          <li>작품 접수 목록 (AI 심사 수동 트리거 및 결과 확인)</li>
+          <li>학생 인증 승인/반려</li>
+          <li>게시판 관리 (모든 글 수정/삭제)</li>
+          <li>페이지 권한 설정 (공개/회원/관리자)</li>
+          <li>인증 제공자 설정 (카카오/네이버/학교 이메일 활성화)</li>
+          <li>챗봇 설정 (AI 제공자, 답변 범위, 예시 질문)</li>
+          <li>파일 업로드 설정 (최대 용량, 허용 확장자)</li>
+        </ul>
+      </li>
+    </ol>
+
+    <div class="page-break"></div>
+
+    <h2>7.4 인증 시스템 정책</h2>
+
+    <h3>7.4.1 현재 지원 인증 제공자 (즉시 사용 가능)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>인증 제공자</th>
+          <th>특징 및 장점</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>✅ 카카오 (Kakao)</strong></td>
+          <td>
+            - 국내 1위 메신저 앱, 대부분의 사용자가 보유<br />- 빠른 연동 (Supabase Auth 기본 지원)<br />- 무료 사용
+            가능<br />- 보호자/성인 인증으로 사용
+          </td>
+        </tr>
+        <tr>
+          <td><strong>✅ 네이버 (Naver)</strong></td>
+          <td>
+            - 국내 2위 포털, 카카오 없는 사용자 대체<br />- OAuth 2.0 표준 지원<br />- 무료 사용 가능<br />- 보호자/성인
+            인증으로 사용
+          </td>
+        </tr>
+        <tr>
+          <td><strong>✅ 학교 이메일 OTP</strong></td>
+          <td>
+            - 학생 본인 인증 전용 (*.ac.kr, *.hs.kr, *.ms.kr, *.es.kr 등)<br />- OTP 6자리 발송 → 90% 자동 승인<br />-
+            인증 실패 시 학생증 업로드 → 관리자 수동 승인<br />- 커스텀 구현 (Supabase Edge Function + Resend 이메일
+            API)
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>7.4.2 향후 추가 예정 인증 제공자</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>인증 제공자</th>
+          <th>특징</th>
+          <th>승인 소요 시간</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>⏸ <strong>PASS</strong></td>
+          <td>
+            ✅ 본인 인증 강화 (CI/DI 제공)<br />✅ 주민번호 없이 신원 확인 가능<br />⚠ 유료 (1회당 200~500원, 최소 월
+            50,000원)
+          </td>
+          <td>3-5 영업일</td>
+        </tr>
+        <tr>
+          <td>⏸ <strong>페이코 (PAYCO)</strong></td>
+          <td>✅ NHN 운영, 추가 사용자 확보<br />✅ OAuth 2.0 표준 지원<br />✅ 무료 사용 가능</td>
+          <td>1-3 영업일</td>
+        </tr>
+        <tr>
+          <td>⏸ <strong>토스 (Toss)</strong></td>
+          <td>✅ 간편 결제 1위, 젊은 층 사용자 많음<br />✅ 빠른 로그인 (원클릭)<br />✅ 높은 보안 수준</td>
+          <td>1-2 영업일</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>7.4.3 학생 인증 흐름</h3>
+    <p>📌 학생 AI 이용권 신청 시 인증 방법: 다음 두 가지 방법 중 하나를 선택하여 인증할 수 있습니다.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>인증 방법</th>
+          <th>절차</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <strong>방법 A<br />보호자 인증</strong>
+          </td>
+          <td>① 보호자가 카카오 또는 네이버로 간편 인증<br />② 이용권 신청 폼 작성<br />③ 관리자 승인 후 발급</td>
+          <td>✅ 초등학생 또는 스마트폰이 없는 학생 권장<br />✅ 보호자의 카카오/네이버 계정 사용</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>방법 B<br />학생 본인 이메일 인증</strong>
+          </td>
+          <td>
+            ① 학교 이메일 주소 입력 (*.ac.kr, *.hs.kr 등)<br />② OTP 6자리 이메일로 발송<br />③ OTP 입력 → 90% 자동
+            승인<br />④ (실패 시) 학생증 업로드 → 관리자 수동 승인
+          </td>
+          <td>✅ 중·고등·대학생 권장<br />✅ 학교 이메일이 있는 경우<br />⚠ OTP 인증 실패 시 학생증 업로드 필수</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box">
+      <h4>🚨 [v1.2 추가] 비회원 인증 아키텍처 (최종 확정)</h4>
+      <p>
+        Supabase Auth를 통한 비회원(접수번호+비밀번호) 로그인은 지원되지 않습니다. 따라서 아래와 같이 독자적인 커스텀
+        인증 세션을 구현해야 합니다.
+      </p>
+      <ul>
+        <li>
+          <strong>1. 비밀번호 저장:</strong> 접수 시 입력한 비밀번호를 <code>bcrypt</code>(saltRounds 12 이상)로
+          해싱하여 DB에 저장합니다.
+        </li>
+        <li>
+          <strong>2. 로그인 요청:</strong> <code>POST /api/guest/login</code>으로 접수번호와 비밀번호를 전송합니다.
+        </li>
+        <li>
+          <strong>3. 검증 및 세션 발급:</strong> 서버에서 bcrypt로 비밀번호를 대조한 후,
+          <strong>HttpOnly 쿠키</strong> 또는 <strong>커스텀 JWT</strong>를 발급하여 세션을 유지합니다.
+        </li>
+        <li><strong>4. 보안:</strong> 발급된 토큰은 비회원 파일 업로드 등 후속 작업의 권한 검증에 사용됩니다.</li>
+      </ul>
+    </div>
+
+    <h2>7.5 데이터 흐름 및 보안</h2>
+    <p><strong>🔒 보안 정책</strong></p>
+    <ul>
+      <li><strong>인증:</strong> Supabase Auth + JWT 토큰 (Access Token 1시간, Refresh Token 7일)</li>
+      <li><strong>세션 관리:</strong> HttpOnly 쿠키 + CSRF 토큰</li>
+      <li><strong>데이터베이스:</strong> Supabase RLS (Row Level Security) - 본인 데이터만 조회 가능</li>
+      <li>
+        <strong>파일 업로드:</strong> Supabase Storage 서명된 URL (회원), API 경유 Service Role 업로드 (비회원),
+        바이러스 검사 (선택)
+      </li>
+      <li><strong>API 호출:</strong> JWT 검증, 관리자 권한 확인, Rate Limiting</li>
+    </ul>
+
+    <h2>7.6 시스템 특장점</h2>
+    <ul>
+      <li>✅ <strong>높은 접근성:</strong> 비회원도 작품 접수 및 게시판 작성 가능</li>
+      <li>✅ <strong>편리한 인증:</strong> 5개 간편 인증 제공자 중 선택 (회원가입 불필요)</li>
+      <li>✅ <strong>본인 확인:</strong> 이메일/비밀번호 또는 간편 인증으로 본인 확인</li>
+      <li>✅ <strong>AI 기반 QA:</strong> 챗봇이 대회 요강 범위 질문에 자동 답변 (비용 추적)</li>
+      <li>
+        ✅ <strong>AI 심사:</strong> 제출 파일 분석 및 점수 산출 (관리자가 수동 트리거 + 백그라운드 큐 처리, 타임아웃
+        없음)
+      </li>
+      <li>✅ <strong>유연한 관리:</strong> 관리자가 인증 제공자, 챗봇, 파일 업로드 설정 가능</li>
+      <li>✅ <strong>선착순 제한:</strong> AI 이용권 500명 승인 기준 관리 (검수 후 승인)</li>
+      <li>✅ <strong>실시간 대시보드:</strong> 관리자가 실시간으로 신청/접수 현황 확인</li>
+    </ul>
+  </body>
+</html>
