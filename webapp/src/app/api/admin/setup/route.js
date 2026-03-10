@@ -34,7 +34,17 @@ export async function POST(request) {
     const existing = existingUsers?.users?.find((u) => u.email === email);
 
     if (existing) {
-      // User exists — just make sure profile has admin role
+      // If reset_password flag is set, update the password
+      if (body.reset_password) {
+        const { error: updateError } = await admin.auth.admin.updateUserById(existing.id, {
+          password: password,
+        });
+        if (updateError) {
+          return NextResponse.json({ error: "Password reset failed: " + updateError.message }, { status: 500 });
+        }
+      }
+
+      // Make sure profile has admin role
       await admin.from("users").upsert({
         id: existing.id,
         email: email,
@@ -42,7 +52,10 @@ export async function POST(request) {
         role: "admin",
       }, { onConflict: "id" });
 
-      return NextResponse.json({ message: "Admin already exists. Role verified.", email });
+      return NextResponse.json({ 
+        message: body.reset_password ? "Admin password reset successfully." : "Admin already exists. Role verified.", 
+        email 
+      });
     }
 
     // Create auth user
