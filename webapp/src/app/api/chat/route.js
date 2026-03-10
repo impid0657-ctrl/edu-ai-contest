@@ -206,7 +206,7 @@ async function tryGeminiCascade({ settings, systemPrompt, message, session_id, s
         const estimatedTokens = Math.ceil((message.length + fullResponse.length) / 4);
         logConversation({ sessionId: session_id, userQuery: message, aiResponse: fullResponse, isBlocked: false, tokensUsed: estimatedTokens, provider: "google", model, latencyMs: Date.now() - startTime }).catch(() => { });
 
-        return createSSEResponse(fullResponse);
+        return createSSEResponse(stripMarkdown(fullResponse));
       } catch (err) {
         console.warn(`[chat] ${model} failed: ${err.message}, trying next`);
       }
@@ -240,7 +240,21 @@ async function handleOpenRouter({ settings, model, systemPrompt, message, sessio
   const estimatedTokens = Math.ceil((message.length + fullResponse.length) / 4);
   logConversation({ sessionId: session_id, userQuery: message, aiResponse: fullResponse, isBlocked: false, tokensUsed: estimatedTokens, provider: "openrouter", model, latencyMs: Date.now() - startTime }).catch(() => { });
 
-  return createSSEResponse(fullResponse);
+  return createSSEResponse(stripMarkdown(fullResponse));
+}
+
+/**
+ * Strip markdown formatting from AI response text.
+ * Preserves emoji, numbered lists, and plain text.
+ */
+function stripMarkdown(text) {
+  return text
+    .replace(/^#{1,6}\s+/gm, "")         // # 헤딩 제거
+    .replace(/\*\*(.+?)\*\*/g, "$1")       // **볼드** → 볼드
+    .replace(/\*(.+?)\*/g, "$1")           // *이탤릭* → 이탤릭
+    .replace(/^[\s]*\*\s+/gm, "• ")        // * 리스트 → • 리스트
+    .replace(/^[\s]*-\s+/gm, "• ")         // - 리스트 → • 리스트
+    .replace(/`([^`]+)`/g, "$1");          // `코드` → 코드
 }
 
 /**
@@ -248,10 +262,12 @@ async function handleOpenRouter({ settings, model, systemPrompt, message, sessio
  */
 function createSSEResponse(text) {
   const encoder = new TextEncoder();
+  // Array.from()은 유니코드 코드포인트 단위로 분해하므로 서로게이트 페어가 깨지지 않음
+  const codePoints = Array.from(text);
   const chunkSize = 50;
   const chunks = [];
-  for (let i = 0; i < text.length; i += chunkSize) {
-    chunks.push(text.slice(i, i + chunkSize));
+  for (let i = 0; i < codePoints.length; i += chunkSize) {
+    chunks.push(codePoints.slice(i, i + chunkSize).join(""));
   }
 
   const readable = new ReadableStream({
