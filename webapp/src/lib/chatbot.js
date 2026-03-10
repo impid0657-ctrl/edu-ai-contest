@@ -72,19 +72,50 @@ export function invalidateSettingsCache() {
 }
 
 /**
- * Generate embedding vector for a text string using Gemini embedding model.
- * Uses gemini-embedding-001 with 768 dimensions.
+ * Generate embedding vector for a text string using Gemini embedding REST API.
+ * Uses node:https to bypass Next.js fetch patching.
+ * Model: gemini-embedding-001 with 768 dimensions.
  */
 export async function generateEmbedding(text) {
-  const ai = getGeminiClient();
-  const response = await ai.models.embedContent({
-    model: "gemini-embedding-001",
-    contents: text,
-    config: {
-      outputDimensionality: 768,
-    },
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error("GEMINI_API_KEY not set");
+
+  const https = await import("node:https");
+  const url = new URL(`https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent?key=${apiKey}`);
+  const postData = JSON.stringify({
+    content: { parts: [{ text }] },
+    outputDimensionality: 768,
   });
-  return response.embeddings[0].values;
+
+  return new Promise((resolve, reject) => {
+    const req = https.default.request(
+      {
+        hostname: url.hostname,
+        path: url.pathname + url.search,
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(postData) },
+      },
+      (res) => {
+        let data = "";
+        res.on("data", (chunk) => { data += chunk; });
+        res.on("end", () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            try {
+              const parsed = JSON.parse(data);
+              resolve(parsed.embedding?.values || []);
+            } catch { reject(new Error("Invalid embedding JSON")); }
+          } else {
+            reject(new Error(`Embedding API ${res.statusCode}: ${data.substring(0, 200)}`));
+          }
+        });
+        res.on("error", reject);
+      }
+    );
+    req.on("error", reject);
+    req.setTimeout(10000, () => { req.destroy(new Error("Embedding API timeout")); });
+    req.write(postData);
+    req.end();
+  });
 }
 
 /**
@@ -145,7 +176,7 @@ export async function checkDailyLimit(dailyLimit) {
 }
 
 /**
- * Log chatbot conversation
+ * Log chatbot conversation (graceful — 핵심 필드만이라도 저장)
  */
 export async function logConversation({
   sessionId,
@@ -158,19 +189,39 @@ export async function logConversation({
   latencyMs,
 }) {
   const adminClient = createAdminClient();
-  const { error } = await adminClient.from("chatbot_logs").insert({
-    session_id: sessionId,
-    user_query: userQuery,
-    ai_response: aiResponse,
+
+  // DB 실제 컬럼명: user_message (NOT NULL), assistant_message, session_id (NOT NULL)
+  const fullRow = {
+    session_id: sessionId || "anonymous",
+    user_message: userQuery,
+    assistant_message: aiResponse,
     is_blocked: isBlocked,
     tokens_used: tokensUsed,
     provider,
     model,
     latency_ms: latencyMs,
-  });
+  };
+
+  const { error } = await adminClient.from("chatbot_logs").insert(fullRow);
 
   if (error) {
-    console.error("Log conversation error:", error.message);
+    console.error("Log conversation error (full):", error.message);
+
+    // 2차 시도: 핵심 필드만 (스키마 불일치 대비)
+    const coreRow = {
+      session_id: sessionId || "anonymous",
+      user_message: userQuery,
+      assistant_message: aiResponse,
+      is_blocked: isBlocked,
+      tokens_used: tokensUsed,
+    };
+
+    const { error: coreErr } = await adminClient.from("chatbot_logs").insert(coreRow);
+    if (coreErr) {
+      console.error("Log conversation error (core):", coreErr.message);
+    } else {
+      console.log("Log saved with core fields only");
+    }
   }
 }
 

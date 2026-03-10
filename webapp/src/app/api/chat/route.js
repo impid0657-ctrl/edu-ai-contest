@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import {
-  getGeminiClient,
   getChatbotSettings,
   generateEmbedding,
   searchDocuments,
@@ -9,22 +8,68 @@ import {
   logConversation,
   logFallbackEvent,
 } from "@/lib/chatbot";
-import { callOpenRouterStream, DEFAULT_FALLBACK_MODEL } from "@/lib/openrouter";
+import { callOpenRouter, DEFAULT_FALLBACK_MODEL } from "@/lib/openrouter";
 import { rateLimit, getClientIP } from "@/lib/rateLimit";
 
 const chatLimiter = rateLimit({ interval: 60_000, limit: 20 });
 
 /**
+ * Call Gemini REST API using node:https to completely bypass Next.js fetch patching.
+ * Next.js monkey-patches globalThis.fetch causing infinite hangs with external APIs.
+ * Using node:https avoids this entirely.
+ */
+async function callGeminiDirect(url, requestBody) {
+  const https = await import("node:https");
+  const parsedUrl = new URL(url);
+
+  return new Promise((resolve, reject) => {
+    const postData = JSON.stringify(requestBody);
+    const req = https.default.request(
+      {
+        hostname: parsedUrl.hostname,
+        path: parsedUrl.pathname + parsedUrl.search,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Content-Length": Buffer.byteLength(postData),
+        },
+      },
+      (res) => {
+        let data = "";
+        res.on("data", (chunk) => { data += chunk; });
+        res.on("end", () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            try {
+              resolve(JSON.parse(data));
+            } catch {
+              reject(new Error("Invalid JSON from Gemini: " + data.substring(0, 200)));
+            }
+          } else {
+            reject(new Error(`Gemini API ${res.statusCode}: ${data.substring(0, 300)}`));
+          }
+        });
+        res.on("error", reject);
+      }
+    );
+    req.on("error", reject);
+    req.setTimeout(10000, () => {
+      req.destroy(new Error("Gemini API timeout (10s)"));
+    });
+    req.write(postData);
+    req.end();
+  });
+}
+
+/**
  * POST /api/chat
- * Streaming RAG chatbot endpoint.
- * Primary: Google Gemini. Fallback: OpenRouter (non-Google models).
- * Embeds query → cosine search → AI stream → log.
+ * RAG chatbot endpoint.
+ * Primary: Google Gemini (via node:https to bypass Next.js fetch patch).
+ * Fallback: OpenRouter.
  */
 export async function POST(request) {
   const startTime = Date.now();
 
   try {
-    // Rate limit
     const ip = getClientIP(request);
     const { success } = chatLimiter.check(ip);
     if (!success) {
@@ -38,89 +83,85 @@ export async function POST(request) {
       return NextResponse.json({ error: "메시지를 입력해주세요." }, { status: 400 });
     }
 
-    // Get settings
+    // 글자수 제한 (300자) — 토큰 오버 방지
+    if (message.length > 300) {
+      return NextResponse.json({ error: "입력 글자수가 300자를 초과했습니다. 질문을 간결하게 줄여주세요." }, { status: 400 });
+    }
+
     const settings = await getChatbotSettings();
 
-    // Check if chatbot is active
     if (!settings.is_active) {
-      return NextResponse.json(
-        { error: "챗봇이 비활성화 상태입니다." },
-        { status: 503 }
-      );
+      return NextResponse.json({ error: "챗봇이 비활성화 상태입니다." }, { status: 503 });
     }
 
-    // Check daily limit
-    const limitReached = await checkDailyLimit(settings.daily_limit);
-    if (limitReached) {
-      return NextResponse.json(
-        { error: "일일 대화 한도에 도달했습니다. 내일 다시 이용해주세요." },
-        { status: 429 }
-      );
+    // Daily limit check (graceful)
+    try {
+      const limitReached = await checkDailyLimit(settings.daily_limit);
+      if (limitReached) {
+        return NextResponse.json({ error: "일일 대화 한도에 도달했습니다." }, { status: 429 });
+      }
+    } catch (limitErr) {
+      console.warn("Daily limit check skipped:", limitErr.message);
     }
 
-    // Check blocked topics
+    // Blocked topics
     const blockedTopics = Array.isArray(settings.blocked_topics)
       ? settings.blocked_topics
       : JSON.parse(settings.blocked_topics || "[]");
 
     if (isBlockedTopic(message, blockedTopics)) {
-      const blockedResponse = "죄송합니다. 해당 주제는 답변할 수 없습니다. 대회 요강 관련 질문을 해주세요.";
-
-      await logConversation({
-        sessionId: session_id,
-        userQuery: message,
-        aiResponse: blockedResponse,
-        isBlocked: true,
-        provider: settings.provider || "google",
-        model: settings.model_name,
-        latencyMs: Date.now() - startTime,
-      });
-
-      return NextResponse.json({ response: blockedResponse, blocked: true });
+      logConversation({ sessionId: session_id, userQuery: message, aiResponse: "차단됨", isBlocked: true, provider: "google", model: settings.model_name, latencyMs: Date.now() - startTime }).catch(() => { });
+      return NextResponse.json({ response: "죄송합니다. 해당 주제는 답변할 수 없습니다.", blocked: true });
     }
 
-    // Generate embedding for user query
+    // Embedding
     let queryEmbedding;
     try {
       queryEmbedding = await generateEmbedding(message);
     } catch (err) {
-      console.error("Embedding generation failed:", err.message);
+      console.error("Embedding failed:", err.message);
       queryEmbedding = null;
     }
 
-    // Search for relevant documents
+    // Vector search
     let contextDocs = [];
     if (queryEmbedding) {
-      contextDocs = await searchDocuments(queryEmbedding, 5, 0.75);
+      contextDocs = await searchDocuments(queryEmbedding, 5, 0.5);
+      console.log(`[chat] RAG search: ${contextDocs.length} docs found`);
+    } else {
+      console.log("[chat] RAG search: skipped (no embedding)");
     }
 
-    // Build context string from matched documents
     const contextText = contextDocs.length > 0
       ? contextDocs.map((d) => `[${d.title || "문서"}]: ${d.content}`).join("\n\n")
-      : "관련 문서를 찾지 못했습니다. 일반적인 대회 안내를 참고하여 답변해주세요.";
+      : "";
 
-    // Build prompt
-    const systemPrompt = `${settings.system_prompt}\n\n--- 참고 문서 ---\n${contextText}\n--- 참고 문서 끝 ---`;
+    // Build prompt — 공모전 안내 전용 + RAG 기반만 답변 + 비공모전 질문 거부
+    const STRICT_RULES = `
+[필수 준수 규칙]
+1. 당신은 "제8회 교육 공공데이터 AI활용대회" 안내 전용 챗봇입니다.
+2. 오직 아래 참고 문서에 포함된 내용만 답변할 수 있습니다. 문서에 없는 내용은 절대로 추측하거나 지어내지 마세요.
+3. 공모전과 관련 없는 질문(일상 대화, 프로그래밍 도움, 번역, 다른 대회 정보 등)에는 반드시 다음과 같이 답변하세요:
+   "죄송합니다. 저는 교육 공공데이터 AI활용대회 안내 전용 챗봇이므로 해당 질문에는 답변드리기 어렵습니다. 대회 관련 질문을 해주세요."
+4. 참고 문서에 없는 대회 정보를 질문받으면: "해당 정보는 현재 등록된 문서에서 확인할 수 없습니다. 자세한 내용은 대회 공모요강을 확인하시거나 관리자에게 문의해주세요."
+5. 답변은 친절하고 간결하게 합니다.`;
 
-    const activeProvider = settings.provider || "google";
-    const modelName = settings.model_name || "gemini-3-flash-preview";
-    const autoFallback = settings.auto_fallback !== false; // default true
-
-    // ─── Try primary provider ───
-    if (activeProvider === "google") {
-      return await tryGeminiWithFallback({
-        settings, modelName, systemPrompt, message, session_id, startTime, autoFallback,
-      });
-    } else if (activeProvider === "openrouter") {
-      return await handleOpenRouterStream({
-        settings, model: modelName, systemPrompt, message, session_id, startTime, isFallback: false,
-      });
+    let systemPrompt;
+    if (contextDocs.length > 0) {
+      systemPrompt = `${settings.system_prompt}\n${STRICT_RULES}\n\n--- 참고 문서 ---\n${contextText}\n--- 참고 문서 끝 ---`;
     } else {
-      // Unknown provider, try Gemini as default
-      return await tryGeminiWithFallback({
-        settings, modelName, systemPrompt, message, session_id, startTime, autoFallback,
-      });
+      systemPrompt = `${settings.system_prompt}\n${STRICT_RULES}\n\n현재 참고할 수 있는 문서가 없습니다. 모든 질문에 대해 "죄송합니다. 현재 참고할 수 있는 대회 요강 문서가 등록되지 않아 정확한 답변이 어렵습니다. 관리자에게 문의해주세요."라고 안내하세요.`;
     }
+
+    // 3단계 폴백: gemini-2.5-flash-lite → gemini-2.5-flash → OpenRouter
+    if (settings.provider === "openrouter") {
+      // 관리자가 명시적으로 OpenRouter 지정
+      const model = settings.model_name || DEFAULT_FALLBACK_MODEL;
+      return await handleOpenRouter({ settings, model, systemPrompt, message, session_id, startTime });
+    }
+
+    // Gemini 캐스케이드 시도
+    return await tryGeminiCascade({ settings, systemPrompt, message, session_id, startTime });
   } catch (err) {
     console.error("POST /api/chat error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
@@ -128,169 +169,101 @@ export async function POST(request) {
 }
 
 /**
- * Try Gemini first, fallback to OpenRouter on failure.
+ * 3단계 Gemini 캐스케이드: gemini-2.5-flash-lite → gemini-2.5-flash → OpenRouter
  */
-async function tryGeminiWithFallback({ settings, modelName, systemPrompt, message, session_id, startTime, autoFallback }) {
-  try {
-    const ai = getGeminiClient();
+async function tryGeminiCascade({ settings, systemPrompt, message, session_id, startTime }) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  const geminiModels = ["gemini-2.5-flash-lite", "gemini-2.5-flash"];
 
-    const response = await ai.models.generateContentStream({
-      model: modelName,
-      config: {
-        maxOutputTokens: settings.max_tokens || 1000,
-        temperature: parseFloat(settings.temperature) || 0.7,
-        systemInstruction: systemPrompt,
-      },
-      contents: message,
-    });
+  const requestBody = {
+    contents: [{ role: "user", parts: [{ text: message }] }],
+    systemInstruction: { parts: [{ text: systemPrompt }] },
+    generationConfig: {
+      maxOutputTokens: settings.max_tokens || 1000,
+      temperature: parseFloat(settings.temperature) || 0.7,
+    },
+  };
 
-    // Gemini streaming
-    let fullResponse = "";
-    const encoder = new TextEncoder();
+  // Gemini 모델 순차 시도
+  if (apiKey) {
+    for (const model of geminiModels) {
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        console.log(`[chat] trying: ${model} (+${Date.now() - startTime}ms)`);
 
-    const readable = new ReadableStream({
-      async start(controller) {
-        try {
-          for await (const chunk of response) {
-            const content = chunk.text || "";
-            if (content) {
-              fullResponse += content;
-              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\\n\\n`));
-            }
-          }
-          controller.enqueue(encoder.encode("data: [DONE]\\n\\n"));
-          controller.close();
+        const geminiData = await callGeminiDirect(url, requestBody);
+        const fullResponse = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
-          const estimatedTokens = Math.ceil((message.length + fullResponse.length) / 4);
-          await logConversation({
-            sessionId: session_id,
-            userQuery: message,
-            aiResponse: fullResponse,
-            isBlocked: false,
-            tokensUsed: estimatedTokens,
-            provider: "google",
-            model: modelName,
-            latencyMs: Date.now() - startTime,
-          });
-        } catch (err) {
-          console.error("Gemini stream error:", err);
-          controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify({ content: "\\n\\n오류가 발생했습니다." })}\\n\\n`)
-          );
-          controller.enqueue(encoder.encode("data: [DONE]\\n\\n"));
-          controller.close();
+        if (!fullResponse) {
+          console.warn(`[chat] ${model}: empty response, trying next`);
+          continue;
         }
-      },
-    });
 
-    return new Response(readable, {
-      headers: {
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-        Connection: "keep-alive",
-      },
-    });
-  } catch (geminiError) {
-    console.error("Gemini API failed, error:", geminiError.message);
+        console.log(`[chat] success: ${model} (+${Date.now() - startTime}ms)`);
 
-    if (!autoFallback) {
-      return NextResponse.json({ error: "AI 서비스에 일시적 문제가 발생했습니다." }, { status: 503 });
+        const estimatedTokens = Math.ceil((message.length + fullResponse.length) / 4);
+        logConversation({ sessionId: session_id, userQuery: message, aiResponse: fullResponse, isBlocked: false, tokensUsed: estimatedTokens, provider: "google", model, latencyMs: Date.now() - startTime }).catch(() => { });
+
+        return createSSEResponse(fullResponse);
+      } catch (err) {
+        console.warn(`[chat] ${model} failed: ${err.message}, trying next`);
+      }
     }
-
-    // ─── Fallback to OpenRouter ───
-    const fallbackModel = settings.fallback_model || DEFAULT_FALLBACK_MODEL;
-    const errorDesc = `Gemini API 오류로 OpenRouter(${fallbackModel})로 자동 전환되었습니다. 오류: ${geminiError.message}`;
-
-    // Log fallback event (async, don't block)
-    logFallbackEvent({
-      originalProvider: "google",
-      originalModel: modelName,
-      fallbackProvider: "openrouter",
-      fallbackModel: fallbackModel,
-      errorMessage: geminiError.message,
-      description: errorDesc,
-    }).catch(() => {});
-
-    console.log(`Falling back to OpenRouter: ${fallbackModel}`);
-
-    return await handleOpenRouterStream({
-      settings,
-      model: fallbackModel,
-      systemPrompt,
-      message,
-      session_id,
-      startTime,
-      isFallback: true,
-    });
   }
+
+  // 3차: OpenRouter 폴백
+  const fallbackModel = settings.fallback_model || DEFAULT_FALLBACK_MODEL;
+  console.log(`[chat] all Gemini failed, falling back to OpenRouter: ${fallbackModel} (+${Date.now() - startTime}ms)`);
+
+  logFallbackEvent({
+    originalProvider: "google", originalModel: geminiModels[0],
+    fallbackProvider: "openrouter", fallbackModel,
+    errorMessage: "All Gemini models failed",
+    description: "Gemini 전체 실패 → OpenRouter 전환",
+  }).catch(() => { });
+
+  return await handleOpenRouter({ settings, model: fallbackModel, systemPrompt, message, session_id, startTime });
 }
 
 /**
- * Handle OpenRouter streaming response.
+ * Handle OpenRouter non-streaming response.
  */
-async function handleOpenRouterStream({ settings, model, systemPrompt, message, session_id, startTime, isFallback }) {
-  const orStream = await callOpenRouterStream({
-    model,
-    systemPrompt,
-    userMessage: message,
-    maxTokens: settings.max_tokens || 1000,
-    temperature: parseFloat(settings.temperature) || 0.7,
-  });
+async function handleOpenRouter({ settings, model, systemPrompt, message, session_id, startTime }) {
+  const fullResponse = await callOpenRouter({ model, systemPrompt, userMessage: message, maxTokens: settings.max_tokens || 1000, temperature: parseFloat(settings.temperature) || 0.7 });
 
-  let fullResponse = "";
+  if (!fullResponse) {
+    return NextResponse.json({ error: "AI 서비스에서 응답을 받지 못했습니다." }, { status: 503 });
+  }
+
+  const estimatedTokens = Math.ceil((message.length + fullResponse.length) / 4);
+  logConversation({ sessionId: session_id, userQuery: message, aiResponse: fullResponse, isBlocked: false, tokensUsed: estimatedTokens, provider: "openrouter", model, latencyMs: Date.now() - startTime }).catch(() => { });
+
+  return createSSEResponse(fullResponse);
+}
+
+/**
+ * Create SSE response from complete text, simulating streaming for frontend.
+ */
+function createSSEResponse(text) {
   const encoder = new TextEncoder();
-  const decoder = new TextDecoder();
+  const chunkSize = 50;
+  const chunks = [];
+  for (let i = 0; i < text.length; i += chunkSize) {
+    chunks.push(text.slice(i, i + chunkSize));
+  }
 
   const readable = new ReadableStream({
     async start(controller) {
       try {
-        const reader = orStream.getReader();
-        let buffer = "";
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split("\n");
-          buffer = lines.pop() || "";
-
-          for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              const data = line.slice(6).trim();
-              if (data === "[DONE]") continue;
-              try {
-                const parsed = JSON.parse(data);
-                const content = parsed.choices?.[0]?.delta?.content || "";
-                if (content) {
-                  fullResponse += content;
-                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\\n\\n`));
-                }
-              } catch {}
-            }
-          }
+        for (const chunk of chunks) {
+          controller.enqueue(encoder.encode("data: " + JSON.stringify({ content: chunk }) + "\n\n"));
+          await new Promise((r) => setTimeout(r, 15));
         }
-
-        controller.enqueue(encoder.encode("data: [DONE]\\n\\n"));
+        controller.enqueue(encoder.encode("data: [DONE]\n\n"));
         controller.close();
-
-        const estimatedTokens = Math.ceil((message.length + fullResponse.length) / 4);
-        await logConversation({
-          sessionId: session_id,
-          userQuery: message,
-          aiResponse: fullResponse,
-          isBlocked: false,
-          tokensUsed: estimatedTokens,
-          provider: "openrouter",
-          model: model,
-          latencyMs: Date.now() - startTime,
-        });
-      } catch (err) {
-        console.error("OpenRouter stream error:", err);
-        controller.enqueue(
-          encoder.encode(`data: ${JSON.stringify({ content: "\\n\\n오류가 발생했습니다." })}\\n\\n`)
-        );
-        controller.enqueue(encoder.encode("data: [DONE]\\n\\n"));
+      } catch {
+        controller.enqueue(encoder.encode("data: " + JSON.stringify({ content: "\n\n오류가 발생했습니다." }) + "\n\n"));
+        controller.enqueue(encoder.encode("data: [DONE]\n\n"));
         controller.close();
       }
     },

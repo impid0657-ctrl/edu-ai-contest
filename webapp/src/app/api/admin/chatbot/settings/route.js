@@ -16,7 +16,7 @@ import path from "path";
 
 const DEFAULTS = {
   provider: "google",
-  model_name: "gemini-3-flash-preview",
+  model_name: "gemini-2.5-flash-lite",
   system_prompt: "당신은 제8회 교육 공공데이터 AI활용대회의 안내 도우미입니다. 대회 요강 범위 내에서만 답변하세요.",
   max_tokens: 1000,
   temperature: 0.7,
@@ -76,7 +76,7 @@ async function checkAdmin() {
 
 async function loadSettings() {
   const adminClient = createAdminClient();
-  
+
   let dbData = null;
   let localData = null;
 
@@ -84,7 +84,7 @@ async function loadSettings() {
   try {
     const { data, error } = await adminClient.from("chatbot_settings").select("*").limit(1).maybeSingle();
     if (!error && data) dbData = data;
-  } catch {}
+  } catch { }
 
   // 2차: 로컬 JSON 파일
   localData = readLocalSettings();

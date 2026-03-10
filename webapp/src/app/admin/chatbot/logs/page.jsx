@@ -177,8 +177,8 @@ export default function AdminChatbotLogsPage() {
                 ) : logs.map((log) => (
                   <tr key={log.id} className="cursor-pointer" onClick={() => setExpandedId(expandedId === log.id ? null : log.id)}>
                     <td className="text-muted text-nowrap">{formatKST(log.created_at, "MM-dd HH:mm")}</td>
-                    <td className="fw-medium">{(log.user_query || "").substring(0, 60)}{log.user_query?.length > 60 ? "..." : ""}</td>
-                    <td className="text-muted">{(log.ai_response || "").substring(0, 60)}{log.ai_response?.length > 60 ? "..." : ""}</td>
+                    <td className="fw-medium">{(log.user_message || "").substring(0, 60)}{log.user_message?.length > 60 ? "..." : ""}</td>
+                    <td className="text-muted">{(log.assistant_message || "").substring(0, 60)}{log.assistant_message?.length > 60 ? "..." : ""}</td>
                     <td><span className="badge bg-primary-50 text-primary-600">{log.tokens_used || 0}</span></td>
                     <td>{log.is_blocked ? <span className="badge bg-danger-focus text-danger-600">차단</span> : <span className="text-muted">-</span>}</td>
                   </tr>
@@ -195,11 +195,11 @@ export default function AdminChatbotLogsPage() {
                 <div className="row g-3">
                   <div className="col-md-6">
                     <h6 className="fw-semibold mb-2">질문</h6>
-                    <p className="text-break mb-0">{log.user_query}</p>
+                    <p className="text-break mb-0">{log.user_message}</p>
                   </div>
                   <div className="col-md-6">
                     <h6 className="fw-semibold mb-2">응답</h6>
-                    <p className="text-break mb-0">{log.ai_response}</p>
+                    <p className="text-break mb-0">{log.assistant_message}</p>
                   </div>
                 </div>
                 <div className="mt-2 text-muted small">

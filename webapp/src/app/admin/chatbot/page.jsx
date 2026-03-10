@@ -3,6 +3,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
+// Gemini 모델 목록 (공식 문서 기준 유효 모델 — https://ai.google.dev/gemini-api/docs/deprecations)
+const GEMINI_MODELS = [
+  { id: "gemini-2.5-flash-lite", name: "Gemini 2.5 Flash Lite", desc: "가장 빠름, 저비용 (기본 추천)" },
+  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", desc: "빠른 응답, 균형 잡힌 성능" },
+  { id: "gemini-2.5-pro", name: "Gemini 2.5 Pro", desc: "최고 품질, 복잡한 추론" },
+];
+
 // OpenRouter 모델 목록 (서버의 openrouter.js와 동기화)
 const OPENROUTER_MODELS = [
   { id: "anthropic/claude-3.5-haiku", name: "Claude 3.5 Haiku", desc: "빠르고 저렴, 한국어 우수" },
@@ -65,7 +72,32 @@ function ChatbotSettingsTab() {
     (async () => {
       try {
         const res = await fetch("/api/admin/chatbot/settings");
-        if (res.ok) { const data = await res.json(); setSettings(data.settings); }
+        if (res.ok) {
+          const data = await res.json();
+          const s = data.settings;
+          // example_questions가 완전히 비어있으면 API에서 현재 표시 중인 질문 로드
+          if (!Array.isArray(s.example_questions) || s.example_questions.length === 0) {
+            try {
+              const qRes = await fetch("/api/settings/chatbot-questions");
+              if (qRes.ok) {
+                const qData = await qRes.json();
+                if (Array.isArray(qData.questions) && qData.questions.length > 0) {
+                  s.example_questions = qData.questions;
+                }
+              }
+            } catch { }
+            // 여전히 비어있으면 기본값
+            if (!Array.isArray(s.example_questions) || s.example_questions.length === 0) {
+              s.example_questions = [
+                "참가 자격은 어떻게 되나요?",
+                "AI 이용권은 어떻게 받나요?",
+                "작품 접수 마감일은 언제인가요?",
+                "팀으로 참가할 수 있나요?",
+              ];
+            }
+          }
+          setSettings(s);
+        }
       } catch (err) { console.error(err); }
       finally { setLoading(false); }
     })();
@@ -74,7 +106,7 @@ function ChatbotSettingsTab() {
       try {
         const res = await fetch("/api/admin/chatbot/healthcheck");
         if (res.ok) { const data = await res.json(); setHealthStatus(data.latest); }
-      } catch {}
+      } catch { }
     })();
   }, []);
 
@@ -97,7 +129,7 @@ function ChatbotSettingsTab() {
       try {
         const res = await fetch("/api/admin/chatbot/fallback-logs");
         if (res.ok) { const data = await res.json(); setFallbackLogs(data.logs || []); }
-      } catch {}
+      } catch { }
       finally { setLogsLoading(false); }
     }
     setLogsOpen(!logsOpen);
@@ -146,18 +178,18 @@ function ChatbotSettingsTab() {
                     ))}
                   </select>
                 ) : (
-                  <>
-                    <input type="text" className="form-control" value={settings.model_name} onChange={(e) => handleChange("model_name", e.target.value)} list="model-suggestions" />
-                    <datalist id="model-suggestions">
-                      <option value="gemini-3-flash-preview" />
-                      <option value="gemini-2.5-flash-preview-05-20" />
-                      <option value="gemini-2.0-flash" />
-                      <option value="gemini-2.0-flash-lite" />
-                    </datalist>
-                  </>
+                  <select className="form-select" value={settings.model_name} onChange={(e) => handleChange("model_name", e.target.value)}>
+                    {GEMINI_MODELS.map((m) => (
+                      <option key={m.id} value={m.id}>{m.name} — {m.desc}</option>
+                    ))}
+                  </select>
                 )}
                 <small className="text-muted mt-4 d-block">
-                  {settings.provider === "google" && "Google Gemini 모델 — GEMINI_API_KEY 필요"}
+                  {settings.provider === "google" && (
+                    <>
+                      <strong>자동 캐스케이드:</strong> 선택한 모델 실패 시 gemini-2.5-flash-lite → gemini-2.5-flash → OpenRouter 순으로 자동 전환됩니다.
+                    </>
+                  )}
                   {settings.provider === "openrouter" && "OpenRouter 모델 — OPENROUTER_API_KEY 필요"}
                 </small>
               </div>
@@ -459,15 +491,30 @@ function DocumentsTab() {
     } catch { setMessage({ type: "danger", text: "네트워크 오류" }); }
   };
 
+  const [deletingId, setDeletingId] = useState(null);
+
   const handleDelete = async (id) => {
-    if (!confirm("이 문서를 삭제하시겠습니까?")) return;
+    // 첫 클릭: 확인 요청, 두 번째 클릭: 실제 삭제
+    if (deletingId !== id) {
+      setDeletingId(id);
+      return;
+    }
+    setDeletingId(null);
     try {
       const res = await fetch("/api/admin/chatbot/documents", {
         method: "DELETE", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
       });
-      if (res.ok) { setMessage({ type: "success", text: "문서가 삭제되었습니다." }); fetchDocs(); }
-    } catch { setMessage({ type: "danger", text: "네트워크 오류" }); }
+      if (res.ok) {
+        setMessage({ type: "success", text: "문서가 삭제되었습니다." });
+        fetchDocs();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setMessage({ type: "danger", text: data.error || `삭제 실패 (${res.status})` });
+      }
+    } catch (err) {
+      setMessage({ type: "danger", text: "네트워크 오류: " + err.message });
+    }
   };
 
   const startEdit = (doc) => { setEditingDoc(doc); setEditTitle(doc.title || ""); setEditContent(doc.content || ""); };
@@ -555,7 +602,13 @@ function DocumentsTab() {
                       <td>
                         <div className="d-flex gap-1">
                           <button className="btn btn-sm btn-outline-primary" onClick={() => startEdit(doc)}>수정</button>
-                          <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(doc.id)}>삭제</button>
+                          <button
+                            className={`btn btn-sm ${deletingId === doc.id ? "btn-danger" : "btn-outline-danger"}`}
+                            onClick={() => handleDelete(doc.id)}
+                            onBlur={() => setDeletingId(null)}
+                          >
+                            {deletingId === doc.id ? "삭제하시겠습니까?" : "삭제"}
+                          </button>
                         </div>
                       </td>
                     </tr>

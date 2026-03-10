@@ -35,15 +35,37 @@ async function autoGenerateEmbedding(docId, title, content) {
     const text = title ? `${title}: ${content}` : content;
     const embedding = await generateEmbedding(text);
 
+    if (!embedding || embedding.length === 0) {
+      console.warn(`⚠️ Empty embedding for ${title || docId}`);
+      return;
+    }
+
     const adminClient = createAdminClient();
-    await adminClient
+
+    // 1차: JSON 배열로 시도
+    const { error } = await adminClient
       .from("contest_documents")
       .update({ embedding })
       .eq("id", docId);
 
-    console.log(`✅ Embedding generated for document: ${title || docId}`);
+    if (error) {
+      console.warn(`Embedding update (array) failed: ${error.message}, trying string format...`);
+
+      // 2차: PostgreSQL 벡터 문자열 형식으로 시도 "[0.1,0.2,...]"
+      const vectorStr = `[${embedding.join(",")}]`;
+      const { error: err2 } = await adminClient
+        .from("contest_documents")
+        .update({ embedding: vectorStr })
+        .eq("id", docId);
+
+      if (err2) {
+        console.error(`⚠️ Embedding update (string) also failed for ${docId}:`, err2.message);
+        return;
+      }
+    }
+
+    console.log(`✅ Embedding generated for document: ${title || docId} (${embedding.length} dims)`);
   } catch (err) {
-    // Embedding failure should not break the document CRUD
     console.error(`⚠️ Embedding generation failed for ${docId}:`, err.message);
   }
 }
@@ -105,10 +127,10 @@ export async function POST(request) {
       .single();
 
     if (error) {
-      console.error("Insert document error:", error.message);
+      console.error("Insert document error:", error.message, error.details, error.hint);
       const msg = error.message?.includes("relation")
         ? "문서 테이블이 없습니다. DB 마이그레이션(006_chatbot.sql)을 실행해주세요."
-        : "문서 추가 실패";
+        : `문서 추가 실패: ${error.message}`;
       return NextResponse.json({ error: msg }, { status: 500 });
     }
 

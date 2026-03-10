@@ -46,10 +46,16 @@ export default function ChatbotEmbed() {
     }
   }, [messages]);
 
+  const MAX_INPUT_LENGTH = 300;
+
   const sendMessage = async (text) => {
     if (!text.trim() || isLoading) return;
 
     const userMessage = text.trim();
+    if (userMessage.length > MAX_INPUT_LENGTH) {
+      setMessages((prev) => [...prev, { role: "assistant", content: `입력 글자수가 ${MAX_INPUT_LENGTH}자를 초과했습니다. 질문을 간결하게 줄여주세요.` }]);
+      return;
+    }
     setInput("");
     setMessages((prev) => [
       ...prev,
@@ -246,14 +252,20 @@ export default function ChatbotEmbed() {
                 type="text"
                 placeholder="무엇이든 물어보세요..."
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) => setInput(e.target.value.slice(0, MAX_INPUT_LENGTH))}
                 onKeyDown={handleKeyDown}
+                maxLength={MAX_INPUT_LENGTH}
                 disabled={isLoading}
                 style={{
                   flex: 1, border: "none", outline: "none", fontSize: "16px",
                   background: "transparent", padding: "12px 0", color: "#333",
                 }}
               />
+              {input.length > 0 && (
+                <span style={{ fontSize: "12px", color: input.length >= MAX_INPUT_LENGTH ? "#ef4444" : "#999", whiteSpace: "nowrap", marginRight: "8px" }}>
+                  {input.length}/{MAX_INPUT_LENGTH}
+                </span>
+              )}
               <button
                 type="button"
                 onClick={handleSend}
