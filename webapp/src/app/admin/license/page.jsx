@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { formatKST } from "@/lib/dateUtils";
 
 /**
  * Admin License Management Page
+ * - Dynamic column selector (localStorage persisted)
+ * - Student verification status icon integration
  * - Applicant table with checkbox multi-select
  * - Filters: status, category, school search
  * - Bulk approve/reject with 500-seat cap
@@ -46,8 +48,222 @@ const AUTH_METHOD_BADGE = {
   student_direct: "bg-primary-focus text-primary-600",
 };
 
+const VERIFICATION_STATUS_ICON = {
+  pending: { icon: "solar:clock-circle-bold", color: "#f59e0b", label: "심사중" },
+  approved: { icon: "solar:check-circle-bold", color: "#22c55e", label: "승인" },
+  rejected: { icon: "solar:close-circle-bold", color: "#ef4444", label: "반려" },
+};
+
 const PAGE_SIZE_OPTIONS = [10, 30, 50, 100];
 
+// ── Column definitions ──
+const COLUMN_DEFS = [
+  { key: "name", label: "이름", default: true },
+  { key: "email", label: "이메일", default: true },
+  { key: "auth_method", label: "인증", default: true },
+  { key: "category", label: "부문", default: true },
+  { key: "school_name", label: "학교", default: true },
+  { key: "status", label: "상태", default: true },
+  { key: "license_issued", label: "발급", default: true },
+  { key: "verification_status", label: "학생증 인증", default: true },
+  { key: "created_at", label: "신청일", default: true },
+  // 확장 필드 (기본 OFF)
+  { key: "birth_year", label: "출생연도", default: false },
+  { key: "representative_name", label: "대표자명", default: false },
+  { key: "team_name", label: "팀명", default: false },
+  { key: "member_count", label: "팀원 수", default: false },
+  { key: "member1_name", label: "팀원1", default: false },
+  { key: "member2_name", label: "팀원2", default: false },
+  { key: "phone", label: "연락처", default: false },
+  { key: "topic", label: "주제", default: false },
+  { key: "region", label: "지역", default: false },
+  { key: "privacy_agreed", label: "개인정보 동의", default: false },
+  { key: "third_party_agreed", label: "제3자 동의", default: false },
+];
+
+const LS_KEY = "admin_license_columns";
+
+function getDefaultColumns() {
+  return COLUMN_DEFS.filter((c) => c.default).map((c) => c.key);
+}
+
+function loadColumns() {
+  try {
+    const saved = localStorage.getItem(LS_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch { /* ignore */ }
+  return getDefaultColumns();
+}
+
+// ── Cell renderer ──
+function renderCell(app, colKey) {
+  switch (colKey) {
+    case "name":
+      return app.users?.name || app.applicant_name || "-";
+    case "email":
+      return app.users?.email || app.applicant_email || "-";
+    case "auth_method":
+      return (
+        <span className={`badge ${AUTH_METHOD_BADGE[app.auth_method] || "bg-secondary-focus text-secondary-600"}`}>
+          {AUTH_METHOD_LABELS[app.auth_method] || app.auth_method || "-"}
+        </span>
+      );
+    case "category":
+      return (
+        <span className="badge bg-primary-50 text-primary-600">
+          {CATEGORY_LABELS[app.category] || app.category}
+        </span>
+      );
+    case "school_name":
+      return app.school_name || "-";
+    case "status":
+      return (
+        <span className={`badge ${STATUS_BADGE_CLASS[app.status] || ""}`}>
+          {STATUS_LABELS[app.status] || app.status}
+        </span>
+      );
+    case "license_issued":
+      if (app.license_issued_at)
+        return <span className="badge bg-success-focus text-success-600">발급됨</span>;
+      if (app.status === "approved")
+        return <span className="badge bg-warning-focus text-warning-600">미발급</span>;
+      return <span className="text-muted">-</span>;
+    case "verification_status":
+      if (app.auth_method !== "student_direct") return <span className="text-muted">-</span>;
+      const vs = app.verification_status;
+      const vi = VERIFICATION_STATUS_ICON[vs];
+      if (!vi) return <span className="text-muted">-</span>;
+      return (
+        <span className="d-inline-flex align-items-center gap-1" title={vi.label}>
+          <Icon icon={vi.icon} style={{ color: vi.color, fontSize: "18px" }} />
+          <span className="text-sm">{vi.label}</span>
+        </span>
+      );
+    case "created_at":
+      return app.created_at ? formatKST(app.created_at, "yyyy-MM-dd") : "-";
+    case "birth_year":
+      return app.birth_year || "-";
+    case "representative_name":
+      return app.representative_name || "-";
+    case "team_name":
+      return app.team_name || "-";
+    case "member_count":
+      return app.member_count ?? "-";
+    case "member1_name":
+      return app.member1_name || "-";
+    case "member2_name":
+      return app.member2_name || "-";
+    case "phone":
+      return app.phone || "-";
+    case "topic":
+      return app.topic || "-";
+    case "region":
+      return app.region || "-";
+    case "privacy_agreed":
+      return app.privacy_agreed_at ? (
+        <span className="badge bg-success-focus text-success-600">동의</span>
+      ) : (
+        <span className="text-muted">-</span>
+      );
+    case "third_party_agreed":
+      return app.third_party_agreed_at ? (
+        <span className="badge bg-success-focus text-success-600">동의</span>
+      ) : (
+        <span className="text-muted">-</span>
+      );
+    default:
+      return "-";
+  }
+}
+
+// ── Column selector dropdown ──
+function ColumnSelector({ visibleColumns, setVisibleColumns }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  const toggle = (key) => {
+    setVisibleColumns((prev) => {
+      const next = prev.includes(key)
+        ? prev.filter((k) => k !== key)
+        : [...prev, key];
+      localStorage.setItem(LS_KEY, JSON.stringify(next));
+      return next;
+    });
+  };
+
+  const resetToDefault = () => {
+    const defaults = getDefaultColumns();
+    setVisibleColumns(defaults);
+    localStorage.setItem(LS_KEY, JSON.stringify(defaults));
+  };
+
+  const selectAll = () => {
+    const all = COLUMN_DEFS.map((c) => c.key);
+    setVisibleColumns(all);
+    localStorage.setItem(LS_KEY, JSON.stringify(all));
+  };
+
+  return (
+    <div className="position-relative" ref={ref}>
+      <button
+        className="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1"
+        onClick={() => setOpen(!open)}
+      >
+        <Icon icon="solar:settings-minimalistic-outline" />
+        컬럼 설정
+      </button>
+      {open && (
+        <div
+          className="position-absolute end-0 mt-1 bg-white border rounded shadow-lg p-16"
+          style={{ zIndex: 1050, minWidth: "240px", maxHeight: "420px", overflowY: "auto" }}
+        >
+          <div className="d-flex justify-content-between align-items-center mb-12">
+            <span className="fw-semibold text-sm">표시할 컬럼 선택</span>
+            <div className="d-flex gap-1">
+              <button className="btn btn-sm btn-outline-primary py-2 px-8" onClick={selectAll} style={{ fontSize: "11px" }}>전체</button>
+              <button className="btn btn-sm btn-outline-secondary py-2 px-8" onClick={resetToDefault} style={{ fontSize: "11px" }}>초기화</button>
+            </div>
+          </div>
+          {COLUMN_DEFS.map((col) => (
+            <label
+              key={col.key}
+              className="d-flex align-items-center gap-8 py-4 px-4 rounded cursor-pointer"
+              style={{ cursor: "pointer" }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "#f0f4ff")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+            >
+              <input
+                type="checkbox"
+                className="form-check-input m-0"
+                checked={visibleColumns.includes(col.key)}
+                onChange={() => toggle(col.key)}
+              />
+              <span className="text-sm">{col.label}</span>
+              {col.default && (
+                <span className="badge bg-light text-muted" style={{ fontSize: "10px", marginLeft: "auto" }}>기본</span>
+              )}
+            </label>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ════════════════════════════════════════════
+// Main page
+// ════════════════════════════════════════════
 export default function AdminLicensePage() {
   const [applications, setApplications] = useState([]);
   const [total, setTotal] = useState(0);
@@ -72,6 +288,14 @@ export default function AdminLicensePage() {
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
+
+  // Column visibility
+  const [visibleColumns, setVisibleColumns] = useState(getDefaultColumns);
+
+  // Load saved columns on mount
+  useEffect(() => {
+    setVisibleColumns(loadColumns());
+  }, []);
 
   const fetchApplications = useCallback(async () => {
     setLoading(true);
@@ -126,9 +350,6 @@ export default function AdminLicensePage() {
 
   const handleBulkAction = async (action) => {
     if (selectedIds.length === 0) return;
-
-
-
     setActionLoading(true);
     setMessage({ type: "", text: "" });
 
@@ -161,7 +382,6 @@ export default function AdminLicensePage() {
 
   const handleBulkDelete = async () => {
     if (selectedIds.length === 0) return;
-
     setActionLoading(true);
     try {
       const res = await fetch("/api/admin/license/bulk-action", {
@@ -183,7 +403,6 @@ export default function AdminLicensePage() {
 
   const handleBulkRestore = async () => {
     if (selectedIds.length === 0) return;
-
     setActionLoading(true);
     try {
       const res = await fetch("/api/admin/license/bulk-action", {
@@ -205,7 +424,6 @@ export default function AdminLicensePage() {
 
   const handleRowAction = async (e, id, action) => {
     e.stopPropagation();
-
     setRowActionLoading(id);
     try {
       const res = await fetch("/api/admin/license/bulk-action", {
@@ -214,7 +432,6 @@ export default function AdminLicensePage() {
         body: JSON.stringify({ ids: [id], action }),
       });
       if (res.ok) {
-        const data = await res.json();
         setMessage({ type: "success", text: `${action === "approve" ? "승인" : "반려"} 완료` });
         fetchApplications();
       }
@@ -228,7 +445,6 @@ export default function AdminLicensePage() {
 
   const handleMarkIssued = async () => {
     if (selectedIds.length === 0) return;
-
     setIssuedLoading(true);
     try {
       const res = await fetch("/api/admin/license/mark-issued", {
@@ -267,14 +483,12 @@ export default function AdminLicensePage() {
 
   const totalPages = Math.ceil(total / limit);
 
-  // 스마트 페이지네이션: 현재 페이지 기준 앞뒤 2페이지 표시
   const getPageNumbers = () => {
     const pages = [];
     const sideCount = 2;
     let start = Math.max(1, page - sideCount);
     let end = Math.min(totalPages, page + sideCount);
 
-    // 최소 5개 보장
     if (end - start < sideCount * 2) {
       if (start === 1) end = Math.min(totalPages, start + sideCount * 2);
       else if (end === totalPages) start = Math.max(1, end - sideCount * 2);
@@ -288,6 +502,8 @@ export default function AdminLicensePage() {
   };
 
   const currentPendingInPage = applications.filter(a => a.status === "pending").length;
+  const activeColumns = COLUMN_DEFS.filter((c) => visibleColumns.includes(c.key));
+  const totalColSpan = activeColumns.length + 2; // checkbox + action
 
   return (
     <>
@@ -332,7 +548,7 @@ export default function AdminLicensePage() {
       {/* Actions + Filters */}
       <div className="card shadow-none border mb-4">
         <div className="card-body p-20">
-          {/* 1행: 액션 버튼 */}
+          {/* 1행: 액션 버튼 + 컬럼 설정 */}
           <div className="d-flex flex-nowrap gap-2 justify-content-end mb-16">
             {currentPendingInPage > 0 && (
               <button
@@ -396,6 +612,9 @@ export default function AdminLicensePage() {
               <Icon icon="solar:trash-bin-2-outline" className="me-1" />
               {trashMode ? "목록으로" : "휴지통"}
             </button>
+
+            {/* 컬럼 설정 */}
+            <ColumnSelector visibleColumns={visibleColumns} setVisibleColumns={setVisibleColumns} />
           </div>
           {/* 2행: 필터 */}
           <div className="row g-3 align-items-end">
@@ -457,21 +676,16 @@ export default function AdminLicensePage() {
                       }
                     />
                   </th>
-                  <th>이름</th>
-                  <th>이메일</th>
-                  <th>인증</th>
-                  <th>부문</th>
-                  <th>학교</th>
-                  <th>상태</th>
-                  <th>발급</th>
-                  <th>신청일</th>
+                  {activeColumns.map((col) => (
+                    <th key={col.key}>{col.label}</th>
+                  ))}
                   <th className="text-center">처리</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan={10} className="text-center py-4">
+                    <td colSpan={totalColSpan} className="text-center py-4">
                       <div className="spinner-border spinner-border-sm text-primary" role="status">
                         <span className="visually-hidden">Loading...</span>
                       </div>
@@ -479,7 +693,7 @@ export default function AdminLicensePage() {
                   </tr>
                 ) : applications.length === 0 ? (
                   <tr>
-                    <td colSpan={10} className="text-center py-4 text-muted">
+                    <td colSpan={totalColSpan} className="text-center py-4 text-muted">
                       신청 내역이 없습니다.
                     </td>
                   </tr>
@@ -494,38 +708,9 @@ export default function AdminLicensePage() {
                           onChange={() => handleSelectRow(app.id)}
                         />
                       </td>
-                      <td className="fw-medium">{app.users?.name || app.applicant_name || "-"}</td>
-                      <td>{app.users?.email || app.applicant_email || "-"}</td>
-                      <td>
-                        <span className={`badge ${AUTH_METHOD_BADGE[app.auth_method] || "bg-secondary-focus text-secondary-600"}`}>
-                          {AUTH_METHOD_LABELS[app.auth_method] || app.auth_method || "-"}
-                        </span>
-                      </td>
-                      <td>
-                        <span className="badge bg-primary-50 text-primary-600">
-                          {CATEGORY_LABELS[app.category] || app.category}
-                        </span>
-                      </td>
-                      <td>{app.school_name || "-"}</td>
-                      <td>
-                        <span className={`badge ${STATUS_BADGE_CLASS[app.status] || ""}`}>
-                          {STATUS_LABELS[app.status] || app.status}
-                        </span>
-                      </td>
-                      <td>
-                        {app.license_issued_at ? (
-                          <span className="badge bg-success-focus text-success-600">발급됨</span>
-                        ) : app.status === "approved" ? (
-                          <span className="badge bg-warning-focus text-warning-600">미발급</span>
-                        ) : (
-                          <span className="text-muted">-</span>
-                        )}
-                      </td>
-                      <td className="text-muted">
-                        {app.created_at
-                          ? formatKST(app.created_at, "yyyy-MM-dd")
-                          : "-"}
-                      </td>
+                      {activeColumns.map((col) => (
+                        <td key={col.key}>{renderCell(app, col.key)}</td>
+                      ))}
                       <td className="text-center align-middle" onClick={(e) => e.stopPropagation()}>
                         {app.status === "pending" ? (
                           <div className="d-flex gap-1 justify-content-center align-items-center">
@@ -636,6 +821,35 @@ export default function AdminLicensePage() {
                         <div className="col-md-6"><strong>상태:</strong> <span className={`badge ${STATUS_BADGE_CLASS[detail.status] || ""}`}>{STATUS_LABELS[detail.status] || detail.status}</span></div>
                         <div className="col-md-6"><strong>신청일:</strong> {detail.created_at ? formatKST(detail.created_at, "yyyy-MM-dd HH:mm") : "-"}</div>
                         <div className="col-md-6"><strong>발급일:</strong> {detail.license_issued_at ? formatKST(detail.license_issued_at, "yyyy-MM-dd HH:mm") : <span className="text-muted">미발급</span>}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Extended Info */}
+                  <div className="card mb-3">
+                    <div className="card-header"><h6 className="mb-0">추가 정보</h6></div>
+                    <div className="card-body">
+                      <div className="row g-3">
+                        <div className="col-md-6"><strong>출생연도:</strong> {detail.birth_year || "-"}</div>
+                        <div className="col-md-6"><strong>대표자명:</strong> {detail.representative_name || "-"}</div>
+                        <div className="col-md-6"><strong>팀명:</strong> {detail.team_name || "-"}</div>
+                        <div className="col-md-6"><strong>팀원 수:</strong> {detail.member_count ?? "-"}</div>
+                        <div className="col-md-6"><strong>팀원1:</strong> {detail.member1_name || "-"}</div>
+                        <div className="col-md-6"><strong>팀원2:</strong> {detail.member2_name || "-"}</div>
+                        <div className="col-md-12"><strong>주제:</strong> {detail.topic || "-"}</div>
+                        <div className="col-md-6"><strong>지역:</strong> {detail.region || "-"}</div>
+                        <div className="col-md-6">
+                          <strong>개인정보 동의:</strong>{" "}
+                          {detail.privacy_agreed_at ? (
+                            <span className="badge bg-success-focus text-success-600">동의 ({formatKST(detail.privacy_agreed_at, "MM-dd HH:mm")})</span>
+                          ) : <span className="text-muted">미동의</span>}
+                        </div>
+                        <div className="col-md-6">
+                          <strong>제3자 제공 동의:</strong>{" "}
+                          {detail.third_party_agreed_at ? (
+                            <span className="badge bg-success-focus text-success-600">동의 ({formatKST(detail.third_party_agreed_at, "MM-dd HH:mm")})</span>
+                          ) : <span className="text-muted">미동의</span>}
+                        </div>
                       </div>
                     </div>
                   </div>

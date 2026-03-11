@@ -5,7 +5,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 /**
  * GET /api/admin/license
  * List license applications with filters for admin.
- * Query: ?status=pending&category=elementary&search=학교이름&page=1&limit=20
+ * Query: ?status=pending&category=elementary&search=학교이름&auth_method=student_direct&page=1&limit=20
  */
 export async function GET(request) {
   try {
@@ -36,6 +36,7 @@ export async function GET(request) {
     const status = searchParams.get("status");
     const category = searchParams.get("category");
     const search = searchParams.get("search");
+    const authMethod = searchParams.get("auth_method");
     const trash = searchParams.get("trash") === "true";
     const page = parseInt(searchParams.get("page") || "1", 10);
     const limit = parseInt(searchParams.get("limit") || "20", 10);
@@ -58,6 +59,7 @@ export async function GET(request) {
     if (status) query = query.eq("status", status);
     if (category) query = query.eq("category", category);
     if (search) query = query.ilike("school_name", `%${search}%`);
+    if (authMethod) query = query.eq("auth_method", authMethod);
 
     query = query.order("created_at", { ascending: false });
     query = query.range(offset, offset + limit - 1);
@@ -93,6 +95,43 @@ export async function GET(request) {
             app.users = profileMap[app.user_id];
           } else {
             app.users = null;
+          }
+        }
+      }
+
+      // 학생증 인증 상태 보충 (student_verification_id가 있는 건)
+      const verificationIds = applications
+        .filter(a => a.student_verification_id)
+        .map(a => a.student_verification_id);
+
+      if (verificationIds.length > 0) {
+        const { data: verifications } = await ac
+          .from("student_verifications")
+          .select("id, status, student_id_file_path, admin_note")
+          .in("id", verificationIds);
+
+        const verificationMap = {};
+        if (verifications) {
+          for (const v of verifications) {
+            // Generate signed URL for student ID file
+            let fileUrl = null;
+            if (v.student_id_file_path) {
+              const { data: urlData } = await ac.storage
+                .from("contest-files")
+                .createSignedUrl(v.student_id_file_path, 3600);
+              fileUrl = urlData?.signedUrl || null;
+            }
+            verificationMap[v.id] = {
+              verification_status: v.status,
+              verification_file_url: fileUrl,
+              verification_admin_note: v.admin_note,
+            };
+          }
+        }
+
+        for (const app of applications) {
+          if (app.student_verification_id && verificationMap[app.student_verification_id]) {
+            Object.assign(app, verificationMap[app.student_verification_id]);
           }
         }
       }
