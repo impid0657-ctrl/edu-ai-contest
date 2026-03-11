@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { formatKST } from "@/lib/dateUtils";
 import RichTextEditor from "@/components/RichTextEditor";
+import { createClient as createSupabaseClient } from "@/lib/supabase/client";
 
 /**
  * Admin Board Management — Sprint 6.5 rebuild
@@ -110,20 +111,15 @@ export default function AdminBoardPage() {
   // pending 파일을 Supabase Storage에 직접 업로드 (클라이언트)
   const uploadPendingFiles = async (pendingFiles) => {
     if (!pendingFiles || pendingFiles.length === 0) return [];
-    // 동적 import — 클라이언트용 Supabase
-    const { createClient } = await import("@supabase/supabase-js");
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    );
-
+    const supabase = createSupabaseClient();
     const uploaded = [];
+
     for (const file of pendingFiles) {
       const timestamp = Date.now();
-      const safeName = file.name.replace(/[^a-zA-Z0-9가-힣._-]/g, "_");
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
       const storagePath = `${timestamp}_${safeName}`;
 
-      console.log("[Upload] 파일 업로드:", file.name, file.size, "bytes →", storagePath);
+      console.log("[Upload] 파일 업로드 시작:", file.name, file.size, "bytes");
 
       const { data, error } = await supabase.storage
         .from("board-attachments")
@@ -134,11 +130,11 @@ export default function AdminBoardPage() {
 
       if (error) {
         console.error("[Upload] 실패:", error.message);
-        alert("파일 업로드 실패: " + file.name + " — " + error.message);
+        alert("파일 업로드 실패: " + file.name + " \u2014 " + error.message);
         continue;
       }
 
-      console.log("[Upload] 성공:", data);
+      console.log("[Upload] 성공:", storagePath);
       const { data: urlData } = supabase.storage.from("board-attachments").getPublicUrl(storagePath);
       uploaded.push({
         name: file.name,
