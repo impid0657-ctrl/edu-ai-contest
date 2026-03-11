@@ -129,8 +129,15 @@ export async function POST(request) {
       .single();
 
     if (insertError) {
-      console.error("Guest license application insert error:", insertError.message);
-      return NextResponse.json({ error: "이용권 신청에 실패했습니다." }, { status: 500 });
+      console.error("Guest license application insert error:", insertError.message, insertError.details, insertError.code);
+      // 구체적인 에러 메시지 반환
+      if (insertError.code === "23505") {
+        return NextResponse.json({ error: "이미 이용권 신청이 접수되어 있습니다." }, { status: 409 });
+      }
+      if (insertError.code === "23514") {
+        return NextResponse.json({ error: `입력값 검증 실패: ${insertError.message}` }, { status: 400 });
+      }
+      return NextResponse.json({ error: `이용권 신청에 실패했습니다. (${insertError.message})` }, { status: 500 });
     }
 
     // 이력 기록

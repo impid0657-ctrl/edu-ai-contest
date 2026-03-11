@@ -101,15 +101,21 @@ export async function POST(request) {
       applicant_name: applicant_name || null,
     };
 
-    const { data: application, error: insertError } = await supabase
+    const { data: application, error: insertError } = await admin
       .from("license_applications")
       .insert(insertData)
       .select("id, status, created_at")
       .single();
 
     if (insertError) {
-      console.error("License application insert error:", insertError.message);
-      return NextResponse.json({ error: "신청서 제출에 실패했습니다." }, { status: 500 });
+      console.error("License application insert error:", insertError.message, insertError.details, insertError.code);
+      if (insertError.code === "23505") {
+        return NextResponse.json({ error: "이미 이용권 신청이 접수되어 있습니다." }, { status: 409 });
+      }
+      if (insertError.code === "23514") {
+        return NextResponse.json({ error: `입력값 검증 실패: ${insertError.message}` }, { status: 400 });
+      }
+      return NextResponse.json({ error: `신청서 제출에 실패했습니다. (${insertError.message})` }, { status: 500 });
     }
 
     // 이력 기록

@@ -711,35 +711,34 @@ export default function LicenseApplyPage() {
 
                       {/* 팀명 + 팀원 수 */}
                       <div className="col-xl-6 col-lg-6 mb-25">
-                        <label className="f-700 mb-10 d-block">팀명 <span className="theme-color">*</span></label>
+                        <label className="f-700 mb-10 d-block">팀명</label>
                         <input type="text" name="team_name" className="form-control secondary-border01"
                           placeholder="없을 시 미기입"
-                          value={formData.team_name} onChange={handleChange} required
+                          value={formData.team_name} onChange={handleChange}
                           style={inputStyle} />
                       </div>
                       <div className="col-xl-6 col-lg-6 mb-25">
-                        <label className="f-700 mb-10 d-block">팀원 수 <span className="theme-color">*</span></label>
+                        <label className="f-700 mb-10 d-block">팀원 수 <span className="text-muted" style={{ fontWeight: 400, fontSize: "13px" }}>1~3명 (개인 참가 시 1명)</span> <span className="theme-color">*</span></label>
                         <input type="number" name="member_count" className="form-control secondary-border01"
                           min={1} max={3} value={formData.member_count} onChange={handleChange} required
                           style={inputStyle} />
-                        <p className="text-muted mt-5 mb-0" style={{ fontSize: "13px" }}>1~3명 (개인 참가 시 1명)</p>
                       </div>
 
                       {/* 팀원1 이름 */}
                       <div className="col-xl-6 col-lg-6 mb-25">
-                        <label className="f-700 mb-10 d-block">팀원1 이름 <span className="theme-color">*</span></label>
+                        <label className="f-700 mb-10 d-block">팀원1 이름</label>
                         <input type="text" name="member1_name" className="form-control secondary-border01"
                           placeholder="없을 시 미기입"
-                          value={formData.member1_name} onChange={handleChange} required
+                          value={formData.member1_name} onChange={handleChange}
                           style={inputStyle} />
                       </div>
 
                       {/* 팀원2 이름 */}
                       <div className="col-xl-6 col-lg-6 mb-25">
-                        <label className="f-700 mb-10 d-block">팀원2 이름 <span className="theme-color">*</span></label>
+                        <label className="f-700 mb-10 d-block">팀원2 이름</label>
                         <input type="text" name="member2_name" className="form-control secondary-border01"
                           placeholder="없을 시 미기입"
-                          value={formData.member2_name} onChange={handleChange} required
+                          value={formData.member2_name} onChange={handleChange}
                           style={inputStyle} />
                       </div>
 
