@@ -103,10 +103,10 @@ export default function HomePage() {
                             <div className="about-content mb-50 mt-10" data-aos="fade-left" data-aos-duration="2000">
                                 <div className="title">
                                     <span className="theme-color f-700">대회 소개</span>
-                                    <h3 className="f-700">제 8회 교육 공공데이터 AI활용 경진대회가 시작되었습니다.</h3>
+                                    <h3 className="f-700">AI를 활용한<br />교육 공공데이터 경진대회</h3>
                                 </div>
                                 <div className="about-text mt-55 ">
-                                    <h6 className="f-400 mb-30">교육부와 한국교육학술정보원이 주최하는 교육 AI 분야 최대 규모의 공모전입니다</h6>
+                                    <h6 className="f-400 mb-30">교육부와 한국교육학술정보원이 주최하는 이번 공모전은 교육 AI 분야 최대 규모의 공모전입니다.</h6>
                                     <p>교육 공공데이터를 활용하여 교육 현장의 다양한 문제를 해결하는 AI 솔루션을 개발하고, 우수 작품을 시상하여 교육 혁신을 촉진합니다.</p>
                                     <div className="my-btn mt-47">
                                         <a href="about-us.html" className="btn theme-bg text-capitalize f-18 f-700">참가 신청</a>

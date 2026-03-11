@@ -169,7 +169,7 @@ export default function ChatbotEmbed() {
             {/* Title */}
             <div className="text-center mb-40">
               <span className="theme-color f-700 d-block mb-10">AI 상담 챗봇</span>
-              <h3 className="f-700 mb-15">대회에 대해 궁금한 점을 물어보세요</h3>
+              <h3 className="f-700 mb-15">궁금한 점을 물어보세요</h3>
               <p className="text-muted">참가 자격, 일정, 접수 방법 등 대회 요강 관련 질문에 24시간 답변해 드립니다</p>
             </div>
 

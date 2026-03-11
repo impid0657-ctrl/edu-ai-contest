@@ -56,6 +56,7 @@ export async function PATCH(request, { params }) {
     if (body.title !== undefined) updateData.title = body.title;
     if (body.is_visible !== undefined) updateData.is_visible = body.is_visible;
     if (body.is_public !== undefined) updateData.is_public = body.is_public;
+    if (body.is_published !== undefined) updateData.is_published = body.is_published;
     if (body.access_warning !== undefined) updateData.access_warning = body.access_warning;
     if (body.menu_order !== undefined) updateData.menu_order = body.menu_order;
 
@@ -64,7 +65,7 @@ export async function PATCH(request, { params }) {
       .from("pages")
       .update(updateData)
       .eq("id", id)
-      .select("id, slug, title, path, menu_order, is_visible, is_public, access_warning, updated_at")
+      .select("id, slug, title, path, menu_order, is_visible, is_public, is_published, access_warning, updated_at")
       .single();
 
     if (error) {

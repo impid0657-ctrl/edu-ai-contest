@@ -75,6 +75,7 @@ export default function PublicLayout({ children }) {
     const [menuItems, setMenuItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [accessBlocked, setAccessBlocked] = useState(null); // { warning: string } or null
     const pathname = usePathname();
 
     useEffect(() => {
@@ -116,13 +117,13 @@ export default function PublicLayout({ children }) {
 
     // 페이지 접근 권한 체크
     useEffect(() => {
+        setAccessBlocked(null);
         if (!pathname || pathname === "/") return;
         fetch(`/api/pages?path=${encodeURIComponent(pathname)}`)
             .then(res => res.ok ? res.json() : null)
             .then(data => {
                 if (data?.access === "private") {
-                    alert(data.warning || "이 페이지는 현재 비공개 상태입니다.");
-                    window.history.back();
+                    setAccessBlocked({ warning: data.warning || "이 페이지는 현재 비공개 상태입니다." });
                 }
             })
             .catch(() => { });
@@ -252,7 +253,20 @@ export default function PublicLayout({ children }) {
             }} onClick={() => setMobileMenuOpen(false)}></div>
         )}
         {/* header extra info end  */}
-        {children}
+        {accessBlocked ? (
+            <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '120px' }}>
+                <div style={{ textAlign: 'center', maxWidth: '500px', padding: '40px' }}>
+                    <div style={{ fontSize: '60px', marginBottom: '20px' }}>🔒</div>
+                    <h3 className="f-700 mb-20">비공개 페이지</h3>
+                    <p className="text-muted mb-30" style={{ fontSize: '16px', lineHeight: '1.6' }}>
+                        {accessBlocked.warning}
+                    </p>
+                    <a href="/" className="btn theme-bg text-white f-16 f-700" style={{ padding: '12px 30px', borderRadius: '8px' }}>
+                        홈으로 돌아가기
+                    </a>
+                </div>
+            </div>
+        ) : children}
         <footer>
             <div className="footer-area primary-bg pt-200">
                 <div className="footer-top pb-55">
