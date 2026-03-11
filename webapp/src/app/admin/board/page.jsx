@@ -52,6 +52,9 @@ export default function AdminBoardPage() {
   // Upload state
   const [uploading, setUploading] = useState(false);
 
+  // Delete confirmation
+  const [deleteConfirmId, setDeleteConfirmId] = useState(null);
+
   // Reply state
   const [replyPostId, setReplyPostId] = useState(null);
   const [replyContent, setReplyContent] = useState("");
@@ -130,10 +133,9 @@ export default function AdminBoardPage() {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("정말 삭제하시겠습니까?")) return;
     try {
       const res = await fetch("/api/admin/board", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
-      if (res.ok) { fetchPosts(); }
+      if (res.ok) { setDeleteConfirmId(null); fetchPosts(); }
       else { const d = await res.json().catch(() => ({})); alert("삭제 실패: " + (d.error || res.status)); }
     } catch (err) { alert("삭제 실패: " + err.message); }
   };
@@ -437,7 +439,14 @@ export default function AdminBoardPage() {
                         <button className="btn btn-sm btn-outline-info" onClick={() => { setReplyPostId(post.id); setReplyContent(""); }}>답변</button>
                       )}
                       <button className="btn btn-sm btn-outline-primary" onClick={() => handleEdit(post)}>수정</button>
-                      <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(post.id)}>삭제</button>
+                      {deleteConfirmId === post.id ? (
+                        <>
+                          <button className="btn btn-sm btn-danger" onClick={() => handleDelete(post.id)}>확인</button>
+                          <button className="btn btn-sm btn-secondary" onClick={() => setDeleteConfirmId(null)}>취소</button>
+                        </>
+                      ) : (
+                        <button className="btn btn-sm btn-outline-danger" onClick={() => setDeleteConfirmId(post.id)}>삭제</button>
+                      )}
                     </div>
                   </td>
                 </tr>
