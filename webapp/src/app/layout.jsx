@@ -3,7 +3,7 @@ import "./globals.css";
 export const metadata = {
   title: "제8회 교육 공공데이터 AI활용대회",
   description:
-    "교육의 미래를 AI와 함께 열어갑니다. 교육 공공데이터를 활용한 AI 솔루션을 개발하고 공유하세요.",
+    "AI와 교육 데이터의 만남, 당신의 창의적인 아이디어를 기다립니다!",
 };
 
 export default function RootLayout({ children }) {

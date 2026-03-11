@@ -158,7 +158,7 @@ export default function ChatbotEmbed() {
   const hasConversation = messages.length > 0;
 
   return (
-    <div className="over-hidden" style={{
+    <div className="chatbot-embed-section over-hidden mt-75 mb-80" style={{
       background: "#ffffff",
       padding: "80px 0",
     }}>
@@ -327,6 +327,6 @@ export default function ChatbotEmbed() {
           40% { transform: scale(1); opacity: 1; }
         }
       `}</style>
-    </div>
+    </div >
   );
 }

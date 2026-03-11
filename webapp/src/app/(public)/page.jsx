@@ -1,23 +1,23 @@
 import ChatbotEmbed from "@/components/ChatbotEmbed";
 
 export default function HomePage() {
-  return (<>
-{/*[if lte IE 9]>
+    return (<>
+        {/*[if lte IE 9]>
             <p className="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]*/}
-        
+
         {/*  ====== preloader=============================================  */}
-        
-     
+
+
         {/*  ====== header-area-start=======================================  */}
-        
+
         {/*  header-area-end  */}
 
 
         {/*  ====== header extra info start================================== */}
         {/* side-mobile-menu start */}
-        
-   
+
+
 
         <main>
             {/* ======slider-area-start=========================================== */}
@@ -49,9 +49,9 @@ export default function HomePage() {
                         <div className="row align-items-center">
                             <div className="col-xl-6  col-lg-6  col-md-6  col-sm-12 col-12  d-flex align-items-center">
                                 <div className="slider-content mt--30 position-relative">
-                                    <span className="f-700 theme-color d-block pb-1" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="40">제8회 교육 공공데이터 AI활용 경진대회</span>
-                                    <h1 className="f-700 pb-22" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="150">교육의 미래를 AI와 함께 열어갑니다</h1>
-                                    <p data-aos="fade-right" data-aos-duration="2000">교육 공공데이터를 활용한 AI 솔루션을 개발하고, 교육 현장의 문제를 함께 해결합니다</p>
+                                    <span className="f-700 theme-color d-block pb-1" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="40">AI와 교육 데이터의 만남</span>
+                                    <h1 className="f-700 pb-22" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="150">제8회 교육 공공데이터<br />AI활용 경진대회</h1>
+                                    <p data-aos="fade-right" data-aos-duration="2000">교육 공공데이터를 활용한 AI 솔루션을 개발하고,<br />교육 현장의 문제를 함께 해결합니다.<br />당신의 창의적인 아이디어와 함께하세요!</p>
                                     <div className="video-player-btn d-flex align-items-center z-index11 mt-45" >
                                         <a data-fancybox="" href="https://youtu.be/nqye02H_H6I" className="d-flex align-items-center">
                                             <div className="video-play-wrap position-relative d-inline-block">
@@ -100,7 +100,7 @@ export default function HomePage() {
                             </div>{/* /about-img */}
                         </div>{/* /col */}
                         <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                            <div className="about-content mb-50 mt-10" data-aos="fade-left" data-aos-duration="2000"> 
+                            <div className="about-content mb-50 mt-10" data-aos="fade-left" data-aos-duration="2000">
                                 <div className="title">
                                     <span className="theme-color f-700">대회 소개</span>
                                     <h3 className="f-700">제 8회 교육 공공데이터 AI활용 경진대회가 시작되었습니다.</h3>
@@ -272,7 +272,7 @@ export default function HomePage() {
                                         <a href="/contest-info" className="btn theme-bg text-capitalize">공모 요강 보기</a>
                                     </div>{/* /my-btn */}
                                 </div>{/* /feature-content */}
-                            </div>{/* /col */}  
+                            </div>{/* /col */}
                             <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                                 <div className="feature-img img-right-margin mt-35 d-flex justify-content-center" data-aos="fade-left" data-aos-duration="2000">
                                     <img className="d-block ml-lg-auto bounce-animate2" src="/original-template/images/feature/home1-sp-feature-img.png" alt="image" />
@@ -306,7 +306,7 @@ export default function HomePage() {
                                             <span className="per d-inline-block f-700">+</span>
                                         </div>
                                         <p className="black-color text-center f-700 mb-0 mt-1">역대 횟수</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li className="d-inline-block facts2 theme-bg-fact single-facts-margin-left position-relative">
                                     <div className="single-facts  theme-bg text-center pt-46 pb-50 mb-30">
@@ -315,7 +315,7 @@ export default function HomePage() {
                                             <span className="white-color d-inline-block f-700">+</span>
                                         </div>
                                         <p className="white-color text-center f-700 mb-0 mt-1">누적 참가자</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li className="d-inline-block facts3 single-facts-margin-left  position-relative">
                                     <div className="single-facts  white-bg text-center pt-46 pb-50 mb-30">
@@ -324,7 +324,7 @@ export default function HomePage() {
                                             <span className="d-inline-block f-700">+</span>
                                         </div>
                                         <p className="black-color text-center f-700 mb-0 mt-1">누적 출품작</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li className="d-inline-block facts4 theme-bg-fact single-facts-margin-left position-relative">
                                     <div className="single-facts  theme-bg text-center pt-46 pb-50 mb-30">
@@ -333,7 +333,7 @@ export default function HomePage() {
                                             <span className="white-color d-inline-block f-700">+</span>
                                         </div>
                                         <p className="white-color text-center f-700 mb-0 mt-1">수상 작품</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li className="d-inline-block facts5 single-facts-margin-left position-relative clear-both">
                                     <div className="single-facts  white-bg text-center pt-46 pb-50 mb-30">
@@ -342,7 +342,7 @@ export default function HomePage() {
                                             <span className="per d-inline-block f-700">만원</span>
                                         </div>
                                         <p className="black-color text-center f-700 mb-0 mt-1">대회 상금</p>
-                                    </div>    
+                                    </div>
                                 </li>
                             </ul>{/* /facts-wrapper */}
                         </div>{/* /col */}
@@ -411,7 +411,7 @@ export default function HomePage() {
                                                 </div>
                                             </div>{/* /collapseOne */}
                                         </div>{/* /card1 */}
-        
+
                                         <div className="card border-0">
                                             <div className="card-header bg-transparent p-0" id="headingTwo">
                                                 <h6 className="mb-0">
@@ -420,14 +420,14 @@ export default function HomePage() {
                                                     </a>
                                                 </h6>
                                             </div>{/* /card-header */}
-        
+
                                             <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                                 <div className="card-body">
                                                     <p className="m-0">교육부와 한국교육학술정보원이 주최하는 제8회 교육 공공데이터 AI활용 경진대회입니다 </p>
                                                 </div>
                                             </div>
                                         </div>{/* /card2 */}
-        
+
                                         <div className="card card-header-end border-0">
                                             <div className="card-header bg-transparent p-0" id="headingThree">
                                                 <h6 className="mb-0">
@@ -436,7 +436,7 @@ export default function HomePage() {
                                                     </a>
                                                 </h6>
                                             </div>
-        
+
                                             <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                                 <div className="card-body">
                                                     <p className="m-0">교육부와 한국교육학술정보원이 주최하는 제8회 교육 공공데이터 AI활용 경진대회입니다 </p>
@@ -448,7 +448,7 @@ export default function HomePage() {
                             </div>{/* /faq-content */}
                         </div>{/* /col */}
                         <div className="col-xl-6 col-lg-6 offset-lg-0 col-md-10 offset-md-1 col-sm-12 col-12 pr-10">
-                            <div className="faq-img img-right-margin text-center"  data-aos="fade-left" data-aos-duration="2000">
+                            <div className="faq-img img-right-margin text-center" data-aos="fade-left" data-aos-duration="2000">
                                 <img className="d-block bounce-animate2" src="/original-template/images/bg/home1-faq-img.png" alt="image" />
                             </div>{/* /faq-img */}
                         </div>{/* /col */}
@@ -575,7 +575,7 @@ export default function HomePage() {
                         <div className="row align-items-center justify-content-center">
                             <div className="col-xl-4  col-lg-5 col-md-8 col-sm-8 col-10">
                                 <div className="testimonial-img">
-                                    <img  data-aos="zoom-in" data-aos-duration="2000" src="/original-template/images/testimonial/home1-testi-img.png" alt="image" />
+                                    <img data-aos="zoom-in" data-aos-duration="2000" src="/original-template/images/testimonial/home1-testi-img.png" alt="image" />
                                 </div>{/* /testimonial-persons */}
                             </div>{/* /col */}
                             <div className="col-xl-7 offset-xl-1  col-lg-7 col-md-12  col-sm-12 col-12">
@@ -656,11 +656,11 @@ export default function HomePage() {
         </main>
 
         {/* ====== footer-area-start ============================================ */}
-        
+
 
         {/* back top */}
-        
+
 
         {/* All js here */}
-  </>);
+    </>);
 }

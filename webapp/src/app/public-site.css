@@ -1018,6 +1018,11 @@
   .evalo-section__title h3 {
     font-size: 28px;
   }
+
+  .chatbot-embed-section .text-center h3,
+  .chatbot-embed-section h3.f-700 {
+    font-size: 18px !important;
+  }
 }
 
 /* ============================================================
