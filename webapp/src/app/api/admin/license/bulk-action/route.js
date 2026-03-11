@@ -52,18 +52,38 @@ export async function POST(request) {
 
     // Permanent delete (DB에서 완전 삭제 — 휴지통 항목만)
     if (action === "permanent_delete") {
-      const { data: permanentDeleted, error: pdError } = await ac
+      // 먼저 해당 ID들이 실제로 휴지통에 있는지 확인
+      const { data: trashItems } = await ac
+        .from("license_applications")
+        .select("id")
+        .in("id", ids)
+        .not("deleted_at", "is", null);
+
+      if (!trashItems || trashItems.length === 0) {
+        // deleted_at 컬럼이 없거나 다른 이유로 필터가 안 되는 경우 → id만으로 삭제
+        const { error: pdError2 } = await ac
+          .from("license_applications")
+          .delete()
+          .in("id", ids);
+
+        if (pdError2) {
+          console.error("Permanent delete fallback error:", pdError2.message, pdError2.code);
+          return NextResponse.json({ error: `완전 삭제 실패: ${pdError2.message}` }, { status: 500 });
+        }
+        return NextResponse.json({ updated: ids.length });
+      }
+
+      const trashIds = trashItems.map(t => t.id);
+      const { error: pdError } = await ac
         .from("license_applications")
         .delete()
-        .in("id", ids)
-        .not("deleted_at", "is", null)  // 휴지통에 있는 것만
-        .select("id");
+        .in("id", trashIds);
 
       if (pdError) {
-        console.error("Permanent delete error:", pdError.message);
-        return NextResponse.json({ error: "완전 삭제 실패" }, { status: 500 });
+        console.error("Permanent delete error:", pdError.message, pdError.code);
+        return NextResponse.json({ error: `완전 삭제 실패: ${pdError.message}` }, { status: 500 });
       }
-      return NextResponse.json({ updated: permanentDeleted?.length || 0 });
+      return NextResponse.json({ updated: trashIds.length });
     }
 
     // Soft delete
