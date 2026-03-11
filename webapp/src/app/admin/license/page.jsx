@@ -423,14 +423,16 @@ export default function AdminLicensePage() {
   };
 
   const handleBulkPermanentDelete = async () => {
-    if (selectedIds.length === 0) return;
-    if (!window.confirm(`${selectedIds.length}건을 완전히 삭제하시겠습니까?\n\n⚠️ 이 작업은 되돌릴 수 없습니다.`)) return;
-    console.log("[완전 삭제] 시작 - ids:", selectedIds, "action: permanent_delete");
+    if (selectedIds.length === 0) {
+      alert("선택된 항목이 없습니다.");
+      return;
+    }
+    console.log("[완전 삭제] 시작 - ids:", selectedIds);
     setActionLoading(true);
     setMessage({ type: "", text: "" });
     try {
       const payload = { ids: selectedIds, action: "permanent_delete" };
-      console.log("[완전 삭제] 전송 payload:", JSON.stringify(payload));
+      console.log("[완전 삭제] payload:", JSON.stringify(payload));
       const res = await fetch("/api/admin/license/bulk-action", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -444,10 +446,12 @@ export default function AdminLicensePage() {
         fetchApplications();
       } else {
         setMessage({ type: "danger", text: data.error || "완전 삭제 실패" });
+        alert("완전 삭제 실패: " + (data.error || "알 수 없는 오류"));
       }
     } catch (err) {
       console.error("[완전 삭제] 에러:", err);
       setMessage({ type: "danger", text: "네트워크 오류" });
+      alert("완전 삭제 네트워크 에러: " + err.message);
     }
     finally { setActionLoading(false); }
   };
