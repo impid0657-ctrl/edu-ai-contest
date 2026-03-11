@@ -43,11 +43,27 @@ export async function POST(request) {
       );
     }
 
-    if (!["approve", "reject", "delete", "restore"].includes(action)) {
+    if (!["approve", "reject", "delete", "restore", "permanent_delete"].includes(action)) {
       return NextResponse.json(
         { error: "Invalid action" },
         { status: 400 }
       );
+    }
+
+    // Permanent delete (DB에서 완전 삭제 — 휴지통 항목만)
+    if (action === "permanent_delete") {
+      const { data: permanentDeleted, error: pdError } = await ac
+        .from("license_applications")
+        .delete()
+        .in("id", ids)
+        .not("deleted_at", "is", null)  // 휴지통에 있는 것만
+        .select("id");
+
+      if (pdError) {
+        console.error("Permanent delete error:", pdError.message);
+        return NextResponse.json({ error: "완전 삭제 실패" }, { status: 500 });
+      }
+      return NextResponse.json({ updated: permanentDeleted?.length || 0 });
     }
 
     // Soft delete

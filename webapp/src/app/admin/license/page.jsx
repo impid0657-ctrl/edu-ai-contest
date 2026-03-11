@@ -422,6 +422,28 @@ export default function AdminLicensePage() {
     finally { setActionLoading(false); }
   };
 
+  const handleBulkPermanentDelete = async () => {
+    if (selectedIds.length === 0) return;
+    if (!confirm(`${selectedIds.length}건을 완전 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.`)) return;
+    setActionLoading(true);
+    try {
+      const res = await fetch("/api/admin/license/bulk-action", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: selectedIds, action: "permanent_delete" }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setMessage({ type: "success", text: `${data.updated}건이 완전 삭제되었습니다.` });
+        setSelectedIds([]);
+        fetchApplications();
+      } else {
+        setMessage({ type: "danger", text: data.error || "완전 삭제 실패" });
+      }
+    } catch { setMessage({ type: "danger", text: "네트워크 오류" }); }
+    finally { setActionLoading(false); }
+  };
+
   const handleRowAction = async (e, id, action) => {
     e.stopPropagation();
     setRowActionLoading(id);
@@ -590,13 +612,22 @@ export default function AdminLicensePage() {
               </button>
             )}
             {trashMode && (
-              <button
-                className="btn btn-success-600 btn-sm"
-                disabled={selectedIds.length === 0 || actionLoading}
-                onClick={handleBulkRestore}
-              >
-                복구 ({selectedIds.length})
-              </button>
+              <>
+                <button
+                  className="btn btn-success-600 btn-sm"
+                  disabled={selectedIds.length === 0 || actionLoading}
+                  onClick={handleBulkRestore}
+                >
+                  복구 ({selectedIds.length})
+                </button>
+                <button
+                  className="btn btn-danger btn-sm"
+                  disabled={selectedIds.length === 0 || actionLoading}
+                  onClick={handleBulkPermanentDelete}
+                >
+                  완전 삭제 ({selectedIds.length})
+                </button>
+              </>
             )}
             <button
               className="btn btn-outline-primary-600 btn-sm"
