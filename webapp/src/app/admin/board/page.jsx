@@ -44,6 +44,13 @@ export default function AdminBoardPage() {
   const [createContent, setCreateContent] = useState("");
   const [createPinned, setCreatePinned] = useState(false);
   const [createCategory, setCreateCategory] = useState("");
+  const [createAttachments, setCreateAttachments] = useState([]);
+
+  // Edit attachments
+  const [editAttachments, setEditAttachments] = useState([]);
+
+  // Upload state
+  const [uploading, setUploading] = useState(false);
 
   // Reply state
   const [replyPostId, setReplyPostId] = useState(null);
@@ -64,23 +71,64 @@ export default function AdminBoardPage() {
 
   useEffect(() => { fetchPosts(); }, [fetchPosts]);
 
+  // 파일 업로드 함수
+  const handleFileUpload = async (files, target) => {
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      for (const file of files) {
+        formData.append("files", file);
+      }
+      const res = await fetch("/api/admin/board/upload", {
+        method: "POST",
+        body: formData,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (target === "create") {
+          setCreateAttachments((prev) => [...prev, ...data.files]);
+        } else {
+          setEditAttachments((prev) => [...prev, ...data.files]);
+        }
+      } else {
+        alert("파일 업로드에 실패했습니다.");
+      }
+    } catch { alert("파일 업로드 중 오류가 발생했습니다."); }
+    finally { setUploading(false); }
+  };
+
+  const removeAttachment = (index, target) => {
+    if (target === "create") {
+      setCreateAttachments((prev) => prev.filter((_, i) => i !== index));
+    } else {
+      setEditAttachments((prev) => prev.filter((_, i) => i !== index));
+    }
+  };
+
+  const formatFileSize = (bytes) => {
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+    return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+  };
+
   const handleDelete = async (id) => {
     if (!confirm("정말 삭제하시겠습니까?")) return;
     const res = await fetch("/api/admin/board", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
     if (res.ok) fetchPosts();
   };
 
-  const handleEdit = (post) => { setEditingPost(post); setEditTitle(post.title); setEditContent(post.content || ""); };
+  const handleEdit = (post) => { setEditingPost(post); setEditTitle(post.title); setEditContent(post.content || ""); setEditAttachments(post.attachments || []); };
 
   const handleSave = async () => {
-    const res = await fetch("/api/admin/board", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: editingPost.id, title: editTitle, content: editContent }) });
-    if (res.ok) { setEditingPost(null); fetchPosts(); }
+    const res = await fetch("/api/admin/board", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: editingPost.id, title: editTitle, content: editContent, attachments: editAttachments }) });
+    if (res.ok) { setEditingPost(null); setEditAttachments([]); fetchPosts(); }
   };
 
   const handleCreate = async () => {
     if (!createTitle.trim() || !createContent.trim()) return alert("제목과 내용을 입력하세요.");
-    const res = await fetch("/api/admin/board", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: createType, title: createTitle, content: createContent, is_pinned: createPinned, ...(createType === "faq" && createCategory ? { category: createCategory } : {}) }) });
-    if (res.ok) { setShowCreate(false); setCreateTitle(""); setCreateContent(""); setCreatePinned(false); setCreateCategory(""); fetchPosts(); }
+    const res = await fetch("/api/admin/board", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: createType, title: createTitle, content: createContent, is_pinned: createPinned, attachments: createAttachments, ...(createType === "faq" && createCategory ? { category: createCategory } : {}) }) });
+    if (res.ok) { setShowCreate(false); setCreateTitle(""); setCreateContent(""); setCreatePinned(false); setCreateCategory(""); setCreateAttachments([]); fetchPosts(); }
   };
 
   const handleReply = async () => {
@@ -156,7 +204,33 @@ export default function AdminBoardPage() {
                 <label className="form-check-label" htmlFor="pinSwitch">상단 고정</label>
               </div>
             )}
-            <button className="btn btn-success-600" onClick={handleCreate}>등록</button>
+            {/* 첨부파일 */}
+            <div className="mb-3">
+              <label className="form-label fw-semibold">첨부파일</label>
+              <div className="border rounded p-3" style={{ background: "#f8f9fa" }}>
+                <input
+                  type="file"
+                  multiple
+                  className="form-control form-control-sm mb-2"
+                  onChange={(e) => handleFileUpload(e.target.files, "create")}
+                  disabled={uploading}
+                />
+                {uploading && <small className="text-primary">업로드 중...</small>}
+                {createAttachments.length > 0 && (
+                  <ul className="list-unstyled mb-0 mt-2">
+                    {createAttachments.map((file, i) => (
+                      <li key={i} className="d-flex align-items-center gap-2 mb-1">
+                        <Icon icon="solar:file-text-outline" className="text-primary" />
+                        <span className="small">{file.name}</span>
+                        <span className="text-muted small">({formatFileSize(file.size)})</span>
+                        <button type="button" className="btn btn-sm btn-outline-danger py-0 px-1" onClick={() => removeAttachment(i, "create")}>&times;</button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+            <button className="btn btn-success-600" onClick={handleCreate} disabled={uploading}>등록</button>
           </div>
         </div>
       )}
@@ -174,8 +248,34 @@ export default function AdminBoardPage() {
               <label className="form-label fw-semibold">내용</label>
               <RichTextEditor value={editContent} onChange={setEditContent} height="250px" />
             </div>
+            {/* 첨부파일 */}
+            <div className="mb-3">
+              <label className="form-label fw-semibold">첨부파일</label>
+              <div className="border rounded p-3" style={{ background: "#f8f9fa" }}>
+                <input
+                  type="file"
+                  multiple
+                  className="form-control form-control-sm mb-2"
+                  onChange={(e) => handleFileUpload(e.target.files, "edit")}
+                  disabled={uploading}
+                />
+                {uploading && <small className="text-primary">업로드 중...</small>}
+                {editAttachments.length > 0 && (
+                  <ul className="list-unstyled mb-0 mt-2">
+                    {editAttachments.map((file, i) => (
+                      <li key={i} className="d-flex align-items-center gap-2 mb-1">
+                        <Icon icon="solar:file-text-outline" className="text-primary" />
+                        <a href={file.url} target="_blank" rel="noopener noreferrer" className="small">{file.name}</a>
+                        <span className="text-muted small">({formatFileSize(file.size)})</span>
+                        <button type="button" className="btn btn-sm btn-outline-danger py-0 px-1" onClick={() => removeAttachment(i, "edit")}>&times;</button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
             <div className="d-flex gap-2">
-              <button className="btn btn-primary" onClick={handleSave}>저장</button>
+              <button className="btn btn-primary" onClick={handleSave} disabled={uploading}>저장</button>
               <button className="btn btn-secondary" onClick={() => setEditingPost(null)}>취소</button>
             </div>
           </div>

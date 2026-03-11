@@ -249,6 +249,35 @@ export default function PostDetailPage() {
                             dangerouslySetInnerHTML={{ __html: post.content }}
                           />
 
+                          {/* 첨부파일 */}
+                          {post.attachments && Array.isArray(post.attachments) && post.attachments.length > 0 && (
+                            <div className="border-top pt-20 mt-30">
+                              <h6 className="f-700 mb-15" style={{ fontSize: "15px" }}>📎 첨부파일</h6>
+                              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                                {post.attachments.map((file, i) => (
+                                  <li key={i} className="mb-10">
+                                    <a
+                                      href={file.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      download={file.name}
+                                      className="d-inline-flex align-items-center gap-2"
+                                      style={{ color: "var(--public-primary, #6c63ff)", textDecoration: "none" }}
+                                    >
+                                      <span style={{ fontSize: "18px" }}>📄</span>
+                                      <span className="f-700" style={{ fontSize: "14px" }}>{file.name}</span>
+                                      <span className="secondary-color" style={{ fontSize: "12px" }}>
+                                        ({file.size < 1024 * 1024
+                                          ? (file.size / 1024).toFixed(1) + " KB"
+                                          : (file.size / (1024 * 1024)).toFixed(1) + " MB"})
+                                      </span>
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
                           {/* QnA 수정/삭제 버튼 */}
                           {post.type === "qna" && (
                             <div className="border-top pt-20 mt-30 d-flex gap-2">

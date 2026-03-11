@@ -82,7 +82,7 @@ export async function POST(request) {
     if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
     const body = await request.json();
-    const { type, title, content, is_pinned, is_secret, category } = body;
+    const { type, title, content, is_pinned, is_secret, category, attachments } = body;
 
     if (!type || !title || !content) {
       return NextResponse.json({ error: "type, title, content are required" }, { status: 400 });
@@ -94,20 +94,34 @@ export async function POST(request) {
     }
 
     const adminClient = createAdminClient();
-    const { data: post, error } = await adminClient
+    const insertData = {
+      type,
+      title: title.trim(),
+      content: content.trim(),
+      author_id: admin.id,
+      author_name: "관리자",
+      is_pinned: !!is_pinned,
+      is_secret: !!is_secret,
+      ...(category ? { category } : {}),
+    };
+    // attachments 컬럼이 있으면 저장 (fallback: 컬럼 없으면 빼고 재시도)
+    if (attachments && Array.isArray(attachments)) {
+      insertData.attachments = attachments;
+    }
+
+    let { data: post, error } = await adminClient
       .from("posts")
-      .insert({
-        type,
-        title: title.trim(),
-        content: content.trim(),
-        author_id: admin.id,
-        author_name: "관리자",
-        is_pinned: !!is_pinned,
-        is_secret: !!is_secret,
-        ...(category ? { category } : {}),
-      })
+      .insert(insertData)
       .select()
       .single();
+
+    // attachments 컬럼 미존재 시 fallback
+    if (error && error.message?.includes("attachments")) {
+      delete insertData.attachments;
+      const fallback = await adminClient.from("posts").insert(insertData).select().single();
+      post = fallback.data;
+      error = fallback.error;
+    }
 
     if (error) {
       console.error("Create post error:", error.message);
@@ -127,7 +141,7 @@ export async function PATCH(request) {
     if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
     const body = await request.json();
-    const { id, title, content, is_pinned, category } = body;
+    const { id, title, content, is_pinned, category, attachments } = body;
 
     if (!id) {
       return NextResponse.json({ error: "Post ID is required" }, { status: 400 });
@@ -139,12 +153,13 @@ export async function PATCH(request) {
     if (content !== undefined) updateData.content = content.trim();
     if (is_pinned !== undefined) updateData.is_pinned = is_pinned;
     if (category !== undefined) updateData.category = category;
+    if (attachments !== undefined) updateData.attachments = attachments;
 
     const { data: post, error } = await adminClient
       .from("posts")
       .update(updateData)
       .eq("id", id)
-      .select("id, title, type, is_pinned")
+      .select("id, title, type, is_pinned, attachments")
       .single();
 
     if (error) {
@@ -171,6 +186,18 @@ export async function DELETE(request) {
     }
 
     const adminClient = createAdminClient();
+
+    // 삭제 전 첨부파일 정리
+    try {
+      const { data: existing } = await adminClient.from("posts").select("attachments").eq("id", id).single();
+      if (existing?.attachments && Array.isArray(existing.attachments) && existing.attachments.length > 0) {
+        const paths = existing.attachments.map((a) => a.path).filter(Boolean);
+        if (paths.length > 0) {
+          await adminClient.storage.from("board-attachments").remove(paths);
+        }
+      }
+    } catch (e) { console.warn("Attachment cleanup warning:", e.message); }
+
     const { error } = await adminClient.from("posts").delete().eq("id", id);
 
     if (error) {
