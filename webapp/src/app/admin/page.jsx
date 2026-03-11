@@ -91,7 +91,8 @@ export default function AdminDashboardPage() {
     );
   }
 
-  const remainingSeats = 500 - (stats.license.approved || 0);
+  const activeCount = (stats.license.pending || 0) + (stats.license.approved || 0);
+  const remainingSeats = 500 - activeCount;
 
   // ── Charts ──
   const categoryChartOpts = {
@@ -147,7 +148,7 @@ export default function AdminDashboardPage() {
         <StatCard title="전체 작품 접수" value={stats.submissions.total} icon="mdi:file-document-multiple" bg="cyan" gradient="1" sub={`오늘 +${stats.submissions_today}`} subType="success" />
         <StatCard title="이번 주 접수" value={stats.submissions_this_week} icon="mdi:calendar-week" bg="purple" gradient="2" sub={`금주 누적`} subType="info" />
         <StatCard title="이용권 신청 대기" value={stats.license.pending} icon="mdi:clock-outline" bg="warning-main" gradient="3" sub={`전체 ${stats.license.total}건`} subType="neutral" />
-        <StatCard title="이용권 잔여석" value={remainingSeats} icon="mdi:ticket-confirmation-outline" bg="success-main" gradient="4" sub={`${stats.license.approved} / 500 승인`} subType={remainingSeats <= 50 ? "danger" : "success"} />
+        <StatCard title="이용권 잔여석" value={remainingSeats} icon="mdi:ticket-confirmation-outline" bg="success-main" gradient="4" sub={`${activeCount} / 500 신청`} subType={remainingSeats <= 50 ? "danger" : "success"} />
         <StatCard title="미답변 QnA" value={stats.board.unanswered_qna} icon="mdi:comment-question-outline" bg="red" gradient="5" sub="답변 필요" subType={stats.board.unanswered_qna > 0 ? "danger" : "success"} />
       </div>
 
@@ -201,12 +202,12 @@ export default function AdminDashboardPage() {
               <div className="mt-16">
                 <div className="d-flex justify-content-between text-sm mb-1">
                   <span className="text-primary-light">잔여석</span>
-                  <span className="fw-semibold">{stats.license.approved} / 500</span>
+                  <span className="fw-semibold">{activeCount} / 500</span>
                 </div>
                 <div className="progress" style={{ height: "10px" }}>
                   <div
                     className={`progress-bar ${remainingSeats <= 50 ? "bg-danger-main" : "bg-success-main"}`}
-                    style={{ width: `${Math.min((stats.license.approved / 500) * 100, 100)}%` }}
+                    style={{ width: `${Math.min((activeCount / 500) * 100, 100)}%` }}
                   />
                 </div>
                 <p className={`text-sm mt-1 ${remainingSeats <= 50 ? "text-danger-main fw-semibold" : "text-primary-light"}`}>

@@ -9,8 +9,8 @@
 
 /* Design Tokens */
 :root {
-  --evalo-primary: #6c63ff;
-  --evalo-primary-hover: #5a52e0;
+  --evalo-primary: #2161a6;
+  --evalo-primary-hover: #1a4f8a;
   --evalo-heading: #222222;
   --evalo-body: #666666;
   --evalo-bg-light: #f8f9ff;
@@ -35,8 +35,12 @@
   color: var(--evalo-body);
 }
 
-.public-main h1, .public-main h2, .public-main h3,
-.public-main h4, .public-main h5, .public-main h6 {
+.public-main h1,
+.public-main h2,
+.public-main h3,
+.public-main h4,
+.public-main h5,
+.public-main h6 {
   color: var(--evalo-heading);
   font-weight: 700;
   font-family: var(--evalo-font);
@@ -73,7 +77,7 @@
 .evalo-header--sticky .evalo-header__inner {
   padding: 12px 0;
   background: var(--evalo-bg-alt);
-  box-shadow: 0 8px 4px -7px rgba(115,115,115,0.3);
+  box-shadow: 0 8px 4px -7px rgba(115, 115, 115, 0.3);
 }
 
 .evalo-header__logo {
@@ -132,8 +136,14 @@
 }
 
 @media (max-width: 991px) {
-  .evalo-header__toggle { display: block; }
-  .evalo-header__nav { display: none; }
+  .evalo-header__toggle {
+    display: block;
+  }
+
+  .evalo-header__nav {
+    display: none;
+  }
+
   .evalo-header__nav--open {
     display: flex;
     flex-direction: column;
@@ -142,14 +152,16 @@
     left: 0;
     right: 0;
     background: var(--evalo-white);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     padding: 16px;
     gap: 4px;
   }
+
   .evalo-header__nav--open .evalo-header__nav-link {
     padding: 12px 16px;
     border-radius: 8px;
   }
+
   .evalo-header__nav--open .evalo-header__nav-link:hover {
     background: var(--evalo-bg-light);
   }
@@ -287,12 +299,12 @@
 }
 
 .evalo-page-banner__breadcrumb li {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 16px;
 }
 
 .evalo-page-banner__breadcrumb li a {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   transition: var(--evalo-transition);
 }
@@ -354,7 +366,7 @@
 .evalo-form .form-control:focus,
 .evalo-form .form-select:focus {
   border-color: var(--evalo-primary);
-  box-shadow: 0 0 0 3px rgba(108,99,255,0.1);
+  box-shadow: 0 0 0 3px rgba(33, 97, 166, 0.1);
 }
 
 .evalo-form .form-text {
@@ -367,7 +379,7 @@
  * ============================================================ */
 .evalo-footer {
   background: #1a1a2e;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   font-family: var(--evalo-font);
 }
 
@@ -389,7 +401,7 @@
 }
 
 .evalo-footer__links a {
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   transition: var(--evalo-transition);
   position: relative;
@@ -401,13 +413,13 @@
 }
 
 .evalo-footer__bottom {
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 24px 0;
   margin-top: 40px;
 }
 
 .evalo-footer__copyright {
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
   margin: 0;
 }
@@ -440,7 +452,7 @@
 }
 
 .evalo-hero__subtitle {
-  color: rgba(255,255,255,0.85);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 20px;
   font-weight: 400;
   line-height: 1.6;
@@ -452,7 +464,7 @@
 .evalo-hero__shape {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .evalo-hero__shape--1 {
@@ -488,11 +500,13 @@
   font-family: var(--evalo-font);
   transition: var(--evalo-transition);
 }
+
 .btn-kakao:hover {
   background-color: #e6cf00;
   color: #191919;
   transform: translateY(-2px);
 }
+
 .btn-naver {
   background-color: #03C75A;
   color: var(--evalo-white);
@@ -502,6 +516,7 @@
   font-family: var(--evalo-font);
   transition: var(--evalo-transition);
 }
+
 .btn-naver:hover {
   background-color: #02b351;
   color: var(--evalo-white);
@@ -509,8 +524,13 @@
 }
 
 /* Aliases */
-.public-btn-kakao { composes: btn-kakao; }
-.public-btn-naver { composes: btn-naver; }
+.public-btn-kakao {
+  composes: btn-kakao;
+}
+
+.public-btn-naver {
+  composes: btn-naver;
+}
 
 /* ============================================================
  * 10. CHATBOT — Floating + Embedded
@@ -528,7 +548,7 @@
   color: #fff;
   font-size: 28px;
   border: none;
-  box-shadow: 0 4px 16px rgba(108, 99, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(33, 97, 166, 0.4);
   cursor: pointer;
   z-index: 1050;
   display: flex;
@@ -536,9 +556,10 @@
   justify-content: center;
   transition: var(--evalo-transition);
 }
+
 .chatbot-fab:hover {
   transform: scale(1.1);
-  box-shadow: 0 6px 24px rgba(108, 99, 255, 0.5);
+  box-shadow: 0 6px 24px rgba(33, 97, 166, 0.5);
 }
 
 /* Chat Panel */
@@ -566,11 +587,13 @@
   align-items: center;
   flex-shrink: 0;
 }
+
 .chatbot-header-title {
   font-family: var(--evalo-font);
   font-weight: 600;
   font-size: 0.95rem;
 }
+
 .chatbot-close {
   background: transparent;
   border: none;
@@ -590,9 +613,18 @@
   gap: 12px;
 }
 
-.chatbot-msg { max-width: 85%; }
-.chatbot-msg-user { align-self: flex-end; }
-.chatbot-msg-bot { align-self: flex-start; }
+.chatbot-msg {
+  max-width: 85%;
+}
+
+.chatbot-msg-user {
+  align-self: flex-end;
+}
+
+.chatbot-msg-bot {
+  align-self: flex-start;
+}
+
 .chatbot-msg-content {
   padding: 10px 14px;
   border-radius: 12px;
@@ -602,11 +634,13 @@
   word-break: break-word;
   white-space: pre-wrap;
 }
+
 .chatbot-msg-user .chatbot-msg-content {
   background: var(--evalo-primary);
   color: #fff;
   border-bottom-right-radius: 4px;
 }
+
 .chatbot-msg-bot .chatbot-msg-content {
   background: #f0f0f5;
   color: var(--evalo-heading);
@@ -618,6 +652,7 @@
   gap: 4px;
   padding: 12px 16px;
 }
+
 .chatbot-typing span {
   width: 8px;
   height: 8px;
@@ -625,11 +660,26 @@
   background: #999;
   animation: chatbot-bounce 1.4s infinite ease-in-out both;
 }
-.chatbot-typing span:nth-child(1) { animation-delay: -0.32s; }
-.chatbot-typing span:nth-child(2) { animation-delay: -0.16s; }
+
+.chatbot-typing span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.chatbot-typing span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
 @keyframes chatbot-bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1); }
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
 }
 
 .chatbot-input-area {
@@ -639,6 +689,7 @@
   gap: 8px;
   flex-shrink: 0;
 }
+
 .chatbot-input {
   flex: 1;
   border: 1px solid #ddd;
@@ -649,7 +700,11 @@
   outline: none;
   transition: var(--evalo-transition);
 }
-.chatbot-input:focus { border-color: var(--evalo-primary); }
+
+.chatbot-input:focus {
+  border-color: var(--evalo-primary);
+}
+
 .chatbot-send {
   width: 40px;
   height: 40px;
@@ -665,8 +720,15 @@
   transition: var(--evalo-transition);
   flex-shrink: 0;
 }
-.chatbot-send:disabled { opacity: 0.5; cursor: not-allowed; }
-.chatbot-send:not(:disabled):hover { background: var(--evalo-primary-hover); }
+
+.chatbot-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chatbot-send:not(:disabled):hover {
+  background: var(--evalo-primary-hover);
+}
 
 /* Embedded Chatbot */
 .chatbot-embed-messages {
@@ -674,6 +736,7 @@
   overflow-y: auto;
   padding: 1.5rem;
 }
+
 .chatbot-embed-bubble {
   max-width: 80%;
   padding: 0.75rem 1rem;
@@ -682,11 +745,13 @@
   line-height: 1.5;
   word-break: break-word;
 }
+
 .chatbot-embed-bubble--bot {
   background: #f0f4ff;
   color: #1a1a2e;
   border-bottom-left-radius: 0.25rem;
 }
+
 .chatbot-embed-bubble--user {
   background: var(--evalo-primary);
   color: #fff;
@@ -706,22 +771,22 @@
 }
 
 .evalo-badge--primary {
-  background: rgba(108,99,255,0.1);
+  background: rgba(33, 97, 166, 0.1);
   color: var(--evalo-primary);
 }
 
 .evalo-badge--success {
-  background: rgba(40,167,69,0.1);
+  background: rgba(40, 167, 69, 0.1);
   color: #28a745;
 }
 
 .evalo-badge--warning {
-  background: rgba(255,193,7,0.1);
+  background: rgba(255, 193, 7, 0.1);
   color: #e6ac00;
 }
 
 .evalo-badge--danger {
-  background: rgba(220,53,69,0.1);
+  background: rgba(220, 53, 69, 0.1);
   color: #dc3545;
 }
 
@@ -729,16 +794,47 @@
  * 12. RESPONSIVE
  * ============================================================ */
 @media (max-width: 768px) {
-  .evalo-hero__title { font-size: 32px; }
-  .evalo-hero__subtitle { font-size: 16px; }
-  .evalo-hero__content { padding: 120px 0 60px; }
-  .evalo-section { padding: 60px 0; }
-  .evalo-title__heading { font-size: 28px; }
-  .evalo-page-banner { padding: 100px 0 40px; }
-  .evalo-page-banner__title { font-size: 28px; }
-  .evalo-card { padding: 20px; }
-  .evalo-card--lg { padding: 24px; }
-  .public-btn-primary, .evalo-btn { padding: 10px 32px; font-size: 15px; }
+  .evalo-hero__title {
+    font-size: 32px;
+  }
+
+  .evalo-hero__subtitle {
+    font-size: 16px;
+  }
+
+  .evalo-hero__content {
+    padding: 120px 0 60px;
+  }
+
+  .evalo-section {
+    padding: 60px 0;
+  }
+
+  .evalo-title__heading {
+    font-size: 28px;
+  }
+
+  .evalo-page-banner {
+    padding: 100px 0 40px;
+  }
+
+  .evalo-page-banner__title {
+    font-size: 28px;
+  }
+
+  .evalo-card {
+    padding: 20px;
+  }
+
+  .evalo-card--lg {
+    padding: 24px;
+  }
+
+  .public-btn-primary,
+  .evalo-btn {
+    padding: 10px 32px;
+    font-size: 15px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -748,8 +844,14 @@
     bottom: 8px;
     right: 8px;
   }
-  .evalo-hero__title { font-size: 28px; }
-  .evalo-hero__content { padding: 110px 0 50px; }
+
+  .evalo-hero__title {
+    font-size: 28px;
+  }
+
+  .evalo-hero__content {
+    padding: 110px 0 50px;
+  }
 }
 
 /* ============================================================
@@ -758,7 +860,7 @@
 
 /* Sub-page Hero Banner */
 .evalo-page-hero {
-  background: linear-gradient(135deg, var(--public-primary, #6c63ff) 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--public-primary, #2161a6) 0%, #764ba2 100%);
   padding: 120px 0 80px;
   margin-top: calc(-1 * var(--public-header-height, 80px));
   padding-top: calc(var(--public-header-height, 80px) + 80px);
@@ -769,6 +871,7 @@
   list-style: none;
   padding: 0;
 }
+
 .evalo-feature-list li {
   position: relative;
   padding-left: 28px;
@@ -777,11 +880,12 @@
   color: var(--public-body-text, #666);
   line-height: 1.6;
 }
+
 .evalo-feature-list li::before {
   content: "✓";
   position: absolute;
   left: 0;
-  color: var(--public-primary, #6c63ff);
+  color: var(--public-primary, #2161a6);
   font-weight: 700;
   font-size: 18px;
 }
@@ -792,35 +896,39 @@
   height: 48px;
   border-radius: 50%;
 }
+
 .evalo-category-dot--elementary {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
+
 .evalo-category-dot--secondary {
   background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
 }
+
 .evalo-category-dot--general {
-  background: linear-gradient(135deg, var(--public-primary, #6c63ff) 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--public-primary, #2161a6) 0%, #764ba2 100%);
 }
 
 /* Step badge  highlight */
 .evalo-step-badge--highlight {
-  background: linear-gradient(135deg, var(--public-primary, #6c63ff) 0%, #764ba2 100%);
-  box-shadow: 0 4px 12px rgba(108, 99, 255, 0.4);
+  background: linear-gradient(135deg, var(--public-primary, #2161a6) 0%, #764ba2 100%);
+  box-shadow: 0 4px 12px rgba(33, 97, 166, 0.4);
 }
 
 /* CTA white buttons */
 .evalo-btn-white {
   background: #ffffff;
-  color: var(--public-primary, #6c63ff);
+  color: var(--public-primary, #2161a6);
   border: none;
   border-radius: 28px;
   font-weight: 600;
   box-shadow: 0px 5px 15px 0px rgba(8, 0, 140, 0.19);
   transition: all 0.3s ease-out;
 }
+
 .evalo-btn-white:hover {
   background: #f0f0ff;
-  color: var(--public-primary, #6c63ff);
+  color: var(--public-primary, #2161a6);
   transform: translateY(-2px);
 }
 
@@ -832,22 +940,23 @@
   font-weight: 600;
   transition: all 0.3s ease-out;
 }
+
 .evalo-btn-outline-white:hover {
   background: #ffffff;
-  color: var(--public-primary, #6c63ff);
+  color: var(--public-primary, #2161a6);
   transform: translateY(-2px);
 }
 
 /* Evalo text accent */
 .evalo-text-primary {
-  color: var(--public-primary, #6c63ff);
+  color: var(--public-primary, #2161a6);
 }
 
 /* Evalo section label (for pages using public-* vars) */
 .evalo-section-label {
   font-size: 16px;
   line-height: 2;
-  color: var(--public-primary, #6c63ff);
+  color: var(--public-primary, #2161a6);
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -866,7 +975,7 @@
   height: 36px;
   line-height: 36px;
   border-radius: 50%;
-  background: var(--public-primary, #6c63ff);
+  background: var(--public-primary, #2161a6);
   color: #fff;
   font-size: 14px;
   font-weight: 700;
@@ -875,7 +984,7 @@
 
 /* Card active border */
 .evalo-card--active {
-  border: 2px solid var(--public-primary, #6c63ff) !important;
+  border: 2px solid var(--public-primary, #2161a6) !important;
 }
 
 /* Evalo section title h3 */
@@ -886,6 +995,7 @@
   color: var(--public-heading, #222);
   margin-top: 8px;
 }
+
 .evalo-section__title p {
   font-size: 18px;
   line-height: 28px;
@@ -904,7 +1014,19 @@
     padding: 100px 0 50px;
     padding-top: calc(var(--public-header-height, 80px) + 50px);
   }
+
   .evalo-section__title h3 {
     font-size: 28px;
   }
+}
+
+/* ============================================================
+ * 14. HEADER MENU SPACING
+ * ============================================================ */
+.main-menu nav>ul {
+  list-style: none;
+}
+
+.main-menu nav>ul>li {
+  margin: 0 10px;
 }

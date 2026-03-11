@@ -191,7 +191,7 @@ export default function ChatbotEmbed() {
                     {msg.role === "bot" && (
                       <div style={{
                         width: "36px", height: "36px", borderRadius: "50%",
-                        background: "var(--theme-color, #6c63ff)", color: "#fff",
+                        background: "var(--theme-color, #2161a6)", color: "#fff",
                         display: "flex", alignItems: "center", justifyContent: "center",
                         fontSize: "14px", fontWeight: 700, marginRight: "12px", flexShrink: 0,
                         marginTop: "2px",
@@ -201,7 +201,7 @@ export default function ChatbotEmbed() {
                       maxWidth: "75%",
                       padding: "12px 18px",
                       borderRadius: msg.role === "user" ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
-                      background: msg.role === "user" ? "var(--theme-color, #6c63ff)" : "#f1f1f5",
+                      background: msg.role === "user" ? "var(--theme-color, #2161a6)" : "#f1f1f5",
                       color: msg.role === "user" ? "#fff" : "#333",
                       fontSize: "15px", lineHeight: "1.6",
                       whiteSpace: "pre-wrap", wordBreak: "break-word",
@@ -210,7 +210,7 @@ export default function ChatbotEmbed() {
                       {msg.streaming && (
                         <span style={{
                           display: "inline-block", width: "8px", height: "16px",
-                          background: "var(--theme-color, #6c63ff)", marginLeft: "2px",
+                          background: "var(--theme-color, #2161a6)", marginLeft: "2px",
                           animation: "chatbotCursorBlink 1s infinite",
                           verticalAlign: "text-bottom", borderRadius: "1px",
                         }}></span>
@@ -224,7 +224,7 @@ export default function ChatbotEmbed() {
                   <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                     <div style={{
                       width: "36px", height: "36px", borderRadius: "50%",
-                      background: "var(--theme-color, #6c63ff)", color: "#fff",
+                      background: "var(--theme-color, #2161a6)", color: "#fff",
                       display: "flex", alignItems: "center", justifyContent: "center",
                       fontSize: "14px", fontWeight: 700, flexShrink: 0,
                     }}>AI</div>

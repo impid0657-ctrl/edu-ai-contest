@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 /**
  * POST /api/license/apply
@@ -21,6 +22,25 @@ export async function POST(request) {
         { error: "Not authenticated" },
         { status: 401 }
       );
+    }
+
+    // OAuth 사용자(카카오/네이버)는 users 테이블에 프로필이 없을 수 있음 → 자동 생성
+    const admin = createAdminClient();
+    const { data: existingProfile } = await admin
+      .from("users")
+      .select("id")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (!existingProfile) {
+      const meta = user.user_metadata || {};
+      await admin.from("users").upsert({
+        id: user.id,
+        email: user.email || meta.email || "",
+        name: meta.full_name || meta.name || meta.preferred_username || "사용자",
+        role: "user",
+      }, { onConflict: "id" });
+      console.log(`[license] Auto-created user profile for: ${user.email}`);
     }
 
     const body = await request.json();

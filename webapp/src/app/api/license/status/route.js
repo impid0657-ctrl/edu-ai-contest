@@ -4,7 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 /**
  * GET /api/license/status?email=xxx@example.com
  * Public — no auth required. Returns license application status by email.
- * Only returns status, category, date — no sensitive info.
+ * Searches both OAuth users (via users table) and guest applications (via applicant_email).
  */
 export async function GET(request) {
   try {
@@ -18,26 +18,41 @@ export async function GET(request) {
       );
     }
 
+    const normalizedEmail = email.trim().toLowerCase();
     const adminClient = createAdminClient();
 
-    // Find application by email via users table join
-    const { data: applications, error } = await adminClient
+    // 1. OAuth 사용자 조회 (users 테이블 JOIN)
+    let app = null;
+    const { data: oauthApps } = await adminClient
       .from("license_applications")
       .select("status, category, team_name, created_at, users!inner(email)")
-      .eq("users.email", email.trim())
+      .eq("users.email", normalizedEmail)
       .order("created_at", { ascending: false })
       .limit(1);
 
-    if (error) {
-      console.error("License status query error:", error.message);
-      return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    if (oauthApps && oauthApps.length > 0) {
+      app = oauthApps[0];
     }
 
-    if (!applications || applications.length === 0) {
+    // 2. 게스트(학교이메일/학생증) 조회 (applicant_email 직접 검색)
+    if (!app) {
+      const { data: guestApps } = await adminClient
+        .from("license_applications")
+        .select("status, category, team_name, created_at")
+        .eq("applicant_email", normalizedEmail)
+        .is("user_id", null)
+        .order("created_at", { ascending: false })
+        .limit(1);
+
+      if (guestApps && guestApps.length > 0) {
+        app = guestApps[0];
+      }
+    }
+
+    if (!app) {
       return NextResponse.json({ application: null });
     }
 
-    const app = applications[0];
     return NextResponse.json({
       application: {
         status: app.status,

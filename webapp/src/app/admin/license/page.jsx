@@ -59,6 +59,7 @@ export default function AdminLicensePage() {
   const [actionLoading, setActionLoading] = useState(false);
   const [rowActionLoading, setRowActionLoading] = useState(null);
   const [message, setMessage] = useState({ type: "", text: "" });
+  const [trashMode, setTrashMode] = useState(false);
   const [issuedLoading, setIssuedLoading] = useState(false);
 
   // Detail modal
@@ -81,6 +82,7 @@ export default function AdminLicensePage() {
       if (searchText) params.set("search", searchText);
       params.set("page", page.toString());
       params.set("limit", limit.toString());
+      if (trashMode) params.set("trash", "true");
 
       const res = await fetch(`/api/admin/license?${params.toString()}`);
       if (!res.ok) throw new Error("Failed to fetch");
@@ -97,7 +99,7 @@ export default function AdminLicensePage() {
     } finally {
       setLoading(false);
     }
-  }, [statusFilter, categoryFilter, searchText, page, limit]);
+  }, [statusFilter, categoryFilter, searchText, page, limit, trashMode]);
 
   useEffect(() => {
     fetchApplications();
@@ -125,12 +127,7 @@ export default function AdminLicensePage() {
   const handleBulkAction = async (action) => {
     if (selectedIds.length === 0) return;
 
-    const confirmMsg =
-      action === "approve"
-        ? `${selectedIds.length}건을 일괄 승인하시겠습니까?`
-        : `${selectedIds.length}건을 일괄 반려하시겠습니까?`;
 
-    if (!confirm(confirmMsg)) return;
 
     setActionLoading(true);
     setMessage({ type: "", text: "" });
@@ -162,9 +159,53 @@ export default function AdminLicensePage() {
     }
   };
 
+  const handleBulkDelete = async () => {
+    if (selectedIds.length === 0) return;
+
+    setActionLoading(true);
+    try {
+      const res = await fetch("/api/admin/license/bulk-action", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: selectedIds, action: "delete" }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setMessage({ type: "success", text: `${data.updated}건이 삭제되었습니다.` });
+        setSelectedIds([]);
+        fetchApplications();
+      } else {
+        setMessage({ type: "danger", text: data.error || "삭제 실패" });
+      }
+    } catch { setMessage({ type: "danger", text: "네트워크 오류" }); }
+    finally { setActionLoading(false); }
+  };
+
+  const handleBulkRestore = async () => {
+    if (selectedIds.length === 0) return;
+
+    setActionLoading(true);
+    try {
+      const res = await fetch("/api/admin/license/bulk-action", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: selectedIds, action: "restore" }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setMessage({ type: "success", text: `${data.updated}건이 복구되었습니다.` });
+        setSelectedIds([]);
+        fetchApplications();
+      } else {
+        setMessage({ type: "danger", text: data.error || "복구 실패" });
+      }
+    } catch { setMessage({ type: "danger", text: "네트워크 오류" }); }
+    finally { setActionLoading(false); }
+  };
+
   const handleRowAction = async (e, id, action) => {
     e.stopPropagation();
-    if (!confirm(`이 신청을 ${action === "approve" ? "승인" : "반려"}하시겠습니까?`)) return;
+
     setRowActionLoading(id);
     try {
       const res = await fetch("/api/admin/license/bulk-action", {
@@ -187,7 +228,7 @@ export default function AdminLicensePage() {
 
   const handleMarkIssued = async () => {
     if (selectedIds.length === 0) return;
-    if (!confirm(`${selectedIds.length}건을 발급 완료로 처리하시겠습니까?`)) return;
+
     setIssuedLoading(true);
     try {
       const res = await fetch("/api/admin/license/mark-issued", {
@@ -288,11 +329,77 @@ export default function AdminLicensePage() {
         </div>
       )}
 
-      {/* Filters + Actions */}
+      {/* Actions + Filters */}
       <div className="card shadow-none border mb-4">
         <div className="card-body p-20">
+          {/* 1행: 액션 버튼 */}
+          <div className="d-flex flex-nowrap gap-2 justify-content-end mb-16">
+            {currentPendingInPage > 0 && (
+              <button
+                className="btn btn-outline-warning btn-sm"
+                onClick={handleSelectPendingOnly}
+              >
+                <Icon icon="solar:clock-circle-outline" className="me-1" />
+                대기만 선택 ({currentPendingInPage})
+              </button>
+            )}
+            <button
+              className="btn btn-success-600 btn-sm"
+              disabled={selectedIds.length === 0 || actionLoading}
+              onClick={() => handleBulkAction("approve")}
+            >
+              일괄 승인 ({selectedIds.length})
+            </button>
+            <button
+              className="btn btn-danger-600 btn-sm"
+              disabled={selectedIds.length === 0 || actionLoading}
+              onClick={() => handleBulkAction("reject")}
+            >
+              일괄 반려 ({selectedIds.length})
+            </button>
+            <button
+              className="btn btn-info btn-sm"
+              disabled={selectedIds.length === 0 || issuedLoading}
+              onClick={handleMarkIssued}
+            >
+              발급 확인 ({selectedIds.length})
+            </button>
+            {!trashMode && (
+              <button
+                className="btn btn-outline-danger btn-sm"
+                disabled={selectedIds.length === 0 || actionLoading}
+                onClick={handleBulkDelete}
+              >
+                삭제 ({selectedIds.length})
+              </button>
+            )}
+            {trashMode && (
+              <button
+                className="btn btn-success-600 btn-sm"
+                disabled={selectedIds.length === 0 || actionLoading}
+                onClick={handleBulkRestore}
+              >
+                복구 ({selectedIds.length})
+              </button>
+            )}
+            <button
+              className="btn btn-outline-primary-600 btn-sm"
+              onClick={handleCsvDownload}
+            >
+              <Icon icon="solar:download-minimalistic-outline" className="me-1" />
+              CSV
+            </button>
+            <button
+              className={`btn btn-sm ${trashMode ? "btn-secondary" : "btn-outline-secondary"}`}
+              onClick={() => { setTrashMode(!trashMode); setPage(1); setSelectedIds([]); }}
+            >
+              <Icon icon="solar:trash-bin-2-outline" className="me-1" />
+              {trashMode ? "목록으로" : "휴지통"}
+            </button>
+          </div>
+          {/* 2행: 필터 */}
           <div className="row g-3 align-items-end">
-            <div className="col-md-2">
+            <div className="col-md-3">
               <label className="form-label">상태</label>
               <select
                 className="form-select form-select-sm"
@@ -305,7 +412,7 @@ export default function AdminLicensePage() {
                 <option value="rejected">반려됨</option>
               </select>
             </div>
-            <div className="col-md-2">
+            <div className="col-md-3">
               <label className="form-label">부문</label>
               <select
                 className="form-select form-select-sm"
@@ -318,7 +425,7 @@ export default function AdminLicensePage() {
                 <option value="general">일반부</option>
               </select>
             </div>
-            <div className="col-md-3">
+            <div className="col-md-6">
               <label className="form-label">학교명 검색</label>
               <input
                 type="text"
@@ -327,48 +434,6 @@ export default function AdminLicensePage() {
                 value={searchText}
                 onChange={(e) => { setSearchText(e.target.value); setPage(1); }}
               />
-            </div>
-            <div className="col-md-5 d-flex flex-wrap gap-2 justify-content-end">
-              {currentPendingInPage > 0 && (
-                <button
-                  className="btn btn-outline-warning btn-sm"
-                  onClick={handleSelectPendingOnly}
-                >
-                  <Icon icon="solar:clock-circle-outline" className="me-1" />
-                  대기만 선택 ({currentPendingInPage})
-                </button>
-              )}
-              <button
-                className="btn btn-success-600 btn-sm"
-                disabled={selectedIds.length === 0 || actionLoading}
-                onClick={() => handleBulkAction("approve")}
-              >
-                <Icon icon="solar:check-circle-outline" className="me-1" />
-                일괄 승인 ({selectedIds.length})
-              </button>
-              <button
-                className="btn btn-danger-600 btn-sm"
-                disabled={selectedIds.length === 0 || actionLoading}
-                onClick={() => handleBulkAction("reject")}
-              >
-                <Icon icon="solar:close-circle-outline" className="me-1" />
-                일괄 반려 ({selectedIds.length})
-              </button>
-              <button
-                className="btn btn-info btn-sm"
-                disabled={selectedIds.length === 0 || issuedLoading}
-                onClick={handleMarkIssued}
-              >
-                <Icon icon="mdi:check-decagram" className="me-1" />
-                발급 확인 ({selectedIds.length})
-              </button>
-              <button
-                className="btn btn-outline-primary-600 btn-sm"
-                onClick={handleCsvDownload}
-              >
-                <Icon icon="solar:download-minimalistic-outline" className="me-1" />
-                CSV
-              </button>
             </div>
           </div>
         </div>
@@ -461,28 +526,26 @@ export default function AdminLicensePage() {
                           ? formatKST(app.created_at, "yyyy-MM-dd")
                           : "-"}
                       </td>
-                      <td className="text-center" onClick={(e) => e.stopPropagation()}>
+                      <td className="text-center align-middle" onClick={(e) => e.stopPropagation()}>
                         {app.status === "pending" ? (
-                          <div className="d-flex gap-1 justify-content-center">
+                          <div className="d-flex gap-1 justify-content-center align-items-center">
                             <button
-                              className="btn btn-sm btn-success-600 py-2 px-8"
+                              className="btn btn-sm btn-success-600 d-flex align-items-center justify-content-center"
+                              style={{ minWidth: "52px", height: "30px" }}
                               disabled={rowActionLoading === app.id}
                               onClick={(e) => handleRowAction(e, app.id, "approve")}
-                              title="승인"
                             >
                               {rowActionLoading === app.id ? (
                                 <span className="spinner-border spinner-border-sm" style={{ width: 12, height: 12 }} />
-                              ) : (
-                                <Icon icon="solar:check-circle-outline" />
-                              )}
+                              ) : "승인"}
                             </button>
                             <button
-                              className="btn btn-sm btn-danger-600 py-2 px-8"
+                              className="btn btn-sm btn-danger-600 d-flex align-items-center justify-content-center"
+                              style={{ minWidth: "52px", height: "30px" }}
                               disabled={rowActionLoading === app.id}
                               onClick={(e) => handleRowAction(e, app.id, "reject")}
-                              title="반려"
                             >
-                              <Icon icon="solar:close-circle-outline" />
+                              반려
                             </button>
                           </div>
                         ) : (

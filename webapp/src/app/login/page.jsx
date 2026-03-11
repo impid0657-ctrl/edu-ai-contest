@@ -10,7 +10,7 @@ import { createClient } from "@/lib/supabase/client";
  */
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div style={styles.wrapper}><div style={styles.card}><p style={{textAlign:'center'}}>로딩 중...</p></div></div>}>
+    <Suspense fallback={<div style={styles.wrapper}><div style={styles.card}><p style={{ textAlign: 'center' }}>로딩 중...</p></div></div>}>
       <LoginContent />
     </Suspense>
   );
@@ -64,7 +64,7 @@ function LoginContent() {
         <p style={styles.subtitle}>제8회 교육 공공데이터 AI활용대회</p>
 
         {authError === "auth_unavailable" && (
-          <div style={{...styles.error, background: "#fff8e0", borderColor: "#ffe69c", color: "#856404"}}>
+          <div style={{ ...styles.error, background: "#fff8e0", borderColor: "#ffe69c", color: "#856404" }}>
             인증 서버에 연결할 수 없습니다. 환경변수를 확인해주세요.
           </div>
         )}
@@ -180,7 +180,7 @@ const styles = {
   button: {
     width: "100%",
     padding: "12px",
-    background: "#6c63ff",
+    background: "#2161a6",
     color: "#fff",
     border: "none",
     borderRadius: "8px",
@@ -194,7 +194,7 @@ const styles = {
   },
   link: {
     fontSize: "14px",
-    color: "#6c63ff",
+    color: "#2161a6",
     textDecoration: "none",
   },
 };

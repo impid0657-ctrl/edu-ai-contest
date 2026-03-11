@@ -16,8 +16,8 @@ const DEFAULT_MENU = [
   { slug: "contest-info", title: "공모요강", path: "/contest-info", menu_order: 1, is_public: true },
   { slug: "submit", title: "작품접수", path: "/submit", menu_order: 2, is_public: true },
   { slug: "submit-lookup", title: "접수조회", path: "/submit/lookup", menu_order: 3, is_public: true },
-  { slug: "board", title: "게시판", path: "/board", menu_order: 4, is_public: true },
-  { slug: "faq", title: "FAQ", path: "/faq", menu_order: 5, is_public: true },
+  { slug: "board", title: "공지사항", path: "/board", menu_order: 4, is_public: true },
+  { slug: "contact", title: "문의하기", path: "/contact", menu_order: 5, is_public: true },
   { slug: "license-apply", title: "이용권 신청", path: "/license-apply", menu_order: 6, is_public: true },
 ];
 

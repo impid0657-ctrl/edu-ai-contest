@@ -13,7 +13,7 @@ export default function NotFound() {
             <div className="mb-4">
               <span className="evalo-title__label">페이지를 찾을 수 없습니다</span>
             </div>
-            <h1 className="display-1 fw-bold mb-3" style={{ color: "var(--evalo-primary, #6c63ff)" }}>404</h1>
+            <h1 className="display-1 fw-bold mb-3" style={{ color: "var(--evalo-primary, #2161a6)" }}>404</h1>
             <h3 className="fw-bold mb-3">페이지를 찾을 수 없습니다</h3>
             <p className="text-muted mb-5">
               요청하신 페이지가 존재하지 않거나 이동되었습니다.

@@ -43,11 +43,43 @@ export async function POST(request) {
       );
     }
 
-    if (!["approve", "reject"].includes(action)) {
+    if (!["approve", "reject", "delete", "restore"].includes(action)) {
       return NextResponse.json(
         { error: "Invalid action" },
         { status: 400 }
       );
+    }
+
+    // Soft delete
+    if (action === "delete") {
+      const { data: deleted, error: delError } = await ac
+        .from("license_applications")
+        .update({ deleted_at: new Date().toISOString() })
+        .in("id", ids)
+        .is("deleted_at", null)
+        .select("id");
+
+      if (delError) {
+        console.error("Soft delete error:", delError.message);
+        return NextResponse.json({ error: "삭제 실패" }, { status: 500 });
+      }
+      return NextResponse.json({ updated: deleted?.length || 0 });
+    }
+
+    // Restore from trash
+    if (action === "restore") {
+      const { data: restored, error: restoreError } = await ac
+        .from("license_applications")
+        .update({ deleted_at: null })
+        .in("id", ids)
+        .not("deleted_at", "is", null)
+        .select("id");
+
+      if (restoreError) {
+        console.error("Restore error:", restoreError.message);
+        return NextResponse.json({ error: "복구 실패" }, { status: 500 });
+      }
+      return NextResponse.json({ updated: restored?.length || 0 });
     }
 
     // 500-seat cap check for approve
@@ -92,16 +124,25 @@ export async function POST(request) {
       );
     }
 
-    // Get updated approved count
+    // Get updated counts (pending + approved = active)
     const { count: newApprovedCount } = await ac
       .from("license_applications")
       .select("id", { count: "exact", head: true })
-      .eq("status", "approved");
+      .eq("status", "approved")
+      .is("deleted_at", null);
+
+    const { count: newPendingCount } = await ac
+      .from("license_applications")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "pending")
+      .is("deleted_at", null);
+
+    const activeCount = (newApprovedCount || 0) + (newPendingCount || 0);
 
     return NextResponse.json({
       updated: updated?.length || 0,
       approved_count: newApprovedCount || 0,
-      remaining_seats: 500 - (newApprovedCount || 0),
+      remaining_seats: 500 - activeCount,
     });
   } catch (err) {
     console.error("POST /api/admin/license/bulk-action error:", err);
