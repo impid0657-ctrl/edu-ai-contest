@@ -314,7 +314,7 @@ export default function PostDetailPage() {
                       {/* 목록으로 돌아가기 */}
                       <div className="text-center mt-50">
                           <div className="my-btn d-inline-block">
-                            <Link href={backUrl} className="btn secondary-border01 text-capitalize f-18 f-700" style={{ padding: "12px 40px" }}>
+                            <Link href={backUrl} className="btn theme-bg text-capitalize f-18 f-700" style={{ padding: "12px 40px", color: "#fff" }}>
                               ← {backLabel}으로 돌아가기
                             </Link>
                           </div>
