@@ -130,12 +130,15 @@ export default function AdminBoardPage() {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm("정말 삭제하시겠습니까?")) return;
-    const res = await fetch("/api/admin/board", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
-    if (res.ok) fetchPosts();
+    if (!window.confirm("정말 삭제하시겠습니까?")) return;
+    try {
+      const res = await fetch("/api/admin/board", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+      if (res.ok) { fetchPosts(); }
+      else { const d = await res.json().catch(() => ({})); alert("삭제 실패: " + (d.error || res.status)); }
+    } catch (err) { alert("삭제 실패: " + err.message); }
   };
 
-  const handleEdit = (post) => { setEditingPost(post); setEditTitle(post.title); setEditContent(post.content || ""); setEditAttachments(post.attachments || []); setEditPendingFiles([]); };
+  const handleEdit = (post) => { setUploading(false); setEditingPost(post); setEditTitle(post.title); setEditContent(post.content || ""); setEditAttachments(post.attachments || []); setEditPendingFiles([]); };
 
   const handleSave = async () => {
     setUploading(true);
@@ -196,7 +199,7 @@ export default function AdminBoardPage() {
               </button>
             ))}
           </div>
-          <button className="btn btn-sm btn-primary-600" onClick={() => setShowCreate(true)}>
+          <button className="btn btn-sm btn-primary-600" onClick={() => { setUploading(false); setShowCreate(true); setCreateAttachments([]); setCreatePendingFiles([]); }}>
             <Icon icon="ri:add-line" className="me-1" />글 작성
           </button>
         </div>
