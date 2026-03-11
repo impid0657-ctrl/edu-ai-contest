@@ -7,7 +7,7 @@ import { formatKST } from "@/lib/dateUtils";
 import RichTextEditor from "@/components/RichTextEditor";
 
 /**
- * Post Detail ??Evalo original template design
+ * Post Detail — Evalo original template design
  * Secret post: POST password verify
  * QnA: admin replies + edit/delete with password modal
  */
@@ -35,7 +35,7 @@ export default function PostDetailPage() {
   const fetchPost = async () => {
     try {
       const res = await fetch(`/api/board/${id}`);
-      if (!res.ok) { setError("게시글??불러?????�습?�다."); return; }
+      if (!res.ok) { setError("게시글을 불러올 수 없습니다."); return; }
       const data = await res.json();
       if (data.requires_password) { setPost(data.post); setRequiresPassword(true); return; }
       setPost(data.post); setRequiresPassword(false);
@@ -43,7 +43,7 @@ export default function PostDetailPage() {
         const rr = await fetch(`/api/board?parent_id=${id}`);
         if (rr.ok) { const rd = await rr.json(); setReplies(rd.posts || []); }
       }
-    } catch { setError("?�트?�크 ?�류가 발생?�습?�다."); }
+    } catch { setError("네트워크 오류가 발생했습니다."); }
   };
 
   useEffect(() => { (async () => { await fetchPost(); setLoading(false); })(); }, [id]);
@@ -58,7 +58,7 @@ export default function PostDetailPage() {
         body: JSON.stringify({ password: secretPassword }),
       });
       const data = await res.json();
-      if (res.status === 403) { setPasswordError(data.error || "비�?번호가 ?�치?��? ?�습?�다."); }
+      if (res.status === 403) { setPasswordError(data.error || "비밀번호가 일치하지 않습니다."); }
       else if (res.ok) {
         setPost(data.post); setRequiresPassword(false);
         if (data.post?.type === "qna") {
@@ -66,7 +66,7 @@ export default function PostDetailPage() {
           if (rr.ok) { const rd = await rr.json(); setReplies(rd.posts || []); }
         }
       }
-    } catch { setPasswordError("?�트?�크 ?�류"); }
+    } catch { setPasswordError("네트워크 오류"); }
     setVerifying(false);
   };
 
@@ -78,10 +78,10 @@ export default function PostDetailPage() {
         method: "PATCH", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password: actionPassword, title: editTitle, content: editContent }),
       });
-      if (res.status === 403) { setActionError("비�?번호가 ?�치?��? ?�습?�다."); }
+      if (res.status === 403) { setActionError("비밀번호가 일치하지 않습니다."); }
       else if (res.ok) { setShowActionModal(null); setActionPassword(""); await fetchPost(); setLoading(false); }
-      else { const d = await res.json(); setActionError(d.error || "?�정 ?�패"); }
-    } catch { setActionError("?�트?�크 ?�류"); }
+      else { const d = await res.json(); setActionError(d.error || "수정 실패"); }
+    } catch { setActionError("네트워크 오류"); }
     setActionLoading(false);
   };
 
@@ -93,28 +93,28 @@ export default function PostDetailPage() {
         method: "DELETE", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password: actionPassword }),
       });
-      if (res.status === 403) { setActionError("비�?번호가 ?�치?��? ?�습?�다."); }
+      if (res.status === 403) { setActionError("비밀번호가 일치하지 않습니다."); }
       else if (res.ok) { router.push(post?.type === "qna" ? "/contact" : "/board"); }
-      else { const d = await res.json(); setActionError(d.error || "??�� ?�패"); }
-    } catch { setActionError("?�트?�크 ?�류"); }
+      else { const d = await res.json(); setActionError(d.error || "삭제 실패"); }
+    } catch { setActionError("네트워크 오류"); }
     setActionLoading(false);
   };
 
-  const TYPE_LABELS = { notice: "공�??�항", faq: "FAQ", qna: "문의" };
+  const TYPE_LABELS = { notice: "공지사항", faq: "FAQ", qna: "문의" };
   const backUrl = post?.type === "qna" ? "/contact" : "/board";
-  const backLabel = post?.type === "qna" ? "문의?�기" : "공�??�항";
+  const backLabel = post?.type === "qna" ? "문의하기" : "공지사항";
 
   if (loading) return (
     <div className="pt-200 pb-200 text-center">
-      <div className="spinner-border" style={{ color: "var(--public-primary, #2161a6)" }}></div>
+      <div className="spinner-border" style={{ color: "var(--public-primary, #6c63ff)" }}></div>
     </div>
   );
 
   if (error || !post) return (
     <div className="pt-200 pb-200 text-center">
-      <p className="text-danger f-700 mb-30">{error || "게시글??찾을 ???�습?�다."}</p>
+      <p className="text-danger f-700 mb-30">{error || "게시글을 찾을 수 없습니다."}</p>
       <div className="my-btn d-inline-block">
-        <Link href="/board" className="btn theme-bg text-capitalize f-18 f-700">게시?�으�??�아가�?/Link>
+        <Link href="/board" className="btn theme-bg text-capitalize f-18 f-700">게시판으로 돌아가기</Link>
       </div>
     </div>
   );
@@ -138,13 +138,13 @@ export default function PostDetailPage() {
                   <div className="row">
                       <div className="col-12 d-flex align-items-center justify-content-center">
                           <div className="page-title mt-110 text-center">
-                              <span className="theme-color f-700">?�� 비�?글</span>
+                              <span className="theme-color f-700">🔒 비밀글</span>
                               <h1 className="text-capitalize f-700 mt-10 mb-20">{post.title}</h1>
                               <nav aria-label="breadcrumb">
                                   <ol className="breadcrumb justify-content-center bg-transparent">
-                                  <li className="breadcrumb-item"><a className="secondary-color3" href="/">??/a></li>
+                                  <li className="breadcrumb-item"><a className="secondary-color3" href="/">홈</a></li>
                                   <li className="breadcrumb-item"><a className="secondary-color3" href={backUrl}>{backLabel}</a></li>
-                                  <li className="breadcrumb-item active secondary-color3" aria-current="page">비�?글</li>
+                                  <li className="breadcrumb-item active secondary-color3" aria-current="page">비밀글</li>
                                   </ol>
                               </nav>
                           </div>
@@ -159,25 +159,25 @@ export default function PostDetailPage() {
               <div className="row justify-content-center">
                   <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
                       <div className="contact-form-wrapper secondary-border01 pt-60 pb-60 pl-60 pr-60 text-center">
-                          <div className="display-3 mb-20">?��</div>
-                          <h4 className="f-700 mb-10">비�?글?�니??/h4>
-                          <p className="mb-5 secondary-color">?�성?? {post.author_name}</p>
+                          <div className="display-3 mb-20">🔒</div>
+                          <h4 className="f-700 mb-10">비밀글입니다</h4>
+                          <p className="mb-5 secondary-color">작성자: {post.author_name}</p>
                           {passwordError && <div className="alert alert-danger py-2 mb-20">{passwordError}</div>}
                           <form onSubmit={handlePasswordSubmit}>
                               <input type="password" className="form-control secondary-border01 text-center mb-20"
-                                placeholder="비�?번호�??�력?�세?? value={secretPassword}
+                                placeholder="비밀번호를 입력하세요" value={secretPassword}
                                 onChange={(e) => setSecretPassword(e.target.value)} autoFocus
                                 style={{ height: "55px", fontSize: "16px" }} />
                               <div className="my-btn">
                                 <button type="submit" className="btn theme-bg text-capitalize f-18 f-700 w-100" disabled={verifying}
                                   style={{ height: "55px" }}>
-                                  {verifying ? "?�인 �?.." : "?�인"}
+                                  {verifying ? "확인 중..." : "확인"}
                                 </button>
                               </div>
                           </form>
                       </div>
                       <div className="text-center mt-30">
-                          <Link href={backUrl} className="secondary-color">{`??${backLabel}?�로 ?�아가�?}</Link>
+                          <Link href={backUrl} className="secondary-color">{`← ${backLabel}으로 돌아가기`}</Link>
                       </div>
                   </div>
               </div>
@@ -209,9 +209,9 @@ export default function PostDetailPage() {
                               <h1 className="text-capitalize f-700 mt-10 mb-20">{post.title}</h1>
                               <nav aria-label="breadcrumb">
                                   <ol className="breadcrumb justify-content-center bg-transparent">
-                                  <li className="breadcrumb-item"><a className="secondary-color3" href="/">??/a></li>
+                                  <li className="breadcrumb-item"><a className="secondary-color3" href="/">홈</a></li>
                                   <li className="breadcrumb-item"><a className="secondary-color3" href={backUrl}>{backLabel}</a></li>
-                                  <li className="breadcrumb-item active secondary-color3" aria-current="page">?�세보기</li>
+                                  <li className="breadcrumb-item active secondary-color3" aria-current="page">상세보기</li>
                                   </ol>
                               </nav>
                           </div>
@@ -227,7 +227,7 @@ export default function PostDetailPage() {
               <div className="row justify-content-center">
                   <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-                      {/* 게시글 메�? ?�보 */}
+                      {/* 게시글 메타 정보 */}
                       <div className="secondary-border01 pt-30 pb-30 pl-40 pr-40 mb-30">
                           <div className="d-flex justify-content-between align-items-center flex-wrap">
                               <div>
@@ -237,8 +237,8 @@ export default function PostDetailPage() {
                                   <span className="secondary-color f-700">{post.author_name}</span>
                               </div>
                               <div className="secondary-color" style={{ fontSize: "14px" }}>
-                                  <span className="mr-20">?�� {post.created_at ? formatKST(post.created_at, "yyyy-MM-dd HH:mm") : "-"}</span>
-                                  <span>?�� 조회 {post.view_count || 0}</span>
+                                  <span className="mr-20">📅 {post.created_at ? formatKST(post.created_at, "yyyy-MM-dd HH:mm") : "-"}</span>
+                                  <span>👁 조회 {post.view_count || 0}</span>
                               </div>
                           </div>
                       </div>
@@ -249,31 +249,31 @@ export default function PostDetailPage() {
                             dangerouslySetInnerHTML={{ __html: post.content }}
                           />
 
-                          {/* QnA ?�정/??�� 버튼 */}
+                          {/* QnA 수정/삭제 버튼 */}
                           {post.type === "qna" && (
                             <div className="border-top pt-20 mt-30 d-flex gap-2">
                                 <div className="my-btn">
                                   <button className="btn theme-bg text-capitalize f-700"
                                     style={{ padding: "8px 24px" }}
                                     onClick={() => { setEditTitle(post.title); setEditContent(post.content); setShowActionModal("edit"); setActionError(""); setActionPassword(""); }}>
-                                    ?�정
+                                    수정
                                   </button>
                                 </div>
                                 <button className="btn btn-outline-danger f-700"
                                   style={{ padding: "8px 24px", borderRadius: "4px" }}
                                   onClick={() => { setShowActionModal("delete"); setActionError(""); setActionPassword(""); }}>
-                                  ??��
+                                  삭제
                                 </button>
                             </div>
                           )}
                       </div>
 
-                      {/* 관리자 ?��? */}
+                      {/* 관리자 답변 */}
                       {replies.length > 0 && replies.map((reply) => (
                           <div key={reply.id} className="secondary-border01 pt-30 pb-30 pl-40 pr-40 mb-20"
-                            style={{ borderLeft: "4px solid var(--public-primary, #2161a6)" }}>
+                            style={{ borderLeft: "4px solid var(--public-primary, #6c63ff)" }}>
                               <div className="d-flex align-items-center mb-15">
-                                  <span className="d-inline-block theme-bg text-white f-700" style={{ borderRadius: "4px", fontSize: "12px", padding: "3px 12px" }}>관리자 ?��?</span>
+                                  <span className="d-inline-block theme-bg text-white f-700" style={{ borderRadius: "4px", fontSize: "12px", padding: "3px 12px" }}>관리자 답변</span>
                                   <small className="secondary-color ml-15">{reply.created_at ? formatKST(reply.created_at, "yyyy-MM-dd HH:mm") : ""}</small>
                               </div>
                               <div className="ql-editor" style={{ padding: 0 }}
@@ -282,11 +282,12 @@ export default function PostDetailPage() {
                           </div>
                       ))}
 
-                      {/* 목록?�로 ?�아가�?*/}
+                      {/* 목록으로 돌아가기 */}
                       <div className="text-center mt-50">
                           <div className="my-btn d-inline-block">
                             <Link href={backUrl} className="btn secondary-border01 text-capitalize f-18 f-700" style={{ padding: "12px 40px" }}>
-                              ??{backLabel}?�로 ?�아가�?                            </Link>
+                              ← {backLabel}으로 돌아가기
+                            </Link>
                           </div>
                       </div>
                   </div>
@@ -301,7 +302,7 @@ export default function PostDetailPage() {
             <div className="modal-content" style={{ borderRadius: 8 }}>
               <div className="modal-header">
                 <h5 className="modal-title f-700">
-                  {showActionModal === "edit" ? "게시글 ?�정" : "게시글 ??��"}
+                  {showActionModal === "edit" ? "게시글 수정" : "게시글 삭제"}
                 </h5>
                 <button className="btn-close" onClick={() => setShowActionModal(null)} />
               </div>
@@ -310,23 +311,23 @@ export default function PostDetailPage() {
                 {showActionModal === "edit" && (
                   <>
                     <div className="mb-20">
-                      <label className="f-700 mb-10 d-block">?�목</label>
+                      <label className="f-700 mb-10 d-block">제목</label>
                       <input type="text" className="form-control secondary-border01" value={editTitle}
                         onChange={(e) => setEditTitle(e.target.value)}
                         style={{ height: "50px", paddingLeft: "20px", fontSize: "16px" }} />
                     </div>
                     <div className="mb-20">
-                      <label className="f-700 mb-10 d-block">?�용</label>
+                      <label className="f-700 mb-10 d-block">내용</label>
                       <RichTextEditor value={editContent} onChange={setEditContent} height="200px" />
                     </div>
                   </>
                 )}
                 {showActionModal === "delete" && (
-                  <p className="text-danger f-700">??게시글????��?�시겠습?�까? ???�업?� ?�돌�????�습?�다.</p>
+                  <p className="text-danger f-700">이 게시글을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</p>
                 )}
                 <div className="mb-10">
-                  <label className="f-700 mb-10 d-block">비�?번호 ?�인</label>
-                  <input type="password" className="form-control secondary-border01" placeholder="게시글 ?�성 ???�정??비�?번호"
+                  <label className="f-700 mb-10 d-block">비밀번호 확인</label>
+                  <input type="password" className="form-control secondary-border01" placeholder="게시글 작성 시 설정한 비밀번호"
                     value={actionPassword} onChange={(e) => setActionPassword(e.target.value)}
                     style={{ height: "50px", paddingLeft: "20px", fontSize: "16px" }} />
                 </div>
@@ -337,7 +338,7 @@ export default function PostDetailPage() {
                   <button className={`btn f-700 ${showActionModal === "delete" ? "btn-danger" : "theme-bg text-capitalize"}`}
                     onClick={showActionModal === "edit" ? handleEdit : handleDelete}
                     disabled={actionLoading || !actionPassword.trim()}>
-                    {actionLoading ? "처리 �?.." : showActionModal === "edit" ? "?�정" : "??��"}
+                    {actionLoading ? "처리 중..." : showActionModal === "edit" ? "수정" : "삭제"}
                   </button>
                 </div>
               </div>

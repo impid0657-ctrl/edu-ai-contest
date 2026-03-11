@@ -99,8 +99,26 @@ export default function LicenseApplyPage() {
     member_count: 1,
     phone: "",
     motivation: "",
-    applicant_name: "", // 비회원(학교 이메일) 전용
+    applicant_name: "",
+    birth_year: "",
+    representative_name: "",
+    member1_name: "",
+    member2_name: "",
+    topic: "",
+    region: "",
   });
+
+  // 개인정보 동의
+  const [privacyAgreed, setPrivacyAgreed] = useState(false);
+  const [thirdPartyAgreed, setThirdPartyAgreed] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
+  const [showThirdParty, setShowThirdParty] = useState(false);
+
+  const REGIONS = [
+    "서울특별시", "부산광역시", "대구광역시", "인천광역시", "광주광역시", "대전광역시", "울산광역시",
+    "세종특별자치시", "경기도", "강원특별자치도", "충청북도", "충청남도", "전북특별자치도",
+    "전라남도", "경상북도", "경상남도", "제주특별자치도"
+  ];
 
   const inputStyle = { height: "55px", paddingLeft: "20px", fontSize: "16px" };
 
@@ -293,13 +311,25 @@ export default function LicenseApplyPage() {
     setSubmitting(true);
 
     try {
-      // 네이버 인증 → 비회원 API (Supabase 세션 없음, 쿠키 세션 사용)
+      const extraFields = {
+        birth_year: formData.birth_year,
+        representative_name: formData.representative_name,
+        member1_name: formData.member1_name || null,
+        member2_name: formData.member2_name || null,
+        topic: formData.topic,
+        region: formData.region,
+        privacy_agreed: privacyAgreed,
+        third_party_agreed: thirdPartyAgreed,
+      };
+
+      // 네이버 인증 → 비회원 API
       if (authMethod === "naver" && user) {
         const res = await fetch("/api/license/apply-guest", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...formData,
+            ...extraFields,
             auth_method: "naver",
             applicant_email: user.email,
             applicant_name: formData.applicant_name || user.user_metadata?.full_name || "",
@@ -316,7 +346,7 @@ export default function LicenseApplyPage() {
         const res = await fetch("/api/license/apply", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...formData, auth_method: authMethod }),
+          body: JSON.stringify({ ...formData, ...extraFields, auth_method: authMethod }),
         });
         const data = await res.json();
         if (!res.ok) { setError(data.error || "신청에 실패했습니다."); return; }
@@ -331,6 +361,7 @@ export default function LicenseApplyPage() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...formData,
+            ...extraFields,
             auth_method: "school_email",
             applicant_email: schoolEmail,
           }),
@@ -346,6 +377,7 @@ export default function LicenseApplyPage() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...formData,
+            ...extraFields,
             auth_method: "student_direct",
             applicant_email: studentIdEmail,
           }),
@@ -578,6 +610,59 @@ export default function LicenseApplyPage() {
                   <form onSubmit={handleSubmit}>
                     <div className="row">
 
+                      {/* ══ 개인정보 수집 및 이용 동의 ══ */}
+                      <div className="col-12 mb-30">
+                        <div className="secondary-border01 p-4" style={{ borderRadius: '8px' }}>
+                          <div className="d-flex align-items-center justify-content-between">
+                            <label className="d-flex align-items-center mb-0" style={{ cursor: 'pointer' }}>
+                              <input type="checkbox" checked={privacyAgreed} onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                                style={{ width: '20px', height: '20px', marginRight: '10px' }} />
+                              <span className="f-700">개인정보 수집 및 이용 동의 <span className="theme-color">*</span></span>
+                            </label>
+                            <button type="button" className="btn btn-sm" onClick={() => setShowPrivacy(!showPrivacy)}
+                              style={{ fontSize: '13px', color: '#666' }}>{showPrivacy ? '접기' : '전문보기'}</button>
+                          </div>
+                          {showPrivacy && (
+                            <div className="mt-15 p-3" style={{ background: '#f8f9fa', borderRadius: '6px', fontSize: '13px', lineHeight: '1.8', maxHeight: '300px', overflowY: 'auto' }}>
+                              <p className="f-700 mb-10">개인정보 수집 · 이용 · 동의서</p>
+                              <p>본 대회 주최/주관 기관은 「개인정보보호법」 제15조, 제17조, 제18조, 제22조 및 제24조에 따라 아래와 같이 개인정보의 수집·이용에 관한 귀하의 동의를 얻고자 합니다.</p>
+                              <p className="f-700 mt-10">&lt;개인정보 수집 및 이용에 관한 사항&gt;</p>
+                              <p>○ (개인정보의 수집 및 이용 목적) 「제8회 교육 공공데이터 AI활용대회」 작품 접수, 접수 확인, 작품 심사, 수상 발표 시 본인 확인 및 필요한 사항 등 안내를 위한 의사소통 경로 확보</p>
+                              <p>○ (개인정보 수집 항목) 참가자 성명, 생년월일, 연락처, 소속, 주소, 성별, 이메일</p>
+                              <p>○ (개인정보 보유 및 이용기간) 동의서가 작성된 시점부터 2026년 12월 31일까지로 하며 이후 파기</p>
+                              <p>○ (개인정보 수집 동의 거부의 권리 및 동의 거부에 따른 제한사항) 신청자는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나 거부 시에는 「제8회 교육 공공데이터 AI활용대회」 접수가 제한될 수 있습니다.</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* ══ 개인정보 제3자 제공 동의 ══ */}
+                      <div className="col-12 mb-30">
+                        <div className="secondary-border01 p-4" style={{ borderRadius: '8px' }}>
+                          <div className="d-flex align-items-center justify-content-between">
+                            <label className="d-flex align-items-center mb-0" style={{ cursor: 'pointer' }}>
+                              <input type="checkbox" checked={thirdPartyAgreed} onChange={(e) => setThirdPartyAgreed(e.target.checked)}
+                                style={{ width: '20px', height: '20px', marginRight: '10px' }} />
+                              <span className="f-700">개인정보 제3자 제공 동의 <span className="theme-color">*</span></span>
+                            </label>
+                            <button type="button" className="btn btn-sm" onClick={() => setShowThirdParty(!showThirdParty)}
+                              style={{ fontSize: '13px', color: '#666' }}>{showThirdParty ? '접기' : '전문보기'}</button>
+                          </div>
+                          {showThirdParty && (
+                            <div className="mt-15 p-3" style={{ background: '#f8f9fa', borderRadius: '6px', fontSize: '13px', lineHeight: '1.8', maxHeight: '300px', overflowY: 'auto' }}>
+                              <p className="f-700 mb-10">개인정보 제3자 제공 동의서</p>
+                              <p>본 대회 주최/주관 기관은 「개인정보보호법」 제17조, 제18조, 제24조에 따라 아래와 같이 개인정보의 제3자 제공에 대한 귀하의 동의를 얻고자 합니다.</p>
+                              <p>○ (개인정보의 제3자 제공 목적) 「제8회 교육 공공데이터 AI활용대회」 작품 접수, 접수 확인, 작품 심사, 수상 발표 시 본인 확인 및 필요한 사항 등 안내를 위한 의사소통 경로 확보</p>
+                              <p>○ (개인정보를 제공받는 자) 제8회 교육 공공데이터 AI활용대회 운영 위탁 선정 업체</p>
+                              <p>○ (개인정보를 제공받는 자의 이용목적) 상기 제3자 제공 목적과 동일</p>
+                              <p>○ (제공하는 개인정보 항목) 참가자 성명, 생년월일, 연락처, 소속, 주소, 성별, 이메일, 보호자 성명, 연락처, 이메일</p>
+                              <p>○ (개인정보를 제공받는 자의 개인정보 보유 및 이용기간) 동의서가 작성된 시점부터 2026년 12월 31일까지로 하며 이후 파기</p>
+                              <p>○ (개인정보의 제3자 제공 동의 거부의 권리 및 동의 거부에 따른 제한사항) 신청자는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나 거부 시에는 「제8회 교육 공공데이터 AI활용대회」 접수가 제한될 수 있습니다.</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
                       {/* 비회원 전용: 이름 */}
                       {(emailVerified || studentIdSubmitted) && !user && (
                         <div className="col-xl-12 col-lg-12 mb-25">
@@ -589,33 +674,86 @@ export default function LicenseApplyPage() {
                         </div>
                       )}
 
-                      {/* Category */}
-                      <div className="col-xl-12 col-lg-12 mb-25">
-                        <label className="f-700 mb-10 d-block">참가 부문 <span className="theme-color">*</span></label>
-                        <select name="category" className="form-control secondary-border01"
-                          value={formData.category} onChange={handleChange} required
-                          style={inputStyle}>
-                          <option value="">부문을 선택해주세요</option>
-                          {CONTEST_CATEGORIES.map((cat) => (
-                            <option key={cat.id} value={cat.id}>{cat.name}</option>
-                          ))}
-                        </select>
+                      {/* 출생연도 */}
+                      <div className="col-xl-6 col-lg-6 mb-25">
+                        <label className="f-700 mb-10 d-block">출생연도 <span className="theme-color">*</span></label>
+                        <input type="text" name="birth_year" className="form-control secondary-border01"
+                          placeholder="예: 2010"
+                          value={formData.birth_year} onChange={handleChange} required
+                          style={inputStyle} />
                       </div>
 
-                      {/* Team Name + Member Count */}
+                      {/* 이메일주소 (표시용) */}
                       <div className="col-xl-6 col-lg-6 mb-25">
-                        <label className="f-700 mb-10 d-block">팀명</label>
+                        <label className="f-700 mb-10 d-block">이메일주소</label>
+                        <input type="email" className="form-control secondary-border01" readOnly
+                          value={user?.email || schoolEmail || studentIdEmail || ""}
+                          style={{ ...inputStyle, background: '#f0f0f0' }} />
+                      </div>
+
+                      {/* 휴대폰번호 */}
+                      <div className="col-xl-6 col-lg-6 mb-25">
+                        <label className="f-700 mb-10 d-block">휴대폰번호 <span className="theme-color">*</span></label>
+                        <input type="tel" name="phone" className="form-control secondary-border01"
+                          placeholder="010-0000-0000"
+                          value={formData.phone} onChange={handleChange} required
+                          style={inputStyle} />
+                      </div>
+
+                      {/* 대표자명 */}
+                      <div className="col-xl-6 col-lg-6 mb-25">
+                        <label className="f-700 mb-10 d-block">대표자명 <span className="theme-color">*</span></label>
+                        <input type="text" name="representative_name" className="form-control secondary-border01"
+                          placeholder="대표자 이름"
+                          value={formData.representative_name} onChange={handleChange} required
+                          style={inputStyle} />
+                      </div>
+
+                      {/* 팀명 + 팀원 수 */}
+                      <div className="col-xl-6 col-lg-6 mb-25">
+                        <label className="f-700 mb-10 d-block">팀명 <span className="theme-color">*</span></label>
                         <input type="text" name="team_name" className="form-control secondary-border01"
-                          placeholder="팀명 (개인 참가 시 빈칸)"
-                          value={formData.team_name} onChange={handleChange}
+                          placeholder="없을 시 미기입"
+                          value={formData.team_name} onChange={handleChange} required
                           style={inputStyle} />
                       </div>
                       <div className="col-xl-6 col-lg-6 mb-25">
                         <label className="f-700 mb-10 d-block">팀원 수 <span className="theme-color">*</span></label>
                         <input type="number" name="member_count" className="form-control secondary-border01"
-                          min={1} max={4} value={formData.member_count} onChange={handleChange} required
+                          min={1} max={3} value={formData.member_count} onChange={handleChange} required
                           style={inputStyle} />
-                        <p className="text-muted mt-5 mb-0" style={{ fontSize: "13px" }}>1~4명 (개인 참가 시 1명)</p>
+                        <p className="text-muted mt-5 mb-0" style={{ fontSize: "13px" }}>1~3명 (개인 참가 시 1명)</p>
+                      </div>
+
+                      {/* 팀원1 이름 */}
+                      <div className="col-xl-6 col-lg-6 mb-25">
+                        <label className="f-700 mb-10 d-block">팀원1 이름 <span className="theme-color">*</span></label>
+                        <input type="text" name="member1_name" className="form-control secondary-border01"
+                          placeholder="없을 시 미기입"
+                          value={formData.member1_name} onChange={handleChange} required
+                          style={inputStyle} />
+                      </div>
+
+                      {/* 팀원2 이름 */}
+                      <div className="col-xl-6 col-lg-6 mb-25">
+                        <label className="f-700 mb-10 d-block">팀원2 이름 <span className="theme-color">*</span></label>
+                        <input type="text" name="member2_name" className="form-control secondary-border01"
+                          placeholder="없을 시 미기입"
+                          value={formData.member2_name} onChange={handleChange} required
+                          style={inputStyle} />
+                      </div>
+
+                      {/* 분야선택 */}
+                      <div className="col-xl-12 col-lg-12 mb-25">
+                        <label className="f-700 mb-10 d-block">분야선택 <span className="theme-color">*</span></label>
+                        <select name="category" className="form-control secondary-border01"
+                          value={formData.category} onChange={handleChange} required
+                          style={inputStyle}>
+                          <option value="">분야를 선택해주세요</option>
+                          <option value="secondary">AI활용 아이디어 기획 (청소년)</option>
+                          <option value="elementary">AI활용 소속학교 홍보영상 제작</option>
+                          <option value="general">AI활용 아이디어 기획 (성인)</option>
+                        </select>
                       </div>
 
                       {/* School — conditional */}
@@ -638,13 +776,26 @@ export default function LicenseApplyPage() {
                         </>
                       )}
 
-                      {/* Phone */}
+                      {/* 주제 */}
                       <div className="col-xl-12 col-lg-12 mb-25">
-                        <label className="f-700 mb-10 d-block">연락처 <span className="theme-color">*</span></label>
-                        <input type="tel" name="phone" className="form-control secondary-border01"
-                          placeholder="010-0000-0000"
-                          value={formData.phone} onChange={handleChange} required
+                        <label className="f-700 mb-10 d-block">주제 <span className="theme-color">*</span></label>
+                        <input type="text" name="topic" className="form-control secondary-border01"
+                          placeholder="주제를 입력해주세요"
+                          value={formData.topic} onChange={handleChange} required
                           style={inputStyle} />
+                      </div>
+
+                      {/* 지역 */}
+                      <div className="col-xl-12 col-lg-12 mb-25">
+                        <label className="f-700 mb-10 d-block">지역 (소속학교 기준) <span className="theme-color">*</span></label>
+                        <select name="region" className="form-control secondary-border01"
+                          value={formData.region} onChange={handleChange} required
+                          style={inputStyle}>
+                          <option value="">지역을 선택해주세요</option>
+                          {REGIONS.map((r) => (
+                            <option key={r} value={r}>{r}</option>
+                          ))}
+                        </select>
                       </div>
 
                       {/* Motivation */}
@@ -661,10 +812,10 @@ export default function LicenseApplyPage() {
                       <div className="col-xl-12 col-lg-12">
                         <div className="my-btn">
                           <button type="submit" className="btn theme-bg text-uppercase f-18 f-700 w-100"
-                            style={{ height: "60px" }} disabled={submitting}>
+                            style={{ height: "60px" }} disabled={submitting || !privacyAgreed || !thirdPartyAgreed}>
                             {submitting ? (
                               <><span className="spinner-border spinner-border-sm me-2" role="status"></span>제출 중...</>
-                            ) : "신청하기"}
+                            ) : !privacyAgreed || !thirdPartyAgreed ? "개인정보 동의를 완료해주세요" : "신청하기"}
                           </button>
                         </div>
                         <p className="text-muted text-center mt-20 mb-0" style={{ fontSize: "14px" }}>
