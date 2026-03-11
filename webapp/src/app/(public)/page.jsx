@@ -52,7 +52,7 @@ export default function HomePage() {
                                     <span className="f-700 theme-color d-block pb-1" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="40">교육 분야의 공공데이터와 생성형 AI의 만남!</span>
                                     <h1 className="f-700 pb-22" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="150">제8회 교육 공공데이터<br />AI 활용대회</h1>
                                     <p data-aos="fade-right" data-aos-duration="2000">교육 공공데이터와 AI 기술의 융합으로<br />교육 현장의 실제 문제를 해결하는 창의적인 아이디어를 발굴합니다.<br />당신의 아이디어로 혁신을 꿈꾸세요!</p>
-                                    <div className="video-player-btn d-flex align-items-center z-index11 mt-45" >
+                                    <div className="video-player-btn d-flex align-items-center z-index11 mt-45" style={{ display: 'none' }}>
                                         <a data-fancybox="" href="https://youtu.be/nqye02H_H6I" className="d-flex align-items-center">
                                             <div className="video-play-wrap position-relative d-inline-block">
                                                 <div className="video-mark">
@@ -126,33 +126,33 @@ export default function HomePage() {
                         <div className="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
                             <div className="single-service-content transition5 mt-10 secondary-border01 pl-50 pt-55 pb-35 pr-50 mb-35 mt-30 tilt" data-aos="fade-up">
                                 <div className="ser-icon d-inline-block text-center mb-20 transition5">
-                                    <img src="/original-template/images/icon/writing-2.png" alt="image" />
+                                    <span style={{ fontSize: '48px', color: '#2161a6' }}><i className="fas fa-trophy"></i></span>
                                 </div>{/* /ser-icon */}
                                 <div className="service-text">
                                     <h6 className="f-700 mb-22">교육부장관상</h6>
-                                    <p>대상 수상팀에게 교육부장관상과 함께 일반부 500만원(현금) 또는 학생부 300만원(상품권)이 수여됩니다</p>
+                                    <p>대상 수상팀에게 교육부장관상과 함께 일반부 500만원(현금) 또는 학생부 300만원(상품권)이 수여</p>
                                 </div>
                             </div>{/* /single-service-content */}
                         </div>{/* /col */}
                         <div className="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
                             <div className="single-service-content transition5 mt-10 secondary-border01 pl-50 pt-55 pb-35 pr-50 mb-35 mt-30 tilt" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
                                 <div className="ser-icon d-inline-block text-center mb-20  transition5">
-                                    <img src="/original-template/images/icon/diagram.png" alt="image" />
+                                    <span style={{ fontSize: '48px', color: '#2161a6' }}><i className="fas fa-medal"></i></span>
                                 </div>{/* /ser-icon */}
                                 <div className="service-text">
                                     <h6 className="f-700 mb-22">총 154팀 시상</h6>
-                                    <p>총상금 5,050만원 규모로 학생·일반 부문 총 154팀을 선정하여 시상합니다</p>
+                                    <p>총상금 5,050만원, 상금 및 상품 포함 총 1억이 넘는 규모로 학생·일반 부문 총 154팀을 선정하여 시상</p>
                                 </div>
                             </div>{/* /single-service-content */}
                         </div>{/* /col */}
                         <div className="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
                             <div className="single-service-content transition5 mt-10 secondary-border01 pl-50 pt-55 pb-35 pr-50 mb-35 mt-30 tilt" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="500">
                                 <div className="ser-icon d-inline-block text-center mb-20  transition5">
-                                    <img src="/original-template/images/icon/gear-1.png" alt="image" />
+                                    <span style={{ fontSize: '48px', color: '#2161a6' }}><i className="fas fa-user-check"></i></span>
                                 </div>{/* /ser-icon */}
                                 <div className="service-text">
                                     <h6 className="f-700 mb-22">누구나 참가 가능</h6>
-                                    <p>초등 홍보영상, 중고등 아이디어 기획, 일반 아이디어 기획 등 3개 분야로 누구나 참가 가능합니다</p>
+                                    <p>초등 홍보영상, 중고등 아이디어 기획, 일반 아이디어 기획 등 3개 분야로 누구나 참가 가능</p>
                                 </div>
                             </div>{/* /single-service-content */}
                         </div>{/* /col */}
@@ -352,7 +352,7 @@ export default function HomePage() {
             {/* facts-area-end */}
 
             {/* ====== screenshot-area-start================================================== */}
-            <div className="screenshot-area primary-bg mb-200 mt-30 pt-155">
+            <div className="screenshot-area primary-bg mb-200 mt-30 pt-155" style={{ display: 'none' }}>
                 <div className="container">
                     <div className="row align-items-center justify-content-center">
                         <div className="col-xl-9  col-lg-10 col-md-11  col-sm-12 col-12">
@@ -383,79 +383,6 @@ export default function HomePage() {
                 </div>{/* /container */}
             </div>
             {/* screenshot-area-end */}
-
-            {/* ====== faq-area-start============================================ */}
-            <div className="faq-area pt-130 mb-70 over-hidden">
-                <div className="container">
-                    <div className="row mt-10">
-                        <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                            <div className="faq-content mt-55 mb-50" data-aos="fade-right" data-aos-duration="2000">
-                                <div className="title">
-                                    <span className="theme-color f-700">자주 묻는 질문</span>
-                                    <h3 className="f-700 pb-30">FAQ</h3>
-                                    <p>참가자들이 자주 문의하는 내용을 정리했습니다.</p>
-                                </div>
-                                <div className="faq-wrapper mt-40">
-                                    <div className="accordion" id="accordionExample">
-                                        <div className="card border-0">
-                                            <div className="card-header card-header-top rounded-0 bg-transparent p-0" id="headingOne">
-                                                <h6 className="mb-0">
-                                                    <a href="#" className="btn btn-link black-color f-700 border-0 d-block text-left rounded-0 position-relative" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                        참가 자격은 어떻게 되나요?
-                                                    </a>
-                                                </h6>
-                                            </div>{/* /card-header */}
-                                            <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                                <div className="card-body">
-                                                    <p className="m-0">초등부(홍보영상): 초등학교 재학생. 중고등부(기획): 중·고등학교 재학생 또는 만 13~19세 미만. 일반부(기획): 만 19세 이상 누구나. 전 부문 1인 또는 최대 3인 팀 구성 가능합니다.</p>
-                                                </div>
-                                            </div>{/* /collapseOne */}
-                                        </div>{/* /card1 */}
-
-                                        <div className="card border-0">
-                                            <div className="card-header bg-transparent p-0" id="headingTwo">
-                                                <h6 className="mb-0">
-                                                    <a href="#" className="btn btn-link black-color f-700 border-0 d-block text-left rounded-0 position-relative collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                        공모 분야는 무엇인가요?
-                                                    </a>
-                                                </h6>
-                                            </div>{/* /card-header */}
-
-                                            <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                                <div className="card-body">
-                                                    <p className="m-0">초등 학생부: AI 활용 소속학교 홍보영상 제작. 중고등 학생부: AI 활용 아이디어 기획(교육 현장 문제 해결). 일반부: AI 활용 아이디어 기획(실제 구현 가능한 서비스·프로토타입).</p>
-                                                </div>
-                                            </div>
-                                        </div>{/* /card2 */}
-
-                                        <div className="card card-header-end border-0">
-                                            <div className="card-header bg-transparent p-0" id="headingThree">
-                                                <h6 className="mb-0">
-                                                    <a href="#" className="btn btn-link black-color f-700 border-0 d-block text-left rounded-0 position-relative collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                        시상 규모는 어떻게 되나요?
-                                                    </a>
-                                                </h6>
-                                            </div>
-
-                                            <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                                <div className="card-body">
-                                                    <p className="m-0">총 154팀, 총상금 5,050만원 규모입니다. 일반부 대상 500만원(현금), 최우수 150만원, 우수 50만원, 장려 30만원. 학생부 기획 대상 300만원(상품권), 홍보영상 대상 100만원(상품권) 등이 수여됩니다.</p>
-                                                </div>
-                                            </div>
-                                        </div>{/* /card */}
-                                    </div>{/* /accordion */}
-                                </div>{/* /faq-wrapper */}
-                            </div>{/* /faq-content */}
-                        </div>{/* /col */}
-                        <div className="col-xl-6 col-lg-6 offset-lg-0 col-md-10 offset-md-1 col-sm-12 col-12 pr-10">
-                            <div className="faq-img img-right-margin text-center" data-aos="fade-left" data-aos-duration="2000">
-                                <img className="d-block bounce-animate2" src="/original-template/images/bg/home1-faq-img.png" alt="image" />
-                            </div>{/* /faq-img */}
-                        </div>{/* /col */}
-                    </div>{/* /row */}
-                </div>{/* /container */}
-            </div>
-            {/* faq-area-end */}
 
             {/* ====== work-area-start ==================================== */}
             <div className="work-area over-hidden">
@@ -559,8 +486,81 @@ export default function HomePage() {
             </div>
             {/* work-area-end  */}
 
+            {/* ====== faq-area-start============================================ */}
+            <div className="faq-area pt-130 mb-70 over-hidden">
+                <div className="container">
+                    <div className="row mt-10">
+                        <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div className="faq-content mt-55 mb-50" data-aos="fade-right" data-aos-duration="2000">
+                                <div className="title">
+                                    <span className="theme-color f-700">자주 묻는 질문</span>
+                                    <h3 className="f-700 pb-30">FAQ</h3>
+                                    <p>참가자들이 자주 문의하는 내용을 정리했습니다.</p>
+                                </div>
+                                <div className="faq-wrapper mt-40">
+                                    <div className="accordion" id="accordionExample">
+                                        <div className="card border-0">
+                                            <div className="card-header card-header-top rounded-0 bg-transparent p-0" id="headingOne">
+                                                <h6 className="mb-0">
+                                                    <a href="#" className="btn btn-link black-color f-700 border-0 d-block text-left rounded-0 position-relative" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                        참가 자격은 어떻게 되나요?
+                                                    </a>
+                                                </h6>
+                                            </div>{/* /card-header */}
+                                            <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                                <div className="card-body">
+                                                    <p className="m-0">초등부(홍보영상): 초등학교 재학생. 중고등부(기획): 중·고등학교 재학생 또는 만 13~19세 미만. 일반부(기획): 만 19세 이상 누구나. 전 부문 1인 또는 최대 3인 팀 구성 가능합니다.</p>
+                                                </div>
+                                            </div>{/* /collapseOne */}
+                                        </div>{/* /card1 */}
+
+                                        <div className="card border-0">
+                                            <div className="card-header bg-transparent p-0" id="headingTwo">
+                                                <h6 className="mb-0">
+                                                    <a href="#" className="btn btn-link black-color f-700 border-0 d-block text-left rounded-0 position-relative collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                        공모 분야는 무엇인가요?
+                                                    </a>
+                                                </h6>
+                                            </div>{/* /card-header */}
+
+                                            <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                                <div className="card-body">
+                                                    <p className="m-0">초등 학생부: AI 활용 소속학교 홍보영상 제작. 중고등 학생부: AI 활용 아이디어 기획(교육 현장 문제 해결). 일반부: AI 활용 아이디어 기획(실제 구현 가능한 서비스·프로토타입).</p>
+                                                </div>
+                                            </div>
+                                        </div>{/* /card2 */}
+
+                                        <div className="card card-header-end border-0">
+                                            <div className="card-header bg-transparent p-0" id="headingThree">
+                                                <h6 className="mb-0">
+                                                    <a href="#" className="btn btn-link black-color f-700 border-0 d-block text-left rounded-0 position-relative collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                        시상 규모는 어떻게 되나요?
+                                                    </a>
+                                                </h6>
+                                            </div>
+
+                                            <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                                <div className="card-body">
+                                                    <p className="m-0">총 154팀, 총상금 5,050만원 규모입니다. 일반부 대상 500만원(현금), 최우수 150만원, 우수 50만원, 장려 30만원. 학생부 기획 대상 300만원(상품권), 홍보영상 대상 100만원(상품권) 등이 수여됩니다.</p>
+                                                </div>
+                                            </div>
+                                        </div>{/* /card */}
+                                    </div>{/* /accordion */}
+                                </div>{/* /faq-wrapper */}
+                            </div>{/* /faq-content */}
+                        </div>{/* /col */}
+                        <div className="col-xl-6 col-lg-6 offset-lg-0 col-md-10 offset-md-1 col-sm-12 col-12 pr-10">
+                            <div className="faq-img img-right-margin text-center" data-aos="fade-left" data-aos-duration="2000">
+                                <img className="d-block bounce-animate2" src="/original-template/images/bg/home1-faq-img.png" alt="image" />
+                            </div>{/* /faq-img */}
+                        </div>{/* /col */}
+                    </div>{/* /row */}
+                </div>{/* /container */}
+            </div>
+            {/* faq-area-end */}
+
             {/* ====== testimonial-area-start ==================================== */}
-            <div className="testimonial-area mt-130 mb-20 over-hidden">
+            <div className="testimonial-area mt-130 mb-20 over-hidden" style={{ display: 'none' }}>
                 <div className="container">
                     <div className="row align-items-center justify-content-center">
                         <div className="col-xl-8  col-lg-10  col-md-11  col-sm-12 col-12">
