@@ -51,7 +51,7 @@ export default function HomePage() {
                                 <div className="slider-content mt--30 position-relative">
                                     <span className="f-700 theme-color d-block pb-1" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="40">교육 분야의 공공데이터와 생성형 AI의 만남!</span>
                                     <h1 className="f-700 pb-22" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="150">제8회 교육 공공데이터<br />AI 활용대회</h1>
-                                    <p data-aos="fade-right" data-aos-duration="2000">공공데이터를 활용해 창의적인 교육 서비스 아이디어를 발굴하고,<br />AI 기술과의 융합을 통해 교육 현장의 문제를 해결합니다.<br />당신의 아이디어로 혁신을 꿈꾸세요!</p>
+                                    <p data-aos="fade-right" data-aos-duration="2000">교육 공공데이터와 AI 기술의 융합으로<br />교육 현장의 실제 문제를 해결하는 창의적인 아이디어를 발굴합니다.<br />당신의 아이디어로 혁신을 꿈꾸세요!</p>
                                     <div className="video-player-btn d-flex align-items-center z-index11 mt-45" >
                                         <a data-fancybox="" href="https://youtu.be/nqye02H_H6I" className="d-flex align-items-center">
                                             <div className="video-play-wrap position-relative d-inline-block">
@@ -106,8 +106,8 @@ export default function HomePage() {
                                     <h3 className="f-700">AI를 활용한<br />교육 공공데이터 활용대회</h3>
                                 </div>
                                 <div className="about-text mt-55 ">
-                                    <h6 className="f-400 mb-30">교육부와 한국지능정보사회진흥원 등이 주관하는 이번 대회는 교육 AI 분야 최대 규모의 공모전입니다.</h6>
-                                    <p>공공데이터를 활용해 창의적인 교육 서비스 아이디어를 발굴하고, AI 기술과의 융합을 통해 교육 현장의 문제를 해결하고자 개최되었습니다.</p>
+                                    <h6 className="f-400 mb-30">교육부·17개 시도교육청 주최, 한국교육학술정보원(KERIS) 주관의 교육 AI 분야 최대 규모 대회입니다.</h6>
+                                    <p>교육 공공데이터와 AI 기술의 융합을 통해 국민의 참여와 관심을 확대하고, AI 활용 아이디어 기획 및 영상제작을 통한 미래형 인재를 양성합니다.</p>
                                     <div className="my-btn mt-47">
                                         <a href="about-us.html" className="btn theme-bg text-capitalize f-18 f-700">참가 신청</a>
                                     </div>{/* /my-btn */}
@@ -129,8 +129,8 @@ export default function HomePage() {
                                     <img src="/original-template/images/icon/writing-2.png" alt="image" />
                                 </div>{/* /ser-icon */}
                                 <div className="service-text">
-                                    <h6 className="f-700 mb-22">부총리 겸 교육부장관상</h6>
-                                    <p>대상 수상팀에게 부총리 겸 교육부장관상과 함께 최대 500만원의 상금이 수여됩니다</p>
+                                    <h6 className="f-700 mb-22">교육부장관상</h6>
+                                    <p>대상 수상팀에게 교육부장관상과 함께 최대 500만원의 상금(일반부) 또는 상품권이 수여됩니다</p>
                                 </div>
                             </div>{/* /single-service-content */}
                         </div>{/* /col */}
@@ -140,8 +140,8 @@ export default function HomePage() {
                                     <img src="/original-template/images/icon/diagram.png" alt="image" />
                                 </div>{/* /ser-icon */}
                                 <div className="service-text">
-                                    <h6 className="f-700 mb-22">총 24팀 시상</h6>
-                                    <p>학생 부문과 일반 부문으로 나누어 총 24팀 내외를 선정하여 시상합니다</p>
+                                    <h6 className="f-700 mb-22">총 154팀 시상</h6>
+                                    <p>총상금 1억 2,640만원 규모로 학생·일반 부문 총 154팀을 선정하여 시상합니다</p>
                                 </div>
                             </div>{/* /single-service-content */}
                         </div>{/* /col */}
@@ -152,7 +152,7 @@ export default function HomePage() {
                                 </div>{/* /ser-icon */}
                                 <div className="service-text">
                                     <h6 className="f-700 mb-22">누구나 참가 가능</h6>
-                                    <p>학생 부문(초·중·고·대학생)과 일반 부문(일반인, 대학원생, 교원, 학부모 등) 누구나 참가 가능합니다</p>
+                                    <p>초등 홍보영상, 중고등 아이디어 기획, 일반 아이디어 기획 등 3개 분야로 누구나 참가 가능합니다</p>
                                 </div>
                             </div>{/* /single-service-content */}
                         </div>{/* /col */}
@@ -174,9 +174,9 @@ export default function HomePage() {
                             <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 pl-lg-0 pl-xl-3">
                                 <div className="feature-content mb-10" data-aos="fade-left" data-aos-duration="2000">
                                     <div className="title">
-                                        <span className="theme-color f-700">참가 혜택</span>
-                                        <h3 className="f-700 pb-30">다양한 참가 혜택을 확인하세요</h3>
-                                        <p>수상과 함께 포트폴리오 인증, 교육 분야 네트워킹 기회를 제공합니다.</p>
+                                        <span className="theme-color f-700">참가자 지원</span>
+                                        <h3 className="f-700 pb-30">참가자를 위한 다양한 지원</h3>
+                                        <p>AI 이용권, 교육 프로그램, 수상 인증서, 창업경진대회 추천 등 다양한 혜택을 제공합니다.</p>
                                     </div>
                                     <div className="feature-text mt-30">
                                         <div className="row">
@@ -188,9 +188,9 @@ export default function HomePage() {
                                                                 <span className="flat-family flat-family flaticon-012-edit"></span>
                                                             </span>
                                                         </div>{/* /ser-icon */}
-                                                        <h6 className="f-700 mb-0">포트폴리오 인증서</h6>
+                                                        <h6 className="f-700 mb-0">에듀핏 AI 이용권</h6>
                                                     </div>{/* /feature-ser-heading */}
-                                                    <p>수상 시 공식 인증서 발급으로 경력 증빙에 활용 가능</p>
+                                                    <p>선착순 500개 생성형 AI 플랫폼 이용권 무료 제공</p>
                                                 </div>{/* /single-feature-service */}
                                             </div>{/* /col */}
                                             <div className="col-xl-6  col-lg-6 col-md-6  col-sm-6 col-12">
@@ -201,9 +201,9 @@ export default function HomePage() {
                                                                 <span className="flat-family flat-family flaticon-012-edit"></span>
                                                             </span>
                                                         </div>{/* /ser-icon */}
-                                                        <h6 className="f-700 mb-0">전문가 멘토링</h6>
+                                                        <h6 className="f-700 mb-0">교육 프로그램</h6>
                                                     </div>{/* /feature-ser-heading */}
-                                                    <p>AI 및 교육 분야 전문가의 피드백과 멘토링 제공</p>
+                                                    <p>AI 활용 방법, 데이터 활용 절차 등 온라인 교육 제공</p>
                                                 </div>{/* /single-feature-service */}
                                             </div>{/* /col */}
                                             <div className="col-xl-6  col-lg-6 col-md-6  col-sm-6 col-12">
@@ -214,9 +214,9 @@ export default function HomePage() {
                                                                 <span className="flat-family flat-family flaticon-012-edit"></span>
                                                             </span>
                                                         </div>{/* /ser-icon */}
-                                                        <h6 className="f-700 mb-0">네트워킹 기회</h6>
+                                                        <h6 className="f-700 mb-0">디지털 배지 인증서</h6>
                                                     </div>{/* /feature-ser-heading */}
-                                                    <p>교육 AI 분야 전문가 및 참가자들과의 네트워킹</p>
+                                                    <p>수상작에 디지털 배지 포함 수상 인증서 발급</p>
                                                 </div>{/* /single-feature-service */}
                                             </div>{/* /col */}
                                             <div className="col-xl-6  col-lg-6 col-md-6  col-sm-6 col-12">
@@ -227,9 +227,9 @@ export default function HomePage() {
                                                                 <span className="flat-family flat-family flaticon-012-edit"></span>
                                                             </span>
                                                         </div>{/* /ser-icon */}
-                                                        <h6 className="f-700 mb-0">사업화 지원</h6>
+                                                        <h6 className="f-700 mb-0">창업대회 추천</h6>
                                                     </div>{/* /feature-ser-heading */}
-                                                    <p>우수 작품에 대한 사업화 및 후속 연구 지원 기회</p>
+                                                    <p>일반부 대상팀은 범정부 공공데이터 AI 창업경진대회 추천</p>
                                                 </div>{/* /single-feature-service */}
                                             </div>{/* /col */}
                                         </div>{/* /row */}
@@ -252,20 +252,20 @@ export default function HomePage() {
                                     <div className="title">
                                         <span className="theme-color f-700">참가 안내</span>
                                         <h3 className="f-700 pb-30">공모전 참가 방법을 확인하세요</h3>
-                                        <p>홈페이지를 통한 온라인 접수로 간편하게 참가 신청이 가능합니다.</p>
+                                        <p>회원가입 없이 비회원 접수 가능, 이메일과 비밀번호 설정 후 접수번호가 발송됩니다.</p>
                                     </div>{/* /title */}
                                     <ul className="sp-feature-text mt-30">
                                         <li className="d-flex">
                                             <span className="sp-feature-icon theme-color d-inline-block mr-20"><i className="fal fa-check"></i></span>
-                                            <p>학생 부문: 아이디어 기획, 데이터 분석 / 일반 부문: 서비스 개발</p>
+                                            <p>AI 이용권 신청: 3. 16.(월) ~ 4. 15.(수) / 작품 접수: 5. 1.(금) ~ 5. 31.(일)</p>
                                         </li>
                                         <li className="d-flex">
                                             <span className="sp-feature-icon theme-color d-inline-block mr-20"><i className="fal fa-check"></i></span>
-                                            <p>학생 부문은 개인 또는 3인 이내 팀, 일반 부문은 인원 제한 없음</p>
+                                            <p>전 부문 1인 단독 또는 최대 3인 이내 팀 구성 (1인당 1개 부문만 참여)</p>
                                         </li>
                                         <li className="d-flex">
                                             <span className="sp-feature-icon theme-color d-inline-block mr-20"><i className="fal fa-check"></i></span>
-                                            <p>서류 접수: 3. 16.(월) ~ 4. 15.(수), 온라인 접수</p>
+                                            <p>초등 홍보영상, 중고등 아이디어 기획, 일반 아이디어 기획 3개 분야</p>
                                         </li>
                                     </ul>
                                     <div className="my-btn pt-32">
@@ -290,9 +290,9 @@ export default function HomePage() {
                     <div className="row align-items-center justify-content-center">
                         <div className="col-xl-9  col-lg-10  col-md-11  col-sm-12 col-12">
                             <div className="title text-center">
-                                <span className="theme-color f-700">역대 성과</span>
+                                <span className="theme-color f-700">제8회 대회 규모</span>
                                 <h3 className="f-700 pb-30">숫자로 보는 대회</h3>
-                                <p>교육 공공데이터를 활용하여 교육 현장의 문제를 해결하는 AI 솔루션을 개발하고 공유합니다</p>
+                                <p>교육 공공데이터와 AI 기술의 융합으로 교육 현장의 혁신을 이끕니다</p>
                             </div>{/* /title */}
                         </div>{/* /col */}
                     </div>{/* /row */}
@@ -302,46 +302,46 @@ export default function HomePage() {
                                 <li className="d-inline-block facts1">
                                     <div className="single-facts  white-bg text-center pt-46 pb-50 mb-30">
                                         <div className="d-flex align-items-center justify-content-center">
-                                            <span className="f-700 d-inline-block counter">8</span>
-                                            <span className="per d-inline-block f-700">+</span>
+                                            <span className="f-700 d-inline-block counter">154</span>
+                                            <span className="per d-inline-block f-700">팀</span>
                                         </div>
-                                        <p className="black-color text-center f-700 mb-0 mt-1">역대 횟수</p>
+                                        <p className="black-color text-center f-700 mb-0 mt-1">시상 규모</p>
                                     </div>
                                 </li>
                                 <li className="d-inline-block facts2 theme-bg-fact single-facts-margin-left position-relative">
                                     <div className="single-facts  theme-bg text-center pt-46 pb-50 mb-30">
                                         <div className="d-flex align-items-center justify-content-center">
-                                            <span className="white-color f-700 d-inline-block counter">0,000</span>
-                                            <span className="white-color d-inline-block f-700">+</span>
+                                            <span className="white-color f-700 d-inline-block counter">12,640</span>
+                                            <span className="white-color d-inline-block f-700">만원</span>
                                         </div>
-                                        <p className="white-color text-center f-700 mb-0 mt-1">누적 참가자</p>
+                                        <p className="white-color text-center f-700 mb-0 mt-1">총 상금</p>
                                     </div>
                                 </li>
                                 <li className="d-inline-block facts3 single-facts-margin-left  position-relative">
                                     <div className="single-facts  white-bg text-center pt-46 pb-50 mb-30">
                                         <div className="d-flex align-items-center justify-content-center">
-                                            <span className="f-700 d-inline-block counter">0,000</span>
-                                            <span className="d-inline-block f-700">+</span>
+                                            <span className="f-700 d-inline-block counter">500</span>
+                                            <span className="d-inline-block f-700">개</span>
                                         </div>
-                                        <p className="black-color text-center f-700 mb-0 mt-1">누적 출품작</p>
+                                        <p className="black-color text-center f-700 mb-0 mt-1">AI 이용권</p>
                                     </div>
                                 </li>
                                 <li className="d-inline-block facts4 theme-bg-fact single-facts-margin-left position-relative">
                                     <div className="single-facts  theme-bg text-center pt-46 pb-50 mb-30">
                                         <div className="d-flex align-items-center justify-content-center">
-                                            <span className="white-color f-700 d-inline-block counter">00</span>
-                                            <span className="white-color d-inline-block f-700">+</span>
+                                            <span className="white-color f-700 d-inline-block counter">3</span>
+                                            <span className="white-color d-inline-block f-700">개 분야</span>
                                         </div>
-                                        <p className="white-color text-center f-700 mb-0 mt-1">수상 작품</p>
+                                        <p className="white-color text-center f-700 mb-0 mt-1">공모 분야</p>
                                     </div>
                                 </li>
                                 <li className="d-inline-block facts5 single-facts-margin-left position-relative clear-both">
                                     <div className="single-facts  white-bg text-center pt-46 pb-50 mb-30">
                                         <div className="d-flex align-items-center justify-content-center">
-                                            <span className="f-700 d-inline-block counter">3,000</span>
-                                            <span className="per d-inline-block f-700">만원</span>
+                                            <span className="f-700 d-inline-block counter">5</span>
+                                            <span className="per d-inline-block f-700">개월</span>
                                         </div>
-                                        <p className="black-color text-center f-700 mb-0 mt-1">대회 상금</p>
+                                        <p className="black-color text-center f-700 mb-0 mt-1">대회 기간</p>
                                     </div>
                                 </li>
                             </ul>{/* /facts-wrapper */}
@@ -407,7 +407,7 @@ export default function HomePage() {
                                             </div>{/* /card-header */}
                                             <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                                 <div className="card-body">
-                                                    <p className="m-0">학생 부문은 초·중·고교생 및 대학생(개인 또는 3인 이내 팀)이 참가 가능하며, 일반 부문은 일반인, 대학원생, 교원, 학부모, 예비 창업자 등 제한 없이 참가할 수 있습니다.</p>
+                                                    <p className="m-0">초등부(홍보영상): 초등학교 재학생. 중고등부(기획): 중·고등학교 재학생 또는 만 13~19세 미만. 일반부(기획): 만 19세 이상 누구나. 전 부문 1인 또는 최대 3인 팀 구성 가능합니다.</p>
                                                 </div>
                                             </div>{/* /collapseOne */}
                                         </div>{/* /card1 */}
@@ -423,7 +423,7 @@ export default function HomePage() {
 
                                             <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                                 <div className="card-body">
-                                                    <p className="m-0">학생 부문은 아이디어 기획과 데이터 분석, 일반 부문은 교육 공공데이터 및 AI 기술을 활용한 웹/앱 서비스 개발(프로토타입 포함)입니다.</p>
+                                                    <p className="m-0">초등 학생부: AI 활용 소속학교 홍보영상 제작. 중고등 학생부: AI 활용 아이디어 기획(교육 현장 문제 해결). 일반부: AI 활용 아이디어 기획(실제 구현 가능한 서비스·프로토타입).</p>
                                                 </div>
                                             </div>
                                         </div>{/* /card2 */}
@@ -439,7 +439,7 @@ export default function HomePage() {
 
                                             <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                                 <div className="card-body">
-                                                    <p className="m-0">총 24팀 내외를 선정합니다. 학생 부문 대상 300만원, 일반 부문 대상 500만원이며, 최우수상·우수상 등 상장과 상금이 수여됩니다.</p>
+                                                    <p className="m-0">총 154팀, 총상금 1억 2,640만원 규모입니다. 초등 홍보영상 대상 100만원, 학생 기획 대상 300만원, 일반 기획 대상 500만원이며, 시도교육감상·KERIS원장상 등이 수여됩니다.</p>
                                                 </div>
                                             </div>
                                         </div>{/* /card */}
@@ -466,7 +466,7 @@ export default function HomePage() {
                                 <div className="title text-center mt-15">
                                     <span className="theme-color f-700">참가 방법</span>
                                     <h3 className="f-700 pb-30">참가 절차</h3>
-                                    <p>교육 공공데이터를 활용하여 교육 현장의 문제를 해결하는 AI 솔루션을 개발하고 공유합니다</p>
+                                    <p>AI 이용권 신청부터 작품 접수, 심사, 시상까지 약 5개월간 진행됩니다</p>
                                 </div>{/* /title */}
                             </div>{/* /col */}
                         </div>{/* /row */}
@@ -486,8 +486,8 @@ export default function HomePage() {
                                                 </span>
                                             </div>{/* /work-icon */}
                                             <div className="work-text">
-                                                <h5 className="f-700 mb-22">참가 신청</h5>
-                                                <p className="m-0">홈페이지에서 참가 신청서를 작성하고 팀 정보를 등록합니다</p>
+                                                <h5 className="f-700 mb-22">AI 이용권 신청</h5>
+                                                <p className="m-0">3.16~4.15 기간에 AI 이용권을 신청하고 교육 프로그램을 수강합니다</p>
                                             </div>
                                         </div>
                                     </div>{/* /single-work-content */}
@@ -506,8 +506,8 @@ export default function HomePage() {
                                                 </span>
                                             </div>{/* /work-icon */}
                                             <div className="work-text">
-                                                <h5 className="f-700 mb-22">작품 개발</h5>
-                                                <p className="m-0">교육 공공데이터를 활용하여 AI 솔루션을 개발합니다</p>
+                                                <h5 className="f-700 mb-22">작품 제작</h5>
+                                                <p className="m-0">교육 공공데이터를 1개 이상 활용하여 영상 또는 기획서를 제작합니다</p>
                                             </div>
                                         </div>
                                     </div>{/* /single-work-content */}
@@ -526,8 +526,8 @@ export default function HomePage() {
                                                 </span>
                                             </div>{/* /work-icon */}
                                             <div className="work-text">
-                                                <h5 className="f-700 mb-22">작품 제출</h5>
-                                                <p className="m-0">완성된 작품과 발표 자료를 온라인으로 제출합니다</p>
+                                                <h5 className="f-700 mb-22">작품 접수</h5>
+                                                <p className="m-0">5.1~5.31 기간에 홈페이지를 통해 온라인으로 작품을 제출합니다</p>
                                             </div>
                                         </div>
                                     </div>{/* /single-work-content */}
@@ -547,7 +547,7 @@ export default function HomePage() {
                                             </div>{/* /work-icon */}
                                             <div className="work-text">
                                                 <h5 className="f-700 mb-22">심사 및 시상</h5>
-                                                <p className="m-0">전문 심사위원단의 심사를 거쳐 우수 작품을 시상합니다</p>
+                                                <p className="m-0">1차 서면·AI 심사 → 공개검증 → 2차 발표 심사를 거쳐 8월 시상합니다</p>
                                             </div>
                                         </div>
                                     </div>{/* /single-work-content */}
@@ -637,7 +637,7 @@ export default function HomePage() {
                             <div className="col-xl-9 col-lg-9  col-md-12 col-sm-12 col-12">
                                 <div className="banner-content">
                                     <h4 className="f-700 mb-18">지금 바로 참가 신청하세요!</h4>
-                                    <p className="mb-0">서류 접수 기간: 2026년 3월 16일(월) ~ 4월 15일(수), 온라인 접수</p>
+                                    <p className="mb-0">작품 접수: 2026년 5월 1일(금) ~ 5월 31일(일) / AI 이용권 신청: 3월 16일 ~ 4월 15일</p>
                                 </div>{/* /work-banner-content */}
                             </div>{/* /col */}
                             <div className="col-xl-3 col-lg-3  col-md-12 col-sm-12 col-12">

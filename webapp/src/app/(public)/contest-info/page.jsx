@@ -70,8 +70,8 @@ export default function ContestInfoPage() {
                                 <div className="title">
                                     <span className="theme-color f-700">대회 소개</span>
                                     <h3 className="f-700 mb-30">교육의 미래를 AI와 함께 만들어갑니다</h3>
-                                    <p className="pb-10">교육부와 한국지능정보사회진흥원 등이 주관하는 제8회 교육 공공데이터 AI 활용대회는 교육 분야 최대 규모의 AI 공모전입니다.</p>
-                                    <p>공공데이터를 활용해 창의적인 교육 서비스 아이디어를 발굴하고, AI 기술과의 융합을 통해 교육 현장의 문제를 해결하고자 개최되었습니다.</p>
+                                    <p className="pb-10">교육부·17개 시도교육청 주최, 한국교육학술정보원(KERIS) 주관의 제8회 교육 공공데이터 AI 활용대회는 교육 분야 최대 규모의 AI 공모전입니다.</p>
+                                    <p>교육 공공데이터와 AI 기술의 융합을 통해 국민의 참여와 관심을 확대하고, AI 활용 아이디어 기획 및 영상제작을 통한 미래형 인재를 양성합니다.</p>
                                 </div>
                                 <div className="my-btn mt-47" data-aos="fade-up" data-aos-duration="2000">
                                     <a href="/submit" className="btn theme-bg text-capitalize f-18 f-700">참가 신청</a>
@@ -110,7 +110,7 @@ export default function ContestInfoPage() {
                                     <div className="col-xl-6  col-lg-6  col-md-6  col-sm-6 col-12">
                                         <div className="home3-single-facts about-us-fact-wrapper white-bg text-center pt-45 pb-60 pl-40 pr-40 mb-30">
                                             <div className="d-flex align-items-center justify-content-center">
-                                                <span className="theme-color f-700 d-inline-block counter contest-counter-num">3,000</span>
+                                                <span className="theme-color f-700 d-inline-block counter contest-counter-num">12,640</span>
                                                 <span className="per theme-color d-inline-block f-700 contest-counter-num">만원</span>
                                             </div>
                                             <p className="black-color text-center f-700 mb-0">총 상금</p>
@@ -118,35 +118,35 @@ export default function ContestInfoPage() {
 
                                         <div className="home3-single-facts about-us-fact-wrapper white-bg text-center pt-45 pb-60 pl-40 pr-40 mb-30">
                                             <div className="d-flex align-items-center justify-content-center">
-                                                <span className="theme-color f-700 d-inline-block counter contest-counter-num">5,000</span>
-                                                <span className="theme-color d-inline-block f-700 contest-counter-num">+</span>
+                                                <span className="theme-color f-700 d-inline-block counter contest-counter-num">154</span>
+                                                <span className="theme-color d-inline-block f-700 contest-counter-num">팀</span>
                                             </div>
-                                            <p className="black-color text-center f-700 mb-0">누적 참가자</p>
+                                            <p className="black-color text-center f-700 mb-0">시상 규모</p>
                                         </div> {/* /home3-single-facts */}
                                     </div>{/* /col */}
                                     <div className="col-xl-6  col-lg-6  col-md-6  col-sm-6 col-12 ">
                                         <div className="home3-single-facts about-us-fact-wrapper home3-single-facts-margin white-bg text-center pt-45 pb-60 pl-40 pr-40 mb-30 mt-60">
                                             <div className="d-flex align-items-center justify-content-center">
-                                                <span className="theme-color f-700 d-inline-block counter contest-counter-num">1,200</span>
-                                                <span className="per theme-color d-inline-block f-700 contest-counter-num">+</span>
+                                                <span className="theme-color f-700 d-inline-block counter contest-counter-num">500</span>
+                                                <span className="per theme-color d-inline-block f-700 contest-counter-num">개</span>
                                             </div>
-                                            <p className="black-color text-center f-700 mb-0">누적 출품작</p>
+                                            <p className="black-color text-center f-700 mb-0">AI 이용권</p>
                                         </div>  {/* /home3-single-facts */}
                                         <div className="home3-single-facts about-us-fact-wrapper white-bg text-center pt-45 pb-60 pl-40 pr-40 mb-30">
                                             <div className="d-flex align-items-center justify-content-center">
-                                                <span className="theme-color f-700 d-inline-block counter contest-counter-num">150</span>
-                                                <span className="per theme-color d-inline-block f-700 contest-counter-num">+</span>
+                                                <span className="theme-color f-700 d-inline-block counter contest-counter-num">3</span>
+                                                <span className="per theme-color d-inline-block f-700 contest-counter-num">개 분야</span>
                                             </div>
-                                            <p className="black-color text-center f-700 mb-0">역대 수상작</p>
+                                            <p className="black-color text-center f-700 mb-0">공모 분야</p>
                                         </div>  {/* /home3-single-facts */}
                                     </div>{/* /col */}
                                 </div>{/* /row */}
                             </div>{/* /col */}
                             <div className="col-xl-5 offset-xl-1 col-lg-5 col-md-12 col-sm-12 col-12">
                                 <div className="title">
-                                    <span className="theme-color f-700">대회 성과</span>
-                                    <h3 className="f-700 mb-30">숫자로 보는 대회 성과</h3>
-                                    <p className="pb-10">지난 7회에 걸쳐 교육 현장의 혁신을 이끌어온 교육 공공데이터 AI 활용대회의 성과입니다.</p>
+                                    <span className="theme-color f-700">대회 규모</span>
+                                    <h3 className="f-700 mb-30">숫자로 보는 제8회 대회</h3>
+                                    <p className="pb-10">교육 공공데이터와 AI 기술의 융합으로 교육 현장의 혁신을 이끕니다.</p>
                                 </div>
                             </div>{/* /col */}
                         </div>{/* /row */}
@@ -163,9 +163,9 @@ export default function ContestInfoPage() {
                         <div className="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
                             <div className="Speciality-left-content mb-20">
                                 <div className="title">
-                                    <span className="theme-color f-700">대회 특장점</span>
+                                    <span className="theme-color f-700">참가자 지원</span>
                                     <h3 className="f-700 mb-30">이 대회가 특별한 이유</h3>
-                                    <p className="pb-10">공공데이터를 활용한 창의적인 교육 서비스 아이디어 발굴과 AI 기술 융합, 그리고 다양한 수상 혜택을 제공합니다.</p>
+                                    <p className="pb-10">에듀핋 AI 이용권, 맞춤형 교육 프로그램, 디지털 배지 인증서, 창업경진대회 추천 등 다양한 혜택을 제공합니다.</p>
                                 </div>
                             </div>{/* /Speciality-left-content */}
                         </div>{/* /col */}
@@ -178,8 +178,8 @@ export default function ContestInfoPage() {
                                                 <img className="h-100" src="/original-template/images/icon/about-us-web.png" alt="image" />
                                             </div>{/* /ser-icon */}
                                             <div className="service-text">
-                                                <h6 className="f-700 mb-15">AI 이용권 제공</h6>
-                                                <p>참가자에게 AI 모델 학습 및 추론에 필요한 클라우드 기반 AI 이용권을 무료로 지원합니다</p>
+                                                <h6 className="f-700 mb-15">에듀핋 AI 이용권</h6>
+                                                <p>선착순 500개 생성형 AI 플랫폼 이용권을 무료 지원합니다 (학생 400개, 일반 100개)</p>
                                             </div>
                                         </div>{/* /single-service-content */}
                                     </div>{/* /col */}
@@ -189,8 +189,8 @@ export default function ContestInfoPage() {
                                                 <img className="h-100" src="/original-template/images/icon/about-us-code.png" alt="image" />
                                             </div>{/* /ser-icon */}
                                             <div className="service-text">
-                                                <h6 className="f-700 mb-15">전문가 멘토링</h6>
-                                                <p>AI 및 교육 분야 전문가가 참가팀에 1:1 멘토링과 기술 자문을 제공합니다</p>
+                                                <h6 className="f-700 mb-15">교육 프로그램</h6>
+                                                <p>AI 활용 방법, 데이터 활용 절차, 대회 참여 가이드 등 온라인 교육을 전원에게 제공합니다</p>
                                             </div>
                                         </div>{/* /single-service-content */}
                                     </div>{/* /col */}
@@ -201,8 +201,8 @@ export default function ContestInfoPage() {
                                                 <img className="h-100" src="/original-template/images/icon/about-us-folder.png" alt="image" />
                                             </div>{/* /ser-icon */}
                                             <div className="service-text">
-                                                <h6 className="f-700 mb-15">부총리 겸 교육부장관상</h6>
-                                                <p>대상 수상팀에는 부총리 겸 교육부장관상과 함께 최대 500만원의 상금이 수여됩니다</p>
+                                                <h6 className="f-700 mb-15">교육부장관상</h6>
+                                                <p>대상 수상팀에는 교육부장관상과 함께 최대 500만원의 상금(일반부) 또는 상품권이 수여됩니다</p>
                                             </div>
                                         </div>{/* /single-service-content */}
                                     </div>{/* /col */}
@@ -212,8 +212,8 @@ export default function ContestInfoPage() {
                                                 <img className="h-100" src="/original-template/images/icon/about-us-user.png" alt="image" />
                                             </div>{/* /ser-icon */}
                                             <div className="service-text">
-                                                <h6 className="f-700 mb-15">네트워킹 기회</h6>
-                                                <p>교육 AI 분야 전문가, 현직 교원, 연구자들과의 네트워킹 기회를 제공합니다</p>
+                                                <h6 className="f-700 mb-15">창업대회 추천</h6>
+                                                <p>일반부 대상팀은 행정안전부 주관 범정부 공공데이터 AI 창업경진대회 추천 대상입니다</p>
                                             </div>
                                         </div>{/* /single-service-content */}
                                     </div>{/* /col */}
@@ -237,7 +237,7 @@ export default function ContestInfoPage() {
                             <div className="col-xl-9 col-lg-9  col-md-12 col-sm-12 col-12">
                                 <div className="banner-content">
                                     <h4 className="f-700 mb-18">지금 바로 참가 신청하세요!</h4>
-                                    <p className="mb-0">서류 접수 기간: 2026년 3월 16일(월) ~ 4월 15일(수), 온라인 접수</p>
+                                    <p className="mb-0">작품 접수: 2026년 5월 1일(금) ~ 5월 31일(일) / AI 이용권 신청: 3월 16일 ~ 4월 15일</p>
                                 </div>{/* /work-banner-content */}
                             </div>{/* /col */}
                             <div className="col-xl-3 col-lg-3  col-md-12 col-sm-12 col-12">
