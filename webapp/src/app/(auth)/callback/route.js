@@ -59,7 +59,25 @@ export async function GET(request) {
       // Don't block login on upsert failure — user can still proceed
     }
 
-    // next URL에 auth=done 파라미터 추가 (이용권 신청 등에서 방금 인증한 것 구별)
+    // 팝업 모드 감지: next 파라미터에 popup=1이 포함되어 있으면 postMessage로 처리
+    const isPopup = next.includes("popup=1");
+    if (isPopup) {
+      // 팝업 창에서 부모 창으로 인증 완료 메시지 전송 후 닫기
+      const html = `<!DOCTYPE html><html><head><title>인증 완료</title></head><body>
+        <script>
+          if (window.opener) {
+            window.opener.postMessage({ type: 'oauth_complete', provider: 'kakao' }, '*');
+            window.close();
+          } else {
+            window.location.href = '/license-apply?auth=done';
+          }
+        </script>
+        <p>인증이 완료되었습니다. 창이 닫히지 않으면 <a href="/license-apply?auth=done">여기를 클릭</a>하세요.</p>
+      </body></html>`;
+      return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8" } });
+    }
+
+    // 일반 모드: 기존 redirect
     const separator = next.includes("?") ? "&" : "?";
     return NextResponse.redirect(`${origin}${next}${separator}auth=done`);
   } catch (err) {

@@ -99,7 +99,7 @@ export async function POST(request) {
       return NextResponse.json({ error: "이미 이용권 신청이 접수되어 있습니다." }, { status: 409 });
 
     const now = new Date().toISOString();
-    const insertData = {
+    const baseData = {
       user_id: null,
       applicant_name: applicant_name.trim(),
       applicant_email: normalizedEmail,
@@ -112,25 +112,42 @@ export async function POST(request) {
       phone: phone.trim(),
       motivation: motivation ? motivation.slice(0, 500) : null,
       status: "pending",
-      birth_year: birth_year.trim(),
-      representative_name: representative_name.trim(),
+    };
+
+    // 확장 필드 (migration 015 적용 시에만 사용 가능)
+    const extendedFields = {
+      birth_year: birth_year ? birth_year.trim() : null,
+      representative_name: representative_name ? representative_name.trim() : null,
       member1_name: member1_name || null,
       member2_name: member2_name || null,
-      topic: topic.trim(),
-      region,
+      topic: topic ? topic.trim() : null,
+      region: region || null,
       privacy_agreed_at: now,
       third_party_agreed_at: now,
     };
 
-    const { data: application, error: insertError } = await adminClient
+    // 확장 필드 포함하여 시도 → 실패 시 기본 필드만으로 재시도
+    let insertData = { ...baseData, ...extendedFields };
+    let { data: application, error: insertError } = await adminClient
       .from("license_applications")
       .insert(insertData)
       .select("id, status, created_at")
       .single();
 
+    if (insertError && insertError.message && insertError.message.includes("schema cache")) {
+      console.warn("Extended fields not in DB, retrying with base fields only:", insertError.message);
+      insertData = baseData;
+      const retry = await adminClient
+        .from("license_applications")
+        .insert(insertData)
+        .select("id, status, created_at")
+        .single();
+      application = retry.data;
+      insertError = retry.error;
+    }
+
     if (insertError) {
       console.error("Guest license application insert error:", insertError.message, insertError.details, insertError.code);
-      // 구체적인 에러 메시지 반환
       if (insertError.code === "23505") {
         return NextResponse.json({ error: "이미 이용권 신청이 접수되어 있습니다." }, { status: 409 });
       }
@@ -141,14 +158,16 @@ export async function POST(request) {
     }
 
     // 이력 기록
-    await adminClient.from("license_application_history").insert({
-      application_id: application.id,
-      changed_by: normalizedEmail,
-      change_type: "create",
-      old_data: null,
-      new_data: insertData,
-      changed_fields: Object.keys(insertData),
-    });
+    try {
+      await adminClient.from("license_application_history").insert({
+        application_id: application.id,
+        changed_by: normalizedEmail,
+        change_type: "create",
+        old_data: null,
+        new_data: insertData,
+        changed_fields: Object.keys(insertData),
+      });
+    } catch { /* 이력 기록 실패해도 신청 성공은 유지 */ }
 
     return NextResponse.json({ application }, { status: 201 });
   } catch (err) {

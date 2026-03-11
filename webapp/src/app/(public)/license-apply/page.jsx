@@ -216,24 +216,82 @@ export default function LicenseApplyPage() {
     init();
   }, []);
 
+  // ── OAuth 팝업 인증 완료 메시지 수신 ──
+  useEffect(() => {
+    const handleMessage = async (event) => {
+      if (event.data?.type !== 'oauth_complete') return;
+      const provider = event.data.provider;
+
+      if (provider === 'naver') {
+        // 네이버: 팝업에서 설정한 쿠키 읽기
+        const naverCookie = document.cookie
+          .split("; ")
+          .find((c) => c.startsWith("naver_session="));
+        if (naverCookie) {
+          try {
+            const naverSession = JSON.parse(decodeURIComponent(naverCookie.split("=").slice(1).join("=")));
+            setUser({
+              id: naverSession.id,
+              email: naverSession.email,
+              user_metadata: { full_name: naverSession.name, avatar_url: naverSession.profile_image },
+              app_metadata: { provider: "naver" },
+            });
+            setAuthMethod("naver");
+            if (naverSession.name) {
+              setFormData((prev) => ({ ...prev, applicant_name: naverSession.name }));
+            }
+          } catch (e) { console.error("Naver popup session parse error:", e); }
+        }
+      } else if (provider === 'kakao') {
+        // 카카오: Supabase 세션이 콜백에서 교환됨 → 사용자 정보 조회
+        try {
+          const meRes = await fetch("/api/auth/me");
+          if (meRes.ok) {
+            const { user: userData } = await meRes.json();
+            if (userData) {
+              setUser(userData);
+              setAuthMethod("kakao");
+              if (userData.phone) {
+                setFormData((prev) => ({ ...prev, phone: userData.phone }));
+              }
+            }
+          }
+        } catch { /* 무시 */ }
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
   // ── Handlers ──
   const handleOAuth = async (provider) => {
+    const siteUrl = window.location.origin;
+    const popupWidth = 500;
+    const popupHeight = 700;
+    const left = window.screenX + (window.outerWidth - popupWidth) / 2;
+    const top = window.screenY + (window.outerHeight - popupHeight) / 2;
+    const popupFeatures = `popup,width=${popupWidth},height=${popupHeight},left=${left},top=${top},scrollbars=yes`;
+
     if (provider === "naver") {
-      // 네이버: Supabase에 Provider 없음 → 직접 구현한 API로 리다이렉트
-      const siteUrl = window.location.origin;
-      window.location.href = `/api/auth/naver?siteUrl=${encodeURIComponent(siteUrl)}`;
+      // 네이버: state에 popup 표시 추가
+      const naverUrl = `/api/auth/naver?siteUrl=${encodeURIComponent(siteUrl)}&popup=1`;
+      window.open(naverUrl, 'naver_auth', popupFeatures);
       return;
     }
-    // 카카오: Supabase OAuth 사용
-    const siteUrl = window.location.origin;
-    const { error } = await supabase.auth.signInWithOAuth({
+    // 카카오: Supabase OAuth → skipBrowserRedirect로 URL 획득 후 팝업
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${siteUrl}/callback?next=/license-apply`,
+        redirectTo: `${siteUrl}/callback?next=/license-apply&popup=1`,
         queryParams: { prompt: "login" },
+        skipBrowserRedirect: true,
       },
     });
-    if (error) setError("본인 인증에 실패했습니다. 다시 시도해주세요.");
+    if (error) { setError("본인 인증에 실패했습니다. 다시 시도해주세요."); return; }
+    if (data?.url) {
+      window.open(data.url, 'kakao_auth', popupFeatures);
+    }
   };
 
   const handleSendOTP = async () => {
@@ -417,6 +475,28 @@ export default function LicenseApplyPage() {
   // RENDER: Already has application (OAuth user)
   // ════════════════════════════════════════════
   if (existingApp && !submitted) {
+    const isRejected = existingApp.status === "rejected";
+
+    const handleDeleteApplication = async () => {
+      if (!confirm("반려된 신청서를 삭제하시겠습니까? 삭제 후 재신청이 가능합니다.")) return;
+      setSubmitting(true);
+      try {
+        const emailParam = user?.email || schoolEmail || studentIdEmail || "";
+        const res = await fetch(`/api/license/my-application?email=${encodeURIComponent(emailParam)}`, {
+          method: "DELETE",
+        });
+        if (res.ok) {
+          setExistingApp(null);
+          setAuthConfirmed(false);
+          setError("");
+        } else {
+          const data = await res.json();
+          setError(data.error || "삭제에 실패했습니다.");
+        }
+      } catch { setError("네트워크 오류가 발생했습니다."); }
+      finally { setSubmitting(false); }
+    };
+
     return (
       <>
         {heroSection}
@@ -425,36 +505,61 @@ export default function LicenseApplyPage() {
             <div className="row justify-content-center">
               <div className="col-xl-7 col-lg-8 col-md-10 col-sm-12 col-12">
                 <div className="contact-form-wrapper secondary-border01 pt-60 pb-60 pl-60 pr-60 text-center">
-                  <div className="display-4 mb-20">📋</div>
-                  <h3 className="f-700 mb-20">신청 현황</h3>
-                  <span className={`d-inline-block f-700 mb-30 ${existingApp.status === "rejected" ? "" : "theme-bg"} text-white`} style={{
-                    borderRadius: "30px", fontSize: "16px", padding: "8px 30px",
-                    ...(existingApp.status === "rejected" ? { background: "#dc3545" } : {})
-                  }}>
-                    {STATUS_LABELS[existingApp.status] || existingApp.status}
-                  </span>
-                  <div className="text-start mt-20">
-                    <div className="secondary-border01 py-3 px-4 mb-15">
-                      <span className="f-700 me-2">부문:</span>
-                      {CONTEST_CATEGORIES.find((c) => c.id === existingApp.category)?.name || existingApp.category}
-                    </div>
-                    {existingApp.team_name && (
-                      <div className="secondary-border01 py-3 px-4 mb-15">
-                        <span className="f-700 me-2">팀명:</span>{existingApp.team_name}
+                  <div className="display-4 mb-20">{isRejected ? "❌" : "📋"}</div>
+                  <h3 className="f-700 mb-20">{isRejected ? "신청 반려" : "신청 현황"}</h3>
+
+                  {isRejected ? (
+                    <>
+                      <p className="mb-20" style={{ fontSize: "16px", lineHeight: "1.8" }}>
+                        이용신청이 반려되었습니다.<br />
+                        자세한 문의는 운영사무국으로 문의 부탁드리겠습니다.
+                      </p>
+                      <div className="d-flex justify-content-center flex-wrap mt-30" style={{ gap: "16px" }}>
+                        <div className="my-btn">
+                          <button type="button" className="btn text-uppercase f-18 f-700"
+                            style={{ height: "55px", paddingLeft: "30px", paddingRight: "30px", background: "#dc3545", color: "#fff" }}
+                            onClick={handleDeleteApplication} disabled={submitting}>
+                            {submitting ? "삭제 중..." : "삭제 후 재신청"}
+                          </button>
+                        </div>
+                        <div className="my-btn">
+                          <a href="/" className="btn theme-bg text-uppercase f-18 f-700"
+                            style={{ height: "55px", lineHeight: "55px", paddingLeft: "30px", paddingRight: "30px" }}>홈으로 돌아가기</a>
+                        </div>
                       </div>
-                    )}
-                    <p className="text-muted text-center mt-20 mb-0">관리자 승인까지 1~3일 소요됩니다.</p>
-                  </div>
-                  <div className="d-flex justify-content-center flex-wrap mt-30" style={{ gap: "16px" }}>
-                    <div className="my-btn">
-                      <a href="/" className="btn theme-bg text-uppercase f-18 f-700">홈으로 돌아가기</a>
-                    </div>
-                    <div className="my-btn">
-                      <a href="/api/auth/signout?redirect=/license-apply" className="btn theme-bg text-uppercase f-18 f-700">
-                        다른 계정으로 인증
-                      </a>
-                    </div>
-                  </div>
+                      {error && <div className="alert alert-danger mt-20">{error}</div>}
+                    </>
+                  ) : (
+                    <>
+                      <span className="d-inline-block f-700 mb-30 theme-bg text-white" style={{
+                        borderRadius: "30px", fontSize: "16px", padding: "8px 30px"
+                      }}>
+                        {STATUS_LABELS[existingApp.status] || existingApp.status}
+                      </span>
+                      <div className="text-start mt-20">
+                        <div className="secondary-border01 py-3 px-4 mb-15">
+                          <span className="f-700 me-2">부문:</span>
+                          {CONTEST_CATEGORIES.find((c) => c.id === existingApp.category)?.name || existingApp.category}
+                        </div>
+                        {existingApp.team_name && (
+                          <div className="secondary-border01 py-3 px-4 mb-15">
+                            <span className="f-700 me-2">팀명:</span>{existingApp.team_name}
+                          </div>
+                        )}
+                        <p className="text-muted text-center mt-20 mb-0">관리자 승인까지 1~3일 소요됩니다.</p>
+                      </div>
+                      <div className="d-flex justify-content-center flex-wrap mt-30" style={{ gap: "16px" }}>
+                        <div className="my-btn">
+                          <a href="/" className="btn theme-bg text-uppercase f-18 f-700">홈으로 돌아가기</a>
+                        </div>
+                        <div className="my-btn">
+                          <a href="/api/auth/signout?redirect=/license-apply" className="btn theme-bg text-uppercase f-18 f-700">
+                            다른 계정으로 인증
+                          </a>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

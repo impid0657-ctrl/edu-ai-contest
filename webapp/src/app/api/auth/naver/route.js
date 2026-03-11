@@ -8,8 +8,9 @@ export async function GET(request) {
     const clientId = process.env.NAVER_CLIENT_ID;
     const { searchParams } = new URL(request.url);
     const siteUrl = searchParams.get("siteUrl") || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const isPopup = searchParams.get("popup") === "1";
     const redirectUri = `${siteUrl}/api/auth/naver/callback`;
-    const state = crypto.randomUUID();
+    const state = crypto.randomUUID() + (isPopup ? "_popup" : "");
 
     const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&state=${state}&auth_type=reprompt`;
 

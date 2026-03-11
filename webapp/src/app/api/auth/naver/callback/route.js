@@ -57,6 +57,25 @@ export async function GET(request) {
             profile_image: naverUser.profile_image || "",
         };
 
+        // 팝업 모드 감지: state에 popup=1이 포함되어 있으면 postMessage로 처리
+        const isPopup = state && state.includes("popup");
+        if (isPopup) {
+          const html = `<!DOCTYPE html><html><head><title>인증 완료</title></head><body>
+            <script>
+              // 네이버 세션 쿠키 설정 (팝업 내에서)
+              document.cookie = "naver_session=" + encodeURIComponent('${JSON.stringify(naverSession).replace(/'/g, "\\'")}') + "; path=/; max-age=600; SameSite=Lax";
+              if (window.opener) {
+                window.opener.postMessage({ type: 'oauth_complete', provider: 'naver' }, '*');
+                window.close();
+              } else {
+                window.location.href = '/license-apply?naver_auth=success';
+              }
+            </script>
+            <p>인증이 완료되었습니다. 창이 닫히지 않으면 <a href="/license-apply?naver_auth=success">여기를 클릭</a>하세요.</p>
+          </body></html>`;
+          return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8" } });
+        }
+
         const res = NextResponse.redirect(`${siteUrl}/license-apply?naver_auth=success`);
         res.cookies.set("naver_session", JSON.stringify(naverSession), {
             httpOnly: false, // 프론트에서 읽어야 함
