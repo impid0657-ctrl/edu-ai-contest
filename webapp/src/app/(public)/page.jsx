@@ -52,7 +52,7 @@ export default function HomePage() {
                                     <span className="f-700 theme-color d-block pb-1" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="40">교육 분야의 공공데이터와 생성형 AI의 만남!</span>
                                     <h1 className="f-700 pb-22" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="150">제8회 교육 공공데이터<br />AI 활용대회</h1>
                                     <p data-aos="fade-right" data-aos-duration="2000">교육 공공데이터와 AI 기술의 융합으로<br />교육 현장의 실제 문제를 해결하는 창의적인 아이디어를 발굴합니다.<br />당신의 아이디어로 혁신을 꿈꾸세요!</p>
-                                    <div className="video-player-btn d-flex align-items-center z-index11 mt-45" style={{ display: 'none' }}>
+                                    <div className="video-player-btn d-none align-items-center z-index11 mt-45">
                                         <a data-fancybox="" href="https://youtu.be/nqye02H_H6I" className="d-flex align-items-center">
                                             <div className="video-play-wrap position-relative d-inline-block">
                                                 <div className="video-mark">
@@ -151,8 +151,8 @@ export default function HomePage() {
                                     <span style={{ fontSize: '48px', color: '#2161a6' }}><i className="fas fa-user-check"></i></span>
                                 </div>{/* /ser-icon */}
                                 <div className="service-text">
-                                    <h6 className="f-700 mb-22">누구나 참가 가능</h6>
-                                    <p>초등 홍보영상, 중고등 아이디어 기획, 일반 아이디어 기획 등 3개 분야로 누구나 참가 가능</p>
+                                    <h6 className="f-700 mb-22">참가대상 확대</h6>
+                                    <p>중고등 아이디어 기획, 일반 아이디어 기획분야에 더해 초등부 AI활용 소속학교 홍보영상 분야를 신설</p>
                                 </div>
                             </div>{/* /single-service-content */}
                         </div>{/* /col */}
@@ -163,7 +163,7 @@ export default function HomePage() {
 
             {/* ====== feature-area-start=========================================== */}
             <div className="feature-area mt-60 over-hidden">
-                <div className="feature-bg bg-no-repeat" data-aos="fade-up" data-aos-duration="1800" data-background="images/feature/home1-feature-bg.png">
+                <div className="feature-bg bg-no-repeat" data-aos="fade-up" data-aos-duration="1800">
                     <div className="container">
                         <div className="row align-items-center mt-10 flex-column-reverse flex-lg-row">
                             <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 pr-10">
@@ -244,7 +244,7 @@ export default function HomePage() {
 
             {/* ====== sp-feature-area-start================================================= */}
             <div className="sp-feature-area over-hidden mt--50">
-                <div className="sp-feature-bg feature-bg bg-no-repeat pt-220 pb-95" data-aos="fade-up" data-aos-duration="1800" data-background="images/feature/home1-sp-feature-bg.png">
+                <div className="sp-feature-bg feature-bg bg-no-repeat pt-220 pb-95" data-aos="fade-up" data-aos-duration="1800">
                     <div className="container">
                         <div className="row align-items-center mt-10">
                             <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
@@ -285,7 +285,7 @@ export default function HomePage() {
             {/* sp-feature-area-end */}
 
             {/* ====== facts-area-start=========================================== */}
-            <div className="facts-area pb-200">
+            <div className="facts-area pb-200" style={{ display: 'none' }}>
                 <div className="container">
                     <div className="row align-items-center justify-content-center">
                         <div className="col-xl-9  col-lg-10  col-md-11  col-sm-12 col-12">
@@ -386,7 +386,7 @@ export default function HomePage() {
 
             {/* ====== work-area-start ==================================== */}
             <div className="work-area over-hidden">
-                <div className="work-bg bg-no-repeat bg-cover pt-200" data-background="/original-template/images/bg/home1-process-bg.png">
+                <div className="work-bg bg-no-repeat bg-cover pt-200">
                     <div className="container">
                         <div className="row align-items-center justify-content-center">
                             <div className="col-xl-9  col-lg-10  col-md-11  col-sm-12 col-12">

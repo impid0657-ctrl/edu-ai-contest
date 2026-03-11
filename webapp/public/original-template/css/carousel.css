@@ -269,7 +269,7 @@
   color: #b8bac5;
 }
 .gallery-controls-next::before{content: "\f178";}
-.gallery-controls-previous:hover::before,.gallery-controls-next:hover::before{color: #6c63ff;}
+.gallery-controls-previous:hover::before,.gallery-controls-next:hover::before{color: #2161a6;}
 
 
 

@@ -73,7 +73,7 @@ export default function ContestInfoPage() {
                                     <p className="pb-10">교육부·17개 시도교육청 주최, 한국교육학술정보원(KERIS) 주관의 제8회 교육 공공데이터 AI 활용대회는 교육 분야 최대 규모의 AI 공모전입니다.</p>
                                     <p>교육 공공데이터와 AI 기술의 융합을 통해 국민의 참여와 관심을 확대하고, AI 활용 아이디어 기획 및 영상제작을 통한 미래형 인재를 양성합니다.</p>
                                 </div>
-                                <div className="my-btn mt-47" data-aos="fade-up" data-aos-duration="2000">
+                                <div className="my-btn mt-47" data-aos="fade-up" data-aos-duration="2000" style={{ display: 'none' }}>
                                     <a href="/submit" className="btn theme-bg text-capitalize f-18 f-700">참가 신청</a>
                                 </div>{/* /my-btn */}
                             </div>{/* /about-left-content */}
@@ -101,7 +101,7 @@ export default function ContestInfoPage() {
 
 
             {/* ====== facts-area-start=========================================== */}
-            <div className="home3-facts-area about-us-fact-area about-us-fact-bg">
+            <div className="home3-facts-area about-us-fact-area about-us-fact-bg" style={{ display: 'none' }}>
                 <div className="about-us-fact-bg bg-no-repeat pt-150 pb-140" data-aos="fade-up" data-aos-duration="2000" data-background="images/bg/about-us-fact-bg.png">
                     <div className="container">
                         <div className="row align-items-center justify-content-center flex-column-reverse flex-lg-row">

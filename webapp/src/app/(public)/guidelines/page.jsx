@@ -1,5 +1,5 @@
 export default function GuidelinesPage() {
-  return (<>
+    return (<>
 
         <main>
             {/* ======slider-area-start=========================================== */}
@@ -14,7 +14,7 @@ export default function GuidelinesPage() {
                     <img data-depth="0.20" className="shape page-shape-7 d-none d-lg-inline-block s-shape" src="/original-template/images/slider/page-shape/page-shape1.png" alt="#" />
                 </div>
                 {/* /shape-slider */}
-                
+
                 <div className="single-page page-height d-flex align-items-center">
                     <div className="container">
                         <div className="row">
@@ -24,16 +24,16 @@ export default function GuidelinesPage() {
                                     <h1 className="text-capitalize f-700 mt-10 mb-20">공모요강</h1>
                                     <nav aria-label="breadcrumb">
                                         <ol className="breadcrumb justify-content-center bg-transparent">
-                                        <li className="breadcrumb-item"><a className="secondary-color3" href="/">홈</a></li>
-                                        <li className="breadcrumb-item active text-capitalize secondary-color3" aria-current="page">공모요강</li>
+                                            <li className="breadcrumb-item"><a className="secondary-color3" href="/">홈</a></li>
+                                            <li className="breadcrumb-item active text-capitalize secondary-color3" aria-current="page">공모요강</li>
                                         </ol>
                                     </nav>
                                 </div>{/* /page title */}
                             </div>{/* /col */}
                         </div>{/* /row */}
                     </div>{/* /container */}
-                {/* </div> */}
-            </div>
+                    {/* </div> */}
+                </div>
             </div>
             {/* slider-area-end  */}
 
@@ -50,18 +50,18 @@ export default function GuidelinesPage() {
                                 <div className="service-text text-center">
                                     <h5 className="f-700 mb-25" style={{ letterSpacing: "2px" }}>공모 주제</h5>
                                     <p>교육 공공데이터를 활용한 AI 솔루션 개발</p>
-                                    
+
                                     <ul className="service-list d-inline-block mt-1">
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
                                             <span className="d-inline-block pr-15 theme-color">
                                                 <i className="fal fa-long-arrow-right"></i>
-                                            </span>   
+                                            </span>
                                             <span className="black-color">초등부</span>
                                         </li>
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
                                             <span className="d-inline-block pr-15 theme-color">
                                                 <i className="fal fa-long-arrow-right"></i>
-                                            </span>  
+                                            </span>
                                             <span className="black-color">중·고등부</span>
                                         </li>
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
@@ -82,18 +82,18 @@ export default function GuidelinesPage() {
                                 <div className="service-text text-center">
                                     <h5 className="f-700 mb-25" style={{ letterSpacing: "2px" }}>참가 자격</h5>
                                     <p>대한민국 국민 누구나 참가 가능</p>
-                                    
+
                                     <ul className="service-list d-inline-block mt-1">
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
                                             <span className="d-inline-block pr-15 theme-color">
                                                 <i className="fal fa-long-arrow-right"></i>
-                                            </span>   
+                                            </span>
                                             <span className="black-color">개인 또는 팀(최대 5인)</span>
                                         </li>
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
                                             <span className="d-inline-block pr-15 theme-color">
                                                 <i className="fal fa-long-arrow-right"></i>
-                                            </span>  
+                                            </span>
                                             <span className="black-color">학생/교사/일반인</span>
                                         </li>
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
@@ -114,18 +114,18 @@ export default function GuidelinesPage() {
                                 <div className="service-text text-center">
                                     <h5 className="f-700 mb-25" style={{ letterSpacing: "2px" }}>접수 기간</h5>
                                     <p>작품 접수 일정 안내</p>
-                                    
+
                                     <ul className="service-list d-inline-block mt-1">
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
                                             <span className="d-inline-block pr-15 theme-color">
                                                 <i className="fal fa-long-arrow-right"></i>
-                                            </span>   
+                                            </span>
                                             <span className="black-color">접수: 2026.04.01 ~ 05.31</span>
                                         </li>
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
                                             <span className="d-inline-block pr-15 theme-color">
                                                 <i className="fal fa-long-arrow-right"></i>
-                                            </span>  
+                                            </span>
                                             <span className="black-color">심사: 2026.06.01 ~ 06.30</span>
                                         </li>
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
@@ -146,18 +146,18 @@ export default function GuidelinesPage() {
                                 <div className="service-text text-center">
                                     <h5 className="f-700 mb-25" style={{ letterSpacing: "2px" }}>시상 내역</h5>
                                     <p>총 상금 3,000만원</p>
-                                    
+
                                     <ul className="service-list d-inline-block mt-1">
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
                                             <span className="d-inline-block pr-15 theme-color">
                                                 <i className="fal fa-long-arrow-right"></i>
-                                            </span>   
+                                            </span>
                                             <span className="black-color">대상 (교육부장관상)</span>
                                         </li>
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
                                             <span className="d-inline-block pr-15 theme-color">
                                                 <i className="fal fa-long-arrow-right"></i>
-                                            </span>  
+                                            </span>
                                             <span className="black-color">최우수상 / 우수상</span>
                                         </li>
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
@@ -178,18 +178,18 @@ export default function GuidelinesPage() {
                                 <div className="service-text text-center">
                                     <h5 className="f-700 mb-25" style={{ letterSpacing: "2px" }}>제출 서류</h5>
                                     <p>필수 제출 자료 안내</p>
-                                    
+
                                     <ul className="service-list d-inline-block mt-1">
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
                                             <span className="d-inline-block pr-15 theme-color">
                                                 <i className="fal fa-long-arrow-right"></i>
-                                            </span>   
+                                            </span>
                                             <span className="black-color">작품 기획서</span>
                                         </li>
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
                                             <span className="d-inline-block pr-15 theme-color">
                                                 <i className="fal fa-long-arrow-right"></i>
-                                            </span>  
+                                            </span>
                                             <span className="black-color">시연 영상 (3분 이내)</span>
                                         </li>
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
@@ -210,18 +210,18 @@ export default function GuidelinesPage() {
                                 <div className="service-text text-center">
                                     <h5 className="f-700 mb-25" style={{ letterSpacing: "2px" }}>심사 기준</h5>
                                     <p>공정한 심사 기준 적용</p>
-                                    
+
                                     <ul className="service-list d-inline-block mt-1">
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
                                             <span className="d-inline-block pr-15 theme-color">
                                                 <i className="fal fa-long-arrow-right"></i>
-                                            </span>   
+                                            </span>
                                             <span className="black-color">창의성 (30%)</span>
                                         </li>
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
                                             <span className="d-inline-block pr-15 theme-color">
                                                 <i className="fal fa-long-arrow-right"></i>
-                                            </span>  
+                                            </span>
                                             <span className="black-color">기술 완성도 (40%)</span>
                                         </li>
                                         <li className="black-color f-700  d-flex justify-content-start align-items-center">
@@ -290,10 +290,10 @@ export default function GuidelinesPage() {
                                                     <img src="/original-template/images/icon/cup-icon.png" alt="image" />
                                                 </span>
                                             </div>{/* /ser-icon */}
-                                         <div className="service-text">
-                                            <h4 className="f-700 pb-15">활용 데이터</h4>
-                                            <p>한국교육학술정보원에서 제공하는 교육 공공데이터를 필수로 활용해야 하며, 외부 데이터도 보조적으로 활용 가능합니다.</p>
-                                         </div>
+                                            <div className="service-text">
+                                                <h4 className="f-700 pb-15">활용 데이터</h4>
+                                                <p>한국교육학술정보원에서 제공하는 교육 공공데이터를 필수로 활용해야 하며, 외부 데이터도 보조적으로 활용 가능합니다.</p>
+                                            </div>
                                         </div>{/* /single-service */}
                                     </li>
                                     <li>
@@ -303,10 +303,10 @@ export default function GuidelinesPage() {
                                                     <img src="/original-template/images/icon/user-icon.png" alt="image" />
                                                 </span>
                                             </div>{/* /ser-icon */}
-                                         <div className="service-text">
-                                            <h4 className="f-700 pb-15">AI 이용권 지원</h4>
-                                            <p>참가자에게 AI 개발 환경 및 클라우드 이용권을 무료로 제공합니다. 대회 기간 중 신청 가능합니다.</p>
-                                         </div>
+                                            <div className="service-text">
+                                                <h4 className="f-700 pb-15">AI 이용권 지원</h4>
+                                                <p>참가자에게 AI 개발 환경 및 클라우드 이용권을 무료로 제공합니다. 대회 기간 중 신청 가능합니다.</p>
+                                            </div>
                                         </div>{/* /single-service */}
                                     </li>
                                     <li>
@@ -316,10 +316,10 @@ export default function GuidelinesPage() {
                                                     <img src="/original-template/images/icon/headphones-icon.png" alt="image" />
                                                 </span>
                                             </div>{/* /ser-icon */}
-                                         <div className="service-text">
-                                            <h4 className="f-700 pb-15">문의 및 지원</h4>
-                                            <p>대회 관련 문의사항은 게시판 또는 이메일(edu-ai-contest@keris.or.kr)로 문의해 주시기 바랍니다.</p>
-                                         </div>
+                                            <div className="service-text">
+                                                <h4 className="f-700 pb-15">문의 및 지원</h4>
+                                                <p>대회 관련 문의사항은 게시판 또는 이메일(gongmo@stunning.kr)로 문의해 주시기 바랍니다.</p>
+                                            </div>
                                         </div>{/* /single-service */}
                                     </li>
                                 </ul>
@@ -330,7 +330,7 @@ export default function GuidelinesPage() {
             </div>
             {/* feature-area-end */}
 
-            
+
             {/* ====== faq-area-start============================================ */}
             <div className="faq-service-page-area primary-bg pt-155 pb-120 over-hidden">
                 <div className="container">
@@ -400,5 +400,5 @@ export default function GuidelinesPage() {
 
         </main>
 
-  </>);
+    </>);
 }

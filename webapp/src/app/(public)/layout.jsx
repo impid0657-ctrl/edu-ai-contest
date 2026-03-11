@@ -242,7 +242,7 @@ export default function PublicLayout({ children }) {
             </nav>
             <div style={{ marginTop: '40px' }}>
                 <h6 className="f-700 mb-0">문의처</h6>
-                <p className="theme-color f-700 mb-0">edu-ai-contest@keris.or.kr</p>
+                <p className="theme-color f-700 mb-0">gongmo@stunning.kr</p>
             </div>
         </div>{/* /side-mobile-menu */}
         {/* 배경 오버레이 */}
@@ -271,23 +271,9 @@ export default function PublicLayout({ children }) {
             <div className="footer-area primary-bg pt-200">
                 <div className="footer-top pb-55">
                     <div className="container">
-                        <div className="row">
-                            <div className="col-xl-3  col-lg-4  col-md-12  col-sm-12 col-12">
-                                <div className="footer-widget f-subscriber-area pb-30 mt-25">
-                                    <h6 className="text-capitalize f-700 mb-22">소식받기</h6>
-                                    <div className="footer-subscribe">
-                                        <p>대회 관련 최신 소식을 이메일로 받아보세요</p>
-                                        <form action="#">
-                                            <div className="subscribe-info mt-22 position-relative">
-                                                <input className="sub-name form-control border-0 pl-20 pt-15 pb-15 pr-10 white-bg secondary-color rounded-0" type="email" name="email" id="email" placeholder="이메일 주소 입력" />
-                                                <span className="secondary-color d-inline-block position-absolute pointer"><i className="far fa-envelope"></i></span>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>{/* /col */}
-                            <div className="col-xl-2 offset-xl-1  col-lg-2  col-md-3  col-sm-6 col-12">
-                                <div className="footer-widget f-info pb-30 ml-40 pr-20 mt-25">
+                        <div className="row justify-content-center">
+                            <div className="col-xl-4  col-lg-4  col-md-4  col-sm-6 col-12">
+                                <div className="footer-widget f-info pb-30 pr-20 mt-25">
                                     <h6 className="text-capitalize f-700 mb-22">바로가기</h6>
                                     <ul className="footer-info">
                                         <li>
@@ -305,8 +291,8 @@ export default function PublicLayout({ children }) {
                                     </ul>
                                 </div>
                             </div>{/* /col */}
-                            <div className="col-xl-2  col-lg-2  col-md-3  col-sm-6 col-12">
-                                <div className="footer-widget f-info pb-30 ml-40 pr-20 mt-25">
+                            <div className="col-xl-4  col-lg-4  col-md-4  col-sm-6 col-12">
+                                <div className="footer-widget f-info pb-30 pr-20 mt-25">
                                     <h6 className="text-capitalize f-700 mb-22">고객지원</h6>
                                     <ul className="footer-info">
                                         <li>
@@ -324,7 +310,7 @@ export default function PublicLayout({ children }) {
                                     </ul>
                                 </div>
                             </div>{/* /col */}
-                            <div className="col-xl-3  col-lg-4  col-md-6  col-sm-12 col-12 pr-xl-0">
+                            <div className="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
                                 <div className="footer-widget f-adress pb-40 mt-25">
                                     <h6 className="text-capitalize f-700 mb-22">문의처</h6>
                                     <ul className="footer-address">
@@ -336,23 +322,9 @@ export default function PublicLayout({ children }) {
                                         </li>
                                         <li>
                                             <span className="f-icon mr-20 mt-1"><i className="far fa-envelope"></i></span>
-                                            edu-ai-contest@keris.or.kr
+                                            <a href="mailto:gongmo@stunning.kr" className="theme-color f-700">gongmo@stunning.kr</a>
                                         </li>
                                     </ul>
-                                    <ul className="social-link mt-15">
-                                        <li className="d-inline-block">
-                                            <a className="facebook-color text-center pr-15 d-inline-block transition-3" href="#"><i className="fab fa-facebook-f"></i></a>
-                                        </li>
-                                        <li className="d-inline-block">
-                                            <a className="twitter-color text-center pr-15 d-inline-block transition-3" href="#"><i className="fab fa-twitter"></i></a>
-                                        </li>
-                                        <li className="d-inline-block">
-                                            <a className="youtube-color text-center pr-15 d-inline-block transition-3" href="#"><i className="fab fa-youtube"></i></a>
-                                        </li>
-                                        <li className="d-inline-block">
-                                            <a className="instagram-color text-center d-inline-block transition-3" href="#"><i className="fab fa-instagram"></i></a>
-                                        </li>
-                                    </ul>{/* social-link */}
                                 </div>
                             </div>{/* /col */}
                         </div>{/* /row */}
@@ -361,38 +333,13 @@ export default function PublicLayout({ children }) {
                 <div className="footer-bottom">
                     <div className="container">
                         <div className="copyright-area mt-20 pb-50">
-                            <div className="row align-items-center">
-                                <div className="col-xl-6  col-lg-6  col-md-6  col-sm-12 col-12 mb-10">
-                                    <div className="f-logo text-center text-md-left">
-                                        <img src="/original-template/images/logo/logo.png" alt="image" />
-                                    </div>{/* /f-logo */}
-                                </div>{/* /col */}
-                                <div className="col-xl-6  col-lg-6  col-md-6  col-sm-12 col-12 mb-10">
-                                    <div className="phone-contact text-center text-md-right">
-                                        <a className="theme-color f-700" href="mailto:edu-ai-contest@keris.or.kr"><span className="pr-1"><span className="d-inline-block"><i className="far fa-envelope"></i></span></span> edu-ai-contest@keris.or.kr</a>
-                                    </div>
-                                </div>{/* /col */}
-                            </div>{/* /row */}
-                            <div className="row align-items-center justify-content-between">
-                                <div className="col-xl-6  col-lg-5  col-md-12  col-sm-12 col-12">
-                                    <div className="copyright-text text-center text-lg-left mt-20 mb-20">
+                            <div className="row align-items-center justify-content-center">
+                                <div className="col-12">
+                                    <div className="copyright-text text-center mt-20 mb-20">
                                         <p className="mb-0 secondary-color2">© 2026 교육 공공데이터 AI활용 경진대회. All rights reserved.
                                             <a href="https://www.keris.or.kr" className="c-theme f-700 black-color">한국교육학술정보원</a>
                                         </p>
                                     </div>
-                                </div>{/* /col */}
-                                <div className="col-xl-6  col-lg-7  col-md-12  col-sm-12 col-12">
-                                    <ul className="useful-link text-center text-lg-right mt-20">
-                                        <li className="d-inline-block mb-20">
-                                            <a href="#" className="secondary-color d-inline-block">이용약관</a>
-                                        </li>
-                                        <li className="d-inline-block pl-45 mb-20">
-                                            <a href="#" className="secondary-color d-inline-block">개인정보처리방침</a>
-                                        </li>
-                                        <li className="d-inline-block pl-45 mb-20">
-                                            <a href="#" className="secondary-color d-inline-block">저작권 정책</a>
-                                        </li>
-                                    </ul>{/* social */}
                                 </div>{/* /col */}
                             </div>
                         </div>{/* /copyright-area */}

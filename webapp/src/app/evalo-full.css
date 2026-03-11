@@ -1,5 +1,5 @@
-/* evalo-full.css — PostCSS로 .evalo-home 스코프 자동 변환 */
-/* 이 파일은 자동 생성됨. 직접 수정 금지. */
+/* evalo-full.css ??PostCSS�?.evalo-home ?�코???�동 변??*/
+/* ???�일?� ?�동 ?�성?? 직접 ?�정 금�?. */
 
 
 /* ===== default.css ===== */
@@ -1384,7 +1384,7 @@
 .evalo-home h4 a:hover,
 .evalo-home h5 a:hover,
 .evalo-home h6 a:hover {
-     color: #6c63ff
+     color: #2161a6
 }
 
 .evalo-home h3 {
@@ -1631,7 +1631,7 @@
      padding: 11px 57px;
      font-size: 16px;
      font-weight: 600;
-     border: 1px solid #6c63ff;
+     border: 1px solid #2161a6;
      border-radius: 28px;
      box-shadow: 0px 5px 15px 0px rgba(8, 0, 140, 0.19);
      color: #fff;
@@ -1649,7 +1649,7 @@
 }
 
 .evalo-home .my-btn .btn:hover {
-     color: #6c63ff;
+     color: #2161a6;
      background: #ffffff;
 }
 
@@ -1664,7 +1664,7 @@
 }
 
 .evalo-home .my-btn .btn.transparent-bg:hover {
-     background: #6c63ff;
+     background: #2161a6;
      color: #fff;
      box-shadow: 0px 5px 15px 0px rgba(8, 0, 140, 0.19);
 }
@@ -1677,7 +1677,7 @@
 .evalo-home .btn-2 a::after {
      position: absolute;
      content: "";
-     background: #6c63ff;
+     background: #2161a6;
      height: 2px;
      bottom: -2px;
      left: 0;
@@ -1726,7 +1726,7 @@
 .evalo-home .slick-arrow .r-a:hover,
 .evalo-home .slick-arrow .l-a:hover {
      cursor: pointer;
-     color: #6c63ff;
+     color: #2161a6;
      transform: scale(1.25);
      -webkit-transform: scale(1.25);
      -moz-transform: scale(1.25);
@@ -1846,7 +1846,7 @@
 }
 
 .evalo-home .slick-dots li.slick-active button {
-     background: #6c63ff;
+     background: #2161a6;
 }
 
 /* home5 */
@@ -1948,7 +1948,7 @@
 }
 
 .evalo-home .main-menu ul li:hover>a {
-     color: #6c63ff;
+     color: #2161a6;
 }
 
 /* mega menu */
@@ -2533,7 +2533,7 @@
 }
 
 .evalo-home .home3-single-service-border {
-     border-top: 3px solid #6c63ff;
+     border-top: 3px solid #2161a6;
 }
 
 .evalo-home .home3-single-service-content .ser-icon {
@@ -2554,7 +2554,7 @@
      top: 0;
      right: 0;
      height: 0;
-     background: #6c63ff;
+     background: #2161a6;
      -webkit-transition: all 0.5s ease-out 0s;
      -moz-transition: all 0.5s ease-out 0s;
      -ms-transition: all 0.5s ease-out 0s;
@@ -2801,7 +2801,7 @@
 }
 
 .evalo-home .home4 .single-f-counter:hover {
-     background: #6c63ff;
+     background: #2161a6;
 }
 
 .evalo-home .home4 .single-f-counter:hover .f-count span,
@@ -2871,7 +2871,7 @@
 }
 
 .evalo-home .faq-wrapper .btn:hover {
-     color: #6c63ff;
+     color: #2161a6;
 }
 
 .evalo-home .faq-wrapper .card-body {
@@ -2885,7 +2885,7 @@
      left: 0;
      top: 27px;
      font-size: 20px;
-     color: #6c63ff;
+     color: #2161a6;
 }
 
 .evalo-home .faq-wrapper h6 a.btn.collapsed::after {
@@ -2914,7 +2914,7 @@
 .evalo-home .faq-content .nav-pills .nav-link.active,
 .evalo-home .faq-content .nav-pills .show>.nav-link {
      background-color: transparent;
-     border-right: 5px solid #6c63ff;
+     border-right: 5px solid #2161a6;
 }
 
 .evalo-home .faq-page-area .faq-wrapper .card-body {
@@ -3053,14 +3053,14 @@
 .evalo-home .progress-bar span {
      text-align: right;
      margin-top: -46px;
-     color: #6c63ff;
+     color: #2161a6;
      font-size: 16px;
      font-weight: 700;
 }
 
 .evalo-home .progress-bar {
      border-radius: 10px;
-     background-color: #6c63ff;
+     background-color: #2161a6;
      -webkit-border-radius: 10px;
      -moz-border-radius: 10px;
      -ms-border-radius: 10px;
@@ -3075,7 +3075,7 @@
 .evalo-home .blog-portfolio-overly::before {
      position: absolute;
      content: "";
-     background-color: #6c63ff;
+     background-color: #2161a6;
      width: 100%;
      height: 100%;
      z-index: 1;
@@ -3155,7 +3155,7 @@
 
 .evalo-home .portfolio-menu button.active,
 .evalo-home .portfolio-menu button:hover {
-     color: #6c63ff;
+     color: #2161a6;
 }
 
 .evalo-home .single-portfolio img {
@@ -3168,7 +3168,7 @@
 
 .evalo-home .single-portfolio::before {
      content: "";
-     background: #6c63ff;
+     background: #2161a6;
      width: 100%;
      height: 100%;
      top: 0%;
@@ -3291,7 +3291,7 @@
      content: "";
      width: 18px;
      height: 18px;
-     background: #6c63ff;
+     background: #2161a6;
      border-radius: 50%;
      padding: 0;
      line-height: 18px;
@@ -3332,7 +3332,7 @@
 }
 
 .evalo-home .packages:hover .my-btn .btn.transparent-bg {
-     background: #6c63ff;
+     background: #2161a6;
      color: #fff;
      box-shadow: 0px 5px 15px 0px rgba(8, 0, 140, 0.19);
 }
@@ -3414,7 +3414,7 @@
      -moz-border-radius: 30px 0px 0px 30px;
      -ms-border-radius: 30px 0px 0px 30px;
      -o-border-radius: 30px 0px 0px 30px;
-     background: #6c63ff;
+     background: #2161a6;
      color: #ffffff;
 }
 
@@ -3494,7 +3494,7 @@
 
 .evalo-home .home3-single-project::before {
      content: "";
-     background-color: #6c63ff;
+     background-color: #2161a6;
      opacity: 0.859;
      width: 100%;
      height: 100%;
@@ -3667,7 +3667,7 @@
 
 .evalo-home .home3-testimonial-shape1 {
      border-radius: 50%;
-     background: #6c63ff;
+     background: #2161a6;
      width: 23px;
      height: 23px;
      left: 150px;
@@ -3675,7 +3675,7 @@
 }
 
 .evalo-home .home3-testimonial-shape2 {
-     border: 5px solid #6c63ff;
+     border: 5px solid #2161a6;
      border-radius: 50%;
      background: transparent;
      left: 328px;
@@ -3686,7 +3686,7 @@
 
 .evalo-home .home3-testimonial-shape3 {
      border-radius: 50%;
-     background: #6c63ff;
+     background: #2161a6;
      right: 400px;
      top: 28%;
      width: 19px;
@@ -3696,7 +3696,7 @@
 
 .evalo-home .home3-testimonial-shape4 {
      border-radius: 50%;
-     background: #6c63ff;
+     background: #2161a6;
      right: 160px;
      bottom: 40%;
      width: 29px;
@@ -3762,7 +3762,7 @@
 }
 
 .evalo-home .banner-border {
-     border-top: 8px solid #6c63ff;
+     border-top: 8px solid #2161a6;
      box-shadow: 0px 18px 90px 0px rgba(0, 0, 0, 0.03);
 }
 
@@ -3778,7 +3778,7 @@
 
 /* home4 */
 .evalo-home .banner-border4 {
-     border: 4px solid #6c63ff;
+     border: 4px solid #2161a6;
 }
 
 /* 19. team area
@@ -4035,7 +4035,7 @@
      height: 48px;
      line-height: 48px;
      text-align: center;
-     color: #6c63ff;
+     color: #2161a6;
 }
 
 .evalo-home .our-team-info {
@@ -4053,7 +4053,7 @@
 }
 
 .evalo-home .our-team-wrapper:hover .our-team-info {
-     background: #6c63ff;
+     background: #2161a6;
 }
 
 .evalo-home .our-team-bg {
@@ -4173,7 +4173,7 @@
 
 .evalo-home .search-tag li a:hover,
 .evalo-home .search-tag li a:hover span {
-     background: #6c63ff;
+     background: #2161a6;
      color: #fff;
 }
 
@@ -4259,7 +4259,7 @@
 }
 
 .evalo-home .blog-overly-header .btn:hover {
-     border: 1px solid #6c63ff;
+     border: 1px solid #2161a6;
 }
 
 .evalo-home .blog-overly-header.sticky-menu .header {
@@ -4290,8 +4290,8 @@
 
 .evalo-home .pagination-page .page-link:hover,
 .evalo-home .pagination-page .page-item.active .page-link {
-     background-color: #6c63ff;
-     border-color: #6c63ff;
+     background-color: #2161a6;
+     border-color: #2161a6;
      color: #fff;
 }
 
@@ -4432,7 +4432,7 @@
 .evalo-home .footer-top a:hover,
 .evalo-home .footer-bottom a:hover,
 .evalo-home .footer-bottom a.c-theme:hover {
-     color: #6c63ff;
+     color: #2161a6;
 }
 
 .evalo-home .footer-area span.f-icon {
@@ -4475,13 +4475,13 @@
 
 .evalo-home .phone-contact span {
      font-size: 22px;
-     color: #6c63ff;
+     color: #2161a6;
 }
 
 /* home2 */
 .evalo-home .f-count span {
      font-size: 48px;
-     color: #6c63ff;
+     color: #2161a6;
 }
 
 .evalo-home .single-f-counter p {
