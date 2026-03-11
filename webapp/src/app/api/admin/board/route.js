@@ -81,8 +81,66 @@ export async function POST(request) {
     const admin = await getAdminUser();
     if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-    const body = await request.json();
-    const { type, title, content, is_pinned, is_secret, category, attachments } = body;
+    const contentType = request.headers.get("content-type") || "";
+    let type, title, content, is_pinned, is_secret, category, attachments = [];
+
+    if (contentType.includes("multipart/form-data")) {
+      // FormData — 파일 포함
+      const formData = await request.formData();
+      type = formData.get("type");
+      title = formData.get("title");
+      content = formData.get("content");
+      is_pinned = formData.get("is_pinned") === "true";
+      is_secret = formData.get("is_secret") === "true";
+      category = formData.get("category") || "";
+
+      // 기존 attachments (JSON 문자열)
+      const existingAttachments = formData.get("existingAttachments");
+      if (existingAttachments) {
+        try { attachments = JSON.parse(existingAttachments); } catch {}
+      }
+
+      // 새 파일 업로드
+      const files = formData.getAll("files");
+      const adminClient = createAdminClient();
+      for (const file of files) {
+        if (!(file instanceof File) || file.size === 0) continue;
+        const buffer = Buffer.from(await file.arrayBuffer());
+        const timestamp = Date.now();
+        const safeName = file.name.replace(/[^a-zA-Z0-9가-힣._-]/g, "_");
+        const storagePath = `${timestamp}_${safeName}`;
+
+        const { error: uploadError } = await adminClient.storage
+          .from("board-attachments")
+          .upload(storagePath, buffer, {
+            contentType: file.type || "application/octet-stream",
+            upsert: false,
+          });
+
+        if (uploadError) {
+          console.error("File upload error:", uploadError.message);
+          continue;
+        }
+
+        const { data: urlData } = adminClient.storage.from("board-attachments").getPublicUrl(storagePath);
+        attachments.push({
+          name: file.name,
+          path: storagePath,
+          size: file.size,
+          url: urlData?.publicUrl || "",
+        });
+      }
+    } else {
+      // JSON
+      const body = await request.json();
+      type = body.type;
+      title = body.title;
+      content = body.content;
+      is_pinned = body.is_pinned;
+      is_secret = body.is_secret;
+      category = body.category;
+      attachments = body.attachments || [];
+    }
 
     if (!type || !title || !content) {
       return NextResponse.json({ error: "type, title, content are required" }, { status: 400 });
@@ -104,8 +162,7 @@ export async function POST(request) {
       is_secret: !!is_secret,
       ...(category ? { category } : {}),
     };
-    // attachments 컬럼이 있으면 저장 (fallback: 컬럼 없으면 빼고 재시도)
-    if (attachments && Array.isArray(attachments)) {
+    if (attachments.length > 0) {
       insertData.attachments = attachments;
     }
 

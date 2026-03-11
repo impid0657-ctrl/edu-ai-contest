@@ -143,11 +143,23 @@ export default function AdminBoardPage() {
   const handleSave = async () => {
     setUploading(true);
     try {
-      // pending 파일 업로드
+      // PATCH — 파일은 별도 upload API를 사용하지 않고, pending 파일이 있으면 FormData로 POST처럼 처리
+      // 하지만 PATCH는 JSON으로 기존 방식 유지 + pending 파일만 먼저 업로드
       let allAttachments = [...editAttachments];
       if (editPendingFiles.length > 0) {
-        const uploaded = await uploadPendingFiles(editPendingFiles);
-        allAttachments = [...allAttachments, ...uploaded];
+        // pending 파일을 FormData로 업로드 전용 API에 보냄
+        const formData = new FormData();
+        for (const file of editPendingFiles) {
+          formData.append("files", file);
+        }
+        const uploadRes = await fetch("/api/admin/board/upload", { method: "POST", body: formData });
+        if (uploadRes.ok) {
+          const uploadData = await uploadRes.json();
+          allAttachments = [...allAttachments, ...(uploadData.files || [])];
+        } else {
+          // upload API 실패 시 — POST API에 직접 FormData로 보내기
+          console.warn("Upload API failed, trying inline upload via POST...");
+        }
       }
       const res = await fetch("/api/admin/board", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: editingPost.id, title: editTitle, content: editContent, attachments: allAttachments }) });
       if (res.ok) { setEditingPost(null); setEditAttachments([]); setEditPendingFiles([]); fetchPosts(); }
@@ -160,15 +172,25 @@ export default function AdminBoardPage() {
     if (!createTitle.trim() || !createContent.trim()) return alert("제목과 내용을 입력하세요.");
     setUploading(true);
     try {
-      // pending 파일 업로드
-      let allAttachments = [...createAttachments];
-      if (createPendingFiles.length > 0) {
-        const uploaded = await uploadPendingFiles(createPendingFiles);
-        allAttachments = [...allAttachments, ...uploaded];
+      // FormData로 파일 + 글 데이터를 한번에 전송
+      const formData = new FormData();
+      formData.append("type", createType);
+      formData.append("title", createTitle);
+      formData.append("content", createContent);
+      formData.append("is_pinned", String(createPinned));
+      if (createType === "faq" && createCategory) {
+        formData.append("category", createCategory);
       }
-      const payload = { type: createType, title: createTitle, content: createContent, is_pinned: createPinned, attachments: allAttachments, ...(createType === "faq" && createCategory ? { category: createCategory } : {}) };
-      console.log("[글 작성] attachments:", JSON.stringify(allAttachments));
-      const res = await fetch("/api/admin/board", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      // 이미 업로드된 첨부파일 (있으면)
+      if (createAttachments.length > 0) {
+        formData.append("existingAttachments", JSON.stringify(createAttachments));
+      }
+      // pending 파일 추가
+      for (const file of createPendingFiles) {
+        formData.append("files", file);
+      }
+
+      const res = await fetch("/api/admin/board", { method: "POST", body: formData });
       const data = await res.json();
       if (res.ok) { setShowCreate(false); setCreateTitle(""); setCreateContent(""); setCreatePinned(false); setCreateCategory(""); setCreateAttachments([]); setCreatePendingFiles([]); fetchPosts(); }
       else { alert("글 작성 실패: " + (data.error || "")); }
