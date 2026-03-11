@@ -72,8 +72,9 @@ const SUB_PATHS = new Set(
 );
 
 export default function PublicLayout({ children }) {
-    const [loading, setLoading] = useState(true);
     const [menuItems, setMenuItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -187,7 +188,7 @@ export default function PublicLayout({ children }) {
                                     <a href="/submit" className="btn theme-bg text-capitalize" style={{ whiteSpace: 'nowrap' }}>대회접수</a>
                                 </div>
                                 <div className="d-block d-lg-none">
-                                    <a className="mobile-menubar theme-color" href="javascript:void(0);"><i className="far fa-bars"></i></a>
+                                    <a className="mobile-menubar theme-color" href="#" onClick={(e) => { e.preventDefault(); setMobileMenuOpen(!mobileMenuOpen); }}><i className="far fa-bars"></i></a>
                                 </div>
                             </div>
                         </div>{/* /flex row */}
@@ -196,36 +197,60 @@ export default function PublicLayout({ children }) {
             </div>{/* /header-bottom */}
 
         </header>
-        <div className="side-mobile-menu white-bg pt-10 pb-30 pl-35 pr-30 pb-100">
-            <div className="d-fle justify-content-between w-100">
-                <div className="close-icon d-inline-block float-right clear-both mt-15 mb-10">
-                    <a href="javascript:void(0);"><span className="icon-clear theme-color"><i className="fa fa-times"></i></span></a>
-                </div>
+        {/* 모바일 사이드 메뉴 */}
+        <div className="side-mobile-menu white-bg pt-10 pb-30 pl-35 pr-30 pb-100" style={{
+            position: 'fixed', top: 0, right: mobileMenuOpen ? 0 : '-320px',
+            width: '300px', height: '100vh', zIndex: 10000,
+            transition: 'right 0.3s ease', overflowY: 'auto',
+            boxShadow: mobileMenuOpen ? '-4px 0 20px rgba(0,0,0,0.15)' : 'none',
+        }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '15px 0 10px' }}>
+                <a href="#" onClick={(e) => { e.preventDefault(); setMobileMenuOpen(false); }}>
+                    <span className="icon-clear theme-color" style={{ fontSize: '24px' }}><i className="fa fa-times"></i></span>
+                </a>
             </div>
-            <div className="mobile-menu mt-10 w-100"></div>
-            <ul className="social-link pt-50 clear-both">
-                <li className="d-inline-block">
-                    <a className="facebook-color text-center pr-15 d-inline-block transition-3" href="#"><i className="fab fa-facebook-f"></i></a>
-                </li>
-                <li className="d-inline-block">
-                    <a className="twitter-color text-center pr-15 d-inline-block transition-3" href="#"><i className="fab fa-twitter"></i></a>
-                </li>
-                <li className="d-inline-block">
-                    <a className="google-plus-color text-center pr-15 d-inline-block transition-3" href="#"><i className="fab fa-google-plus-g"></i></a>
-                </li>
-                <li className="d-inline-block">
-                    <a className="linked-in-color text-center d-inline-block transition-3" href="#"><i className="fab fa-linkedin-in"></i></a>
-                </li>
-            </ul>{/* social-link */}
-
-            {/* mobile phone area */}
-            <div className="mobile-phone-contact phone-contact mt-150 mb-25">
+            <nav style={{ marginTop: '10px' }}>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                    {mainMenuItems.map((item, idx) => (
+                        <li key={idx} style={{ borderBottom: '1px solid #eee' }}>
+                            <a href={item.path} style={{
+                                display: 'block', padding: '14px 0', fontSize: '16px',
+                                color: '#333', textDecoration: 'none', fontWeight: 500,
+                            }} onClick={() => setMobileMenuOpen(false)}>{item.title}</a>
+                            {SUB_MENU_MAP[item.path] && (
+                                <ul style={{ listStyle: 'none', padding: '0 0 10px 15px', margin: 0 }}>
+                                    {SUB_MENU_MAP[item.path].map((sub, si) => (
+                                        <li key={si}>
+                                            <a href={sub.path} style={{
+                                                display: 'block', padding: '8px 0', fontSize: '14px',
+                                                color: '#666', textDecoration: 'none',
+                                            }} onClick={() => setMobileMenuOpen(false)}>{sub.title}</a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </li>
+                    ))}
+                    <li style={{ borderBottom: '1px solid #eee' }}>
+                        <a href="/submit" style={{
+                            display: 'block', padding: '14px 0', fontSize: '16px',
+                            color: '#2161a6', textDecoration: 'none', fontWeight: 700,
+                        }} onClick={() => setMobileMenuOpen(false)}>대회접수</a>
+                    </li>
+                </ul>
+            </nav>
+            <div style={{ marginTop: '40px' }}>
                 <h6 className="f-700 mb-0">문의처</h6>
                 <p className="theme-color f-700 mb-0">edu-ai-contest@keris.or.kr</p>
-            </div>{/* /mobile phone area */}
-
+            </div>
         </div>{/* /side-mobile-menu */}
-        <div className="body-overlay"></div>
+        {/* 배경 오버레이 */}
+        {mobileMenuOpen && (
+            <div style={{
+                position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+                backgroundColor: 'rgba(0,0,0,0.4)', zIndex: 9999,
+            }} onClick={() => setMobileMenuOpen(false)}></div>
+        )}
         {/* header extra info end  */}
         {children}
         <footer>
