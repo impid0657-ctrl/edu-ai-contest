@@ -107,23 +107,47 @@ export default function AdminBoardPage() {
     }
   };
 
-  // pending 파일을 서버에 업로드하고 결과 반환
+  // pending 파일을 Supabase Storage에 직접 업로드 (클라이언트)
   const uploadPendingFiles = async (pendingFiles) => {
     if (!pendingFiles || pendingFiles.length === 0) return [];
-    const formData = new FormData();
+    // 동적 import — 클라이언트용 Supabase
+    const { createClient } = await import("@supabase/supabase-js");
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
+
+    const uploaded = [];
     for (const file of pendingFiles) {
-      formData.append("files", file);
+      const timestamp = Date.now();
+      const safeName = file.name.replace(/[^a-zA-Z0-9가-힣._-]/g, "_");
+      const storagePath = `${timestamp}_${safeName}`;
+
+      console.log("[Upload] 파일 업로드:", file.name, file.size, "bytes →", storagePath);
+
+      const { data, error } = await supabase.storage
+        .from("board-attachments")
+        .upload(storagePath, file, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+      if (error) {
+        console.error("[Upload] 실패:", error.message);
+        alert("파일 업로드 실패: " + file.name + " — " + error.message);
+        continue;
+      }
+
+      console.log("[Upload] 성공:", data);
+      const { data: urlData } = supabase.storage.from("board-attachments").getPublicUrl(storagePath);
+      uploaded.push({
+        name: file.name,
+        path: storagePath,
+        size: file.size,
+        url: urlData?.publicUrl || "",
+      });
     }
-    const res = await fetch("/api/admin/board/upload", {
-      method: "POST",
-      body: formData,
-    });
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.error || `업로드 실패 (${res.status})`);
-    }
-    const data = await res.json();
-    return data.files || [];
+    return uploaded;
   };
 
   const formatFileSize = (bytes) => {
@@ -174,29 +198,38 @@ export default function AdminBoardPage() {
     if (!createTitle.trim() || !createContent.trim()) return alert("제목과 내용을 입력하세요.");
     setUploading(true);
     try {
-      // FormData로 파일 + 글 데이터를 한번에 전송
-      const formData = new FormData();
-      formData.append("type", createType);
-      formData.append("title", createTitle);
-      formData.append("content", createContent);
-      formData.append("is_pinned", String(createPinned));
-      if (createType === "faq" && createCategory) {
-        formData.append("category", createCategory);
-      }
-      // 이미 업로드된 첨부파일 (있으면)
-      if (createAttachments.length > 0) {
-        formData.append("existingAttachments", JSON.stringify(createAttachments));
-      }
-      // pending 파일 추가
-      for (const file of createPendingFiles) {
-        formData.append("files", file);
+      // 1. pending 파일을 Storage에 직접 업로드
+      let allAttachments = [...createAttachments];
+      if (createPendingFiles.length > 0) {
+        const uploaded = await uploadPendingFiles(createPendingFiles);
+        allAttachments = [...allAttachments, ...uploaded];
       }
 
-      const res = await fetch("/api/admin/board", { method: "POST", body: formData });
+      // 2. 게시글 데이터를 JSON으로 전송
+      const payload = {
+        type: createType,
+        title: createTitle,
+        content: createContent,
+        is_pinned: createPinned,
+        attachments: allAttachments,
+        ...(createType === "faq" && createCategory ? { category: createCategory } : {}),
+      };
+
+      const res = await fetch("/api/admin/board", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
       const data = await res.json();
-      if (res.ok) { setShowCreate(false); setCreateTitle(""); setCreateContent(""); setCreatePinned(false); setCreateCategory(""); setCreateAttachments([]); setCreatePendingFiles([]); fetchPosts(); }
-      else { alert("글 작성 실패: " + (data.error || "")); }
-    } catch (err) { alert("글 작성 실패: " + err.message); }
+      if (res.ok) {
+        setShowCreate(false); setCreateTitle(""); setCreateContent(""); setCreatePinned(false); setCreateCategory(""); setCreateAttachments([]); setCreatePendingFiles([]); fetchPosts();
+      } else {
+        alert("글 작성 실패: " + (data.error || ""));
+      }
+    } catch (err) {
+      console.error("[handleCreate] 에러:", err);
+      alert("글 작성 실패: " + err.message);
+    }
     finally { setUploading(false); }
   };
 

@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 
+// Next.js App Router — body size limit 10MB (파일 업로드용)
+export const maxDuration = 30;
+export const dynamic = "force-dynamic";
+
 /**
  * Admin Board Management API — requires admin auth.
  *
@@ -94,6 +98,8 @@ export async function POST(request) {
       is_secret = formData.get("is_secret") === "true";
       category = formData.get("category") || "";
 
+      console.log("[POST board] FormData mode — type:", type, "title:", title?.substring(0, 20));
+
       // 기존 attachments (JSON 문자열)
       const existingAttachments = formData.get("existingAttachments");
       if (existingAttachments) {
@@ -102,34 +108,55 @@ export async function POST(request) {
 
       // 새 파일 업로드
       const files = formData.getAll("files");
-      const adminClient = createAdminClient();
-      for (const file of files) {
-        if (!(file instanceof File) || file.size === 0) continue;
-        const buffer = Buffer.from(await file.arrayBuffer());
-        const timestamp = Date.now();
-        const safeName = file.name.replace(/[^a-zA-Z0-9가-힣._-]/g, "_");
-        const storagePath = `${timestamp}_${safeName}`;
+      console.log("[POST board] 파일 수:", files.length);
 
-        const { error: uploadError } = await adminClient.storage
-          .from("board-attachments")
-          .upload(storagePath, buffer, {
-            contentType: file.type || "application/octet-stream",
-            upsert: false,
-          });
+      if (files.length > 0) {
+        const adminClient = createAdminClient();
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          // File 객체 확인 (instanceof 대신 속성 체크)
+          if (!file || !file.name || !file.size || file.size === 0) {
+            console.log("[POST board] 파일", i, "건너뜀 — name:", file?.name, "size:", file?.size);
+            continue;
+          }
 
-        if (uploadError) {
-          console.error("File upload error:", uploadError.message);
-          continue;
+          console.log("[POST board] 파일", i, "업로드 시작:", file.name, file.size, "bytes");
+
+          try {
+            const arrayBuffer = await file.arrayBuffer();
+            const buffer = Buffer.from(arrayBuffer);
+            const timestamp = Date.now();
+            const safeName = file.name.replace(/[^a-zA-Z0-9가-힣._-]/g, "_");
+            const storagePath = `${timestamp}_${safeName}`;
+
+            const { data: uploadData, error: uploadError } = await adminClient.storage
+              .from("board-attachments")
+              .upload(storagePath, buffer, {
+                contentType: file.type || "application/octet-stream",
+                upsert: false,
+              });
+
+            if (uploadError) {
+              console.error("[POST board] Storage 업로드 에러:", uploadError.message);
+              continue;
+            }
+
+            console.log("[POST board] 파일", i, "업로드 성공:", storagePath);
+
+            const { data: urlData } = adminClient.storage.from("board-attachments").getPublicUrl(storagePath);
+            attachments.push({
+              name: file.name,
+              path: storagePath,
+              size: file.size,
+              url: urlData?.publicUrl || "",
+            });
+          } catch (fileErr) {
+            console.error("[POST board] 파일", i, "처리 에러:", fileErr.message);
+          }
         }
-
-        const { data: urlData } = adminClient.storage.from("board-attachments").getPublicUrl(storagePath);
-        attachments.push({
-          name: file.name,
-          path: storagePath,
-          size: file.size,
-          url: urlData?.publicUrl || "",
-        });
       }
+
+      console.log("[POST board] 최종 attachments:", attachments.length, "개");
     } else {
       // JSON
       const body = await request.json();
