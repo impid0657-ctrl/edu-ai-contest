@@ -130,7 +130,7 @@ export default function HomePage() {
                                 </div>{/* /ser-icon */}
                                 <div className="service-text">
                                     <h6 className="f-700 mb-22">교육부장관상</h6>
-                                    <p>대상 수상팀에게 교육부장관상과 함께 최대 500만원의 상금(일반부) 또는 상품권이 수여됩니다</p>
+                                    <p>대상 수상팀에게 교육부장관상과 함께 일반부 500만원(현금) 또는 학생부 300만원(상품권)이 수여됩니다</p>
                                 </div>
                             </div>{/* /single-service-content */}
                         </div>{/* /col */}
@@ -141,7 +141,7 @@ export default function HomePage() {
                                 </div>{/* /ser-icon */}
                                 <div className="service-text">
                                     <h6 className="f-700 mb-22">총 154팀 시상</h6>
-                                    <p>총상금 1억 2,640만원 규모로 학생·일반 부문 총 154팀을 선정하여 시상합니다</p>
+                                    <p>총 상금·상품 1억 264만원 규모로 학생·일반 부문 총 154팀을 선정하여 시상합니다</p>
                                 </div>
                             </div>{/* /single-service-content */}
                         </div>{/* /col */}
@@ -311,10 +311,10 @@ export default function HomePage() {
                                 <li className="d-inline-block facts2 theme-bg-fact single-facts-margin-left position-relative">
                                     <div className="single-facts  theme-bg text-center pt-46 pb-50 mb-30">
                                         <div className="d-flex align-items-center justify-content-center">
-                                            <span className="white-color f-700 d-inline-block counter">12,640</span>
+                                            <span className="white-color f-700 d-inline-block counter">10,264</span>
                                             <span className="white-color d-inline-block f-700">만원</span>
                                         </div>
-                                        <p className="white-color text-center f-700 mb-0 mt-1">총 상금</p>
+                                        <p className="white-color text-center f-700 mb-0 mt-1">상금·상품</p>
                                     </div>
                                 </li>
                                 <li className="d-inline-block facts3 single-facts-margin-left  position-relative">
@@ -439,7 +439,7 @@ export default function HomePage() {
 
                                             <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                                 <div className="card-body">
-                                                    <p className="m-0">총 154팀, 총상금 1억 2,640만원 규모입니다. 초등 홍보영상 대상 100만원, 학생 기획 대상 300만원, 일반 기획 대상 500만원이며, 시도교육감상·KERIS원장상 등이 수여됩니다.</p>
+                                                    <p className="m-0">총 154팀, 총 상금·상품 1억 264만원 규모입니다. 일반부 대상 500만원(현금), 최우수 150만원, 우수 50만원, 장려 30만원. 학생부 기획 대상 300만원(상품권), 홍보영상 대상 100만원(상품권) 등이 수여됩니다.</p>
                                                 </div>
                                             </div>
                                         </div>{/* /card */}

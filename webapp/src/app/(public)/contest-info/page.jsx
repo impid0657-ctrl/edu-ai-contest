@@ -110,10 +110,10 @@ export default function ContestInfoPage() {
                                     <div className="col-xl-6  col-lg-6  col-md-6  col-sm-6 col-12">
                                         <div className="home3-single-facts about-us-fact-wrapper white-bg text-center pt-45 pb-60 pl-40 pr-40 mb-30">
                                             <div className="d-flex align-items-center justify-content-center">
-                                                <span className="theme-color f-700 d-inline-block counter contest-counter-num">12,640</span>
+                                                <span className="theme-color f-700 d-inline-block counter contest-counter-num">10,264</span>
                                                 <span className="per theme-color d-inline-block f-700 contest-counter-num">만원</span>
                                             </div>
-                                            <p className="black-color text-center f-700 mb-0">총 상금</p>
+                                            <p className="black-color text-center f-700 mb-0">상금·상품</p>
                                         </div>  {/* /home3-single-facts */}
 
                                         <div className="home3-single-facts about-us-fact-wrapper white-bg text-center pt-45 pb-60 pl-40 pr-40 mb-30">
@@ -202,7 +202,7 @@ export default function ContestInfoPage() {
                                             </div>{/* /ser-icon */}
                                             <div className="service-text">
                                                 <h6 className="f-700 mb-15">교육부장관상</h6>
-                                                <p>대상 수상팀에는 교육부장관상과 함께 최대 500만원의 상금(일반부) 또는 상품권이 수여됩니다</p>
+                                                <p>대상 수상팀에는 교육부장관상과 함께 일반부 최대 500만원(현금) 또는 학생부 300만원(상품권)이 수여됩니다</p>
                                             </div>
                                         </div>{/* /single-service-content */}
                                     </div>{/* /col */}
