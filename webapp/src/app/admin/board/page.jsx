@@ -71,39 +71,56 @@ export default function AdminBoardPage() {
 
   useEffect(() => { fetchPosts(); }, [fetchPosts]);
 
-  // 파일 업로드 함수
-  const handleFileUpload = async (files, target) => {
+  // 파일 state — pending (아직 업로드 안 된 로컬 파일) + uploaded (이미 업로드된 파일 메타)
+  const [createPendingFiles, setCreatePendingFiles] = useState([]);
+  const [editPendingFiles, setEditPendingFiles] = useState([]);
+
+  // 파일 선택 시 pending에 추가 (아직 업로드 X)
+  const handleFileSelect = (files, target) => {
     if (!files || files.length === 0) return;
-    setUploading(true);
-    try {
-      const formData = new FormData();
-      for (const file of files) {
-        formData.append("files", file);
-      }
-      const res = await fetch("/api/admin/board/upload", {
-        method: "POST",
-        body: formData,
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (target === "create") {
-          setCreateAttachments((prev) => [...prev, ...data.files]);
-        } else {
-          setEditAttachments((prev) => [...prev, ...data.files]);
-        }
-      } else {
-        alert("파일 업로드에 실패했습니다.");
-      }
-    } catch { alert("파일 업로드 중 오류가 발생했습니다."); }
-    finally { setUploading(false); }
+    const fileArray = Array.from(files);
+    if (target === "create") {
+      setCreatePendingFiles((prev) => [...prev, ...fileArray]);
+    } else {
+      setEditPendingFiles((prev) => [...prev, ...fileArray]);
+    }
   };
 
+  // pending 파일 제거
+  const removePendingFile = (index, target) => {
+    if (target === "create") {
+      setCreatePendingFiles((prev) => prev.filter((_, i) => i !== index));
+    } else {
+      setEditPendingFiles((prev) => prev.filter((_, i) => i !== index));
+    }
+  };
+
+  // 이미 업로드된 첨부파일 제거
   const removeAttachment = (index, target) => {
     if (target === "create") {
       setCreateAttachments((prev) => prev.filter((_, i) => i !== index));
     } else {
       setEditAttachments((prev) => prev.filter((_, i) => i !== index));
     }
+  };
+
+  // pending 파일을 서버에 업로드하고 결과 반환
+  const uploadPendingFiles = async (pendingFiles) => {
+    if (!pendingFiles || pendingFiles.length === 0) return [];
+    const formData = new FormData();
+    for (const file of pendingFiles) {
+      formData.append("files", file);
+    }
+    const res = await fetch("/api/admin/board/upload", {
+      method: "POST",
+      body: formData,
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || `업로드 실패 (${res.status})`);
+    }
+    const data = await res.json();
+    return data.files || [];
   };
 
   const formatFileSize = (bytes) => {
@@ -118,17 +135,42 @@ export default function AdminBoardPage() {
     if (res.ok) fetchPosts();
   };
 
-  const handleEdit = (post) => { setEditingPost(post); setEditTitle(post.title); setEditContent(post.content || ""); setEditAttachments(post.attachments || []); };
+  const handleEdit = (post) => { setEditingPost(post); setEditTitle(post.title); setEditContent(post.content || ""); setEditAttachments(post.attachments || []); setEditPendingFiles([]); };
 
   const handleSave = async () => {
-    const res = await fetch("/api/admin/board", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: editingPost.id, title: editTitle, content: editContent, attachments: editAttachments }) });
-    if (res.ok) { setEditingPost(null); setEditAttachments([]); fetchPosts(); }
+    setUploading(true);
+    try {
+      // pending 파일 업로드
+      let allAttachments = [...editAttachments];
+      if (editPendingFiles.length > 0) {
+        const uploaded = await uploadPendingFiles(editPendingFiles);
+        allAttachments = [...allAttachments, ...uploaded];
+      }
+      const res = await fetch("/api/admin/board", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: editingPost.id, title: editTitle, content: editContent, attachments: allAttachments }) });
+      if (res.ok) { setEditingPost(null); setEditAttachments([]); setEditPendingFiles([]); fetchPosts(); }
+      else { const d = await res.json(); alert("수정 실패: " + (d.error || "")); }
+    } catch (err) { alert("수정 실패: " + err.message); }
+    finally { setUploading(false); }
   };
 
   const handleCreate = async () => {
     if (!createTitle.trim() || !createContent.trim()) return alert("제목과 내용을 입력하세요.");
-    const res = await fetch("/api/admin/board", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: createType, title: createTitle, content: createContent, is_pinned: createPinned, attachments: createAttachments, ...(createType === "faq" && createCategory ? { category: createCategory } : {}) }) });
-    if (res.ok) { setShowCreate(false); setCreateTitle(""); setCreateContent(""); setCreatePinned(false); setCreateCategory(""); setCreateAttachments([]); fetchPosts(); }
+    setUploading(true);
+    try {
+      // pending 파일 업로드
+      let allAttachments = [...createAttachments];
+      if (createPendingFiles.length > 0) {
+        const uploaded = await uploadPendingFiles(createPendingFiles);
+        allAttachments = [...allAttachments, ...uploaded];
+      }
+      const payload = { type: createType, title: createTitle, content: createContent, is_pinned: createPinned, attachments: allAttachments, ...(createType === "faq" && createCategory ? { category: createCategory } : {}) };
+      console.log("[글 작성] attachments:", JSON.stringify(allAttachments));
+      const res = await fetch("/api/admin/board", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      const data = await res.json();
+      if (res.ok) { setShowCreate(false); setCreateTitle(""); setCreateContent(""); setCreatePinned(false); setCreateCategory(""); setCreateAttachments([]); setCreatePendingFiles([]); fetchPosts(); }
+      else { alert("글 작성 실패: " + (data.error || "")); }
+    } catch (err) { alert("글 작성 실패: " + err.message); }
+    finally { setUploading(false); }
   };
 
   const handleReply = async () => {
@@ -212,17 +254,31 @@ export default function AdminBoardPage() {
                   type="file"
                   multiple
                   className="form-control form-control-sm mb-2"
-                  onChange={(e) => handleFileUpload(e.target.files, "create")}
-                  disabled={uploading}
+                  onChange={(e) => { handleFileSelect(e.target.files, "create"); e.target.value = ""; }}
                 />
-                {uploading && <small className="text-primary">업로드 중...</small>}
+                {/* pending 파일 (아직 업로드 안 됨) */}
+                {createPendingFiles.length > 0 && (
+                  <ul className="list-unstyled mb-0 mt-2">
+                    {createPendingFiles.map((file, i) => (
+                      <li key={`p-${i}`} className="d-flex align-items-center gap-2 mb-1">
+                        <Icon icon="solar:file-text-outline" className="text-warning" />
+                        <span className="small">{file.name}</span>
+                        <span className="text-muted small">({formatFileSize(file.size)})</span>
+                        <span className="badge bg-warning-focus text-warning-600" style={{ fontSize: "10px" }}>대기중</span>
+                        <button type="button" className="btn btn-sm btn-outline-danger py-0 px-1" onClick={() => removePendingFile(i, "create")}>&times;</button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {/* 이미 업로드된 파일 */}
                 {createAttachments.length > 0 && (
                   <ul className="list-unstyled mb-0 mt-2">
                     {createAttachments.map((file, i) => (
-                      <li key={i} className="d-flex align-items-center gap-2 mb-1">
-                        <Icon icon="solar:file-text-outline" className="text-primary" />
+                      <li key={`u-${i}`} className="d-flex align-items-center gap-2 mb-1">
+                        <Icon icon="solar:file-text-outline" className="text-success" />
                         <span className="small">{file.name}</span>
                         <span className="text-muted small">({formatFileSize(file.size)})</span>
+                        <span className="badge bg-success-focus text-success-600" style={{ fontSize: "10px" }}>업로드됨</span>
                         <button type="button" className="btn btn-sm btn-outline-danger py-0 px-1" onClick={() => removeAttachment(i, "create")}>&times;</button>
                       </li>
                     ))}
@@ -230,7 +286,9 @@ export default function AdminBoardPage() {
                 )}
               </div>
             </div>
-            <button className="btn btn-success-600" onClick={handleCreate} disabled={uploading}>등록</button>
+            <button className="btn btn-success-600" onClick={handleCreate} disabled={uploading}>
+              {uploading ? "업로드 중..." : "등록"}
+            </button>
           </div>
         </div>
       )}
@@ -256,17 +314,31 @@ export default function AdminBoardPage() {
                   type="file"
                   multiple
                   className="form-control form-control-sm mb-2"
-                  onChange={(e) => handleFileUpload(e.target.files, "edit")}
-                  disabled={uploading}
+                  onChange={(e) => { handleFileSelect(e.target.files, "edit"); e.target.value = ""; }}
                 />
-                {uploading && <small className="text-primary">업로드 중...</small>}
+                {/* pending 파일 */}
+                {editPendingFiles.length > 0 && (
+                  <ul className="list-unstyled mb-0 mt-2">
+                    {editPendingFiles.map((file, i) => (
+                      <li key={`p-${i}`} className="d-flex align-items-center gap-2 mb-1">
+                        <Icon icon="solar:file-text-outline" className="text-warning" />
+                        <span className="small">{file.name}</span>
+                        <span className="text-muted small">({formatFileSize(file.size)})</span>
+                        <span className="badge bg-warning-focus text-warning-600" style={{ fontSize: "10px" }}>대기중</span>
+                        <button type="button" className="btn btn-sm btn-outline-danger py-0 px-1" onClick={() => removePendingFile(i, "edit")}>&times;</button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {/* 이미 업로드된 파일 */}
                 {editAttachments.length > 0 && (
                   <ul className="list-unstyled mb-0 mt-2">
                     {editAttachments.map((file, i) => (
-                      <li key={i} className="d-flex align-items-center gap-2 mb-1">
-                        <Icon icon="solar:file-text-outline" className="text-primary" />
+                      <li key={`u-${i}`} className="d-flex align-items-center gap-2 mb-1">
+                        <Icon icon="solar:file-text-outline" className="text-success" />
                         <a href={file.url} target="_blank" rel="noopener noreferrer" className="small">{file.name}</a>
                         <span className="text-muted small">({formatFileSize(file.size)})</span>
+                        <span className="badge bg-success-focus text-success-600" style={{ fontSize: "10px" }}>업로드됨</span>
                         <button type="button" className="btn btn-sm btn-outline-danger py-0 px-1" onClick={() => removeAttachment(i, "edit")}>&times;</button>
                       </li>
                     ))}
@@ -275,7 +347,9 @@ export default function AdminBoardPage() {
               </div>
             </div>
             <div className="d-flex gap-2">
-              <button className="btn btn-primary" onClick={handleSave} disabled={uploading}>저장</button>
+              <button className="btn btn-primary" onClick={handleSave} disabled={uploading}>
+                {uploading ? "업로드 중..." : "저장"}
+              </button>
               <button className="btn btn-secondary" onClick={() => setEditingPost(null)}>취소</button>
             </div>
           </div>
