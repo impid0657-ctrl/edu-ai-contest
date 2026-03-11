@@ -49,9 +49,9 @@ export default function HomePage() {
                         <div className="row align-items-center">
                             <div className="col-xl-6  col-lg-6  col-md-6  col-sm-12 col-12  d-flex align-items-center">
                                 <div className="slider-content mt--30 position-relative">
-                                    <span className="f-700 theme-color d-block pb-1" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="40">AI와 교육 데이터의 만남</span>
-                                    <h1 className="f-700 pb-22" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="150">제8회 교육 공공데이터<br />AI활용 경진대회</h1>
-                                    <p data-aos="fade-right" data-aos-duration="2000">교육 공공데이터를 활용한 AI 솔루션을 개발하고,<br />교육 현장의 문제를 함께 해결합니다.<br />당신의 창의적인 아이디어와 함께하세요!</p>
+                                    <span className="f-700 theme-color d-block pb-1" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="40">교육 분야의 공공데이터와 생성형 AI의 만남!</span>
+                                    <h1 className="f-700 pb-22" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="150">제8회 교육 공공데이터<br />AI 활용대회</h1>
+                                    <p data-aos="fade-right" data-aos-duration="2000">공공데이터를 활용해 창의적인 교육 서비스 아이디어를 발굴하고,<br />AI 기술과의 융합을 통해 교육 현장의 문제를 해결합니다.<br />당신의 아이디어로 혁신을 꿈꾸세요!</p>
                                     <div className="video-player-btn d-flex align-items-center z-index11 mt-45" >
                                         <a data-fancybox="" href="https://youtu.be/nqye02H_H6I" className="d-flex align-items-center">
                                             <div className="video-play-wrap position-relative d-inline-block">
@@ -103,11 +103,11 @@ export default function HomePage() {
                             <div className="about-content mb-50 mt-10" data-aos="fade-left" data-aos-duration="2000">
                                 <div className="title">
                                     <span className="theme-color f-700">대회 소개</span>
-                                    <h3 className="f-700">AI를 활용한<br />교육 공공데이터 경진대회</h3>
+                                    <h3 className="f-700">AI를 활용한<br />교육 공공데이터 활용대회</h3>
                                 </div>
                                 <div className="about-text mt-55 ">
-                                    <h6 className="f-400 mb-30">교육부와 한국교육학술정보원이 주최하는 이번 공모전은 교육 AI 분야 최대 규모의 공모전입니다.</h6>
-                                    <p>교육 공공데이터를 활용하여 교육 현장의 다양한 문제를 해결하는 AI 솔루션을 개발하고, 우수 작품을 시상하여 교육 혁신을 촉진합니다.</p>
+                                    <h6 className="f-400 mb-30">교육부와 한국지능정보사회진흥원 등이 주관하는 이번 대회는 교육 AI 분야 최대 규모의 공모전입니다.</h6>
+                                    <p>공공데이터를 활용해 창의적인 교육 서비스 아이디어를 발굴하고, AI 기술과의 융합을 통해 교육 현장의 문제를 해결하고자 개최되었습니다.</p>
                                     <div className="my-btn mt-47">
                                         <a href="about-us.html" className="btn theme-bg text-capitalize f-18 f-700">참가 신청</a>
                                     </div>{/* /my-btn */}
@@ -129,8 +129,8 @@ export default function HomePage() {
                                     <img src="/original-template/images/icon/writing-2.png" alt="image" />
                                 </div>{/* /ser-icon */}
                                 <div className="service-text">
-                                    <h6 className="f-700 mb-22">교육부 장관상</h6>
-                                    <p>대상 수상자에게 교육부 장관상과 함께 최대 500만원의 상금이 수여됩니다</p>
+                                    <h6 className="f-700 mb-22">부총리 겸 교육부장관상</h6>
+                                    <p>대상 수상팀에게 부총리 겸 교육부장관상과 함께 최대 500만원의 상금이 수여됩니다</p>
                                 </div>
                             </div>{/* /single-service-content */}
                         </div>{/* /col */}
@@ -140,8 +140,8 @@ export default function HomePage() {
                                     <img src="/original-template/images/icon/diagram.png" alt="image" />
                                 </div>{/* /ser-icon */}
                                 <div className="service-text">
-                                    <h6 className="f-700 mb-22">총 상금 3,000만원</h6>
-                                    <p>대상, 최우수상, 우수상 등 다양한 시상과 함께 풍성한 상금이 준비되어 있습니다</p>
+                                    <h6 className="f-700 mb-22">총 24팀 시상</h6>
+                                    <p>학생 부문과 일반 부문으로 나누어 총 24팀 내외를 선정하여 시상합니다</p>
                                 </div>
                             </div>{/* /single-service-content */}
                         </div>{/* /col */}
@@ -151,8 +151,8 @@ export default function HomePage() {
                                     <img src="/original-template/images/icon/gear-1.png" alt="image" />
                                 </div>{/* /ser-icon */}
                                 <div className="service-text">
-                                    <h6 className="f-700 mb-22">참가 자격 무제한</h6>
-                                    <p>일반부, 학생부, 교원부 등 누구나 참가할 수 있으며 팀 구성도 자유롭습니다</p>
+                                    <h6 className="f-700 mb-22">누구나 참가 가능</h6>
+                                    <p>학생 부문(초·중·고·대학생)과 일반 부문(일반인, 대학원생, 교원, 학부모 등) 누구나 참가 가능합니다</p>
                                 </div>
                             </div>{/* /single-service-content */}
                         </div>{/* /col */}
@@ -252,20 +252,20 @@ export default function HomePage() {
                                     <div className="title">
                                         <span className="theme-color f-700">참가 안내</span>
                                         <h3 className="f-700 pb-30">공모전 참가 방법을 확인하세요</h3>
-                                        <p>교육 공공데이터 포털에서 데이터를 다운로드하고 AI 솔루션을 개발하여 제출합니다.</p>
+                                        <p>홈페이지를 통한 온라인 접수로 간편하게 참가 신청이 가능합니다.</p>
                                     </div>{/* /title */}
                                     <ul className="sp-feature-text mt-30">
                                         <li className="d-flex">
                                             <span className="sp-feature-icon theme-color d-inline-block mr-20"><i className="fal fa-check"></i></span>
-                                            <p>교육 공공데이터 포털(data.moe.go.kr)에서 원하는 데이터를 자유롭게 활용 가능</p>
+                                            <p>학생 부문: 아이디어 기획, 데이터 분석 / 일반 부문: 서비스 개발</p>
                                         </li>
                                         <li className="d-flex">
                                             <span className="sp-feature-icon theme-color d-inline-block mr-20"><i className="fal fa-check"></i></span>
-                                            <p>개인 또는 팀(최대 5인)으로 참가 가능하며 부문별 접수</p>
+                                            <p>학생 부문은 개인 또는 3인 이내 팀, 일반 부문은 인원 제한 없음</p>
                                         </li>
                                         <li className="d-flex">
                                             <span className="sp-feature-icon theme-color d-inline-block mr-20"><i className="fal fa-check"></i></span>
-                                            <p>온라인으로 간편하게 접수하고 결과를 조회할 수 있습니다</p>
+                                            <p>서류 접수: 3. 16.(월) ~ 4. 15.(수), 온라인 접수</p>
                                         </li>
                                     </ul>
                                     <div className="my-btn pt-32">
@@ -401,13 +401,13 @@ export default function HomePage() {
                                             <div className="card-header card-header-top rounded-0 bg-transparent p-0" id="headingOne">
                                                 <h6 className="mb-0">
                                                     <a href="#" className="btn btn-link black-color f-700 border-0 d-block text-left rounded-0 position-relative" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                        팀으로 참가할 수 있나요?
+                                                        참가 자격은 어떻게 되나요?
                                                     </a>
                                                 </h6>
                                             </div>{/* /card-header */}
                                             <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                                 <div className="card-body">
-                                                    <p className="m-0">교육부와 한국교육학술정보원이 주최하는 제8회 교육 공공데이터 AI활용 경진대회입니다</p>
+                                                    <p className="m-0">학생 부문은 초·중·고교생 및 대학생(개인 또는 3인 이내 팀)이 참가 가능하며, 일반 부문은 일반인, 대학원생, 교원, 학부모, 예비 창업자 등 제한 없이 참가할 수 있습니다.</p>
                                                 </div>
                                             </div>{/* /collapseOne */}
                                         </div>{/* /card1 */}
@@ -416,14 +416,14 @@ export default function HomePage() {
                                             <div className="card-header bg-transparent p-0" id="headingTwo">
                                                 <h6 className="mb-0">
                                                     <a href="#" className="btn btn-link black-color f-700 border-0 d-block text-left rounded-0 position-relative collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                        어떤 데이터를 사용할 수 있나요?
+                                                        공모 분야는 무엇인가요?
                                                     </a>
                                                 </h6>
                                             </div>{/* /card-header */}
 
                                             <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                                 <div className="card-body">
-                                                    <p className="m-0">교육부와 한국교육학술정보원이 주최하는 제8회 교육 공공데이터 AI활용 경진대회입니다 </p>
+                                                    <p className="m-0">학생 부문은 아이디어 기획과 데이터 분석, 일반 부문은 교육 공공데이터 및 AI 기술을 활용한 웹/앱 서비스 개발(프로토타입 포함)입니다.</p>
                                                 </div>
                                             </div>
                                         </div>{/* /card2 */}
@@ -432,14 +432,14 @@ export default function HomePage() {
                                             <div className="card-header bg-transparent p-0" id="headingThree">
                                                 <h6 className="mb-0">
                                                     <a href="#" className="btn btn-link black-color f-700 border-0 d-block text-left rounded-0 position-relative collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                        접수 후 수정이 가능한가요?
+                                                        시상 규모는 어떻게 되나요?
                                                     </a>
                                                 </h6>
                                             </div>
 
                                             <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                                 <div className="card-body">
-                                                    <p className="m-0">교육부와 한국교육학술정보원이 주최하는 제8회 교육 공공데이터 AI활용 경진대회입니다 </p>
+                                                    <p className="m-0">총 24팀 내외를 선정합니다. 학생 부문 대상 300만원, 일반 부문 대상 500만원이며, 최우수상·우수상 등 상장과 상금이 수여됩니다.</p>
                                                 </div>
                                             </div>
                                         </div>{/* /card */}
@@ -637,7 +637,7 @@ export default function HomePage() {
                             <div className="col-xl-9 col-lg-9  col-md-12 col-sm-12 col-12">
                                 <div className="banner-content">
                                     <h4 className="f-700 mb-18">지금 바로 참가 신청하세요!</h4>
-                                    <p className="mb-0">접수 마감: 2026년 5월 31일까지 온라인으로 접수 가능합니다</p>
+                                    <p className="mb-0">서류 접수 기간: 2026년 3월 16일(월) ~ 4월 15일(수), 온라인 접수</p>
                                 </div>{/* /work-banner-content */}
                             </div>{/* /col */}
                             <div className="col-xl-3 col-lg-3  col-md-12 col-sm-12 col-12">
