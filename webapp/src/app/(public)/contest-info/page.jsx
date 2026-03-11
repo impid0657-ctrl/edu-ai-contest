@@ -110,10 +110,10 @@ export default function ContestInfoPage() {
                                     <div className="col-xl-6  col-lg-6  col-md-6  col-sm-6 col-12">
                                         <div className="home3-single-facts about-us-fact-wrapper white-bg text-center pt-45 pb-60 pl-40 pr-40 mb-30">
                                             <div className="d-flex align-items-center justify-content-center">
-                                                <span className="theme-color f-700 d-inline-block counter contest-counter-num">10,264</span>
+                                                <span className="theme-color f-700 d-inline-block counter contest-counter-num">5,050</span>
                                                 <span className="per theme-color d-inline-block f-700 contest-counter-num">만원</span>
                                             </div>
-                                            <p className="black-color text-center f-700 mb-0">상금·상품</p>
+                                            <p className="black-color text-center f-700 mb-0">총 상금</p>
                                         </div>  {/* /home3-single-facts */}
 
                                         <div className="home3-single-facts about-us-fact-wrapper white-bg text-center pt-45 pb-60 pl-40 pr-40 mb-30">
