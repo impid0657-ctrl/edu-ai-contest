@@ -253,18 +253,31 @@ export default function PublicLayout({ children }) {
             }} onClick={() => setMobileMenuOpen(false)}></div>
         )}
         {/* header extra info end  */}
-        {accessBlocked ? (
-            <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '120px' }}>
-                <div style={{ textAlign: 'center', maxWidth: '700px', padding: '40px' }}>
-                    <p className="f-700 mb-30" style={{ fontSize: '48px', lineHeight: '1.4', color: '#222' }}>
+        {/* 비공개 메뉴 경고 모달 */}
+        {accessBlocked && (
+            <div style={{
+                position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+                backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 99998,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+                <div style={{
+                    background: '#fff', borderRadius: '16px', padding: '48px 40px',
+                    maxWidth: '480px', width: '90%', textAlign: 'center',
+                    boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+                }}>
+                    <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔒</div>
+                    <h4 className="f-700" style={{ color: '#222', marginBottom: '16px' }}>접근 제한</h4>
+                    <p style={{ fontSize: '16px', color: '#555', lineHeight: '1.7', marginBottom: '28px' }}>
                         {accessBlocked.warning}
                     </p>
-                    <a href="/" className="btn theme-bg text-white f-16 f-700" style={{ padding: '12px 30px', borderRadius: '8px' }}>
+                    <a href="/" className="btn theme-bg text-white f-16 f-700"
+                       style={{ padding: '12px 36px', borderRadius: '8px', textDecoration: 'none' }}>
                         홈으로 돌아가기
                     </a>
                 </div>
             </div>
-        ) : children}
+        )}
+        {children}
         <footer>
             <div className="footer-area primary-bg pt-200">
                 <div className="footer-top pb-55">
