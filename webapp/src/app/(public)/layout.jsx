@@ -140,6 +140,32 @@ export default function PublicLayout({ children }) {
         }
     };
 
+    // 경로 기반 비공개 체크 (하드코딩된 버튼용)
+    const handlePathClick = async (e, path) => {
+        // 먼저 메뉴 데이터에서 확인
+        const item = activeMenu.find(m => m.path === path);
+        if (item && item.is_public === false) {
+            e.preventDefault();
+            setAccessBlocked({ warning: item.access_warning || "이 페이지는 현재 비공개 상태입니다." });
+            setMobileMenuOpen(false);
+            return;
+        }
+        // 메뉴에 없는 경로면 API로 확인
+        if (!item) {
+            e.preventDefault();
+            try {
+                const res = await fetch(`/api/pages?path=${encodeURIComponent(path)}`);
+                const data = await res.ok ? await res.json() : null;
+                if (data?.access === "private") {
+                    setAccessBlocked({ warning: data.warning || "이 페이지는 현재 비공개 상태입니다." });
+                    setMobileMenuOpen(false);
+                    return;
+                }
+            } catch { /* 오류 시 그냥 이동 */ }
+            window.location.href = path;
+        }
+    };
+
     // 메인 메뉴에서 서브메뉴 경로 제외 (단, 서브메뉴 부모는 포함)
     const mainMenuItems = activeMenu.filter(item => {
         // /faq는 contact 서브메뉴이므로 메인에서 제외
@@ -195,7 +221,7 @@ export default function PublicLayout({ children }) {
                             {/* 대회접수 버튼 — 오른쪽 고정 */}
                             <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '16px' }}>
                                 <div className="my-btn d-none d-sm-block">
-                                    <a href="/submit" className="btn theme-bg text-capitalize" style={{ whiteSpace: 'nowrap' }}>대회접수</a>
+                                    <a href="/submit" className="btn theme-bg text-capitalize" style={{ whiteSpace: 'nowrap' }} onClick={(e) => handlePathClick(e, '/submit')}>대회접수</a>
                                 </div>
                                 <div className="d-block d-lg-none">
                                     <a className="mobile-menubar theme-color" href="#" onClick={(e) => { e.preventDefault(); setMobileMenuOpen(!mobileMenuOpen); }}><i className="far fa-bars"></i></a>
@@ -245,7 +271,7 @@ export default function PublicLayout({ children }) {
                         <a href="/submit" style={{
                             display: 'block', padding: '14px 0', fontSize: '16px',
                             color: '#2161a6', textDecoration: 'none', fontWeight: 700,
-                        }} onClick={() => setMobileMenuOpen(false)}>대회접수</a>
+                        }} onClick={(e) => handlePathClick(e, '/submit')}>대회접수</a>
                     </li>
                 </ul>
             </nav>
