@@ -78,6 +78,8 @@ const COLUMN_DEFS = [
   { key: "topic", label: "주제", default: false },
   { key: "region", label: "지역", default: false },
   { key: "teacher_name", label: "지도교사", default: false },
+  { key: "teacher_email", label: "지도교사 이메일", default: false },
+  { key: "teacher_phone", label: "지도교사 연락처", default: false },
   { key: "privacy_agreed", label: "개인정보 동의", default: false },
   { key: "third_party_agreed", label: "제3자 동의", default: false },
 ];
@@ -165,6 +167,10 @@ function renderCell(app, colKey) {
       return app.region || "-";
     case "teacher_name":
       return app.teacher_name || "-";
+    case "teacher_email":
+      return app.teacher_email || "-";
+    case "teacher_phone":
+      return app.teacher_phone || "-";
     case "privacy_agreed":
       return app.privacy_agreed_at ? (
         <span className="badge bg-success-focus text-success-600">동의</span>
@@ -858,6 +864,8 @@ export default function AdminLicensePage() {
                         <div className="col-md-6"><strong>연락처:</strong> {detail.phone || detail.user_info?.phone || "-"}</div>
                         <div className="col-md-6"><strong>학교:</strong> {detail.school_name || "-"}</div>
                         {detail.teacher_name && <div className="col-md-6"><strong>지도교사:</strong> {detail.teacher_name}</div>}
+                        {detail.teacher_email && <div className="col-md-6"><strong>지도교사 이메일:</strong> {detail.teacher_email}</div>}
+                        {detail.teacher_phone && <div className="col-md-6"><strong>지도교사 연락처:</strong> {detail.teacher_phone}</div>}
                         <div className="col-md-6"><strong>부문:</strong> {CATEGORY_LABELS[detail.category] || detail.category}</div>
                         <div className="col-md-6">
                           <strong>인증방법:</strong>{" "}

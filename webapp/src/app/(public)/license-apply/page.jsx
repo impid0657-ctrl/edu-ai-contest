@@ -97,6 +97,8 @@ export default function LicenseApplyPage() {
     school_name: "",
     grade: "",
     teacher_name: "",
+    teacher_email: "",
+    teacher_phone: "",
     member_count: 1,
     phone: "",
     motivation: "",
@@ -375,6 +377,8 @@ export default function LicenseApplyPage() {
         topic: formData.topic,
         region: formData.region,
         teacher_name: formData.category === "elementary" ? (formData.teacher_name || null) : null,
+        teacher_email: formData.category === "elementary" ? (formData.teacher_email || null) : null,
+        teacher_phone: formData.category === "elementary" ? (formData.teacher_phone || null) : null,
         privacy_agreed: privacyAgreed,
         third_party_agreed: thirdPartyAgreed,
       };
@@ -877,13 +881,29 @@ export default function LicenseApplyPage() {
 
                       {/* 지도교사 — elementary만 */}
                       {formData.category === "elementary" && (
-                        <div className="col-xl-12 col-lg-12 mb-25">
-                          <label className="f-700 mb-10 d-block">지도교사 <span className="theme-color">*</span></label>
-                          <input type="text" name="teacher_name" className="form-control secondary-border01"
-                            placeholder="지도교사를 입력해주세요"
-                            value={formData.teacher_name} onChange={handleChange} required
-                            style={inputStyle} />
-                        </div>
+                        <>
+                          <div className="col-xl-12 col-lg-12 mb-25">
+                            <label className="f-700 mb-10 d-block">지도교사 <span className="theme-color">*</span></label>
+                            <input type="text" name="teacher_name" className="form-control secondary-border01"
+                              placeholder="지도교사를 입력해주세요"
+                              value={formData.teacher_name} onChange={handleChange} required
+                              style={inputStyle} />
+                          </div>
+                          <div className="col-xl-6 col-lg-6 mb-25">
+                            <label className="f-700 mb-10 d-block">지도교사 이메일 <span className="theme-color">*</span></label>
+                            <input type="email" name="teacher_email" className="form-control secondary-border01"
+                              placeholder="지도교사 이메일을 입력해주세요"
+                              value={formData.teacher_email} onChange={handleChange} required
+                              style={inputStyle} />
+                          </div>
+                          <div className="col-xl-6 col-lg-6 mb-25">
+                            <label className="f-700 mb-10 d-block">지도교사 연락처 <span className="theme-color">*</span></label>
+                            <input type="tel" name="teacher_phone" className="form-control secondary-border01"
+                              placeholder="지도교사 연락처를 입력해주세요"
+                              value={formData.teacher_phone} onChange={handleChange} required
+                              style={inputStyle} />
+                          </div>
+                        </>
                       )}
 
                       {/* 주제 */}

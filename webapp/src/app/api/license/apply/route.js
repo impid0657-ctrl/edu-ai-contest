@@ -41,7 +41,8 @@ export async function POST(request) {
     const {
       category, team_name, school_name, grade, member_count, phone, motivation,
       auth_method, birth_year, representative_name, member1_name, member2_name,
-      topic, region, privacy_agreed, third_party_agreed, applicant_name, teacher_name,
+      topic, region, privacy_agreed, third_party_agreed, applicant_name,
+      teacher_name, teacher_email, teacher_phone,
     } = body;
 
     // ── Validation ──
@@ -102,6 +103,8 @@ export async function POST(request) {
       topic: topic ? topic.trim() : null,
       region: region || null,
       teacher_name: category === "elementary" ? (teacher_name ? teacher_name.trim() : null) : null,
+      teacher_email: category === "elementary" ? (teacher_email ? teacher_email.trim() : null) : null,
+      teacher_phone: category === "elementary" ? (teacher_phone ? teacher_phone.trim() : null) : null,
       privacy_agreed_at: now,
       third_party_agreed_at: now,
     };
