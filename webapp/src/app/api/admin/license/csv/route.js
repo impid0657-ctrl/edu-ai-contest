@@ -4,10 +4,12 @@ import { createAdminClient } from "@/lib/supabase/admin";
 
 /**
  * GET /api/admin/license/csv
- * Export approved license applications as CSV.
- * Filter: status = 'approved' ONLY.
+ * Export license applications as CSV.
+ * Query params:
+ *   ids — comma-separated list of IDs (optional, exports selected)
+ *   status — filter by status (optional, default: all)
  */
-export async function GET() {
+export async function GET(request) {
   try {
     const supabase = await createClient();
 
@@ -32,43 +34,107 @@ export async function GET() {
     }
 
     const ac = createAdminClient();
-    // Fetch approved applications with user info
-    const { data: applications, error: queryError } = await ac
+    const { searchParams } = new URL(request.url);
+    const ids = searchParams.get("ids");
+    const status = searchParams.get("status");
+
+    // Build query — select * (no JOIN to avoid errors with null user_id)
+    let query = ac
       .from("license_applications")
-      .select("*, users(name, email)")
-      .eq("status", "approved")
-      .order("reviewed_at", { ascending: false });
+      .select("*")
+      .is("deleted_at", null);
+
+    // Filter by IDs if provided
+    if (ids) {
+      const idList = ids.split(",").filter(Boolean);
+      if (idList.length > 0) {
+        query = query.in("id", idList);
+      }
+    }
+
+    // Filter by status if provided
+    if (status) {
+      query = query.eq("status", status);
+    }
+
+    query = query.order("created_at", { ascending: false });
+
+    const { data: applications, error: queryError } = await query;
 
     if (queryError) {
       console.error("CSV export query error:", queryError.message);
       return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
 
-    // Build CSV
+    // Build CSV with all fields
     const BOM = "\uFEFF"; // UTF-8 BOM for Korean Excel compatibility
-    const headers = ["name", "email", "school_name", "category", "team_name", "phone", "approved_at"];
+    const headers = [
+      "이름", "이메일", "인증방법", "부문", "출생연도", "대표자명",
+      "팀명", "팀원수", "팀원1", "팀원2",
+      "학교명", "학년", "연락처",
+      "지도교사", "지도교사이메일", "지도교사연락처",
+      "작품명", "지역", "작품요약",
+      "개인정보동의", "제3자동의",
+      "상태", "신청일", "승인일", "발급일"
+    ];
     const headerRow = headers.join(",");
+
+    const CATEGORY_LABELS = {
+      elementary: "초등(홍보영상)",
+      secondary: "중고등(기획)",
+      general: "일반(기획)",
+    };
+    const STATUS_LABELS = {
+      pending: "대기",
+      approved: "승인",
+      rejected: "반려",
+    };
+    const AUTH_LABELS = {
+      kakao: "카카오",
+      naver: "네이버",
+      school_email: "학교이메일",
+      student_direct: "학생증",
+    };
 
     const rows = (applications || []).map((app) => {
       const values = [
-        escapeCsvValue(app.users?.name || ""),
-        escapeCsvValue(app.users?.email || ""),
-        escapeCsvValue(app.school_name || ""),
-        escapeCsvValue(app.category || ""),
+        escapeCsvValue(app.applicant_name || ""),
+        escapeCsvValue(app.applicant_email || ""),
+        escapeCsvValue(AUTH_LABELS[app.auth_method] || app.auth_method || ""),
+        escapeCsvValue(CATEGORY_LABELS[app.category] || app.category || ""),
+        escapeCsvValue(app.birth_year || ""),
+        escapeCsvValue(app.representative_name || ""),
         escapeCsvValue(app.team_name || ""),
+        escapeCsvValue(app.member_count || ""),
+        escapeCsvValue(app.member1_name || ""),
+        escapeCsvValue(app.member2_name || ""),
+        escapeCsvValue(app.school_name || ""),
+        escapeCsvValue(app.grade || ""),
         escapeCsvValue(app.phone || ""),
-        escapeCsvValue(app.reviewed_at || ""),
+        escapeCsvValue(app.teacher_name || ""),
+        escapeCsvValue(app.teacher_email || ""),
+        escapeCsvValue(app.teacher_phone || ""),
+        escapeCsvValue(app.topic || ""),
+        escapeCsvValue(app.region || ""),
+        escapeCsvValue(app.motivation || ""),
+        escapeCsvValue(app.privacy_agreed_at ? "동의" : ""),
+        escapeCsvValue(app.third_party_agreed_at ? "동의" : ""),
+        escapeCsvValue(STATUS_LABELS[app.status] || app.status || ""),
+        escapeCsvValue(app.created_at ? formatDate(app.created_at) : ""),
+        escapeCsvValue(app.reviewed_at ? formatDate(app.reviewed_at) : ""),
+        escapeCsvValue(app.license_issued_at ? formatDate(app.license_issued_at) : ""),
       ];
       return values.join(",");
     });
 
     const csvContent = BOM + [headerRow, ...rows].join("\n");
+    const filename = `license_applications_${new Date().toISOString().slice(0, 10)}.csv`;
 
     return new Response(csvContent, {
       status: 200,
       headers: {
         "Content-Type": "text/csv; charset=utf-8",
-        "Content-Disposition": "attachment; filename=approved_applications.csv",
+        "Content-Disposition": `attachment; filename=${filename}`,
       },
     });
   } catch (err) {
@@ -77,13 +143,20 @@ export async function GET() {
   }
 }
 
-/**
- * Escape a value for CSV — wraps in quotes if it contains comma, newline, or quote.
- */
 function escapeCsvValue(value) {
   const str = String(value);
   if (str.includes(",") || str.includes("\n") || str.includes('"')) {
     return `"${str.replace(/"/g, '""')}"`;
   }
   return str;
+}
+
+function formatDate(isoStr) {
+  try {
+    const d = new Date(isoStr);
+    const kst = new Date(d.getTime() + 9 * 60 * 60 * 1000);
+    return kst.toISOString().replace("T", " ").slice(0, 19);
+  } catch {
+    return isoStr;
+  }
 }

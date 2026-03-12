@@ -483,7 +483,15 @@ export default function AdminLicensePage() {
   };
 
   const handleCsvDownload = () => {
-    window.open("/api/admin/license/csv", "_blank");
+    let url = "/api/admin/license/csv";
+    const params = [];
+    if (selectedIds.length > 0) {
+      params.push(`ids=${selectedIds.join(",")}`);
+    }
+    if (params.length > 0) {
+      url += "?" + params.join("&");
+    }
+    window.open(url, "_blank");
   };
 
   const handleMarkIssued = async () => {
