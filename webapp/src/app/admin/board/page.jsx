@@ -439,18 +439,36 @@ export default function AdminBoardPage() {
       )}
 
       {/* Reply Card */}
-      {replyPostId && (
+      {replyPostId && (() => {
+        const originalPost = posts.find(p => p.id === replyPostId);
+        return (
         <div className="card border-info mb-4">
           <div className="card-header bg-info text-white d-flex justify-content-between">
             <span>관리자 답변 작성</span>
             <button className="btn-close btn-close-white" onClick={() => setReplyPostId(null)} />
           </div>
           <div className="card-body">
+            {/* 원글 정보 */}
+            {originalPost && (
+              <div className="card bg-light border mb-3">
+                <div className="card-body py-12 px-16">
+                  <div className="d-flex justify-content-between align-items-center mb-8">
+                    <h6 className="mb-0 text-sm fw-bold">{originalPost.title}</h6>
+                    <span className="text-xs text-muted">
+                      {originalPost.author_name || "익명"} · {originalPost.created_at ? new Date(originalPost.created_at).toLocaleDateString("ko-KR") : ""}
+                    </span>
+                  </div>
+                  <div className="text-sm" style={{ maxHeight: "200px", overflowY: "auto", lineHeight: "1.6", color: "#555" }}
+                       dangerouslySetInnerHTML={{ __html: originalPost.content || "" }} />
+                </div>
+              </div>
+            )}
             <RichTextEditor value={replyContent} onChange={setReplyContent} placeholder="답변 내용을 입력하세요" height="150px" simple />
             <button className="btn btn-info" onClick={handleReply}>답변 등록</button>
           </div>
         </div>
-      )}
+        );
+      })()}
 
       {/* Posts Table */}
       {loading ? (
