@@ -96,6 +96,7 @@ export default function LicenseApplyPage() {
     team_name: "",
     school_name: "",
     grade: "",
+    teacher_name: "",
     member_count: 1,
     phone: "",
     motivation: "",
@@ -373,6 +374,7 @@ export default function LicenseApplyPage() {
         member2_name: formData.member2_name || null,
         topic: formData.topic,
         region: formData.region,
+        teacher_name: formData.category === "elementary" ? (formData.teacher_name || null) : null,
         privacy_agreed: privacyAgreed,
         third_party_agreed: thirdPartyAgreed,
       };
@@ -875,6 +877,17 @@ export default function LicenseApplyPage() {
                               style={inputStyle} />
                           </div>
                         </>
+                      )}
+
+                      {/* 지도교사 — elementary만 */}
+                      {formData.category === "elementary" && (
+                        <div className="col-xl-12 col-lg-12 mb-25">
+                          <label className="f-700 mb-10 d-block">지도교사 <span className="theme-color">*</span></label>
+                          <input type="text" name="teacher_name" className="form-control secondary-border01"
+                            placeholder="지도교사를 입력해주세요"
+                            value={formData.teacher_name} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
                       )}
 
                       {/* 주제 */}
