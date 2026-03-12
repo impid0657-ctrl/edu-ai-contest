@@ -917,8 +917,8 @@ export default function LicenseApplyPage() {
                           value={formData.category} onChange={handleChange} required
                           style={inputStyle}>
                           <option value="">분야를 선택해주세요</option>
-                          <option value="secondary">AI활용 아이디어 기획 (청소년)</option>
                           <option value="elementary">AI활용 소속학교 홍보영상 제작</option>
+                          <option value="secondary">AI활용 아이디어 기획 (청소년)</option>
                           <option value="general">AI활용 아이디어 기획 (성인)</option>
                         </select>
                       </div>
@@ -970,11 +970,11 @@ export default function LicenseApplyPage() {
                         </>
                       )}
 
-                      {/* 주제 */}
+                      {/* 작품명 */}
                       <div className="col-xl-12 col-lg-12 mb-25">
-                        <label className="f-700 mb-10 d-block">주제 <span className="theme-color">*</span></label>
+                        <label className="f-700 mb-10 d-block">작품명 <span className="theme-color">*</span></label>
                         <input type="text" name="topic" className="form-control secondary-border01"
-                          placeholder="주제를 입력해주세요"
+                          placeholder={formData.category === "elementary" ? "홍보영상 분야는 학교명 작성" : "작품명을 입력해주세요"}
                           value={formData.topic} onChange={handleChange} required
                           style={inputStyle} />
                       </div>
@@ -992,11 +992,11 @@ export default function LicenseApplyPage() {
                         </select>
                       </div>
 
-                      {/* Motivation */}
+                      {/* 작품 요약 */}
                       <div className="col-xl-12 col-lg-12 mb-35">
-                        <label className="f-700 mb-10 d-block">참가 동기</label>
+                        <label className="f-700 mb-10 d-block">작품 요약</label>
                         <textarea name="motivation" className="form-control secondary-border01" rows={4}
-                          maxLength={500} placeholder="참가 동기를 간단히 작성해주세요"
+                          maxLength={500} placeholder={formData.category === "elementary" ? "학교 홍보영상 제작 동기 또는 목적 작성" : "작품 요약을 간단히 작성해주세요"}
                           value={formData.motivation} onChange={handleChange}
                           style={{ paddingLeft: "20px", paddingTop: "15px", fontSize: "16px" }}></textarea>
                         <p className="text-muted text-end mt-5 mb-0" style={{ fontSize: "13px" }}>{formData.motivation.length}/500</p>
