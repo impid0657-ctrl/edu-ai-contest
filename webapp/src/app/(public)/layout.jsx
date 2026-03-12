@@ -255,10 +255,8 @@ export default function PublicLayout({ children }) {
         {/* header extra info end  */}
         {accessBlocked ? (
             <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '120px' }}>
-                <div style={{ textAlign: 'center', maxWidth: '500px', padding: '40px' }}>
-                    <div style={{ fontSize: '60px', marginBottom: '20px' }}>🔒</div>
-                    <h3 className="f-700 mb-20">비공개 페이지</h3>
-                    <p className="text-muted mb-30" style={{ fontSize: '16px', lineHeight: '1.6' }}>
+                <div style={{ textAlign: 'center', maxWidth: '700px', padding: '40px' }}>
+                    <p className="f-700 mb-30" style={{ fontSize: '48px', lineHeight: '1.4', color: '#222' }}>
                         {accessBlocked.warning}
                     </p>
                     <a href="/" className="btn theme-bg text-white f-16 f-700" style={{ padding: '12px 30px', borderRadius: '8px' }}>
