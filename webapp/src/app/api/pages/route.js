@@ -34,7 +34,7 @@ export async function GET(request) {
       try {
         const { data, error } = await admin
           .from("pages")
-          .select("slug, title, path, menu_order, is_public")
+          .select("slug, title, path, menu_order, is_public, access_warning")
           .eq("is_published", true)
           .eq("is_visible", true)
           .order("menu_order", { ascending: true });

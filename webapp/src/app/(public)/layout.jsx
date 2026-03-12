@@ -131,6 +131,15 @@ export default function PublicLayout({ children }) {
 
     const activeMenu = menuItems.length > 0 ? menuItems : FALLBACK_MENU;
 
+    // 비공개 메뉴 클릭 핸들러 — 페이지 이동 없이 모달 표시
+    const handleMenuClick = (e, item) => {
+        if (item.is_public === false) {
+            e.preventDefault();
+            setAccessBlocked({ warning: item.access_warning || "이 페이지는 현재 비공개 상태입니다." });
+            setMobileMenuOpen(false);
+        }
+    };
+
     // 메인 메뉴에서 서브메뉴 경로 제외 (단, 서브메뉴 부모는 포함)
     const mainMenuItems = activeMenu.filter(item => {
         // /faq는 contact 서브메뉴이므로 메인에서 제외
@@ -170,7 +179,7 @@ export default function PublicLayout({ children }) {
                                     <ul className="d-flex justify-content-center" style={{ flexWrap: 'nowrap', gap: '0', margin: 0, padding: 0 }}>
                                         {mainMenuItems.map((item, idx) => (
                                             <li key={idx} style={{ whiteSpace: 'nowrap' }}>
-                                                <a href={item.path}>{item.title}</a>
+                                                <a href={item.path} onClick={(e) => handleMenuClick(e, item)}>{item.title}</a>
                                                 {SUB_MENU_MAP[item.path] && (
                                                     <ul className="mega-menu mega-dropdown-menu white-bg ml-0">
                                                         {SUB_MENU_MAP[item.path].map((sub, si) => (
@@ -217,7 +226,7 @@ export default function PublicLayout({ children }) {
                             <a href={item.path} style={{
                                 display: 'block', padding: '14px 0', fontSize: '16px',
                                 color: '#333', textDecoration: 'none', fontWeight: 500,
-                            }} onClick={() => setMobileMenuOpen(false)}>{item.title}</a>
+                            }} onClick={(e) => handleMenuClick(e, item)}>{item.title}</a>
                             {SUB_MENU_MAP[item.path] && (
                                 <ul style={{ listStyle: 'none', padding: '0 0 10px 15px', margin: 0 }}>
                                     {SUB_MENU_MAP[item.path].map((sub, si) => (
