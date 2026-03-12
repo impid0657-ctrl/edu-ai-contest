@@ -488,9 +488,11 @@ export default function AdminBoardPage() {
                 <tr key={post.id}>
                   <td><span className={`badge ${TYPE_BADGES[post.type] || "bg-secondary"}`}>{TYPE_LABELS[post.type] || post.type}</span></td>
                   <td className="fw-medium">
-                    {post.is_pinned && <Icon icon="mdi:pin" className="text-danger me-1" />}
-                    {post.title}
-                    {post.is_secret && <span className="ms-1">🔒</span>}
+                    <span className="d-inline-flex align-items-center">
+                      {post.is_pinned && <Icon icon="mdi:pin" className="text-danger me-1" style={{ fontSize: "16px" }} />}
+                      {post.title}
+                      {post.is_secret && <span className="ms-1">🔒</span>}
+                    </span>
                   </td>
                   <td className="text-muted small">{post.category ? (FAQ_CAT_LABELS[post.category] || post.category) : "-"}</td>
                   <td className="text-muted">{post.author_name}</td>
