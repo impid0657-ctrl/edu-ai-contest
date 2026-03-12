@@ -627,23 +627,19 @@ export default function LicenseApplyPage() {
                     위 계정으로 신청을 진행하시겠습니까?
                   </p>
 
-                  <div className="row g-3 justify-content-center">
-                    <div className="col-auto">
-                      <div className="my-btn">
-                        <button type="button" className="btn theme-bg text-uppercase f-18 f-700"
-                          style={{ height: "55px", paddingLeft: "40px", paddingRight: "40px" }}
-                          onClick={() => setAuthConfirmed(true)}>
-                          신청서 작성하기
-                        </button>
-                      </div>
+                  <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center" style={{ gap: "16px" }}>
+                    <div className="my-btn">
+                      <button type="button" className="btn theme-bg text-uppercase f-18 f-700"
+                        style={{ height: "55px", paddingLeft: "40px", paddingRight: "40px" }}
+                        onClick={() => setAuthConfirmed(true)}>
+                        신청서 작성하기
+                      </button>
                     </div>
-                    <div className="col-auto">
-                      <div className="my-btn">
-                        <a href="/api/auth/signout?redirect=/license-apply" className="btn theme-bg text-uppercase f-18 f-700"
-                          style={{ height: "55px", paddingLeft: "40px", paddingRight: "40px", lineHeight: "55px" }}>
-                          다른 계정으로 인증
-                        </a>
-                      </div>
+                    <div className="my-btn">
+                      <a href="/api/auth/signout?redirect=/license-apply" className="btn theme-bg text-uppercase f-18 f-700"
+                        style={{ height: "55px", paddingLeft: "40px", paddingRight: "40px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        다른 계정으로 인증
+                      </a>
                     </div>
                   </div>
 
