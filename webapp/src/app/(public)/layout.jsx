@@ -278,13 +278,7 @@ export default function PublicLayout({ children }) {
                                             <a href="/contest-info" className="position-relative d-inline-block mb-2">대회안내</a>
                                         </li>
                                         <li>
-                                            <a href="/guidelines" className="position-relative d-inline-block mb-2">공모요강</a>
-                                        </li>
-                                        <li>
                                             <a href="/submit" className="position-relative d-inline-block mb-2">대회접수</a>
-                                        </li>
-                                        <li>
-                                            <a href="/submit/lookup" className="position-relative d-inline-block mb-2">접수조회</a>
                                         </li>
                                     </ul>
                                 </div>
