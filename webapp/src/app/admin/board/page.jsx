@@ -305,14 +305,26 @@ export default function AdminBoardPage() {
             {/* 첨부파일 */}
             <div className="mb-3">
               <label className="form-label fw-semibold">첨부파일</label>
-              <div className="border rounded p-4 d-flex flex-column align-items-start" style={{ background: "#f8f9fa" }}>
+              <div className="border rounded p-4" style={{ background: "#f8f9fa" }}>
                 <input
+                  id="create-file-input"
                   type="file"
                   multiple
-                  className="form-control mb-2"
-                  style={{ fontSize: "15px" }}
+                  className="d-none"
                   onChange={(e) => { handleFileSelect(e.target.files, "create"); e.target.value = ""; }}
                 />
+                <div className="d-flex align-items-center gap-3 mb-2">
+                  <button type="button" className="btn btn-outline-primary d-flex align-items-center gap-2"
+                    style={{ fontSize: "15px" }}
+                    onClick={() => document.getElementById('create-file-input').click()}>
+                    <Icon icon="solar:add-circle-outline" /> 파일 추가
+                  </button>
+                  <span className="text-muted" style={{ fontSize: "14px" }}>
+                    {createPendingFiles.length + createAttachments.length > 0
+                      ? `${createPendingFiles.length + createAttachments.length}개 파일 선택됨`
+                      : '여러 파일을 추가할 수 있습니다'}
+                  </span>
+                </div>
                 {/* pending 파일 (아직 업로드 안 됨) */}
                 {createPendingFiles.length > 0 && (
                   <ul className="list-unstyled mb-0 mt-2">
@@ -366,14 +378,26 @@ export default function AdminBoardPage() {
             {/* 첨부파일 */}
             <div className="mb-3">
               <label className="form-label fw-semibold">첨부파일</label>
-              <div className="border rounded p-4 d-flex flex-column align-items-start" style={{ background: "#f8f9fa" }}>
+              <div className="border rounded p-4" style={{ background: "#f8f9fa" }}>
                 <input
+                  id="edit-file-input"
                   type="file"
                   multiple
-                  className="form-control mb-2"
-                  style={{ fontSize: "15px" }}
+                  className="d-none"
                   onChange={(e) => { handleFileSelect(e.target.files, "edit"); e.target.value = ""; }}
                 />
+                <div className="d-flex align-items-center gap-3 mb-2">
+                  <button type="button" className="btn btn-outline-primary d-flex align-items-center gap-2"
+                    style={{ fontSize: "15px" }}
+                    onClick={() => document.getElementById('edit-file-input').click()}>
+                    <Icon icon="solar:add-circle-outline" /> 파일 추가
+                  </button>
+                  <span className="text-muted" style={{ fontSize: "14px" }}>
+                    {editPendingFiles.length + editAttachments.length > 0
+                      ? `${editPendingFiles.length + editAttachments.length}개 파일 선택됨`
+                      : '여러 파일을 추가할 수 있습니다'}
+                  </span>
+                </div>
                 {/* pending 파일 */}
                 {editPendingFiles.length > 0 && (
                   <ul className="list-unstyled mb-0 mt-2">
