@@ -138,7 +138,12 @@ export async function POST(request) {
       .select("id, status, created_at")
       .single();
 
-    if (insertError && insertError.message && insertError.message.includes("schema cache")) {
+    if (insertError && insertError.message && (
+      insertError.message.includes("schema cache") ||
+      insertError.message.includes("column") ||
+      insertError.message.includes("does not exist") ||
+      insertError.code === "42703"
+    )) {
       console.warn("Extended fields not in DB, retrying with base fields only:", insertError.message);
       insertData = baseData;
       const retry = await adminClient

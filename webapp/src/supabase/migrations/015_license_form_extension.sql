@@ -10,7 +10,10 @@ ALTER TABLE public.license_applications
   ADD COLUMN IF NOT EXISTS topic TEXT,
   ADD COLUMN IF NOT EXISTS region TEXT,
   ADD COLUMN IF NOT EXISTS privacy_agreed_at TIMESTAMPTZ,
-  ADD COLUMN IF NOT EXISTS third_party_agreed_at TIMESTAMPTZ;
+  ADD COLUMN IF NOT EXISTS third_party_agreed_at TIMESTAMPTZ,
+  ADD COLUMN IF NOT EXISTS teacher_name TEXT,
+  ADD COLUMN IF NOT EXISTS teacher_email TEXT,
+  ADD COLUMN IF NOT EXISTS teacher_phone TEXT;
 
 -- member_count 제약 조건 수정 (1~3명)
 ALTER TABLE public.license_applications
@@ -32,12 +35,12 @@ CREATE TABLE IF NOT EXISTS public.license_application_history (
 
 ALTER TABLE public.license_application_history ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "admins_read_history" ON public.license_application_history
+CREATE POLICY IF NOT EXISTS "admins_read_history" ON public.license_application_history
   FOR SELECT USING (
     EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin')
   );
 
-CREATE POLICY "service_insert_history" ON public.license_application_history
+CREATE POLICY IF NOT EXISTS "service_insert_history" ON public.license_application_history
   FOR INSERT WITH CHECK (true);
 
 CREATE INDEX IF NOT EXISTS idx_app_history_application_id
