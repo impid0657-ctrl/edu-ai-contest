@@ -112,6 +112,9 @@ export default function LicenseApplyPage() {
     region: "",
   });
 
+  // 이메일 검증
+  const [emailErrors, setEmailErrors] = useState({});
+
   // 개인정보 동의
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [thirdPartyAgreed, setThirdPartyAgreed] = useState(false);
@@ -356,11 +359,52 @@ export default function LicenseApplyPage() {
     finally { setUploadingStudentId(false); }
   };
 
+  // ── 전화번호 자동 포맷 함수 ──
+  const formatPhone = (rawValue) => {
+    const digits = rawValue.replace(/\D/g, '');
+    // 010 제거 후 뒤 8자리만
+    let after010 = digits;
+    if (digits.startsWith('010')) {
+      after010 = digits.slice(3);
+    }
+    // 최대 8자리
+    after010 = after010.slice(0, 8);
+    // 포맷팅: 010-XXXX-XXXX
+    if (after010.length <= 4) {
+      return after010.length > 0 ? `010-${after010}` : '010-';
+    }
+    return `010-${after010.slice(0, 4)}-${after010.slice(4)}`;
+  };
+
+  // ── 이메일 검증 함수 ──
+  const validateEmail = (email) => {
+    if (!email) return true; // 빈 값은 required로 처리
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const handleEmailBlur = (fieldName) => {
+    const value = formData[fieldName];
+    if (value && !validateEmail(value)) {
+      setEmailErrors(prev => ({ ...prev, [fieldName]: '메일주소 양식에 맞지 않습니다.' }));
+    } else {
+      setEmailErrors(prev => ({ ...prev, [fieldName]: '' }));
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // 전화번호 필드 자동 포맷팅
+    if (name === 'phone' || name === 'teacher_phone') {
+      setFormData((prev) => ({ ...prev, [name]: formatPhone(value) }));
+      return;
+    }
+    // 이메일 필드 에러 초기화
+    if (name === 'teacher_email') {
+      setEmailErrors(prev => ({ ...prev, [name]: '' }));
+    }
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "member_count" ? parseInt(value, 10) || 1 : value,
+      [name]: name === 'member_count' ? parseInt(value, 10) || 1 : value,
     }));
   };
 
@@ -864,7 +908,9 @@ export default function LicenseApplyPage() {
                         <label className="f-700 mb-10 d-block">휴대폰번호 <span className="theme-color">*</span></label>
                         <input type="tel" name="phone" className="form-control secondary-border01"
                           placeholder="010-0000-0000"
-                          value={formData.phone} onChange={handleChange} required
+                          value={formData.phone || '010-'}
+                          onChange={handleChange} required
+                          onFocus={(e) => { if (!formData.phone) setFormData(prev => ({ ...prev, phone: '010-' })); }}
                           style={inputStyle} />
                       </div>
 
@@ -957,14 +1003,22 @@ export default function LicenseApplyPage() {
                             <label className="f-700 mb-10 d-block">지도교사 이메일 <span className="theme-color">*</span></label>
                             <input type="email" name="teacher_email" className="form-control secondary-border01"
                               placeholder="지도교사 이메일을 입력해주세요"
-                              value={formData.teacher_email} onChange={handleChange} required
-                              style={inputStyle} />
+                              value={formData.teacher_email} onChange={handleChange}
+                              onBlur={() => handleEmailBlur('teacher_email')}
+                              required
+                              style={{ ...inputStyle, ...(emailErrors.teacher_email ? { borderColor: '#dc3545' } : {}) }} />
+                            {emailErrors.teacher_email && (
+                              <p style={{ color: '#dc3545', fontSize: '13px', marginTop: '5px', marginBottom: 0 }}>{emailErrors.teacher_email}</p>
+                            )}
                           </div>
                           <div className="col-xl-6 col-lg-6 mb-25">
                             <label className="f-700 mb-10 d-block">지도교사 연락처 <span className="theme-color">*</span></label>
                             <input type="tel" name="teacher_phone" className="form-control secondary-border01"
-                              placeholder="지도교사 연락처를 입력해주세요"
-                              value={formData.teacher_phone} onChange={handleChange} required
+                              placeholder="010-0000-0000"
+                              value={formData.teacher_phone || '010-'}
+                              onChange={handleChange}
+                              onFocus={(e) => { if (!formData.teacher_phone) setFormData(prev => ({ ...prev, teacher_phone: '010-' })); }}
+                              required
                               style={inputStyle} />
                           </div>
                         </>
