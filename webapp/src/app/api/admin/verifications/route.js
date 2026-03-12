@@ -112,50 +112,61 @@ export async function PATCH(request) {
       return NextResponse.json({ error: "처리에 실패했습니다." }, { status: 500 });
     }
 
-    // If approved, auto-create license application
-    let licenseCreated = false;
-    if (newStatus === "approved" && data) {
+    // 연결된 license_applications 상태 동기화 (승인/반려 모두)
+    let licenseSynced = false;
+    if (data) {
       try {
-        // Check if license application already exists for this verification
+        // 기존 연결된 license_application이 있으면 상태 업데이트
         const { data: existing } = await adminClient
           .from("license_applications")
           .select("id")
           .eq("student_verification_id", id)
           .maybeSingle();
 
-        if (!existing) {
-          const { error: licError } = await adminClient
+        if (existing) {
+          // 기존 레코드 상태 업데이트
+          const { error: updateErr } = await adminClient
+            .from("license_applications")
+            .update({ status: newStatus })
+            .eq("student_verification_id", id);
+
+          if (updateErr) {
+            console.error("License sync error:", updateErr.message);
+          } else {
+            licenseSynced = true;
+          }
+        } else if (newStatus === "approved") {
+          // 승인인데 연결된 신청이 없으면 자동 생성
+          const { error: insertErr } = await adminClient
             .from("license_applications")
             .insert({
               user_id: null,
               applicant_name: data.school_name ? `${data.school_name} 학생` : "학생",
               applicant_email: data.email,
-              category: "elementary",  // default, admin can change later
+              category: "elementary",
               school_name: data.school_name || null,
               auth_method: "student_direct",
               student_verification_id: id,
-              status: "pending",
+              status: "approved",
             });
 
-          if (licError) {
-            console.error("Auto license creation error:", licError.message);
+          if (insertErr) {
+            console.error("Auto license creation error:", insertErr.message);
           } else {
-            licenseCreated = true;
+            licenseSynced = true;
           }
-        } else {
-          licenseCreated = true; // already exists
         }
-      } catch (licErr) {
-        console.error("Auto license creation failed:", licErr);
+      } catch (syncErr) {
+        console.error("License sync failed:", syncErr);
       }
     }
 
     return NextResponse.json({
       message: newStatus === "approved"
-        ? `승인 완료${licenseCreated ? " — 이용권 신청이 자동으로 생성되었습니다." : ""}`
-        : "반려되었습니다.",
+        ? `승인 완료${licenseSynced ? " — 이용권 상태가 동기화되었습니다." : ""}`
+        : `반려 완료${licenseSynced ? " — 이용권 상태가 동기화되었습니다." : ""}`,
       verification: data,
-      license_created: licenseCreated,
+      license_synced: licenseSynced,
     });
   } catch (err) {
     console.error("PATCH /api/admin/verifications error:", err);
