@@ -135,6 +135,13 @@ export async function GET(request) {
           }
         }
       }
+
+      // student_direct 이면서 verification_status 미설정 건 → 이용권 상태를 인증 상태로 보충
+      for (const app of applications) {
+        if (app.auth_method === "student_direct" && !app.verification_status) {
+          app.verification_status = app.status; // pending/approved/rejected
+        }
+      }
     }
 
     // Get approved count
