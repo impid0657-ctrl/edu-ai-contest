@@ -667,7 +667,7 @@ export default function LicenseApplyPage() {
   // ════════════════════════════════════════════
   // RENDER: 안내 페이지 (authConfirmed 후, guideConfirmed 전)
   // ════════════════════════════════════════════
-  if (user && authConfirmed && !guideConfirmed) {
+  if (((user && authConfirmed) || emailVerified || studentIdSubmitted) && !guideConfirmed) {
     return (
       <>
         {heroSection}
@@ -735,7 +735,7 @@ export default function LicenseApplyPage() {
   // ════════════════════════════════════════════
   // RENDER: Application form (Auth confirmed OR OTP verified)
   // ════════════════════════════════════════════
-  if ((user && guideConfirmed) || emailVerified || studentIdSubmitted) {
+  if ((user && guideConfirmed) || ((emailVerified || studentIdSubmitted) && guideConfirmed)) {
     return (
       <>
         {heroSection}
