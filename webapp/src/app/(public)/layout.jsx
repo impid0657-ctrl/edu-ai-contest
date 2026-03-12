@@ -265,9 +265,7 @@ export default function PublicLayout({ children }) {
                     maxWidth: '480px', width: '90%', textAlign: 'center',
                     boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
                 }}>
-                    <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔒</div>
-                    <h4 className="f-700" style={{ color: '#222', marginBottom: '16px' }}>접근 제한</h4>
-                    <p style={{ fontSize: '16px', color: '#555', lineHeight: '1.7', marginBottom: '28px' }}>
+                    <p style={{ fontSize: '18px', color: '#333', lineHeight: '1.7', marginBottom: '28px', fontWeight: 600 }}>
                         {accessBlocked.warning}
                     </p>
                     <a href="/" className="btn theme-bg text-white f-16 f-700"
