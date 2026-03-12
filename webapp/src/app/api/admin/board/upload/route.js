@@ -35,8 +35,8 @@ export async function POST(request) {
 
       const buffer = Buffer.from(await file.arrayBuffer());
       const timestamp = Date.now();
-      const safeName = file.name.replace(/[^a-zA-Z0-9가-힣._-]/g, "_");
-      const storagePath = `${timestamp}_${safeName}`;
+      const ext = file.name.includes('.') ? '.' + file.name.split('.').pop().replace(/[^a-zA-Z0-9]/g, '') : '';
+      const storagePath = `${timestamp}_${Math.random().toString(36).slice(2, 8)}${ext}`;
 
       const { data, error } = await ac.storage
         .from(bucketName)
