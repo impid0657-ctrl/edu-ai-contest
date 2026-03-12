@@ -94,8 +94,8 @@ export async function POST(request) {
       );
     }
 
-    // Generate safe path
-    const safeName = `${crypto.randomUUID()}_${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
+    // Generate safe path — 원본 파일명에 한글 등 비ASCII 포함 가능하므로 UUID+확장자만 사용
+    const safeName = `${crypto.randomUUID()}.${ext}`;
     const path = `submissions/${guest.submission_id}/${safeName}`;
 
     // Upload to Supabase Storage using admin client (reuse from above)
