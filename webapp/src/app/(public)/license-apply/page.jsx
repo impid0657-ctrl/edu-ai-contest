@@ -543,7 +543,7 @@ export default function LicenseApplyPage() {
                             <span className="f-700 me-2">팀명:</span>{existingApp.team_name}
                           </div>
                         )}
-                        <p className="text-muted text-center mt-20 mb-0">관리자 승인까지 1~3일 소요됩니다.</p>
+                        <p className="text-muted text-center mt-20 mb-0">구독권 이용대상 선정여부는 검토 후 이메일로 개별연락 드릴 예정입니다.</p>
                       </div>
                       <div className="d-flex justify-content-center flex-wrap mt-30" style={{ gap: "16px" }}>
                         <div className="my-btn">
@@ -583,7 +583,7 @@ export default function LicenseApplyPage() {
                   <span className="d-inline-block theme-bg text-white f-700 mb-30" style={{
                     borderRadius: "30px", fontSize: "16px", padding: "8px 30px"
                   }}>대기 중 (pending)</span>
-                  <p className="text-muted mb-30">관리자 승인까지 1~3일 소요됩니다.</p>
+                  <p className="text-muted mb-30">구독권 이용대상 선정여부는 검토 후 이메일로 개별연락 드릴 예정입니다.</p>
                   <div className="my-btn">
                     <a href="/" className="btn theme-bg text-uppercase f-18 f-700">홈으로 돌아가기</a>
                   </div>
@@ -920,7 +920,7 @@ export default function LicenseApplyPage() {
                           </button>
                         </div>
                         <p className="text-muted text-center mt-20 mb-0" style={{ fontSize: "14px" }}>
-                          신청 후 관리자 승인까지 1~3일 소요됩니다.
+                          신청 후 구독권 이용대상 선정여부는 검토 후 이메일로 개별연락 드릴 예정입니다.
                         </p>
                       </div>
                     </div>
@@ -1125,7 +1125,7 @@ export default function LicenseApplyPage() {
                   <div className="text-center py-3">
                     <div className="display-3 mb-20">✅</div>
                     <h5 className="f-700 mb-15">학생증이 제출되었습니다!</h5>
-                    <p className="text-muted mb-20">관리자 확인 후 승인됩니다 (1~3일 소요).</p>
+                    <p className="text-muted mb-20">구독권 이용대상 선정여부는 검토 후 이메일로 개별연락 드릴 예정입니다.</p>
                     <div className="my-btn">
                       <button type="button" className="btn theme-bg f-700 w-100"
                         style={{ height: "50px" }}

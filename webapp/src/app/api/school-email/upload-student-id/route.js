@@ -96,7 +96,7 @@ export async function POST(request) {
 
     return NextResponse.json({
       success: true,
-      message: "학생증이 제출되었습니다. 관리자 확인 후 승인됩니다 (1~3일 소요).",
+      message: "학생증이 제출되었습니다. 구독권 이용대상 선정여부는 검토 후 이메일로 개별연락 드릴 예정입니다.",
     });
   } catch (err) {
     console.error("POST /api/school-email/upload-student-id error:", err);
