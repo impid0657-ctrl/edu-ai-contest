@@ -690,7 +690,7 @@ export default function LicenseApplyPage() {
                   <div style={{ fontSize: '15px', lineHeight: '2.0', color: '#333' }}>
                     <div className="mb-15" style={{ display: 'flex', gap: '8px' }}>
                       <span style={{ color: '#1976d2', fontWeight: 700, flexShrink: 0 }}>o</span>
-                      <span><strong>(접수)</strong> 본 이용권은 팀당 1개만 신청 가능하며, 대표자(보호자)만 신청 가능합니다.</span>
+                      <span><strong>(접수)</strong> 본 이용권은 팀당 1개만 신청 가능하며, 대표자만 신청 가능합니다.</span>
                     </div>
                     <div className="mb-15" style={{ display: 'flex', gap: '8px' }}>
                       <span style={{ color: '#1976d2', fontWeight: 700, flexShrink: 0 }}>o</span>
