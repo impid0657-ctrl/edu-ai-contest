@@ -109,7 +109,7 @@ export default function HomePage() {
                                     <h6 className="f-400 mb-30">교육부·17개 시도교육청 주최, 한국교육학술정보원(KERIS) 주관의 교육 AI 분야 최대 규모 대회입니다.</h6>
                                     <p>교육 공공데이터와 AI 기술의 융합을 통해 국민의 참여와 관심을 확대하고, AI 활용 아이디어 기획 및 영상제작을 통한 미래형 인재를 양성합니다.</p>
                                     <div className="my-btn mt-47">
-                                        <a href="about-us.html" className="btn theme-bg text-capitalize f-18 f-700">참가 신청</a>
+                                        <a href="/submit" className="btn theme-bg text-capitalize f-18 f-700">참가 신청</a>
                                     </div>{/* /my-btn */}
                                 </div>
                             </div>{/* /about-content */}
@@ -643,7 +643,7 @@ export default function HomePage() {
                             <div className="col-xl-3 col-lg-3  col-md-12 col-sm-12 col-12">
                                 <div className="banner-btn float-left float-lg-right">
                                     <div className="my-btn">
-                                        <a href="service.html" className="btn theme-bg text-capitalize f-18 f-700">참가 신청</a>
+                                        <a href="/submit" className="btn theme-bg text-capitalize f-18 f-700">참가 신청</a>
                                     </div>{/* /my-btn */}
                                 </div>{/* /work-banner-content */}
                             </div>{/* /col */}
