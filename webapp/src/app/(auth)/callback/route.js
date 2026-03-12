@@ -60,8 +60,8 @@ export async function GET(request) {
       // Don't block login on upsert failure — user can still proceed
     }
 
-    // 팝업 모드 감지: next 파라미터에 popup=1이 포함되어 있으면 postMessage로 처리
-    const isPopup = next.includes("popup=1");
+    // 팝업 모드 감지: popup 파라미터 또는 next 안에 popup=1이 포함
+    const isPopup = searchParams.get("popup") === "1" || next.includes("popup=1");
     if (isPopup) {
       // 팝업 창에서 부모 창으로 인증 완료 메시지 전송 후 닫기
       // NextResponse를 사용하여 세션 쿠키가 응답에 포함되도록 함
