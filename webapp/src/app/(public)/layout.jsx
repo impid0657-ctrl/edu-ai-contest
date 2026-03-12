@@ -315,7 +315,7 @@ export default function PublicLayout({ children }) {
                                         <li className="d-flex align-items-start">
                                             <span className="f-icon mr-20 mt-1"><i className="fas fa-map-marker-alt"></i></span>
                                             <div className="">
-                                                대구광역시 동구 화랑로 64 <br />한국교육학술정보원 <br />
+                                                대구광역시 동구 동내로 64 <br />한국교육학술정보원 <br />
                                             </div>
                                         </li>
                                         <li>
