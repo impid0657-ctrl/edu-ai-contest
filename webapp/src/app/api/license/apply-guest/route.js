@@ -67,14 +67,15 @@ export async function POST(request) {
     const adminClient = createAdminClient();
 
     // ── Verify authentication ──
-    const thirtyMinAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
+    const validPeriod = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(); // 24시간
+    let studentVerificationId = null;
 
     if (auth_method === "school_email") {
       const { data: otpRecord } = await adminClient
         .from("school_email_verifications")
         .select("id")
         .eq("email", normalizedEmail).eq("verified", true)
-        .gte("created_at", thirtyMinAgo)
+        .gte("created_at", validPeriod)
         .order("created_at", { ascending: false }).limit(1).maybeSingle();
       if (!otpRecord)
         return NextResponse.json({ error: "이메일 인증이 완료되지 않았거나 만료되었습니다." }, { status: 403 });
@@ -83,10 +84,11 @@ export async function POST(request) {
         .from("student_verifications")
         .select("id")
         .eq("email", normalizedEmail)
-        .gte("created_at", thirtyMinAgo)
+        .gte("created_at", validPeriod)
         .order("created_at", { ascending: false }).limit(1).maybeSingle();
       if (!studentRecord)
         return NextResponse.json({ error: "학생증 인증이 완료되지 않았거나 만료되었습니다." }, { status: 403 });
+      studentVerificationId = studentRecord.id;
     }
     // naver auth_method → 쿠키 세션 기반 (별도 DB 검증 불요)
 
@@ -113,6 +115,7 @@ export async function POST(request) {
       phone: phone.trim(),
       motivation: motivation ? motivation.slice(0, 500) : null,
       status: "pending",
+      student_verification_id: studentVerificationId,
     };
 
     // 확장 필드 (migration 015 적용 시에만 사용 가능)

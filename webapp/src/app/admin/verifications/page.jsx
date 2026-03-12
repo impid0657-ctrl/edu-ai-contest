@@ -295,25 +295,44 @@ export default function AdminVerificationsPage() {
 
   useEffect(() => { fetchApplications(); }, [fetchApplications]);
 
-  // 학생증 인증 심사 (student_verifications 테이블 업데이트)
-  const handleVerificationAction = async (verificationId, action) => {
+  // 학생증 인증 심사 (student_verifications + license_applications 상태 동기화)
+  const handleVerificationAction = async (app, action) => {
     setActionLoading(true);
     setMessage({ type: "", text: "" });
     try {
-      const res = await fetch("/api/admin/verifications", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: verificationId, action, admin_note: adminNote }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setMessage({ type: "success", text: data.message });
-        setSelectedItem(null);
-        setAdminNote("");
-        fetchApplications();
+      if (app.student_verification_id) {
+        // 학생증 인증 레코드가 있으면 verifications API
+        const res = await fetch("/api/admin/verifications", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: app.student_verification_id, action, admin_note: adminNote }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setMessage({ type: "success", text: data.message });
+        } else {
+          setMessage({ type: "danger", text: data.error || "처리 실패" });
+          setActionLoading(false); return;
+        }
       } else {
-        setMessage({ type: "danger", text: data.error || "처리 실패" });
+        // 학생증 없이 은 student_direct 신청 — 직접 license 상태 변경
+        const newStatus = action === "approve" ? "approved" : "rejected";
+        const res = await fetch("/api/admin/license", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ids: [app.id], status: newStatus }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setMessage({ type: "success", text: `이용권 ${action === "approve" ? "승인" : "반려"} 완료` });
+        } else {
+          setMessage({ type: "danger", text: data.error || "처리 실패" });
+          setActionLoading(false); return;
+        }
       }
+      setSelectedItem(null);
+      setAdminNote("");
+      fetchApplications();
     } catch {
       setMessage({ type: "danger", text: "네트워크 오류" });
     } finally {
@@ -415,19 +434,24 @@ export default function AdminVerificationsPage() {
                         <td key={col.key}>{renderCell(app, col.key)}</td>
                       ))}
                       <td className="text-center">
-                        {app.verification_status === "pending" && app.student_verification_id ? (
+                        {(app.status === "pending" || app.verification_status === "pending") ? (
                           <button
                             className="btn btn-sm btn-primary-600"
                             onClick={() => { setSelectedItem(app); setAdminNote(""); }}
                           >
                             심사
                           </button>
-                        ) : app.verification_status === "approved" ? (
+                        ) : app.status === "approved" || app.verification_status === "approved" ? (
                           <span className="badge bg-success-focus text-success-600">승인됨</span>
-                        ) : app.verification_status === "rejected" ? (
+                        ) : app.status === "rejected" || app.verification_status === "rejected" ? (
                           <span className="badge bg-danger-focus text-danger-600">반려됨</span>
                         ) : (
-                          <span className="text-muted text-sm">-</span>
+                          <button
+                            className="btn btn-sm btn-outline-primary"
+                            onClick={() => { setSelectedItem(app); setAdminNote(""); }}
+                          >
+                            심사
+                          </button>
                         )}
                       </td>
                     </tr>
@@ -545,7 +569,7 @@ export default function AdminVerificationsPage() {
                 <button
                   className="btn btn-success-600"
                   disabled={actionLoading}
-                  onClick={() => handleVerificationAction(selectedItem.student_verification_id, "approve")}
+                  onClick={() => handleVerificationAction(selectedItem, "approve")}
                 >
                   <Icon icon="solar:check-circle-outline" className="me-1" />
                   {actionLoading ? "처리 중..." : "승인"}
@@ -553,7 +577,7 @@ export default function AdminVerificationsPage() {
                 <button
                   className="btn btn-danger-600"
                   disabled={actionLoading}
-                  onClick={() => handleVerificationAction(selectedItem.student_verification_id, "reject")}
+                  onClick={() => handleVerificationAction(selectedItem, "reject")}
                 >
                   <Icon icon="solar:close-circle-outline" className="me-1" />
                   반려

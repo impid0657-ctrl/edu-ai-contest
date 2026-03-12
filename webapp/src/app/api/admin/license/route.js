@@ -170,3 +170,53 @@ export async function GET(request) {
     });
   }
 }
+
+/**
+ * PATCH /api/admin/license
+ * 이용권 신청 상태 일괄 변경 (승인/반려)
+ * Body: { ids: [uuid,...], status: "approved" | "rejected" }
+ */
+export async function PATCH(request) {
+  try {
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    }
+
+    const ac = createAdminClient();
+    const { data: profile } = await ac.from("users").select("role").eq("id", user.id).single();
+    if (!profile || profile.role !== "admin") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    const body = await request.json();
+    const { ids, status } = body;
+
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+      return NextResponse.json({ error: "ids 배열이 필요합니다." }, { status: 400 });
+    }
+    if (!["approved", "rejected", "pending"].includes(status)) {
+      return NextResponse.json({ error: "유효하지 않은 상태입니다." }, { status: 400 });
+    }
+
+    const { data, error } = await ac
+      .from("license_applications")
+      .update({ status })
+      .in("id", ids)
+      .select("id, status");
+
+    if (error) {
+      console.error("License PATCH error:", error.message);
+      return NextResponse.json({ error: "상태 변경에 실패했습니다." }, { status: 500 });
+    }
+
+    return NextResponse.json({
+      message: `${data?.length || 0}건 ${status === "approved" ? "승인" : "반려"} 완료`,
+      updated: data,
+    });
+  } catch (err) {
+    console.error("PATCH /api/admin/license error:", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
