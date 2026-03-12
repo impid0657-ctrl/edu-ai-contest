@@ -38,23 +38,63 @@ export default function AdminSettingsPage() {
   // Email templates
   const [emailTemplates, setEmailTemplates] = useState({
     email_template_otp_subject: "[제8회 교육 공공데이터 AI활용대회] 이메일 인증번호 안내",
-    email_template_otp_body: `<div style="max-width:600px;margin:0 auto;font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif;background:#ffffff;">
-  <div style="background:linear-gradient(135deg,#4361ee 0%,#7c3aed 100%);padding:40px 30px;text-align:center;border-radius:12px 12px 0 0;">
-    <h1 style="color:#ffffff;font-size:22px;margin:0 0 8px 0;font-weight:700;">제8회 교육 공공데이터 AI활용 경진대회</h1>
-    <p style="color:rgba(255,255,255,0.85);font-size:14px;margin:0;">이메일 인증번호 안내</p>
-  </div>
-  <div style="padding:40px 30px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 12px 12px;">
-    <p style="font-size:15px;color:#333;line-height:1.6;margin:0 0 25px 0;">안녕하세요,<br>AI 이용권 신청을 위한 <strong>이메일 인증번호</strong>입니다.</p>
-    <div style="background:linear-gradient(135deg,#f0f4ff 0%,#ede9fe 100%);border:2px solid #4361ee;border-radius:16px;padding:30px;text-align:center;margin:0 0 25px 0;">
-      <p style="font-size:13px;color:#6b7280;margin:0 0 8px 0;letter-spacing:1px;">인증번호</p>
-      <p style="font-size:42px;font-weight:800;letter-spacing:10px;color:#4361ee;margin:0;font-family:'Courier New',monospace;">{{OTP_CODE}}</p>
+    email_template_otp_body: `<div style="max-width:600px;margin:0 auto;font-family:'Apple SD Gothic Neo','Malgun Gothic','Segoe UI',sans-serif;background:#f8fafc;">
+  <div style="background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.06);margin:20px;">
+    <div style="background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#a855f7 100%);padding:48px 40px;text-align:center;">
+      <div style="display:inline-block;background:rgba(255,255,255,0.15);padding:8px 20px;border-radius:20px;margin-bottom:16px;">
+        <span style="color:#fff;font-size:12px;font-weight:600;letter-spacing:2px;">AI 이용권 인증</span>
+      </div>
+      <h1 style="color:#ffffff;font-size:24px;margin:0 0 8px 0;font-weight:800;line-height:1.3;">제8회 교육 공공데이터<br>AI활용 경진대회</h1>
+      <p style="color:rgba(255,255,255,0.8);font-size:14px;margin:0;">이메일 본인 인증을 진행해주세요</p>
     </div>
-    <div style="background:#fef3c7;border-left:4px solid #f59e0b;padding:12px 16px;border-radius:0 8px 8px 0;margin:0 0 25px 0;">
-      <p style="font-size:13px;color:#92400e;margin:0;">⏱ 이 인증번호는 <strong>5분 후 만료</strong>됩니다. 시간 내에 입력해주세요.</p>
+    <div style="padding:40px;">
+      <p style="font-size:15px;color:#374151;line-height:1.7;margin:0 0 28px 0;">
+        안녕하세요! 😊<br>
+        AI 이용권 신청을 위한 <strong style="color:#4f46e5;">이메일 인증번호</strong>를 보내드립니다.
+      </p>
+      <div style="background:linear-gradient(145deg,#eef2ff 0%,#f5f3ff 100%);border:2px solid #c7d2fe;border-radius:20px;padding:36px 30px;text-align:center;margin:0 0 28px 0;">
+        <p style="font-size:12px;color:#6366f1;margin:0 0 12px 0;font-weight:700;text-transform:uppercase;letter-spacing:3px;">인증번호</p>
+        <div style="background:#ffffff;border-radius:12px;padding:20px;display:inline-block;box-shadow:0 2px 8px rgba(99,102,241,0.12);">
+          <p style="font-size:46px;font-weight:900;letter-spacing:12px;color:#4f46e5;margin:0;font-family:'Courier New',monospace;">{{OTP_CODE}}</p>
+        </div>
+      </div>
+      <div style="background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);border-left:4px solid #f59e0b;padding:14px 18px;border-radius:0 12px 12px 0;margin:0 0 28px 0;display:flex;align-items:center;">
+        <span style="font-size:20px;margin-right:10px;">⏱️</span>
+        <p style="font-size:13px;color:#92400e;margin:0;line-height:1.5;">이 인증번호는 <strong>5분 후에 만료</strong>됩니다.<br>시간 내에 인증을 완료해주세요.</p>
+      </div>
+      <div style="background:#f9fafb;border-radius:12px;padding:20px 24px;margin:0 0 28px 0;">
+        <p style="font-size:13px;font-weight:700;color:#374151;margin:0 0 14px 0;">📋 인증 방법</p>
+        <table style="width:100%;border-collapse:collapse;">
+          <tr>
+            <td style="padding:6px 12px 6px 0;vertical-align:top;width:28px;">
+              <div style="background:#4f46e5;color:#fff;width:22px;height:22px;border-radius:50%;text-align:center;line-height:22px;font-size:11px;font-weight:700;">1</div>
+            </td>
+            <td style="padding:6px 0;font-size:13px;color:#6b7280;line-height:1.5;">이용권 신청 페이지로 돌아갑니다</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 12px 6px 0;vertical-align:top;">
+              <div style="background:#4f46e5;color:#fff;width:22px;height:22px;border-radius:50%;text-align:center;line-height:22px;font-size:11px;font-weight:700;">2</div>
+            </td>
+            <td style="padding:6px 0;font-size:13px;color:#6b7280;line-height:1.5;">인증번호 입력란에 위 번호를 입력합니다</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 12px 6px 0;vertical-align:top;">
+              <div style="background:#4f46e5;color:#fff;width:22px;height:22px;border-radius:50%;text-align:center;line-height:22px;font-size:11px;font-weight:700;">3</div>
+            </td>
+            <td style="padding:6px 0;font-size:13px;color:#6b7280;line-height:1.5;">인증 완료 후 이용권 신청을 진행합니다</td>
+          </tr>
+        </table>
+      </div>
+      <div style="background:#fef2f2;border-radius:10px;padding:14px 18px;margin:0 0 20px 0;">
+        <p style="font-size:12px;color:#991b1b;margin:0;line-height:1.6;">
+          🔒 <strong>보안 안내:</strong> 본인이 요청하지 않았다면 이 이메일을 무시해주세요. 인증번호는 타인에게 절대 공유하지 마세요.
+        </p>
+      </div>
     </div>
-    <p style="font-size:13px;color:#9ca3af;line-height:1.6;margin:0 0 8px 0;">본인이 요청하지 않았다면 이 이메일을 무시해주세요.</p>
-    <hr style="border:none;border-top:1px solid #e5e7eb;margin:25px 0;" />
-    <p style="font-size:12px;color:#d1d5db;text-align:center;margin:0;">교육부 · 한국교육학술정보원 · 제8회 교육 공공데이터 AI활용 경진대회</p>
+    <div style="background:#f9fafb;padding:24px 40px;border-top:1px solid #e5e7eb;text-align:center;">
+      <p style="font-size:12px;color:#9ca3af;margin:0 0 4px 0;">교육부 · 한국교육학술정보원</p>
+      <p style="font-size:11px;color:#d1d5db;margin:0;">제8회 교육 공공데이터 AI활용 경진대회</p>
+    </div>
   </div>
 </div>`,
     email_template_submission_subject: "[제8회 교육 공공데이터 AI활용대회] 작품 접수 완료 ({{SUBMISSION_NO}})",

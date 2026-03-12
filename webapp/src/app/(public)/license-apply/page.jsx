@@ -970,15 +970,6 @@ export default function LicenseApplyPage() {
                         </>
                       )}
 
-                      {/* 작품명 */}
-                      <div className="col-xl-12 col-lg-12 mb-25">
-                        <label className="f-700 mb-10 d-block">작품명 <span className="theme-color">*</span></label>
-                        <input type="text" name="topic" className="form-control secondary-border01"
-                          placeholder={formData.category === "elementary" ? "홍보영상 분야는 학교명 작성" : "작품명을 입력해주세요"}
-                          value={formData.topic} onChange={handleChange} required
-                          style={inputStyle} />
-                      </div>
-
                       {/* 지역 */}
                       <div className="col-xl-12 col-lg-12 mb-25">
                         <label className="f-700 mb-10 d-block">지역 (소속학교 기준) <span className="theme-color">*</span></label>
@@ -990,6 +981,15 @@ export default function LicenseApplyPage() {
                             <option key={r} value={r}>{r}</option>
                           ))}
                         </select>
+                      </div>
+
+                      {/* 작품명 */}
+                      <div className="col-xl-12 col-lg-12 mb-25">
+                        <label className="f-700 mb-10 d-block">작품명 <span className="theme-color">*</span></label>
+                        <input type="text" name="topic" className="form-control secondary-border01"
+                          placeholder={formData.category === "elementary" ? "홍보영상 분야는 학교명 작성" : "작품명을 입력해주세요"}
+                          value={formData.topic} onChange={handleChange} required
+                          style={inputStyle} />
                       </div>
 
                       {/* 작품 요약 */}
@@ -1040,7 +1040,7 @@ export default function LicenseApplyPage() {
               <div className="title text-center mb-50">
                 <span className="theme-color f-700">AI 이용권 신청</span>
                 <h3 className="f-700 mb-20">본인 인증이 필요합니다</h3>
-                <p>카카오, 네이버, 학교 이메일 또는 학생증으로 본인 인증을 완료해 주세요.</p>
+                <p>카카오, 학교 이메일 또는 학생증으로 본인 인증을 완료해 주세요.</p>
               </div>
 
               <div className="contact-form-wrapper secondary-border01 pt-60 pb-60 pl-60 pr-60">
@@ -1064,20 +1064,7 @@ export default function LicenseApplyPage() {
                     </div>
                   )}
 
-                  {/* ── 2. 네이버 인증 ── */}
-                  {authProviders.naver && (
-                    <div className="col-xl-12 col-lg-12 mb-20">
-                      <div className="my-btn">
-                        <button type="button" className="btn w-100 f-18 f-700 text-capitalize"
-                          style={{ height: "55px", backgroundColor: "#03C75A", color: "#fff", border: "none" }}
-                          onClick={() => handleOAuth("naver")}>
-                          네이버로 본인 인증
-                        </button>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* ── 3. 학교 이메일 인증 ── */}
+                  {/* ── 2. 학교 이메일 인증 ── */}
                   {authProviders.school_email && (
                     <div className="col-xl-12 col-lg-12 mb-20">
                       <div className="my-btn">
