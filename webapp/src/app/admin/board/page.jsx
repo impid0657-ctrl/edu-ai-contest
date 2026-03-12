@@ -294,7 +294,7 @@ export default function AdminBoardPage() {
             )}
             <div className="mb-3">
               <label className="form-label fw-semibold">내용</label>
-              <RichTextEditor value={createContent} onChange={setCreateContent} placeholder={createType === "faq" ? "답변을 입력하세요" : "내용을 입력하세요"} height="250px" />
+              <RichTextEditor value={createContent} onChange={setCreateContent} placeholder={createType === "faq" ? "답변을 입력하세요" : "내용을 입력하세요"} />
             </div>
             {createType === "notice" && (
               <div className="form-check form-switch mb-3">
@@ -305,11 +305,12 @@ export default function AdminBoardPage() {
             {/* 첨부파일 */}
             <div className="mb-3">
               <label className="form-label fw-semibold">첨부파일</label>
-              <div className="border rounded p-3" style={{ background: "#f8f9fa" }}>
+              <div className="border rounded p-4 d-flex flex-column align-items-start" style={{ background: "#f8f9fa" }}>
                 <input
                   type="file"
                   multiple
-                  className="form-control form-control-sm mb-2"
+                  className="form-control mb-2"
+                  style={{ fontSize: "15px" }}
                   onChange={(e) => { handleFileSelect(e.target.files, "create"); e.target.value = ""; }}
                 />
                 {/* pending 파일 (아직 업로드 안 됨) */}
@@ -360,16 +361,17 @@ export default function AdminBoardPage() {
             </div>
             <div className="mb-3">
               <label className="form-label fw-semibold">내용</label>
-              <RichTextEditor value={editContent} onChange={setEditContent} height="250px" />
+              <RichTextEditor value={editContent} onChange={setEditContent} />
             </div>
             {/* 첨부파일 */}
             <div className="mb-3">
               <label className="form-label fw-semibold">첨부파일</label>
-              <div className="border rounded p-3" style={{ background: "#f8f9fa" }}>
+              <div className="border rounded p-4 d-flex flex-column align-items-start" style={{ background: "#f8f9fa" }}>
                 <input
                   type="file"
                   multiple
-                  className="form-control form-control-sm mb-2"
+                  className="form-control mb-2"
+                  style={{ fontSize: "15px" }}
                   onChange={(e) => { handleFileSelect(e.target.files, "edit"); e.target.value = ""; }}
                 />
                 {/* pending 파일 */}

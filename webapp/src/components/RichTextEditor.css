@@ -7,6 +7,14 @@
   background: #fff;
 }
 
+/* 에디터 본문 영역 — 리사이즈 가능 */
+.rte-wrapper .tiptap {
+  min-height: 500px;
+  max-height: 1200px;
+  overflow-y: auto;
+  resize: vertical;
+}
+
 /* Toolbar */
 .rte-toolbar {
   display: flex;
@@ -81,10 +89,10 @@
 
 /* Editor Content */
 .rte-content {
-  padding: 16px;
+  padding: 20px;
   outline: none;
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 17px;
+  line-height: 1.8;
   color: #1f2937;
 }
 
@@ -188,8 +196,8 @@
 
 /* ── 게시글 본문 HTML 렌더링 스타일 ── */
 .post-html-content {
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 17px;
+  line-height: 1.8;
   color: #1f2937;
   word-break: keep-all;
 }
