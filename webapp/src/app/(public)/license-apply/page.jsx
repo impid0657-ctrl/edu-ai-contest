@@ -60,7 +60,8 @@ export default function LicenseApplyPage() {
   // ── State ──
   const [user, setUser] = useState(null);
   const [authMethod, setAuthMethod] = useState(null); // "kakao" | "naver" | "school_email"
-  const [authConfirmed, setAuthConfirmed] = useState(false); // 인증 확인 완료 → 신청 폼으로 진행
+  const [authConfirmed, setAuthConfirmed] = useState(false); // 인증 확인 완료
+  const [guideConfirmed, setGuideConfirmed] = useState(false); // 안내 페이지 확인 완료 → 신청 폼으로 진행
   const [loading, setLoading] = useState(true);
   const [existingApp, setExistingApp] = useState(null);
   const [submitted, setSubmitted] = useState(false);
@@ -636,7 +637,7 @@ export default function LicenseApplyPage() {
                       <button type="button" className="btn theme-bg text-uppercase f-18 f-700"
                         style={{ height: "55px", paddingLeft: "40px", paddingRight: "40px" }}
                         onClick={() => setAuthConfirmed(true)}>
-                        신청서 작성하기
+                        다음 단계로
                       </button>
                     </div>
                     <div className="my-btn">
@@ -664,9 +665,77 @@ export default function LicenseApplyPage() {
   }
 
   // ════════════════════════════════════════════
+  // RENDER: 안내 페이지 (authConfirmed 후, guideConfirmed 전)
+  // ════════════════════════════════════════════
+  if (user && authConfirmed && !guideConfirmed) {
+    return (
+      <>
+        {heroSection}
+        <div className="contact-area pt-135 pb-120 over-hidden">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-xl-8 col-lg-9 col-md-10 col-sm-12 col-12">
+                <div className="title text-center mb-50">
+                  <span className="theme-color f-700">AI 이용권 신청</span>
+                  <h3 className="f-700 mb-20">AI 이용권 신청 및 안내사항</h3>
+                </div>
+
+                <div className="contact-form-wrapper secondary-border01 pt-50 pb-50 pl-40 pr-40">
+                  <div className="mb-30" style={{ background: '#fff8e1', borderLeft: '4px solid #ffc107', padding: '16px 20px', borderRadius: '0 8px 8px 0' }}>
+                    <p style={{ fontSize: '15px', lineHeight: '1.8', margin: 0, color: '#5d4037' }}>
+                      <strong>본 이용권은 국가예산으로 지원되는 한정된 이용권</strong>으로, '26년5월31일까지 작품을 완성하여 제출 가능한 참가팀만 신중하게 신청해 주시기 바랍니다.
+                    </p>
+                  </div>
+
+                  <div style={{ fontSize: '15px', lineHeight: '2.0', color: '#333' }}>
+                    <div className="mb-15" style={{ display: 'flex', gap: '8px' }}>
+                      <span style={{ color: '#1976d2', fontWeight: 700, flexShrink: 0 }}>o</span>
+                      <span><strong>(접수)</strong> 본 이용권은 팀당 1개만 신청 가능하며, 대표자(보호자)만 신청 가능합니다.</span>
+                    </div>
+                    <div className="mb-15" style={{ display: 'flex', gap: '8px' }}>
+                      <span style={{ color: '#1976d2', fontWeight: 700, flexShrink: 0 }}>o</span>
+                      <span><strong>(발급)</strong> 신청자의 메일 또는 문자를 통해 수신 확인 절차를 완료 후 계정이 제공됩니다.</span>
+                    </div>
+                    <div className="mb-15" style={{ display: 'flex', gap: '8px' }}>
+                      <span style={{ color: '#1976d2', fontWeight: 700, flexShrink: 0 }}>o</span>
+                      <span><strong>(보안)</strong> 계정 수령 후 에듀핏(edufit.app) 최초 접속 시, 보안을 위해 초기 패스워드를 반드시 변경해야 합니다.</span>
+                    </div>
+                    <div className="mb-15" style={{ display: 'flex', gap: '8px' }}>
+                      <span style={{ color: '#1976d2', fontWeight: 700, flexShrink: 0 }}>o</span>
+                      <span><strong>(이용권반납)</strong> AI 이용권 신청 후 작품 제출이 어려운 경우, '26년4월20일까지 이용권 반납 의사를 이메일로 회신 바랍니다.<br/>이메일 : <a href="mailto:gongmo@stunning.kr" style={{ color: '#1976d2' }}>gongmo@stunning.kr</a></span>
+                    </div>
+                    <div className="mb-15" style={{ display: 'flex', gap: '8px' }}>
+                      <span style={{ color: '#1976d2', fontWeight: 700, flexShrink: 0 }}>o</span>
+                      <span><strong>(유의사항)</strong> 건강하고 유익한 대회 환경을 위해 AI의 무분별한 활용 자제 및 대회 참여 목적으로만 사용해 주시기 바랍니다.</span>
+                    </div>
+                    <div style={{ display: 'flex', gap: '8px', paddingLeft: '16px' }}>
+                      <span style={{ color: '#888' }}>-</span>
+                      <span style={{ color: '#666' }}>모든 참가팀이 원활한 접속을 위해 하루 이용 제한량을 지켜주시기 바랍니다.</span>
+                    </div>
+                  </div>
+
+                  <div className="text-center mt-40">
+                    <div className="my-btn">
+                      <button type="button" className="btn theme-bg text-uppercase f-18 f-700"
+                        style={{ height: '55px', paddingLeft: '60px', paddingRight: '60px' }}
+                        onClick={() => setGuideConfirmed(true)}>
+                        확인하고 신청서 작성하기
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  // ════════════════════════════════════════════
   // RENDER: Application form (Auth confirmed OR OTP verified)
   // ════════════════════════════════════════════
-  if ((user && authConfirmed) || emailVerified || studentIdSubmitted) {
+  if ((user && guideConfirmed) || emailVerified || studentIdSubmitted) {
     return (
       <>
         {heroSection}
@@ -728,13 +797,11 @@ export default function LicenseApplyPage() {
                           </div>
                           {showPrivacy && (
                             <div className="mt-15 p-3" style={{ background: '#f8f9fa', borderRadius: '6px', fontSize: '13px', lineHeight: '1.8', maxHeight: '300px', overflowY: 'auto' }}>
-                              <p className="f-700 mb-10">개인정보 수집 · 이용 · 동의서</p>
-                              <p>본 대회 주최/주관 기관은 「개인정보보호법」 제15조, 제17조, 제18조, 제22조 및 제24조에 따라 아래와 같이 개인정보의 수집·이용에 관한 귀하의 동의를 얻고자 합니다.</p>
-                              <p className="f-700 mt-10">&lt;개인정보 수집 및 이용에 관한 사항&gt;</p>
-                              <p>○ (개인정보의 수집 및 이용 목적) 「제8회 교육 공공데이터 AI활용대회」 작품 접수, 접수 확인, 작품 심사, 수상 발표 시 본인 확인 및 필요한 사항 등 안내를 위한 의사소통 경로 확보</p>
-                              <p>○ (개인정보 수집 항목) 참가자 성명, 생년월일, 연락처, 소속, 주소, 성별, 이메일</p>
-                              <p>○ (개인정보 보유 및 이용기간) 동의서가 작성된 시점부터 2026년 12월 31일까지로 하며 이후 파기</p>
-                              <p>○ (개인정보 수집 동의 거부의 권리 및 동의 거부에 따른 제한사항) 신청자는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나 거부 시에는 「제8회 교육 공공데이터 AI활용대회」 접수가 제한될 수 있습니다.</p>
+                              <p className="f-700 mb-10">개인정보 이용 동의</p>
+                              <p>본인은 개인정보보호법 제15조 제1항(개인정보의 수집·이용)에 의거하여 AI 이용권 제공을 위한 개인 정보 제공 및 활용에 동의합니다.</p>
+                              <p>1. 개인정보의 수집‧이용목적 : 교육 공공데이터 AI 활용대회 참가팀의 AI 이용권 제공 및 이용 안내</p>
+                              <p>2. 수집‧이용하려는 개인정보의 항목 : 성명, 연락처, E-mail</p>
+                              <p>3. 개인정보의 보유 및 이용기간 : 교육 공공데이터 AI활용대회 대회 운영 기간</p>
                             </div>
                           )}
                         </div>
@@ -755,13 +822,10 @@ export default function LicenseApplyPage() {
                           {showThirdParty && (
                             <div className="mt-15 p-3" style={{ background: '#f8f9fa', borderRadius: '6px', fontSize: '13px', lineHeight: '1.8', maxHeight: '300px', overflowY: 'auto' }}>
                               <p className="f-700 mb-10">개인정보 제3자 제공 동의서</p>
-                              <p>본 대회 주최/주관 기관은 「개인정보보호법」 제17조, 제18조, 제24조에 따라 아래와 같이 개인정보의 제3자 제공에 대한 귀하의 동의를 얻고자 합니다.</p>
-                              <p>○ (개인정보의 제3자 제공 목적) 「제8회 교육 공공데이터 AI활용대회」 작품 접수, 접수 확인, 작품 심사, 수상 발표 시 본인 확인 및 필요한 사항 등 안내를 위한 의사소통 경로 확보</p>
-                              <p>○ (개인정보를 제공받는 자) 제8회 교육 공공데이터 AI활용대회 운영 위탁 선정 업체</p>
-                              <p>○ (개인정보를 제공받는 자의 이용목적) 상기 제3자 제공 목적과 동일</p>
-                              <p>○ (제공하는 개인정보 항목) 참가자 성명, 생년월일, 연락처, 소속, 주소, 성별, 이메일, 보호자 성명, 연락처, 이메일</p>
-                              <p>○ (개인정보를 제공받는 자의 개인정보 보유 및 이용기간) 동의서가 작성된 시점부터 2026년 12월 31일까지로 하며 이후 파기</p>
-                              <p>○ (개인정보의 제3자 제공 동의 거부의 권리 및 동의 거부에 따른 제한사항) 신청자는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나 거부 시에는 「제8회 교육 공공데이터 AI활용대회」 접수가 제한될 수 있습니다.</p>
+                              <p>본인은 개인정보보호법 제17조, 제18조, 제24조에 의거하여 AI 이용권 제공을 위한 개인정보 제 3자 제공 및 활용에 동의 합니다.</p>
+                              <p>1. 개인정보의 제3자 제공 목적 : 「제8회 교육 공공데이터 AI활용대회」 AI 이용권 제공을 위한 본인 확인 및 필요한 사항 등 안내를 위한 의사소통 경로 확보</p>
+                              <p>2. 수집‧이용하려는 개인정보의 항목 : 성명, 연락처, E-mail</p>
+                              <p>3. 개인정보의 보유 및 이용기간 : 교육 공공데이터 AI활용대회 대회 운영 기간</p>
                             </div>
                           )}
                         </div>
