@@ -1,0 +1,212 @@
+/* ── TipTap Rich Text Editor Styles ── */
+
+.rte-wrapper {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Toolbar */
+.rte-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 8px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e5e7eb;
+  align-items: center;
+}
+
+.rte-group {
+  display: flex;
+  gap: 2px;
+  padding-right: 8px;
+  border-right: 1px solid #e5e7eb;
+  margin-right: 4px;
+}
+
+.rte-group:last-child {
+  border-right: none;
+  padding-right: 0;
+  margin-right: 0;
+}
+
+.rte-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 6px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #374151;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.rte-btn:hover {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.rte-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.rte-btn--active {
+  background: #4361ee;
+  color: #fff;
+}
+
+.rte-btn--active:hover {
+  background: #3651d4;
+  color: #fff;
+}
+
+.rte-color-picker {
+  width: 32px;
+  height: 32px;
+  padding: 2px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #fff;
+}
+
+/* Editor Content */
+.rte-content {
+  padding: 16px;
+  outline: none;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #1f2937;
+}
+
+.rte-content p {
+  margin: 0 0 8px 0;
+}
+
+.rte-content h2 {
+  font-size: 1.5em;
+  font-weight: 700;
+  margin: 16px 0 8px;
+  color: #111827;
+}
+
+.rte-content h3 {
+  font-size: 1.25em;
+  font-weight: 600;
+  margin: 12px 0 8px;
+  color: #1f2937;
+}
+
+.rte-content h4 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 10px 0 6px;
+  color: #374151;
+}
+
+.rte-content ul,
+.rte-content ol {
+  padding-left: 24px;
+  margin: 8px 0;
+}
+
+.rte-content ul li {
+  list-style: disc;
+}
+
+.rte-content ol li {
+  list-style: decimal;
+}
+
+.rte-content blockquote {
+  border-left: 4px solid #4361ee;
+  padding: 8px 16px;
+  margin: 12px 0;
+  background: #f0f4ff;
+  border-radius: 0 4px 4px 0;
+  color: #374151;
+}
+
+.rte-content hr {
+  border: none;
+  border-top: 2px solid #e5e7eb;
+  margin: 16px 0;
+}
+
+.rte-content a {
+  color: #4361ee;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.rte-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.rte-content code {
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.rte-content pre {
+  background: #1f2937;
+  color: #e5e7eb;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.rte-content pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+/* Placeholder */
+.rte-content p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #9ca3af;
+  pointer-events: none;
+  height: 0;
+}
+
+/* ── 게시글 본문 HTML 렌더링 스타일 ── */
+.post-html-content {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #1f2937;
+  word-break: keep-all;
+}
+
+.post-html-content h2 { font-size: 1.5em; font-weight: 700; margin: 16px 0 8px; }
+.post-html-content h3 { font-size: 1.25em; font-weight: 600; margin: 12px 0 8px; }
+.post-html-content p { margin: 0 0 8px 0; }
+.post-html-content ul, .post-html-content ol { padding-left: 24px; margin: 8px 0; }
+.post-html-content ul li { list-style: disc; }
+.post-html-content ol li { list-style: decimal; }
+.post-html-content blockquote {
+  border-left: 4px solid #4361ee;
+  padding: 8px 16px;
+  margin: 12px 0;
+  background: #f0f4ff;
+  border-radius: 0 4px 4px 0;
+}
+.post-html-content a { color: #4361ee; text-decoration: underline; }
+.post-html-content img { max-width: 100%; height: auto; border-radius: 8px; margin: 8px 0; }
+.post-html-content hr { border: none; border-top: 2px solid #e5e7eb; margin: 16px 0; }

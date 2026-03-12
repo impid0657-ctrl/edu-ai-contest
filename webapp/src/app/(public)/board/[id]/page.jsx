@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { formatKST } from "@/lib/dateUtils";
 import RichTextEditor from "@/components/RichTextEditor";
+import "@/components/RichTextEditor.css";
 
 /**
  * Post Detail — Evalo original template design
@@ -245,7 +246,7 @@ export default function PostDetailPage() {
 
                       {/* 게시글 본문 */}
                       <div className="secondary-border01 pt-40 pb-40 pl-40 pr-40 mb-30">
-                          <div className="ql-editor" style={{ minHeight: 200, padding: 0 }}
+                          <div className="post-html-content" style={{ minHeight: 200, padding: 0 }}
                             dangerouslySetInnerHTML={{ __html: post.content }}
                           />
 
