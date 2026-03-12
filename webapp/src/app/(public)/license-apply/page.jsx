@@ -267,31 +267,28 @@ export default function LicenseApplyPage() {
   // ── Handlers ──
   const handleOAuth = async (provider) => {
     const siteUrl = window.location.origin;
-    const popupWidth = 500;
-    const popupHeight = 700;
-    const left = window.screenX + (window.outerWidth - popupWidth) / 2;
-    const top = window.screenY + (window.outerHeight - popupHeight) / 2;
-    const popupFeatures = `popup,width=${popupWidth},height=${popupHeight},left=${left},top=${top},scrollbars=yes`;
 
     if (provider === "naver") {
-      // 네이버: state에 popup 표시 추가
+      // 네이버: 팝업 방식
+      const popupWidth = 500;
+      const popupHeight = 700;
+      const left = window.screenX + (window.outerWidth - popupWidth) / 2;
+      const top = window.screenY + (window.outerHeight - popupHeight) / 2;
+      const popupFeatures = `popup,width=${popupWidth},height=${popupHeight},left=${left},top=${top},scrollbars=yes`;
       const naverUrl = `/api/auth/naver?siteUrl=${encodeURIComponent(siteUrl)}&popup=1`;
       window.open(naverUrl, 'naver_auth', popupFeatures);
       return;
     }
-    // 카카오: Supabase OAuth → skipBrowserRedirect로 URL 획득 후 팝업
-    const { data, error } = await supabase.auth.signInWithOAuth({
+
+    // 카카오: 전체 페이지 리다이렉트 방식 (가장 안정적)
+    const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${siteUrl}/callback?next=/license-apply&popup=1`,
+        redirectTo: `${siteUrl}/callback?next=/license-apply`,
         queryParams: { prompt: "login" },
-        skipBrowserRedirect: true,
       },
     });
-    if (error) { setError("본인 인증에 실패했습니다. 다시 시도해주세요."); return; }
-    if (data?.url) {
-      window.open(data.url, 'kakao_auth', popupFeatures);
-    }
+    if (error) { setError("본인 인증에 실패했습니다. 다시 시도해주세요."); }
   };
 
   const handleSendOTP = async () => {
