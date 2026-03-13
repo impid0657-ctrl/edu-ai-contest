@@ -321,10 +321,7 @@ export default function PublicLayout({ children }) {
                                     <h6 className="text-capitalize f-700 mb-22">바로가기</h6>
                                     <ul className="footer-info">
                                         <li>
-                                            <a href="/contest-info" className="position-relative d-inline-block mb-2">대회안내</a>
-                                        </li>
-                                        <li>
-                                            <a href="/submit" className="position-relative d-inline-block mb-2">대회접수</a>
+                                            <a href="/" className="position-relative d-inline-block mb-2">홈</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -342,9 +339,7 @@ export default function PublicLayout({ children }) {
                                         <li>
                                             <a href="/faq" className="position-relative d-inline-block mb-2">자주묻는 질문</a>
                                         </li>
-                                        <li>
-                                            <a href="/license-apply" className="position-relative d-inline-block mb-2">AI이용권 신청</a>
-                                        </li>
+
                                     </ul>
                                 </div>
                             </div>{/* /col */}
