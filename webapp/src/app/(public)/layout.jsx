@@ -317,21 +317,12 @@ export default function PublicLayout({ children }) {
                     <p style={{ fontSize: '18px', color: '#333', lineHeight: '1.7', marginBottom: '28px', fontWeight: 600 }}>
                         {accessBlocked.warning}
                     </p>
-                    <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                        <a href="/" className="btn theme-bg text-white f-16 f-700"
-                           style={{ padding: '12px 36px', borderRadius: '8px', textDecoration: 'none' }}>
-                            홈으로 돌아가기
-                        </a>
-                        {!isAdmin && (
-                            <a href={`/login?redirect=${encodeURIComponent(pathname)}`}
-                               className="btn f-16 f-700"
-                               style={{
-                                   padding: '12px 36px', borderRadius: '8px', textDecoration: 'none',
-                                   border: '2px solid #2161a6', color: '#2161a6', background: 'transparent',
-                               }}>
-                                관리자 로그인
-                            </a>
-                        )}
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <button type="button" className="btn theme-bg text-white f-16 f-700"
+                           style={{ padding: '12px 48px', borderRadius: '8px', border: 'none', cursor: 'pointer' }}
+                           onClick={() => setAccessBlocked(null)}>
+                            확인
+                        </button>
                     </div>
                 </div>
             </div>
