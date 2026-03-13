@@ -66,6 +66,30 @@ export async function GET(request) {
       return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
 
+    // OAuth 사용자의 이름/이메일 보충 (users 테이블에서 별도 조회)
+    if (applications && applications.length > 0) {
+      const userIds = applications.filter(a => a.user_id).map(a => a.user_id);
+      if (userIds.length > 0) {
+        const { data: userProfiles } = await ac
+          .from("users")
+          .select("id, name, email")
+          .in("id", userIds);
+
+        const profileMap = {};
+        if (userProfiles) {
+          for (const p of userProfiles) profileMap[p.id] = p;
+        }
+
+        for (const app of applications) {
+          if (app.user_id && profileMap[app.user_id]) {
+            const u = profileMap[app.user_id];
+            if (!app.applicant_name) app.applicant_name = u.name || "";
+            if (!app.applicant_email) app.applicant_email = u.email || "";
+          }
+        }
+      }
+    }
+
     // Build CSV with all fields
     const BOM = "\uFEFF"; // UTF-8 BOM for Korean Excel compatibility
     const headers = [
