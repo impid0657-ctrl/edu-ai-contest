@@ -884,7 +884,10 @@ export default function LicenseApplyPage() {
                           <option value="">분야를 선택해주세요</option>
                           <option value="elementary">AI활용 소속학교 홍보영상 (초등부)</option>
                           <option value="secondary">AI활용 아이디어 기획 (중·고등부)</option>
-                          <option value="general">AI활용 아이디어 기획 (일반부)</option>
+                          {/* 학생 인증 흐름이면 일반부 선택지 숨김 */}
+                          {!studentIdSubmitted && !emailVerified && (
+                            <option value="general">AI활용 아이디어 기획 (일반부)</option>
+                          )}
                         </select>
                       </div>
 
@@ -979,8 +982,9 @@ export default function LicenseApplyPage() {
                             <label className="f-700 mb-10 d-block">학교명 <span className="theme-color">*</span></label>
                             <input type="text" name="school_name" className="form-control secondary-border01"
                               placeholder="학교명을 입력해주세요"
-                              value={formData.school_name} onChange={handleChange} required
-                              style={inputStyle} />
+                              value={formData.school_name} onChange={studentIdSubmitted ? undefined : handleChange}
+                              readOnly={!!studentIdSubmitted} required
+                              style={{ ...inputStyle, ...(studentIdSubmitted ? { background: '#f0f0f0' } : {}) }} />
                           </div>
                           <div className="col-xl-6 col-lg-6 mb-25">
                             <label className="f-700 mb-10 d-block">학년 <span className="theme-color">*</span></label>
@@ -1062,6 +1066,19 @@ export default function LicenseApplyPage() {
                       </div>
 
                       </>)}
+
+                      {/* 학생증 첨부 표시 (수정 불가) */}
+                      {studentIdSubmitted && studentIdFile && (
+                        <div className="col-xl-12 col-lg-12 mb-25">
+                          <label className="f-700 mb-10 d-block">학생증 첨부</label>
+                          <div className="form-control secondary-border01 d-flex align-items-center"
+                            style={{ ...inputStyle, background: '#f0f0f0', color: '#666' }}>
+                            <i className="fas fa-paperclip me-2"></i>
+                            {studentIdFile.name}
+                          </div>
+                          <p className="text-muted mt-5 mb-0" style={{ fontSize: '13px' }}>인증 단계에서 첨부한 파일입니다 (수정 불가)</p>
+                        </div>
+                      )}
 
                       {/* Submit */}
                       <div className="col-xl-12 col-lg-12">

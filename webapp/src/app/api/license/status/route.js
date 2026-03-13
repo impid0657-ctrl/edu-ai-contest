@@ -21,23 +21,31 @@ export async function GET(request) {
     const normalizedEmail = email.trim().toLowerCase();
     const adminClient = createAdminClient();
 
-    // 1. OAuth 사용자 조회 (users 테이블 JOIN)
+    // 1. users 테이블에서 이메일로 user_id 찾기 → license_applications 조회
     let app = null;
     try {
-      const { data: oauthApps } = await adminClient
-        .from("license_applications")
-        .select("status, category, team_name, created_at, users!inner(email)")
-        .eq("users.email", normalizedEmail)
-        .is("deleted_at", null)
-        .order("created_at", { ascending: false })
-        .limit(1);
+      const { data: userRow } = await adminClient
+        .from("users")
+        .select("id")
+        .eq("email", normalizedEmail)
+        .single();
 
-      if (oauthApps && oauthApps.length > 0) {
-        app = oauthApps[0];
+      if (userRow) {
+        const { data: userApps } = await adminClient
+          .from("license_applications")
+          .select("status, category, team_name, created_at")
+          .eq("user_id", userRow.id)
+          .is("deleted_at", null)
+          .order("created_at", { ascending: false })
+          .limit(1);
+
+        if (userApps && userApps.length > 0) {
+          app = userApps[0];
+        }
       }
-    } catch { /* users JOIN 실패 시 무시 */ }
+    } catch { /* users 조회 실패 시 무시 */ }
 
-    // 2. applicant_email로 검색 (OAuth/게스트 모두 포함)
+    // 2. applicant_email로 검색 (게스트/직접 입력 이메일)
     if (!app) {
       const { data: emailApps } = await adminClient
         .from("license_applications")

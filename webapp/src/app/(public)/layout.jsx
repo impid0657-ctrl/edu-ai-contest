@@ -66,6 +66,7 @@ export default function PublicLayout({ children }) {
     const [loading, setLoading] = useState(true);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [accessBlocked, setAccessBlocked] = useState(null); // { warning: string } or null
+    const [isAdmin, setIsAdmin] = useState(false);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -90,13 +91,7 @@ export default function PublicLayout({ children }) {
             setTimeout(() => { window.scrollTo(0, 0); setLoading(false); }, 300);
         });
 
-        // 메뉴 데이터 API에서 로드
-        fetch("/api/pages?menu=true")
-            .then(res => res.ok ? res.json() : null)
-            .then(data => {
-                if (data?.menu?.length > 0) setMenuItems(data.menu);
-            })
-            .catch(() => { });
+        // 메뉴 데이터는 별도 useEffect에서 pathname 변경마다 로드 (아래 참조)
 
         // AccessCheckedLink 컴포넌트에서 발행하는 커스텀 이벤트 수신
         const handleAccessBlocked = (e) => setAccessBlocked(e.detail);
@@ -110,8 +105,19 @@ export default function PublicLayout({ children }) {
         };
     }, []);
 
-    // 페이지 접근 권한 체크
+    // 메뉴 데이터 로드 + 페이지 접근 권한 체크 (pathname 변경마다 갱신)
+    // → 로그아웃 후 페이지 이동 시 자동으로 일반 사용자 메뉴로 전환
     useEffect(() => {
+        // 메뉴 데이터 로드 (관리자/일반 독립 메뉴 반환)
+        fetch("/api/pages?menu=true")
+            .then(res => res.ok ? res.json() : null)
+            .then(data => {
+                if (data?.menu?.length > 0) setMenuItems(data.menu);
+                setIsAdmin(!!data?.isAdmin);
+            })
+            .catch(() => { });
+
+        // 접근 권한 체크
         setAccessBlocked(null);
         if (!pathname || pathname === "/") return;
         fetch(`/api/pages?path=${encodeURIComponent(pathname)}`)
@@ -311,10 +317,22 @@ export default function PublicLayout({ children }) {
                     <p style={{ fontSize: '18px', color: '#333', lineHeight: '1.7', marginBottom: '28px', fontWeight: 600 }}>
                         {accessBlocked.warning}
                     </p>
-                    <a href="/" className="btn theme-bg text-white f-16 f-700"
-                       style={{ padding: '12px 36px', borderRadius: '8px', textDecoration: 'none' }}>
-                        홈으로 돌아가기
-                    </a>
+                    <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <a href="/" className="btn theme-bg text-white f-16 f-700"
+                           style={{ padding: '12px 36px', borderRadius: '8px', textDecoration: 'none' }}>
+                            홈으로 돌아가기
+                        </a>
+                        {!isAdmin && (
+                            <a href={`/login?redirect=${encodeURIComponent(pathname)}`}
+                               className="btn f-16 f-700"
+                               style={{
+                                   padding: '12px 36px', borderRadius: '8px', textDecoration: 'none',
+                                   border: '2px solid #2161a6', color: '#2161a6', background: 'transparent',
+                               }}>
+                                관리자 로그인
+                            </a>
+                        )}
+                    </div>
                 </div>
             </div>
         )}

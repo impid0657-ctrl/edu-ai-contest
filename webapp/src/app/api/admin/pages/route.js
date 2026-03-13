@@ -26,7 +26,7 @@ export async function GET() {
     const ac = createAdminClient();
     const { data, error } = await ac
       .from("pages")
-      .select("id, slug, title, path, menu_order, is_visible, is_public, is_published, access_warning, updated_at")
+      .select("id, slug, title, path, menu_order, is_visible, is_public, is_published, access_warning, admin_visible, admin_public, admin_access_warning, updated_at")
       .order("menu_order", { ascending: true });
 
     if (error) {

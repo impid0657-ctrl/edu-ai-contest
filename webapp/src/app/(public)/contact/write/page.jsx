@@ -153,7 +153,7 @@ export default function ContactWritePage() {
                                   <div className="col-xl-6 col-lg-6 mb-15">
                                       <div className="my-btn">
                                           <button type="button" className="btn secondary-border01 text-capitalize f-18 f-700 w-100"
-                                              style={{ height: "55px" }}
+                                              style={{ height: "55px", color: "#333" }}
                                               onClick={() => router.push("/contact")}>
                                               취소
                                           </button>

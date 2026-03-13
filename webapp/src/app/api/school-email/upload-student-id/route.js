@@ -41,7 +41,8 @@ export async function POST(request) {
 
     const adminClient = createAdminClient();
 
-    // Check for existing pending verification
+    // Check for existing pending verification — 있으면 기존 레코드 삭제 후 재업로드 허용
+    // (이탈 후 재신청 시나리오 지원)
     const { data: existing } = await adminClient
       .from("student_verifications")
       .select("id")
@@ -50,10 +51,10 @@ export async function POST(request) {
       .maybeSingle();
 
     if (existing) {
-      return NextResponse.json(
-        { error: "이미 학생증 인증 요청이 접수되어 있습니다. 관리자 확인을 기다려주세요." },
-        { status: 409 }
-      );
+      await adminClient
+        .from("student_verifications")
+        .delete()
+        .eq("id", existing.id);
     }
 
     // Upload to Supabase Storage

@@ -9,7 +9,18 @@ import { useEffect } from "react";
  */
 export default function LogoutPage() {
   useEffect(() => {
-    fetch("/api/auth/signout", { method: "POST" })
+    // Supabase 인증 쿠키 강제 삭제 (클라이언트 측)
+    document.cookie.split(";").forEach(c => {
+      const name = c.trim().split("=")[0];
+      if (name.includes("supabase") || name.includes("sb-") || name.includes("auth-token")) {
+        document.cookie = `${name}=; Max-Age=0; Path=/;`;
+      }
+    });
+    try { localStorage.clear(); } catch {}
+    try { sessionStorage.clear(); } catch {}
+
+    // 서버 측 세션 정리 (GET으로 호출해야 쿠키 삭제 Set-Cookie 반환됨)
+    fetch("/api/auth/signout?redirect=/login")
       .finally(() => {
         window.location.href = "/login";
       });
