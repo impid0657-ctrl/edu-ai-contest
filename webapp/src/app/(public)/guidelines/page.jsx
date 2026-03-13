@@ -380,7 +380,7 @@ export default function GuidelinesPage() {
                         <div className="row align-items-center justify-content-between">
                             <div className="col-xl-9 col-lg-9  col-md-12 col-sm-12 col-12">
                                 <div className="banner-content">
-                                    <h4 className="f-700 mb-18">지금 바로 참가 신청하세요</h4>
+                                    <h4 className="f-700 mb-18">제8회 교육 공공데이터 AI 활용대회</h4>
                                     <p className="mb-0">교육의 미래를 AI와 함께 열어갈 여러분을 기다립니다</p>
                                 </div>{/* /work-banner-content */}
                             </div>{/* /col */}
