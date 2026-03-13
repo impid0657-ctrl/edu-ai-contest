@@ -353,9 +353,7 @@ export default function PublicLayout({ children }) {
                                         <li>
                                             <a href="/contact" className="position-relative d-inline-block mb-2">문의하기</a>
                                         </li>
-                                        <li>
-                                            <a href="/faq" className="position-relative d-inline-block mb-2">자주묻는 질문</a>
-                                        </li>
+
 
                                     </ul>
                                 </div>
