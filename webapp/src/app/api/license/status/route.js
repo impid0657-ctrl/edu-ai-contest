@@ -23,29 +23,32 @@ export async function GET(request) {
 
     // 1. OAuth 사용자 조회 (users 테이블 JOIN)
     let app = null;
-    const { data: oauthApps } = await adminClient
-      .from("license_applications")
-      .select("status, category, team_name, created_at, users!inner(email)")
-      .eq("users.email", normalizedEmail)
-      .order("created_at", { ascending: false })
-      .limit(1);
-
-    if (oauthApps && oauthApps.length > 0) {
-      app = oauthApps[0];
-    }
-
-    // 2. 게스트(학교이메일/학생증) 조회 (applicant_email 직접 검색)
-    if (!app) {
-      const { data: guestApps } = await adminClient
+    try {
+      const { data: oauthApps } = await adminClient
         .from("license_applications")
-        .select("status, category, team_name, created_at")
-        .eq("applicant_email", normalizedEmail)
-        .is("user_id", null)
+        .select("status, category, team_name, created_at, users!inner(email)")
+        .eq("users.email", normalizedEmail)
+        .is("deleted_at", null)
         .order("created_at", { ascending: false })
         .limit(1);
 
-      if (guestApps && guestApps.length > 0) {
-        app = guestApps[0];
+      if (oauthApps && oauthApps.length > 0) {
+        app = oauthApps[0];
+      }
+    } catch { /* users JOIN 실패 시 무시 */ }
+
+    // 2. applicant_email로 검색 (OAuth/게스트 모두 포함)
+    if (!app) {
+      const { data: emailApps } = await adminClient
+        .from("license_applications")
+        .select("status, category, team_name, created_at")
+        .eq("applicant_email", normalizedEmail)
+        .is("deleted_at", null)
+        .order("created_at", { ascending: false })
+        .limit(1);
+
+      if (emailApps && emailApps.length > 0) {
+        app = emailApps[0];
       }
     }
 
