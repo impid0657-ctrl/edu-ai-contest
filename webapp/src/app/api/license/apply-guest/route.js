@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { rateLimit } from "@/lib/rateLimit";
 
-const limiter = rateLimit({ interval: 60_000, limit: 5 });
+const limiter = rateLimit({ interval: 60_000, limit: 20 });
 
 const VALID_CATEGORIES = ["elementary", "secondary", "general"];
 const VALID_REGIONS = [
@@ -25,7 +25,8 @@ export async function POST(request) {
     const {
       applicant_email, applicant_name, auth_method, category,
       school_name, grade, team_name, member_count, phone, motivation,
-      birth_year, representative_name, member1_name, member2_name,
+      birth_year, representative_name, member1_name, member2_name, member3_name,
+      participation_type, member1_grade, member2_grade, member3_grade,
       topic, region, privacy_agreed, third_party_agreed,
       teacher_name, teacher_email, teacher_phone,
     } = body;
@@ -33,21 +34,26 @@ export async function POST(request) {
     // ── Validation ──
     if (!applicant_email || !applicant_email.trim())
       return NextResponse.json({ error: "이메일은 필수입니다." }, { status: 400 });
-    if (!applicant_name || !applicant_name.trim())
+    if (category !== "elementary" && (!applicant_name || !applicant_name.trim()))
       return NextResponse.json({ error: "이름은 필수입니다." }, { status: 400 });
     if (!auth_method || !["school_email", "student_direct", "naver"].includes(auth_method))
       return NextResponse.json({ error: "유효하지 않은 인증 방법입니다." }, { status: 400 });
     if (!category || !VALID_CATEGORIES.includes(category))
       return NextResponse.json({ error: "유효하지 않은 참가 부문입니다." }, { status: 400 });
-    if (!birth_year || !birth_year.trim())
-      return NextResponse.json({ error: "출생연도는 필수 입력 항목입니다." }, { status: 400 });
-    if (!phone || !phone.trim())
-      return NextResponse.json({ error: "휴대폰번호는 필수 입력 항목입니다." }, { status: 400 });
-    if (!representative_name || !representative_name.trim())
-      return NextResponse.json({ error: "대표자명은 필수 입력 항목입니다." }, { status: 400 });
+    // 초등부가 아닐 때만 출생연도/전화번호 필수
+    if (category !== "elementary") {
+      if (!birth_year || !birth_year.trim())
+        return NextResponse.json({ error: "출생연도는 필수 입력 항목입니다." }, { status: 400 });
+      if (!phone || !phone.trim())
+        return NextResponse.json({ error: "휴대폰번호는 필수 입력 항목입니다." }, { status: 400 });
+      // 팀 참가 시에만 대표자명(=applicant_name) 필수 (개인 참가 시 representative_name은 null)
+      if (participation_type === "team" && (!applicant_name || !applicant_name.trim()))
+        return NextResponse.json({ error: "대표자명은 필수 입력 항목입니다." }, { status: 400 });
+    }
     if (!topic || !topic.trim())
       return NextResponse.json({ error: "주제는 필수 입력 항목입니다." }, { status: 400 });
-    if (!region || !VALID_REGIONS.includes(region))
+    // 초등부 이외 모든 분야에서 지역 필수
+    if (category !== "elementary" && (!region || !VALID_REGIONS.includes(region)))
       return NextResponse.json({ error: "유효하지 않은 지역입니다." }, { status: 400 });
     if (!privacy_agreed || !third_party_agreed)
       return NextResponse.json({ error: "개인정보 동의는 필수입니다." }, { status: 400 });
@@ -104,7 +110,7 @@ export async function POST(request) {
     const now = new Date().toISOString();
     const baseData = {
       user_id: null,
-      applicant_name: applicant_name.trim(),
+      applicant_name: applicant_name ? applicant_name.trim() : null,
       applicant_email: normalizedEmail,
       auth_method,
       category,
@@ -112,7 +118,7 @@ export async function POST(request) {
       school_name: school_name || null,
       grade: grade || null,
       member_count: memberCount,
-      phone: phone.trim(),
+      phone: phone ? phone.trim() : null,
       motivation: motivation ? motivation.slice(0, 500) : null,
       status: "pending",
       student_verification_id: studentVerificationId,
@@ -122,8 +128,13 @@ export async function POST(request) {
     const extendedFields = {
       birth_year: birth_year ? birth_year.trim() : null,
       representative_name: representative_name ? representative_name.trim() : null,
+      participation_type: participation_type || null,
       member1_name: member1_name || null,
       member2_name: member2_name || null,
+      member3_name: member3_name || null,
+      member1_grade: member1_grade || null,
+      member2_grade: member2_grade || null,
+      member3_grade: member3_grade || null,
       topic: topic ? topic.trim() : null,
       region: region || null,
       teacher_name: category === "elementary" ? (teacher_name ? teacher_name.trim() : null) : null,

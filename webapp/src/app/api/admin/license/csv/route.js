@@ -93,8 +93,8 @@ export async function GET(request) {
     // Build CSV with all fields
     const BOM = "\uFEFF"; // UTF-8 BOM for Korean Excel compatibility
     const headers = [
-      "이름", "이메일", "인증방법", "부문", "출생연도", "대표자명",
-      "팀명", "팀원수", "팀원1", "팀원2",
+      "이름", "이메일", "인증방법", "부문", "참가유형", "출생년도", "대표자명",
+      "팀명", "팀원수", "팀원1", "팀원1학년", "팀원2", "팀원2학년", "팀원3", "팀원3학년",
       "학교명", "학년", "연락처",
       "지도교사", "지도교사이메일", "지도교사연락처",
       "작품명", "지역", "작품요약",
@@ -126,12 +126,17 @@ export async function GET(request) {
         escapeCsvValue(app.applicant_email || ""),
         escapeCsvValue(AUTH_LABELS[app.auth_method] || app.auth_method || ""),
         escapeCsvValue(CATEGORY_LABELS[app.category] || app.category || ""),
+        escapeCsvValue(app.participation_type === "individual" ? "개인" : app.participation_type === "team" ? "팀" : ""),
         escapeCsvValue(app.birth_year || ""),
         escapeCsvValue(app.representative_name || ""),
         escapeCsvValue(app.team_name || ""),
         escapeCsvValue(app.member_count || ""),
         escapeCsvValue(app.member1_name || ""),
+        escapeCsvValue(app.member1_grade || ""),
         escapeCsvValue(app.member2_name || ""),
+        escapeCsvValue(app.member2_grade || ""),
+        escapeCsvValue(app.member3_name || ""),
+        escapeCsvValue(app.member3_grade || ""),
         escapeCsvValue(app.school_name || ""),
         escapeCsvValue(app.grade || ""),
         escapeCsvValue(app.phone || ""),

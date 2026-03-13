@@ -94,6 +94,7 @@ export default function LicenseApplyPage() {
   // Application form
   const [formData, setFormData] = useState({
     category: "",
+    participation_type: "",
     team_name: "",
     school_name: "",
     grade: "",
@@ -108,6 +109,10 @@ export default function LicenseApplyPage() {
     representative_name: "",
     member1_name: "",
     member2_name: "",
+    member3_name: "",
+    member1_grade: "",
+    member2_grade: "",
+    member3_grade: "",
     topic: "",
     region: "",
   });
@@ -120,6 +125,7 @@ export default function LicenseApplyPage() {
   const [thirdPartyAgreed, setThirdPartyAgreed] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showThirdParty, setShowThirdParty] = useState(false);
+  const [showMember3, setShowMember3] = useState(false);
 
   const REGIONS = [
     "서울특별시", "부산광역시", "대구광역시", "인천광역시", "광주광역시", "대전광역시", "울산광역시",
@@ -146,6 +152,17 @@ export default function LicenseApplyPage() {
         const params = new URLSearchParams(window.location.search);
         const justAuthenticated = params.get("auth") === "done";
         const naverAuth = params.get("naver_auth") === "success";
+
+        // ── 프리뷰 모드: ?preview=1 → 인증 없이 폼 미리보기 (테스트용, 제출 불가) ──
+        if (params.get("preview") === "1") {
+          setUser({ id: "preview", email: "preview@test.com", user_metadata: { full_name: "프리뷰" }, app_metadata: { provider: "kakao" } });
+          setAuthMethod("kakao");
+          setAuthConfirmed(true);
+          setGuideConfirmed(true);
+          setFormData(prev => ({ ...prev, applicant_name: "프리뷰 테스트" }));
+          setLoading(false);
+          return;
+        }
 
         if (naverAuth) {
           // 네이버 OAuth 콜백 처리 — 쿠키에서 세션 읽기
@@ -414,16 +431,28 @@ export default function LicenseApplyPage() {
     setSubmitting(true);
 
     try {
+      const isElementary = formData.category === "elementary";
+      const isSecondary = formData.category === "secondary";
+      const isGeneral = formData.category === "general";
+      const hasParticipationType = isSecondary || isGeneral;
+      const isTeam = formData.participation_type === "team";
       const extraFields = {
-        birth_year: formData.birth_year,
-        representative_name: formData.representative_name,
-        member1_name: formData.member1_name || null,
+        birth_year: isElementary ? null : formData.birth_year,
+        phone: isElementary ? null : formData.phone,
+        representative_name: isElementary ? null : (hasParticipationType ? (isTeam ? formData.applicant_name : null) : formData.representative_name),
+        applicant_name: isElementary ? null : formData.applicant_name,
+        participation_type: formData.participation_type || null,
+        member1_name: (hasParticipationType && isTeam) ? formData.applicant_name : (formData.member1_name || null),
         member2_name: formData.member2_name || null,
+        member3_name: formData.member3_name || null,
+        member1_grade: (isSecondary && isTeam) ? formData.grade : (formData.member1_grade || null),
+        member2_grade: formData.member2_grade || null,
+        member3_grade: formData.member3_grade || null,
         topic: formData.topic,
         region: formData.region,
-        teacher_name: formData.category === "elementary" ? (formData.teacher_name || null) : null,
-        teacher_email: formData.category === "elementary" ? (formData.teacher_email || null) : null,
-        teacher_phone: formData.category === "elementary" ? (formData.teacher_phone || null) : null,
+        teacher_name: isElementary ? (formData.teacher_name || null) : null,
+        teacher_email: isElementary ? (formData.teacher_email || null) : null,
+        teacher_phone: isElementary ? (formData.teacher_phone || null) : null,
         privacy_agreed: privacyAgreed,
         third_party_agreed: thirdPartyAgreed,
       };
@@ -877,7 +906,7 @@ export default function LicenseApplyPage() {
 
                       {/* ══ 분야선택 (동의 바로 뒤) ══ */}
                       <div className="col-xl-12 col-lg-12 mb-25">
-                        <label className="f-700 mb-10 d-block">분야선택 <span className="theme-color">*</span></label>
+                        <label className="f-700 mb-10 d-block">분야 선택 <span className="theme-color">*</span></label>
                         <select name="category" className="form-control secondary-border01"
                           value={formData.category} onChange={handleChange} required
                           style={inputStyle}>
@@ -894,27 +923,52 @@ export default function LicenseApplyPage() {
                       {/* ══ 분야 선택 후 입력 필드 노출 ══ */}
                       {formData.category && (<>
 
-                      {/* 비회원 전용: 이름 */}
-                      {(emailVerified || studentIdSubmitted) && !user && (
-                        <div className="col-xl-12 col-lg-12 mb-25">
-                          <label className="f-700 mb-10 d-block">이름 <span className="theme-color">*</span></label>
-                          <input type="text" name="applicant_name" className="form-control secondary-border01"
-                            placeholder="이름을 입력해주세요"
-                            value={formData.applicant_name} onChange={handleChange} required
-                            style={inputStyle} />
-                        </div>
-                      )}
+                      {/* ════════════════════════════════ */}
+                      {/* 초등부 전용 레이아웃 */}
+                      {/* ════════════════════════════════ */}
+                      {formData.category === "elementary" ? (<>
 
-                      {/* 출생연도 */}
-                      <div className="col-xl-6 col-lg-6 mb-25">
-                        <label className="f-700 mb-10 d-block">출생연도 <span className="theme-color">*</span></label>
-                        <input type="text" name="birth_year" className="form-control secondary-border01"
-                          placeholder="예: 2010"
-                          value={formData.birth_year} onChange={handleChange} required
+                      {/* 지도교사 */}
+                      <div className="col-xl-12 col-lg-12 mb-25">
+                        <label className="f-700 mb-10 d-block">지도교사 <span className="theme-color">*</span></label>
+                        <input type="text" name="teacher_name" className="form-control secondary-border01"
+                          placeholder="지도교사 이름을 입력해주세요"
+                          value={formData.teacher_name} onChange={handleChange} required
                           style={inputStyle} />
                       </div>
 
-                      {/* 이메일주소 (표시용) */}
+                      {/* 지도교사 이메일 / 지도교사 연락처 */}
+                      <div className="col-xl-6 col-lg-6 mb-25">
+                        <label className="f-700 mb-10 d-block">지도교사 이메일 <span className="theme-color">*</span></label>
+                        <input type="email" name="teacher_email" className="form-control secondary-border01"
+                          placeholder="지도교사 이메일을 입력해주세요"
+                          value={formData.teacher_email} onChange={handleChange}
+                          onBlur={() => handleEmailBlur('teacher_email')}
+                          required
+                          style={{ ...inputStyle, ...(emailErrors.teacher_email ? { borderColor: '#dc3545' } : {}) }} />
+                        {emailErrors.teacher_email && (
+                          <p style={{ color: '#dc3545', fontSize: '13px', marginTop: '5px', marginBottom: 0 }}>{emailErrors.teacher_email}</p>
+                        )}
+                      </div>
+                      <div className="col-xl-6 col-lg-6 mb-25">
+                        <label className="f-700 mb-10 d-block">지도교사 연락처 <span className="theme-color">*</span></label>
+                        <input type="tel" name="teacher_phone" className="form-control secondary-border01"
+                          placeholder="010-0000-0000"
+                          value={formData.teacher_phone || '010-'}
+                          onChange={handleChange}
+                          onFocus={(e) => { if (!formData.teacher_phone) setFormData(prev => ({ ...prev, teacher_phone: '010-' })); }}
+                          required
+                          style={inputStyle} />
+                      </div>
+
+                      {/* 팀명 / 이메일주소 */}
+                      <div className="col-xl-6 col-lg-6 mb-25">
+                        <label className="f-700 mb-10 d-block">팀명</label>
+                        <input type="text" name="team_name" className="form-control secondary-border01"
+                          placeholder="팀명을 적어주세요"
+                          value={formData.team_name} onChange={handleChange}
+                          style={inputStyle} />
+                      </div>
                       <div className="col-xl-6 col-lg-6 mb-25">
                         <label className="f-700 mb-10 d-block">이메일주소</label>
                         <input type="email" className="form-control secondary-border01" readOnly
@@ -922,117 +976,62 @@ export default function LicenseApplyPage() {
                           style={{ ...inputStyle, background: '#f0f0f0' }} />
                       </div>
 
-                      {/* 휴대폰번호 */}
-                      <div className="col-xl-6 col-lg-6 mb-25">
-                        <label className="f-700 mb-10 d-block">휴대폰번호 <span className="theme-color">*</span></label>
-                        <input type="tel" name="phone" className="form-control secondary-border01"
-                          placeholder="010-0000-0000"
-                          value={formData.phone || '010-'}
-                          onChange={handleChange} required
-                          onFocus={(e) => { if (!formData.phone) setFormData(prev => ({ ...prev, phone: '010-' })); }}
-                          style={inputStyle} />
+                      {/* 팀원수 (드롭다운) */}
+                      <div className="col-xl-12 col-lg-12 mb-25">
+                        <label className="f-700 mb-10 d-block">팀원 수 <span className="theme-color">*</span></label>
+                        <select name="member_count" className="form-control secondary-border01"
+                          value={formData.member_count} onChange={handleChange} required
+                          style={inputStyle}>
+                          <option value={1}>1명 (개인 참가)</option>
+                          <option value={2}>2명</option>
+                          <option value={3}>3명</option>
+                        </select>
                       </div>
 
-                      {/* 대표자명 */}
-                      <div className="col-xl-6 col-lg-6 mb-25">
-                        <label className="f-700 mb-10 d-block">대표자명 <span className="theme-color">*</span></label>
-                        <input type="text" name="representative_name" className="form-control secondary-border01"
-                          placeholder="대표자 이름"
-                          value={formData.representative_name} onChange={handleChange} required
-                          style={inputStyle} />
-                      </div>
-
-                      {/* 팀명 + 팀원 수 */}
-                      <div className="col-xl-6 col-lg-6 mb-25">
-                        <label className="f-700 mb-10 d-block">팀명</label>
-                        <input type="text" name="team_name" className="form-control secondary-border01"
-                          placeholder="없을 시 미기입"
-                          value={formData.team_name} onChange={handleChange}
-                          style={inputStyle} />
-                      </div>
-                      <div className="col-xl-6 col-lg-6 mb-25">
-                        <label className="f-700 mb-10 d-block">팀원 수 <span className="text-muted" style={{ fontWeight: 400, fontSize: "13px" }}>1~3명 (개인 참가 시 1명)</span> <span className="theme-color">*</span></label>
-                        <input type="number" name="member_count" className="form-control secondary-border01"
-                          min={1} max={3} value={formData.member_count} onChange={handleChange} required
-                          style={inputStyle} />
-                      </div>
-
-                      {/* 팀원1 이름 */}
+                      {/* 팀원 이름 — 선택한 수에 따라 동적 표시 */}
+                      {formData.member_count >= 1 && (
                       <div className="col-xl-6 col-lg-6 mb-25">
                         <label className="f-700 mb-10 d-block">팀원1 이름</label>
                         <input type="text" name="member1_name" className="form-control secondary-border01"
-                          placeholder="없을 시 미기입"
                           value={formData.member1_name} onChange={handleChange}
                           style={inputStyle} />
                       </div>
-
-                      {/* 팀원2 이름 */}
+                      )}
+                      {formData.member_count >= 2 && (
                       <div className="col-xl-6 col-lg-6 mb-25">
                         <label className="f-700 mb-10 d-block">팀원2 이름</label>
                         <input type="text" name="member2_name" className="form-control secondary-border01"
-                          placeholder="없을 시 미기입"
                           value={formData.member2_name} onChange={handleChange}
                           style={inputStyle} />
                       </div>
-
-                      {/* School — conditional */}
-                      {needsSchoolInfo && (
-                        <>
-                          <div className="col-xl-6 col-lg-6 mb-25">
-                            <label className="f-700 mb-10 d-block">학교명 <span className="theme-color">*</span></label>
-                            <input type="text" name="school_name" className="form-control secondary-border01"
-                              placeholder="학교명을 입력해주세요"
-                              value={formData.school_name} onChange={studentIdSubmitted ? undefined : handleChange}
-                              readOnly={!!studentIdSubmitted} required
-                              style={{ ...inputStyle, ...(studentIdSubmitted ? { background: '#f0f0f0' } : {}) }} />
-                          </div>
-                          <div className="col-xl-6 col-lg-6 mb-25">
-                            <label className="f-700 mb-10 d-block">학년 <span className="theme-color">*</span></label>
-                            <input type="text" name="grade" className="form-control secondary-border01"
-                              placeholder="예: 5학년"
-                              value={formData.grade} onChange={handleChange} required
-                              style={inputStyle} />
-                          </div>
-                        </>
+                      )}
+                      {formData.member_count >= 3 && (
+                      <div className="col-xl-6 col-lg-6 mb-25">
+                        <label className="f-700 mb-10 d-block">팀원3 이름</label>
+                        <input type="text" name="member3_name" className="form-control secondary-border01"
+                          value={formData.member3_name} onChange={handleChange}
+                          style={inputStyle} />
+                      </div>
                       )}
 
-                      {/* 지도교사 — elementary만 */}
-                      {formData.category === "elementary" && (
-                        <>
-                          <div className="col-xl-12 col-lg-12 mb-25">
-                            <label className="f-700 mb-10 d-block">지도교사 <span className="theme-color">*</span></label>
-                            <input type="text" name="teacher_name" className="form-control secondary-border01"
-                              placeholder="지도교사를 입력해주세요"
-                              value={formData.teacher_name} onChange={handleChange} required
-                              style={inputStyle} />
-                          </div>
-                          <div className="col-xl-6 col-lg-6 mb-25">
-                            <label className="f-700 mb-10 d-block">지도교사 이메일 <span className="theme-color">*</span></label>
-                            <input type="email" name="teacher_email" className="form-control secondary-border01"
-                              placeholder="지도교사 이메일을 입력해주세요"
-                              value={formData.teacher_email} onChange={handleChange}
-                              onBlur={() => handleEmailBlur('teacher_email')}
-                              required
-                              style={{ ...inputStyle, ...(emailErrors.teacher_email ? { borderColor: '#dc3545' } : {}) }} />
-                            {emailErrors.teacher_email && (
-                              <p style={{ color: '#dc3545', fontSize: '13px', marginTop: '5px', marginBottom: 0 }}>{emailErrors.teacher_email}</p>
-                            )}
-                          </div>
-                          <div className="col-xl-6 col-lg-6 mb-25">
-                            <label className="f-700 mb-10 d-block">지도교사 연락처 <span className="theme-color">*</span></label>
-                            <input type="tel" name="teacher_phone" className="form-control secondary-border01"
-                              placeholder="010-0000-0000"
-                              value={formData.teacher_phone || '010-'}
-                              onChange={handleChange}
-                              onFocus={(e) => { if (!formData.teacher_phone) setFormData(prev => ({ ...prev, teacher_phone: '010-' })); }}
-                              required
-                              style={inputStyle} />
-                          </div>
-                        </>
-                      )}
+                      {/* 학교명 / 학년 */}
+                      <div className="col-xl-6 col-lg-6 mb-25">
+                        <label className="f-700 mb-10 d-block">학교명 <span className="theme-color">*</span></label>
+                        <input type="text" name="school_name" className="form-control secondary-border01"
+                          placeholder="학교명을 입력해주세요"
+                          value={formData.school_name} onChange={studentIdSubmitted ? undefined : handleChange}
+                          readOnly={!!studentIdSubmitted} required
+                          style={{ ...inputStyle, ...(studentIdSubmitted ? { background: '#f0f0f0' } : {}) }} />
+                      </div>
+                      <div className="col-xl-6 col-lg-6 mb-25">
+                        <label className="f-700 mb-10 d-block">학년 <span className="theme-color">*</span></label>
+                        <input type="text" name="grade" className="form-control secondary-border01"
+                          placeholder="팀원1 의 학년을 넣어주세요."
+                          value={formData.grade} onChange={handleChange} required
+                          style={inputStyle} />
+                      </div>
 
-                      {/* 지역 — 일반(general) 제외 */}
-                      {formData.category !== "general" && (
+                      {/* 지역 */}
                       <div className="col-xl-12 col-lg-12 mb-25">
                         <label className="f-700 mb-10 d-block">지역 (소속학교 기준) <span className="theme-color">*</span></label>
                         <select name="region" className="form-control secondary-border01"
@@ -1044,13 +1043,21 @@ export default function LicenseApplyPage() {
                           ))}
                         </select>
                       </div>
-                      )}
+
+                      {/* 작품명/요약 변경 안내 */}
+                      <div className="col-xl-12 col-lg-12 mb-20">
+                        <div style={{ background: '#f8f9fa', border: '1px solid #e9ecef', borderRadius: '8px', padding: '14px 18px' }}>
+                          <p style={{ margin: 0, fontSize: '14px', color: '#2563eb', fontWeight: 500, lineHeight: 1.6 }}>
+                            ※ 작품명, 작품 요약 항목에 기재하신 내용은 최종 작품 제출 시 자유롭게 변경하실 수 있으며, 별도의 변경 신청 절차는 필요하지 않습니다.
+                          </p>
+                        </div>
+                      </div>
 
                       {/* 작품명 */}
                       <div className="col-xl-12 col-lg-12 mb-25">
                         <label className="f-700 mb-10 d-block">작품명 <span className="theme-color">*</span></label>
                         <input type="text" name="topic" className="form-control secondary-border01"
-                          placeholder={formData.category === "elementary" ? "홍보영상 분야는 학교명 작성" : "작품명을 입력해주세요"}
+                          placeholder="작품명을 입력해주세요"
                           value={formData.topic} onChange={handleChange} required
                           style={inputStyle} />
                       </div>
@@ -1059,11 +1066,468 @@ export default function LicenseApplyPage() {
                       <div className="col-xl-12 col-lg-12 mb-35">
                         <label className="f-700 mb-10 d-block">작품 요약</label>
                         <textarea name="motivation" className="form-control secondary-border01" rows={4}
-                          maxLength={500} placeholder={formData.category === "elementary" ? "학교 홍보영상 제작 동기 또는 목적 작성" : "작품 요약을 간단히 작성해주세요"}
+                          maxLength={500} placeholder="작품 요약을 간단히 작성해주세요"
                           value={formData.motivation} onChange={handleChange}
                           style={{ paddingLeft: "20px", paddingTop: "15px", fontSize: "16px" }}></textarea>
-                        <p className="text-muted text-end mt-5 mb-0" style={{ fontSize: "13px" }}>{formData.motivation.length}/500</p>
+                        <p className="text-muted text-end mt-1 mb-0" style={{ fontSize: "13px" }}>{formData.motivation.length}/500</p>
                       </div>
+
+                      </>) : formData.category === "secondary" ? (<>
+                      {/* ════════════════════════════════ */}
+                      {/* 중고등부 전용 레이아웃              */}
+                      {/* ════════════════════════════════ */}
+
+                      {/* 참가인원 선택 */}
+                      <div className="col-xl-12 col-lg-12 mb-25">
+                        <label className="f-700 mb-10 d-block">참가유형 선택 <span className="theme-color">*</span></label>
+                        <select name="participation_type" className="form-control secondary-border01"
+                          value={formData.participation_type}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setFormData(prev => ({
+                              ...prev,
+                              participation_type: val,
+                              member_count: val === "individual" ? 1 : 2,
+                              member1_name: "",
+                              member2_name: "",
+                              member3_name: "",
+                              member1_grade: "",
+                              member2_grade: "",
+                              member3_grade: "",
+                            }));
+                            setShowMember3(false);
+                          }}
+                          required
+                          style={inputStyle}>
+                          <option value="">참가 유형을 선택해 주세요</option>
+                          <option value="individual">개인 참가</option>
+                          <option value="team">팀 참가</option>
+                        </select>
+                      </div>
+
+                      {/* ────── 개인 참가 ────── */}
+                      {formData.participation_type === "individual" && (<>
+                        {/* 이름 / 출생연도 */}
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">이름 <span className="theme-color">*</span></label>
+                          <input type="text" name="applicant_name" className="form-control secondary-border01"
+                            placeholder="이름을 입력해주세요"
+                            value={formData.applicant_name} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">출생연도 <span className="theme-color">*</span></label>
+                          <input type="text" name="birth_year" className="form-control secondary-border01"
+                            placeholder="예: 2010"
+                            value={formData.birth_year} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        {/* 이메일(읽기전용) / 휴대폰번호 */}
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">이메일주소</label>
+                          <input type="email" className="form-control secondary-border01" readOnly
+                            value={user?.email || schoolEmail || studentIdEmail || ""}
+                            style={{ ...inputStyle, background: '#f0f0f0' }} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">휴대폰번호 <span className="theme-color">*</span></label>
+                          <input type="tel" name="phone" className="form-control secondary-border01"
+                            placeholder="010-0000-0000"
+                            value={formData.phone || '010-'}
+                            onChange={handleChange} required
+                            onFocus={(e) => { if (!formData.phone) setFormData(prev => ({ ...prev, phone: '010-' })); }}
+                            style={inputStyle} />
+                        </div>
+                        {/* 팀명 (선택) */}
+                        <div className="col-xl-12 col-lg-12 mb-25">
+                          <label className="f-700 mb-10 d-block">팀명</label>
+                          <input type="text" name="team_name" className="form-control secondary-border01"
+                            placeholder="팀명이 있으신 경우 팀명을 적어주세요. (이름으로 참가시 미기재)"
+                            value={formData.team_name} onChange={handleChange}
+                            style={inputStyle} />
+                        </div>
+                        {/* 학교명 / 학년 */}
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">학교명 <span className="theme-color">*</span></label>
+                          <input type="text" name="school_name" className="form-control secondary-border01"
+                            placeholder="학교명을 입력해주세요"
+                            value={formData.school_name} onChange={studentIdSubmitted ? undefined : handleChange}
+                            readOnly={!!studentIdSubmitted} required
+                            style={{ ...inputStyle, ...(studentIdSubmitted ? { background: '#f0f0f0' } : {}) }} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">학년 <span className="theme-color">*</span></label>
+                          <input type="text" name="grade" className="form-control secondary-border01"
+                            placeholder="예: 중1, 고2"
+                            value={formData.grade} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                      </>)}
+
+                      {/* ────── 팀 참가 ────── */}
+                      {formData.participation_type === "team" && (<>
+                        {/* 대표자 이름 / 대표자 출생연도 */}
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">대표자 이름 <span className="theme-color">*</span></label>
+                          <input type="text" name="applicant_name" className="form-control secondary-border01"
+                            placeholder="대표자 이름을 입력해주세요"
+                            value={formData.applicant_name} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">대표자 출생연도 <span className="theme-color">*</span></label>
+                          <input type="text" name="birth_year" className="form-control secondary-border01"
+                            placeholder="예: 2010"
+                            value={formData.birth_year} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        {/* 대표자 이메일(읽기전용) / 대표자 휴대폰번호 */}
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">대표자 이메일주소</label>
+                          <input type="email" className="form-control secondary-border01" readOnly
+                            value={user?.email || schoolEmail || studentIdEmail || ""}
+                            style={{ ...inputStyle, background: '#f0f0f0' }} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">대표자 휴대폰번호 <span className="theme-color">*</span></label>
+                          <input type="tel" name="phone" className="form-control secondary-border01"
+                            placeholder="010-0000-0000"
+                            value={formData.phone || '010-'}
+                            onChange={handleChange} required
+                            onFocus={(e) => { if (!formData.phone) setFormData(prev => ({ ...prev, phone: '010-' })); }}
+                            style={inputStyle} />
+                        </div>
+                        {/* 팀명 (필수) */}
+                        <div className="col-xl-12 col-lg-12 mb-25">
+                          <label className="f-700 mb-10 d-block">팀명 <span className="theme-color">*</span></label>
+                          <input type="text" name="team_name" className="form-control secondary-border01"
+                            placeholder="팀명을 입력해주세요"
+                            value={formData.team_name} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        {/* 학교명 / 학년 */}
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">학교명 <span className="theme-color">*</span></label>
+                          <input type="text" name="school_name" className="form-control secondary-border01"
+                            placeholder="학교명을 입력해주세요"
+                            value={formData.school_name} onChange={studentIdSubmitted ? undefined : handleChange}
+                            readOnly={!!studentIdSubmitted} required
+                            style={{ ...inputStyle, ...(studentIdSubmitted ? { background: '#f0f0f0' } : {}) }} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">학년 <span className="theme-color">*</span></label>
+                          <input type="text" name="grade" className="form-control secondary-border01"
+                            placeholder="대표자(팀원1)의 학년을 입력해주세요"
+                            value={formData.grade} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        {/* 팀원1 — 대표자명 자동, 학년 자동 (읽기전용) */}
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">팀원1 이름</label>
+                          <input type="text" className="form-control secondary-border01" readOnly
+                            value={formData.applicant_name || ""}
+                            placeholder="대표자명이 자동 입력됩니다"
+                            style={{ ...inputStyle, background: '#f0f0f0' }} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">학년</label>
+                          <input type="text" className="form-control secondary-border01" readOnly
+                            value={formData.grade || ""}
+                            placeholder="위 학년이 자동 입력됩니다"
+                            style={{ ...inputStyle, background: '#f0f0f0' }} />
+                        </div>
+                        {/* 팀원2 이름 / 학년 */}
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">팀원2 이름 <span className="theme-color">*</span></label>
+                          <input type="text" name="member2_name" className="form-control secondary-border01"
+                            placeholder="팀원2 이름을 입력해주세요"
+                            value={formData.member2_name} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">학년</label>
+                          <input type="text" name="member2_grade" className="form-control secondary-border01"
+                            placeholder="팀원2의 학년을 넣어주세요"
+                            value={formData.member2_grade} onChange={handleChange}
+                            style={inputStyle} />
+                        </div>
+                        {/* 팀원 추가 버튼 */}
+                        {!showMember3 && (
+                        <div className="col-xl-12 col-lg-12 mb-25 d-flex flex-column align-items-center">
+                          <button type="button" className="btn btn-outline-primary d-flex align-items-center"
+                            onClick={() => {
+                              setShowMember3(true);
+                              setFormData(prev => ({ ...prev, member_count: 3 }));
+                            }}
+                            style={{ fontSize: '14px', padding: '8px 20px', gap: '8px' }}>
+                            <span style={{ fontSize: '18px', fontWeight: 700 }}>+</span>
+                            <span style={{ fontWeight: 700, fontSize: '17px' }}>팀원 추가</span>
+                          </button>
+                          <p className="mt-15 mb-0" style={{ fontSize: '15px', color: '#2563eb', fontWeight: 500, textAlign: 'center' }}>
+                            *팀원은 본인 포함 총 3명까지 신청 가능합니다.
+                          </p>
+                        </div>
+                        )}
+                        {/* 팀원3 이름 / 학년 (추가 시) */}
+                        {showMember3 && (<>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">팀원3 이름</label>
+                          <input type="text" name="member3_name" className="form-control secondary-border01"
+                            placeholder="팀원3 이름을 입력해주세요"
+                            value={formData.member3_name} onChange={handleChange}
+                            style={inputStyle} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">학년</label>
+                          <input type="text" name="member3_grade" className="form-control secondary-border01"
+                            placeholder="팀원3의 학년을 넣어주세요"
+                            value={formData.member3_grade} onChange={handleChange}
+                            style={inputStyle} />
+                        </div>
+                        </>)}
+                      </>)}
+
+                      {/* 중고등부 공통: 지역 + 작품 (참가인원 선택 후 표시) */}
+                      {formData.participation_type && (<>
+                      {/* 지역 */}
+                      <div className="col-xl-12 col-lg-12 mb-25">
+                        <label className="f-700 mb-10 d-block">지역 (소속학교 기준) <span className="theme-color">*</span></label>
+                        <select name="region" className="form-control secondary-border01"
+                          value={formData.region} onChange={handleChange} required
+                          style={inputStyle}>
+                          <option value="">지역을 선택해주세요</option>
+                          {REGIONS.map((r) => (
+                            <option key={r} value={r}>{r}</option>
+                          ))}
+                        </select>
+                      </div>
+                      {/* 작품명/요약 변경 안내 */}
+                      <div className="col-xl-12 col-lg-12 mb-20">
+                        <div style={{ background: '#f8f9fa', border: '1px solid #e9ecef', borderRadius: '8px', padding: '14px 18px' }}>
+                          <p style={{ margin: 0, fontSize: '14px', color: '#2563eb', fontWeight: 500, lineHeight: 1.6 }}>
+                            ※ 작품명, 작품 요약 항목에 기재하신 내용은 최종 작품 제출 시 자유롭게 변경하실 수 있으며, 별도의 변경 신청 절차는 필요하지 않습니다.
+                          </p>
+                        </div>
+                      </div>
+                      {/* 작품명 */}
+                      <div className="col-xl-12 col-lg-12 mb-25">
+                        <label className="f-700 mb-10 d-block">작품명 <span className="theme-color">*</span></label>
+                        <input type="text" name="topic" className="form-control secondary-border01"
+                          placeholder="작품명을 입력해주세요"
+                          value={formData.topic} onChange={handleChange} required
+                          style={inputStyle} />
+                      </div>
+                      {/* 작품 요약 */}
+                      <div className="col-xl-12 col-lg-12 mb-35">
+                        <label className="f-700 mb-10 d-block">작품 요약</label>
+                        <textarea name="motivation" className="form-control secondary-border01" rows={4}
+                          maxLength={500} placeholder="작품 요약을 간단히 작성해주세요"
+                          value={formData.motivation} onChange={handleChange}
+                          style={{ paddingLeft: "20px", paddingTop: "15px", fontSize: "16px" }}></textarea>
+                        <p className="text-muted text-end mt-1 mb-0" style={{ fontSize: "13px" }}>{formData.motivation.length}/500</p>
+                      </div>
+                      </>)}
+
+                      </>) : (<>
+                      {/* ════════════════════════════════ */}
+                      {/* 일반부 전용 레이아웃               */}
+                      {/* ════════════════════════════════ */}
+
+                      {/* 참가유형 선택 */}
+                      <div className="col-xl-12 col-lg-12 mb-25">
+                        <label className="f-700 mb-10 d-block">참가유형 선택 <span className="theme-color">*</span></label>
+                        <select name="participation_type" className="form-control secondary-border01"
+                          value={formData.participation_type}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setFormData(prev => ({
+                              ...prev,
+                              participation_type: val,
+                              member_count: val === "individual" ? 1 : 2,
+                              member1_name: "",
+                              member2_name: "",
+                              member3_name: "",
+                              member1_grade: "",
+                              member2_grade: "",
+                              member3_grade: "",
+                            }));
+                            setShowMember3(false);
+                          }}
+                          required
+                          style={inputStyle}>
+                          <option value="">참가 유형을 선택해 주세요</option>
+                          <option value="individual">개인 참가</option>
+                          <option value="team">팀 참가</option>
+                        </select>
+                      </div>
+
+                      {/* ────── 일반부 개인 참가 ────── */}
+                      {formData.participation_type === "individual" && (<>
+                        {/* 이름 / 출생연도 */}
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">이름 <span className="theme-color">*</span></label>
+                          <input type="text" name="applicant_name" className="form-control secondary-border01"
+                            placeholder="이름을 입력해주세요"
+                            value={formData.applicant_name} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">출생연도 <span className="theme-color">*</span></label>
+                          <input type="text" name="birth_year" className="form-control secondary-border01"
+                            placeholder="예: 1990"
+                            value={formData.birth_year} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        {/* 이메일 / 휴대폰 */}
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">이메일 주소 (인증 이메일)</label>
+                          <input type="email" className="form-control secondary-border01" readOnly
+                            value={user?.email || formData.applicant_email || ""}
+                            style={{ ...inputStyle, background: '#f0f0f0' }} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">휴대폰 번호 <span className="theme-color">*</span></label>
+                          <input type="tel" name="phone" className="form-control secondary-border01"
+                            placeholder="010-0000-0000"
+                            value={formData.phone} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        {/* 팀명 (선택) */}
+                        <div className="col-xl-12 col-lg-12 mb-25">
+                          <label className="f-700 mb-10 d-block">팀명</label>
+                          <input type="text" name="team_name" className="form-control secondary-border01"
+                            placeholder="팀명이 있으신 경우 팀명을 적어주세요. (이름으로 참가시 미기재)"
+                            value={formData.team_name} onChange={handleChange}
+                            style={inputStyle} />
+                        </div>
+                      </>)}
+
+                      {/* ────── 일반부 팀 참가 ────── */}
+                      {formData.participation_type === "team" && (<>
+                        {/* 대표자 이름 / 출생연도 */}
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">대표자 이름 <span className="theme-color">*</span></label>
+                          <input type="text" name="applicant_name" className="form-control secondary-border01"
+                            placeholder="대표자 이름을 입력해주세요"
+                            value={formData.applicant_name} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">대표자 출생연도 <span className="theme-color">*</span></label>
+                          <input type="text" name="birth_year" className="form-control secondary-border01"
+                            placeholder="예: 1990"
+                            value={formData.birth_year} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        {/* 대표자 이메일 / 휴대폰 */}
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">대표자 이메일 주소 (인증 이메일)</label>
+                          <input type="email" className="form-control secondary-border01" readOnly
+                            value={user?.email || formData.applicant_email || ""}
+                            style={{ ...inputStyle, background: '#f0f0f0' }} />
+                        </div>
+                        <div className="col-xl-6 col-lg-6 mb-25">
+                          <label className="f-700 mb-10 d-block">대표자 휴대폰 번호 <span className="theme-color">*</span></label>
+                          <input type="tel" name="phone" className="form-control secondary-border01"
+                            placeholder="010-0000-0000"
+                            value={formData.phone} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        {/* 팀명 (필수) */}
+                        <div className="col-xl-12 col-lg-12 mb-25">
+                          <label className="f-700 mb-10 d-block">팀명 <span className="theme-color">*</span></label>
+                          <input type="text" name="team_name" className="form-control secondary-border01"
+                            placeholder="팀명을 입력해주세요"
+                            value={formData.team_name} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        {/* 팀원1 이름 (대표자 자동) */}
+                        <div className="col-xl-12 col-lg-12 mb-25">
+                          <label className="f-700 mb-10 d-block">팀원1 이름</label>
+                          <input type="text" className="form-control secondary-border01" readOnly
+                            value={formData.applicant_name || ""}
+                            placeholder="위 대표자명이 자동 입력됩니다"
+                            style={{ ...inputStyle, background: '#f0f0f0' }} />
+                        </div>
+                        {/* 팀원2 이름 */}
+                        <div className="col-xl-12 col-lg-12 mb-25">
+                          <label className="f-700 mb-10 d-block">팀원2 이름 <span className="theme-color">*</span></label>
+                          <input type="text" name="member2_name" className="form-control secondary-border01"
+                            placeholder="팀원2 이름을 입력해주세요"
+                            value={formData.member2_name} onChange={handleChange} required
+                            style={inputStyle} />
+                        </div>
+                        {/* 팀원 추가 버튼 */}
+                        {!showMember3 && (
+                        <div className="col-xl-12 col-lg-12 mb-25 d-flex flex-column align-items-center">
+                          <button type="button" className="btn btn-outline-primary d-flex align-items-center"
+                            onClick={() => {
+                              setShowMember3(true);
+                              setFormData(prev => ({ ...prev, member_count: 3 }));
+                            }}
+                            style={{ fontSize: '14px', padding: '8px 20px', gap: '8px' }}>
+                            <span style={{ fontSize: '18px', fontWeight: 700 }}>+</span>
+                            <span style={{ fontWeight: 700, fontSize: '17px' }}>팀원 추가</span>
+                          </button>
+                          <p className="mt-15 mb-0" style={{ fontSize: '15px', color: '#2563eb', fontWeight: 500, textAlign: 'center' }}>
+                            *팀원은 본인 포함 총 3명까지 신청 가능합니다.
+                          </p>
+                        </div>
+                        )}
+                        {/* 팀원3 이름 (추가 시) */}
+                        {showMember3 && (
+                        <div className="col-xl-12 col-lg-12 mb-25">
+                          <label className="f-700 mb-10 d-block">팀원3 이름</label>
+                          <input type="text" name="member3_name" className="form-control secondary-border01"
+                            placeholder="팀원3 이름을 입력해주세요"
+                            value={formData.member3_name} onChange={handleChange}
+                            style={inputStyle} />
+                        </div>
+                        )}
+                      </>)}
+
+                      {/* 일반부 공통: 지역 + 작품 (참가유형 선택 후 표시) */}
+                      {formData.participation_type && (<>
+                      {/* 지역 */}
+                      <div className="col-xl-12 col-lg-12 mb-25">
+                        <label className="f-700 mb-10 d-block">지역 <span className="theme-color">*</span></label>
+                        <select name="region" className="form-control secondary-border01"
+                          value={formData.region} onChange={handleChange} required
+                          style={inputStyle}>
+                          <option value="">지역을 선택해주세요</option>
+                          {REGIONS.map((r) => (
+                            <option key={r} value={r}>{r}</option>
+                          ))}
+                        </select>
+                      </div>
+                      {/* 작품명/요약 변경 안내 */}
+                      <div className="col-xl-12 col-lg-12 mb-20">
+                        <div style={{ background: '#f8f9fa', border: '1px solid #e9ecef', borderRadius: '8px', padding: '14px 18px' }}>
+                          <p style={{ margin: 0, fontSize: '14px', color: '#2563eb', fontWeight: 500, lineHeight: 1.6 }}>
+                            ※ 작품명, 작품 요약 항목에 기재하신 내용은 최종 작품 제출 시 자유롭게 변경하실 수 있으며, 별도의 변경 신청 절차는 필요하지 않습니다.
+                          </p>
+                        </div>
+                      </div>
+                      {/* 작품명 */}
+                      <div className="col-xl-12 col-lg-12 mb-25">
+                        <label className="f-700 mb-10 d-block">작품명 <span className="theme-color">*</span></label>
+                        <input type="text" name="topic" className="form-control secondary-border01"
+                          placeholder="작품명을 입력해주세요"
+                          value={formData.topic} onChange={handleChange} required
+                          style={inputStyle} />
+                      </div>
+                      {/* 작품 요약 */}
+                      <div className="col-xl-12 col-lg-12 mb-35">
+                        <label className="f-700 mb-10 d-block">작품 요약</label>
+                        <textarea name="motivation" className="form-control secondary-border01" rows={4}
+                          maxLength={500} placeholder="작품 요약을 간단히 작성해주세요"
+                          value={formData.motivation} onChange={handleChange}
+                          style={{ paddingLeft: "20px", paddingTop: "15px", fontSize: "16px" }}></textarea>
+                        <p className="text-muted text-end mt-1 mb-0" style={{ fontSize: "13px" }}>{formData.motivation.length}/500</p>
+                      </div>
+                      </>)}
+
+                      </>)}
 
                       </>)}
 
@@ -1076,7 +1540,7 @@ export default function LicenseApplyPage() {
                             <i className="fas fa-paperclip me-2"></i>
                             {studentIdFile.name}
                           </div>
-                          <p className="text-muted mt-5 mb-0" style={{ fontSize: '13px' }}>인증 단계에서 첨부한 파일입니다 (수정 불가)</p>
+                          <p className="text-muted mt-1 mb-0" style={{ fontSize: '13px' }}>인증 단계에서 첨부한 파일입니다 (수정 불가)</p>
                         </div>
                       )}
 

@@ -74,6 +74,11 @@ const COLUMN_DEFS = [
   { key: "member_count", label: "팀원 수", default: false },
   { key: "member1_name", label: "팀원1", default: false },
   { key: "member2_name", label: "팀원2", default: false },
+  { key: "member3_name", label: "팀원3", default: false },
+  { key: "participation_type", label: "참가유형", default: false },
+  { key: "member1_grade", label: "팀원1 학년", default: false },
+  { key: "member2_grade", label: "팀원2 학년", default: false },
+  { key: "member3_grade", label: "팀원3 학년", default: false },
   { key: "phone", label: "연락처", default: false },
   { key: "topic", label: "주제", default: false },
   { key: "region", label: "지역", default: false },
@@ -159,6 +164,16 @@ function renderCell(app, colKey) {
       return app.member1_name || "-";
     case "member2_name":
       return app.member2_name || "-";
+    case "member3_name":
+      return app.member3_name || "-";
+    case "participation_type":
+      return app.participation_type === "individual" ? "개인" : app.participation_type === "team" ? "팀" : "-";
+    case "member1_grade":
+      return app.member1_grade || "-";
+    case "member2_grade":
+      return app.member2_grade || "-";
+    case "member3_grade":
+      return app.member3_grade || "-";
     case "phone":
       return app.phone || "-";
     case "topic":
@@ -894,11 +909,14 @@ export default function AdminLicensePage() {
                     <div className="card-body">
                       <div className="row g-3">
                         <div className="col-md-6"><strong>출생연도:</strong> {detail.birth_year || "-"}</div>
+                        <div className="col-md-6"><strong>참가유형:</strong> {detail.participation_type === "individual" ? "개인" : detail.participation_type === "team" ? "팀" : "-"}</div>
                         <div className="col-md-6"><strong>대표자명:</strong> {detail.representative_name || "-"}</div>
+                        <div className="col-md-6"><strong>학년:</strong> {detail.grade || "-"}</div>
                         <div className="col-md-6"><strong>팀명:</strong> {detail.team_name || "-"}</div>
                         <div className="col-md-6"><strong>팀원 수:</strong> {detail.member_count ?? "-"}</div>
-                        <div className="col-md-6"><strong>팀원1:</strong> {detail.member1_name || "-"}</div>
-                        <div className="col-md-6"><strong>팀원2:</strong> {detail.member2_name || "-"}</div>
+                        <div className="col-md-4"><strong>팀원1:</strong> {detail.member1_name || "-"} {detail.member1_grade ? `(${detail.member1_grade})` : ""}</div>
+                        <div className="col-md-4"><strong>팀원2:</strong> {detail.member2_name || "-"} {detail.member2_grade ? `(${detail.member2_grade})` : ""}</div>
+                        <div className="col-md-4"><strong>팀원3:</strong> {detail.member3_name || "-"} {detail.member3_grade ? `(${detail.member3_grade})` : ""}</div>
                         <div className="col-md-12"><strong>주제:</strong> {detail.topic || "-"}</div>
                         <div className="col-md-6"><strong>지역:</strong> {detail.region || "-"}</div>
                         <div className="col-md-6">
