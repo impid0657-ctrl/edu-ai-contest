@@ -875,6 +875,22 @@ export default function LicenseApplyPage() {
                         </div>
                       </div>
 
+                      {/* ══ 분야선택 (동의 바로 뒤) ══ */}
+                      <div className="col-xl-12 col-lg-12 mb-25">
+                        <label className="f-700 mb-10 d-block">분야선택 <span className="theme-color">*</span></label>
+                        <select name="category" className="form-control secondary-border01"
+                          value={formData.category} onChange={handleChange} required
+                          style={inputStyle}>
+                          <option value="">분야를 선택해주세요</option>
+                          <option value="elementary">AI활용 소속학교 홍보영상 (초등부)</option>
+                          <option value="secondary">AI활용 아이디어 기획 (중·고등부)</option>
+                          <option value="general">AI활용 아이디어 기획 (일반부)</option>
+                        </select>
+                      </div>
+
+                      {/* ══ 분야 선택 후 입력 필드 노출 ══ */}
+                      {formData.category && (<>
+
                       {/* 비회원 전용: 이름 */}
                       {(emailVerified || studentIdSubmitted) && !user && (
                         <div className="col-xl-12 col-lg-12 mb-25">
@@ -954,19 +970,6 @@ export default function LicenseApplyPage() {
                           placeholder="없을 시 미기입"
                           value={formData.member2_name} onChange={handleChange}
                           style={inputStyle} />
-                      </div>
-
-                      {/* 분야선택 */}
-                      <div className="col-xl-12 col-lg-12 mb-25">
-                        <label className="f-700 mb-10 d-block">분야선택 <span className="theme-color">*</span></label>
-                        <select name="category" className="form-control secondary-border01"
-                          value={formData.category} onChange={handleChange} required
-                          style={inputStyle}>
-                          <option value="">분야를 선택해주세요</option>
-                          <option value="elementary">AI활용 소속학교 홍보영상 제작</option>
-                          <option value="secondary">AI활용 아이디어 기획 (청소년)</option>
-                          <option value="general">AI활용 아이디어 기획 (일반)</option>
-                        </select>
                       </div>
 
                       {/* School — conditional */}
@@ -1057,6 +1060,8 @@ export default function LicenseApplyPage() {
                           style={{ paddingLeft: "20px", paddingTop: "15px", fontSize: "16px" }}></textarea>
                         <p className="text-muted text-end mt-5 mb-0" style={{ fontSize: "13px" }}>{formData.motivation.length}/500</p>
                       </div>
+
+                      </>)}
 
                       {/* Submit */}
                       <div className="col-xl-12 col-lg-12">
