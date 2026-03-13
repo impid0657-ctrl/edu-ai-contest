@@ -100,14 +100,13 @@ export default function AdminMenuPage() {
                   <th className="text-sm">경로</th>
                   <th className="text-sm text-center" style={{ width: "100px" }}>메뉴 노출</th>
                   <th className="text-sm text-center" style={{ width: "100px" }}>공개 여부</th>
-                  <th className="text-sm text-center" style={{ width: "120px" }}>관리자 접근</th>
                   <th className="text-sm">비공개 경고 메시지</th>
                 </tr>
               </thead>
               <tbody>
                 {menus.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="text-center text-muted py-4">
+                    <td colSpan={6} className="text-center text-muted py-4">
                       메뉴 데이터가 없습니다. 마이그레이션(013)을 실행해주세요.
                     </td>
                   </tr>
@@ -159,18 +158,6 @@ export default function AdminMenuPage() {
                             disabled={saving === item.id}
                           />
                         </div>
-                      </td>
-
-                      {/* 관리자 접근 상태 */}
-                      <td className="text-center">
-                        {!item.is_public ? (
-                          <span className="bg-success-focus text-success-600 px-8 py-4 rounded-pill text-xs fw-medium d-inline-flex align-items-center gap-1">
-                            <Icon icon="mdi:shield-check" className="text-sm" />
-                            접근 가능
-                          </span>
-                        ) : (
-                          <span className="text-sm text-neutral-400">—</span>
-                        )}
                       </td>
 
                       {/* 비공개 경고 메시지 */}
@@ -229,10 +216,9 @@ export default function AdminMenuPage() {
           <div className="d-flex gap-2 align-items-start">
             <Icon icon="mdi:information-outline" className="text-primary-600 text-xl mt-1" />
             <div className="text-sm text-primary-light">
-              <p className="mb-1"><strong>메뉴 노출</strong>: 꺼두면 일반 사용자의 헤더 메뉴에서 보이지 않습니다. 관리자에게는 🔒 표시와 함께 노출됩니다.</p>
-              <p className="mb-1"><strong>공개 여부</strong>: 비공개로 설정하면 일반 사용자는 접근이 차단됩니다. 관리자는 공개 여부와 관계없이 항상 접근 가능합니다.</p>
-              <p className="mb-1"><strong>관리자 접근</strong>: 비공개 메뉴는 관리자 로그인 시 자동으로 접근이 허용됩니다. 접근 시 상단에 관리자 모드 안내 배너가 표시됩니다.</p>
-              <p className="mb-0"><strong>경고 메시지</strong>: 비공개 페이지에 일반 사용자가 접근했을 때 보여줄 안내 문구를 설정합니다. 경고 모달에 '관리자 로그인' 버튼이 함께 표시됩니다.</p>
+              <p className="mb-1"><strong>메뉴 노출</strong>: 꺼두면 헤더 메뉴에서 보이지 않습니다. 직접 URL로 접근은 가능합니다.</p>
+              <p className="mb-1"><strong>공개 여부</strong>: 비공개로 설정하면 관리자 로그인 후에만 접근할 수 있습니다. 일반 사용자가 접근하면 경고 메시지가 표시됩니다.</p>
+              <p className="mb-0"><strong>경고 메시지</strong>: 비공개 페이지에 접근했을 때 보여줄 안내 문구를 설정합니다.</p>
             </div>
           </div>
         </div>
