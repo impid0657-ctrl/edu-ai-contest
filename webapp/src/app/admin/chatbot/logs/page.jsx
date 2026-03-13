@@ -187,23 +187,46 @@ export default function AdminChatbotLogsPage() {
             </table>
           </div>
 
-          {/* Expanded detail */}
+          {/* Detail Modal */}
           {expandedId && logs.find((l) => l.id === expandedId) && (() => {
             const log = logs.find((l) => l.id === expandedId);
             return (
-              <div className="border-top p-24 bg-light">
-                <div className="row g-3">
-                  <div className="col-md-6">
-                    <h6 className="fw-semibold mb-2">질문</h6>
-                    <p className="text-break mb-0">{log.user_message}</p>
+              <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 99999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                   onClick={() => setExpandedId(null)}>
+                <div style={{ background: '#fff', borderRadius: '12px', maxWidth: '700px', width: '90%', maxHeight: '80vh', overflowY: 'auto', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}
+                     onClick={(e) => e.stopPropagation()}>
+                  <div className="d-flex justify-content-between align-items-center px-24 py-16 border-bottom">
+                    <h6 className="fw-semibold mb-0">대화 상세</h6>
+                    <button className="btn-close" onClick={() => setExpandedId(null)} />
                   </div>
-                  <div className="col-md-6">
-                    <h6 className="fw-semibold mb-2">응답</h6>
-                    <p className="text-break mb-0">{log.assistant_message}</p>
+                  <div className="p-24">
+                    <div className="mb-20">
+                      <div className="d-flex align-items-center gap-2 mb-8">
+                        <Icon icon="mdi:account" className="text-primary-600" />
+                        <span className="fw-semibold text-sm">질문</span>
+                        <span className="text-muted text-xs ms-auto">{formatKST(log.created_at, "yyyy-MM-dd HH:mm:ss")}</span>
+                      </div>
+                      <div className="p-16 bg-primary-50 rounded" style={{ lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>
+                        {log.user_message}
+                      </div>
+                    </div>
+                    <div className="mb-16">
+                      <div className="d-flex align-items-center gap-2 mb-8">
+                        <Icon icon="mdi:robot" className="text-success-600" />
+                        <span className="fw-semibold text-sm">응답</span>
+                      </div>
+                      <div className="p-16 bg-success-50 rounded" style={{ lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>
+                        {log.assistant_message}
+                      </div>
+                    </div>
+                    <div className="d-flex flex-wrap gap-3 text-muted text-xs border-top pt-12">
+                      <span>제공자: {log.provider || "-"}</span>
+                      <span>모델: {log.model || "-"}</span>
+                      <span>토큰: {log.tokens_used || 0}</span>
+                      <span>지연: {log.latency_ms || 0}ms</span>
+                      {log.is_blocked && <span className="badge bg-danger-focus text-danger-600">차단됨</span>}
+                    </div>
                   </div>
-                </div>
-                <div className="mt-2 text-muted small">
-                  제공자: {log.provider || "-"} | 모델: {log.model || "-"} | 지연: {log.latency_ms || 0}ms | 세션: {log.session_id || "-"}
                 </div>
               </div>
             );
