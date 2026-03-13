@@ -541,7 +541,7 @@ export default function HomePage() {
 
                                             <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                                 <div className="card-body">
-                                                    <p className="m-0">총 154팀, 총상금 5,050만원 규모입니다. 일반부 대상 500만원(현금), 최우수 150만원, 우수 50만원, 장려 30만원. 학생부 기획 대상 300만원(상품권), 홍보영상 대상 100만원(상품권) 등이 수여됩니다.</p>
+                                                    <p className="m-0">총 154팀, 총상금 5,050만원 규모입니다. 일반부 대상 500만원, 최우수 150만원, 우수 50만원, 장려 30만원. 학생부 기획 대상 300만원, 홍보영상 대상 100만원 등이 수여됩니다.</p>
                                                 </div>
                                             </div>
                                         </div>{/* /card */}
