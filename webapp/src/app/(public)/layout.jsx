@@ -66,6 +66,8 @@ export default function PublicLayout({ children }) {
     const [loading, setLoading] = useState(true);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [accessBlocked, setAccessBlocked] = useState(null); // { warning: string } or null
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [adminBypass, setAdminBypass] = useState(false); // 관리자가 비공개 페이지에 접근 중
     const pathname = usePathname();
 
     useEffect(() => {
@@ -90,11 +92,12 @@ export default function PublicLayout({ children }) {
             setTimeout(() => { window.scrollTo(0, 0); setLoading(false); }, 300);
         });
 
-        // 메뉴 데이터 API에서 로드
+        // 메뉴 데이터 API에서 로드 (관리자 세션이면 전체 메뉴 반환됨)
         fetch("/api/pages?menu=true")
             .then(res => res.ok ? res.json() : null)
             .then(data => {
                 if (data?.menu?.length > 0) setMenuItems(data.menu);
+                if (data?.isAdmin) setIsAdmin(true);
             })
             .catch(() => { });
 
@@ -113,11 +116,14 @@ export default function PublicLayout({ children }) {
     // 페이지 접근 권한 체크
     useEffect(() => {
         setAccessBlocked(null);
+        setAdminBypass(false);
         if (!pathname || pathname === "/") return;
         fetch(`/api/pages?path=${encodeURIComponent(pathname)}`)
             .then(res => res.ok ? res.json() : null)
             .then(data => {
-                if (data?.access === "private") {
+                if (data?.access === "admin_bypass") {
+                    setAdminBypass(true);
+                } else if (data?.access === "private") {
                     setAccessBlocked({ warning: data.warning || "이 페이지는 현재 비공개 상태입니다." });
                 }
             })
@@ -213,7 +219,13 @@ export default function PublicLayout({ children }) {
                                     <ul className="d-flex justify-content-center" style={{ flexWrap: 'nowrap', gap: '0', margin: 0, padding: 0 }}>
                                         {mainMenuItems.map((item, idx) => (
                                             <li key={idx} style={{ whiteSpace: 'nowrap' }}>
-                                                <a href={item.path} onClick={(e) => handleMenuClick(e, item)}>{item.title}</a>
+                                                <a href={item.path} onClick={(e) => handleMenuClick(e, item)} style={{
+                                                    ...(isAdmin && item.is_visible === false ? { opacity: 0.6, fontStyle: 'italic' } : {}),
+                                                }}>
+                                                    {isAdmin && item.is_visible === false && '🔒 '}
+                                                    {isAdmin && item.is_public === false && '🚫 '}
+                                                    {item.title}
+                                                </a>
                                                 {subMenuMap[item.path] && (
                                                     <ul className="mega-menu mega-dropdown-menu white-bg ml-0">
                                                         {subMenuMap[item.path].map((sub, si) => (
@@ -259,8 +271,14 @@ export default function PublicLayout({ children }) {
                         <li key={idx} style={{ borderBottom: '1px solid #eee' }}>
                             <a href={item.path} style={{
                                 display: 'block', padding: '14px 0', fontSize: '16px',
-                                color: '#333', textDecoration: 'none', fontWeight: 500,
-                            }} onClick={(e) => handleMenuClick(e, item)}>{item.title}</a>
+                                color: isAdmin && item.is_visible === false ? '#999' : '#333',
+                                textDecoration: 'none', fontWeight: 500,
+                                fontStyle: isAdmin && item.is_visible === false ? 'italic' : 'normal',
+                            }} onClick={(e) => handleMenuClick(e, item)}>
+                                {isAdmin && item.is_visible === false && '🔒 '}
+                                {isAdmin && item.is_public === false && '🚫 '}
+                                {item.title}
+                            </a>
                             {subMenuMap[item.path] && (
                                 <ul style={{ listStyle: 'none', padding: '0 0 10px 15px', margin: 0 }}>
                                     {subMenuMap[item.path].map((sub, si) => (
@@ -296,6 +314,18 @@ export default function PublicLayout({ children }) {
             }} onClick={() => setMobileMenuOpen(false)}></div>
         )}
         {/* header extra info end  */}
+        {/* 관리자 바이패스 상단 배너 */}
+        {adminBypass && (
+            <div style={{
+                position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 99990,
+                background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)',
+                color: '#fff', textAlign: 'center', padding: '8px 16px',
+                fontSize: '13px', fontWeight: 600, letterSpacing: '0.5px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+            }}>
+                🔐 관리자 모드 — 이 페이지는 현재 비공개 상태입니다. 일반 사용자에게는 표시되지 않습니다.
+            </div>
+        )}
         {/* 비공개 메뉴 경고 모달 */}
         {accessBlocked && (
             <div style={{
@@ -308,13 +338,24 @@ export default function PublicLayout({ children }) {
                     maxWidth: '480px', width: '90%', textAlign: 'center',
                     boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
                 }}>
+                    <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔒</div>
                     <p style={{ fontSize: '18px', color: '#333', lineHeight: '1.7', marginBottom: '28px', fontWeight: 600 }}>
                         {accessBlocked.warning}
                     </p>
-                    <a href="/" className="btn theme-bg text-white f-16 f-700"
-                       style={{ padding: '12px 36px', borderRadius: '8px', textDecoration: 'none' }}>
-                        홈으로 돌아가기
-                    </a>
+                    <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <a href="/" className="btn theme-bg text-white f-16 f-700"
+                           style={{ padding: '12px 36px', borderRadius: '8px', textDecoration: 'none' }}>
+                            홈으로 돌아가기
+                        </a>
+                        <a href={`/login?redirect=${encodeURIComponent(pathname)}`}
+                           className="btn f-16 f-700"
+                           style={{
+                               padding: '12px 36px', borderRadius: '8px', textDecoration: 'none',
+                               border: '2px solid #2161a6', color: '#2161a6', background: 'transparent',
+                           }}>
+                            관리자 로그인
+                        </a>
+                    </div>
                 </div>
             </div>
         )}
