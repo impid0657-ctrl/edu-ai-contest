@@ -1024,7 +1024,8 @@ export default function LicenseApplyPage() {
                         </>
                       )}
 
-                      {/* 지역 */}
+                      {/* 지역 — 성인(general) 제외 */}
+                      {formData.category !== "general" && (
                       <div className="col-xl-12 col-lg-12 mb-25">
                         <label className="f-700 mb-10 d-block">지역 (소속학교 기준) <span className="theme-color">*</span></label>
                         <select name="region" className="form-control secondary-border01"
@@ -1036,6 +1037,7 @@ export default function LicenseApplyPage() {
                           ))}
                         </select>
                       </div>
+                      )}
 
                       {/* 작품명 */}
                       <div className="col-xl-12 col-lg-12 mb-25">
