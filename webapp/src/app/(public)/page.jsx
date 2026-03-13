@@ -269,9 +269,7 @@ export default function HomePage() {
                                             <p>초등 홍보영상, 중고등 아이디어 기획, 일반 아이디어 기획 3개 분야</p>
                                         </li>
                                     </ul>
-                                    <div className="my-btn pt-32">
-                                        <a href="/contest-info" className="btn theme-bg text-capitalize">공모 요강 보기</a>
-                                    </div>{/* /my-btn */}
+
                                 </div>{/* /feature-content */}
                             </div>{/* /col */}
                             <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
