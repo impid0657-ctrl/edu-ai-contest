@@ -108,10 +108,15 @@ export default function PublicLayout({ children }) {
             })
             .catch(() => { });
 
+        // AccessCheckedLink 컴포넌트에서 발행하는 커스텀 이벤트 수신
+        const handleAccessBlocked = (e) => setAccessBlocked(e.detail);
+        window.addEventListener("show-access-blocked", handleAccessBlocked);
+
         return () => {
             links.forEach((l) => l.remove());
             document.querySelectorAll("[data-evalo-original]").forEach((el) => el.remove());
             history.scrollRestoration = "auto";
+            window.removeEventListener("show-access-blocked", handleAccessBlocked);
         };
     }, []);
 
