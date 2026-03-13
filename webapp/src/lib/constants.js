@@ -25,7 +25,7 @@ export const CONTEST_CATEGORIES = [
   {
     id: "general",
     name: "일반부",
-    eligibility: "성인 누구나 (개인/팀, 나이 제한 없음)",
+    eligibility: "누구나 (개인/팀, 나이 제한 없음)",
     theme: "교육 공공데이터 기반 AI 서비스 개발",
   },
 ];

@@ -965,7 +965,7 @@ export default function LicenseApplyPage() {
                           <option value="">분야를 선택해주세요</option>
                           <option value="elementary">AI활용 소속학교 홍보영상 제작</option>
                           <option value="secondary">AI활용 아이디어 기획 (청소년)</option>
-                          <option value="general">AI활용 아이디어 기획 (성인)</option>
+                          <option value="general">AI활용 아이디어 기획 (일반)</option>
                         </select>
                       </div>
 
@@ -1024,7 +1024,7 @@ export default function LicenseApplyPage() {
                         </>
                       )}
 
-                      {/* 지역 — 성인(general) 제외 */}
+                      {/* 지역 — 일반(general) 제외 */}
                       {formData.category !== "general" && (
                       <div className="col-xl-12 col-lg-12 mb-25">
                         <label className="f-700 mb-10 d-block">지역 (소속학교 기준) <span className="theme-color">*</span></label>
