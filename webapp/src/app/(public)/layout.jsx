@@ -182,8 +182,11 @@ export default function PublicLayout({ children }) {
     };
 
     // 메인 메뉴에서 서브메뉴 경로 제외 (단, 서브메뉴 부모는 포함)
+    // + 비관리자: is_visible=false인 메뉴 프론트엔드에서도 이중 필터링 (안전장치)
     const mainMenuItems = activeMenu.filter(item => {
         if (subPaths.has(item.path) && !subMenuMap[item.path]) return false;
+        // 비관리자일 때 숨긴 메뉴 제외 (API에서도 필터하지만 2중 보호)
+        if (!isAdmin && item.is_visible === false) return false;
         return true;
     });
 
