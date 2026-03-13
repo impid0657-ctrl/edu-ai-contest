@@ -134,12 +134,12 @@ export async function POST(request) {
       return NextResponse.json({ error: msg }, { status: 500 });
     }
 
-    // Auto-generate embedding (non-blocking)
-    autoGenerateEmbedding(doc.id, doc.title, doc.content);
+    // Auto-generate embedding (blocking — Vercel serverless에서 non-blocking은 종료됨)
+    await autoGenerateEmbedding(doc.id, doc.title, doc.content);
 
     return NextResponse.json({
-      document: { ...doc, has_embedding: false },
-      message: "문서가 추가되었습니다. 임베딩이 자동 생성됩니다.",
+      document: { ...doc, has_embedding: true },
+      message: "문서가 추가되었습니다. 임베딩이 생성되었습니다.",
     }, { status: 201 });
   } catch (err) {
     console.error("POST /api/admin/chatbot/documents error:", err);
@@ -178,14 +178,14 @@ export async function PATCH(request) {
       return NextResponse.json({ error: msg }, { status: 500 });
     }
 
-    // Auto-regenerate embedding if content changed (non-blocking)
+    // Auto-regenerate embedding if content changed (blocking)
     if (content !== undefined) {
-      autoGenerateEmbedding(doc.id, doc.title, doc.content);
+      await autoGenerateEmbedding(doc.id, doc.title, doc.content);
     }
 
     return NextResponse.json({
-      document: { ...doc, has_embedding: false },
-      message: "문서가 수정되었습니다. 임베딩이 자동 재생성됩니다.",
+      document: { ...doc, has_embedding: content !== undefined },
+      message: "문서가 수정되었습니다." + (content !== undefined ? " 임베딩이 재생성되었습니다." : ""),
     });
   } catch (err) {
     console.error("PATCH /api/admin/chatbot/documents error:", err);
