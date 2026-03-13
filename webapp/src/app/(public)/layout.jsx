@@ -58,18 +58,8 @@ const FALLBACK_MENU = [
     { path: "/license-apply", title: "AI이용권 신청" },
 ];
 
-// 서브메뉴 매핑 (contact 하위에 faq)
-const SUB_MENU_MAP = {
-    "/contact": [
-        { path: "/contact", title: "문의하기" },
-        { path: "/faq", title: "자주묻는 질문" },
-    ],
-};
-
-// 서브메뉴에 포함된 경로 (메인 메뉴에서 제외)
-const SUB_PATHS = new Set(
-    Object.values(SUB_MENU_MAP).flatMap(subs => subs.map(s => s.path))
-);
+// 서브메뉴 매핑: API 메뉴 데이터를 기반으로 동적 생성 (아래 buildSubMenuMap 참조)
+// /faq가 메뉴에 포함되어 있으면 /contact 하위 드롭다운으로 표시, 없으면 드롭다운 없이 단독 표시
 
 export default function PublicLayout({ children }) {
     const [menuItems, setMenuItems] = useState([]);
@@ -136,6 +126,20 @@ export default function PublicLayout({ children }) {
 
     const activeMenu = menuItems.length > 0 ? menuItems : FALLBACK_MENU;
 
+    // 동적 서브메뉴 구성: /faq가 메뉴에 있으면 /contact 하위 드롭다운으로 구성
+    const subMenuMap = {};
+    const subPaths = new Set();
+    const faqItem = activeMenu.find(m => m.path === "/faq");
+    if (faqItem) {
+        const contactItem = activeMenu.find(m => m.path === "/contact");
+        subMenuMap["/contact"] = [
+            { path: "/contact", title: contactItem?.title || "문의하기" },
+            { path: "/faq", title: faqItem.title || "자주묻는 질문" },
+        ];
+        subPaths.add("/contact");
+        subPaths.add("/faq");
+    }
+
     // 비공개 메뉴 클릭 핸들러 — 페이지 이동 없이 모달 표시
     const handleMenuClick = (e, item) => {
         if (item.is_public === false) {
@@ -173,8 +177,7 @@ export default function PublicLayout({ children }) {
 
     // 메인 메뉴에서 서브메뉴 경로 제외 (단, 서브메뉴 부모는 포함)
     const mainMenuItems = activeMenu.filter(item => {
-        // /faq는 contact 서브메뉴이므로 메인에서 제외
-        if (SUB_PATHS.has(item.path) && !SUB_MENU_MAP[item.path]) return false;
+        if (subPaths.has(item.path) && !subMenuMap[item.path]) return false;
         return true;
     });
 
@@ -211,9 +214,9 @@ export default function PublicLayout({ children }) {
                                         {mainMenuItems.map((item, idx) => (
                                             <li key={idx} style={{ whiteSpace: 'nowrap' }}>
                                                 <a href={item.path} onClick={(e) => handleMenuClick(e, item)}>{item.title}</a>
-                                                {SUB_MENU_MAP[item.path] && (
+                                                {subMenuMap[item.path] && (
                                                     <ul className="mega-menu mega-dropdown-menu white-bg ml-0">
-                                                        {SUB_MENU_MAP[item.path].map((sub, si) => (
+                                                        {subMenuMap[item.path].map((sub, si) => (
                                                             <li key={si}><a href={sub.path}>{sub.title}</a></li>
                                                         ))}
                                                     </ul>
@@ -258,9 +261,9 @@ export default function PublicLayout({ children }) {
                                 display: 'block', padding: '14px 0', fontSize: '16px',
                                 color: '#333', textDecoration: 'none', fontWeight: 500,
                             }} onClick={(e) => handleMenuClick(e, item)}>{item.title}</a>
-                            {SUB_MENU_MAP[item.path] && (
+                            {subMenuMap[item.path] && (
                                 <ul style={{ listStyle: 'none', padding: '0 0 10px 15px', margin: 0 }}>
-                                    {SUB_MENU_MAP[item.path].map((sub, si) => (
+                                    {subMenuMap[item.path].map((sub, si) => (
                                         <li key={si}>
                                             <a href={sub.path} style={{
                                                 display: 'block', padding: '8px 0', fontSize: '14px',
