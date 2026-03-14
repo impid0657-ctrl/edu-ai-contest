@@ -70,7 +70,7 @@ export default function ChatbotWidget() {
 
       // 타이핑 효과: 코드포인트 단위로 점진적으로 표시
       const codePoints = Array.from(fullText);
-      const chunkSize = 5;
+      const chunkSize = 2;
 
       setMessages((prev) => [
         ...prev,
@@ -89,7 +89,7 @@ export default function ChatbotWidget() {
           }
           return updated;
         });
-        await new Promise((r) => setTimeout(r, 15));
+        await new Promise((r) => setTimeout(r, 30));
       }
 
       // 타이핑 완료
