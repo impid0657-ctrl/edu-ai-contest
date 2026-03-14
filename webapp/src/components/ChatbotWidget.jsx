@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { flushSync } from "react-dom";
 
 /**
  * ChatbotWidget — Floating chat button + panel on all public pages.
- * Bottom-right fixed position. Streaming SSE. Zero inline styles.
+ * Bottom-right fixed position. JSON response + flushSync typing effect.
  */
 
 function generateSessionId() {
@@ -36,39 +37,6 @@ export default function ChatbotWidget() {
     }
   }, [isOpen]);
 
-  // 타이핑 효과: typing 플래그가 있는 메시지를 setInterval로 점진적 표시
-  useEffect(() => {
-    const lastMsg = messages[messages.length - 1];
-    if (!lastMsg?.typing || !lastMsg.fullContent) return;
-
-    const codePoints = Array.from(lastMsg.fullContent);
-    let idx = 0;
-
-    const timer = setInterval(() => {
-      idx += 2;
-      if (idx >= codePoints.length) {
-        clearInterval(timer);
-        setMessages((prev) => {
-          const updated = [...prev];
-          const lastIdx = updated.length - 1;
-          updated[lastIdx] = { ...updated[lastIdx], content: lastMsg.fullContent, typing: false };
-          return updated;
-        });
-        setIsLoading(false);
-      } else {
-        const displayed = codePoints.slice(0, idx).join("");
-        setMessages((prev) => {
-          const updated = [...prev];
-          const lastIdx = updated.length - 1;
-          updated[lastIdx] = { ...updated[lastIdx], content: displayed };
-          return updated;
-        });
-      }
-    }, 20);
-
-    return () => clearInterval(timer);
-  }, [messages.length]);
-
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -93,15 +61,40 @@ export default function ChatbotWidget() {
           ...prev,
           { role: "bot", content: errData.error || "오류가 발생했습니다.", timestamp: new Date() },
         ]);
-        setIsLoading(false);
         return;
       }
 
-      // fullText를 저장하면 useEffect가 타이핑 효과 처리
-      setMessages((prev) => [
-        ...prev,
-        { role: "bot", content: "", fullContent: fullText, timestamp: new Date(), typing: true },
-      ]);
+      const data = await res.json();
+      const fullText = data.response || data.error || "응답을 받지 못했습니다.";
+
+      // 빈 봇 메시지 추가
+      flushSync(() => {
+        setMessages((prev) => [
+          ...prev,
+          { role: "bot", content: "", timestamp: new Date() },
+        ]);
+      });
+
+      // flushSync 기반 타이핑 효과 — React 18 배칭 강제 해제
+      const codePoints = Array.from(fullText);
+      for (let i = 0; i < codePoints.length; i += 3) {
+        const displayed = codePoints.slice(0, i + 3).join("");
+        flushSync(() => {
+          setMessages((prev) => {
+            const updated = [...prev];
+            updated[updated.length - 1] = { ...updated[updated.length - 1], content: displayed };
+            return updated;
+          });
+        });
+        await new Promise((r) => setTimeout(r, 15));
+      }
+
+      // 최종 전체 텍스트 확정
+      setMessages((prev) => {
+        const updated = [...prev];
+        updated[updated.length - 1] = { ...updated[updated.length - 1], content: fullText };
+        return updated;
+      });
     } catch (err) {
       console.error("Chat error:", err);
       setMessages((prev) => [
@@ -109,11 +102,7 @@ export default function ChatbotWidget() {
         { role: "bot", content: "네트워크 오류가 발생했습니다.", timestamp: new Date() },
       ]);
     } finally {
-      // 타이핑 효과 중이면 useEffect에서 isLoading 해제
-      const lastMsg = messages[messages.length - 1];
-      if (!lastMsg?.typing) {
-        setIsLoading(false);
-      }
+      setIsLoading(false);
     }
   };
 
@@ -139,11 +128,9 @@ export default function ChatbotWidget() {
     let match;
 
     while ((match = linkRegex.exec(text)) !== null) {
-      // 링크 앞 텍스트
       if (match.index > lastIndex) {
         parts.push(text.slice(lastIndex, match.index));
       }
-      // 링크
       parts.push(
         <a
           key={match.index}
@@ -162,7 +149,6 @@ export default function ChatbotWidget() {
       );
       lastIndex = match.index + match[0].length;
     }
-    // 남은 텍스트
     if (lastIndex < text.length) {
       parts.push(text.slice(lastIndex));
     }
