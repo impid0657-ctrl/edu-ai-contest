@@ -36,6 +36,39 @@ export default function ChatbotWidget() {
     }
   }, [isOpen]);
 
+  // 타이핑 효과: typing 플래그가 있는 메시지를 setInterval로 점진적 표시
+  useEffect(() => {
+    const lastMsg = messages[messages.length - 1];
+    if (!lastMsg?.typing || !lastMsg.fullContent) return;
+
+    const codePoints = Array.from(lastMsg.fullContent);
+    let idx = 0;
+
+    const timer = setInterval(() => {
+      idx += 2;
+      if (idx >= codePoints.length) {
+        clearInterval(timer);
+        setMessages((prev) => {
+          const updated = [...prev];
+          const lastIdx = updated.length - 1;
+          updated[lastIdx] = { ...updated[lastIdx], content: lastMsg.fullContent, typing: false };
+          return updated;
+        });
+        setIsLoading(false);
+      } else {
+        const displayed = codePoints.slice(0, idx).join("");
+        setMessages((prev) => {
+          const updated = [...prev];
+          const lastIdx = updated.length - 1;
+          updated[lastIdx] = { ...updated[lastIdx], content: displayed };
+          return updated;
+        });
+      }
+    }, 20);
+
+    return () => clearInterval(timer);
+  }, [messages.length]);
+
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -64,43 +97,11 @@ export default function ChatbotWidget() {
         return;
       }
 
-      // JSON 응답 수신 + 클라이언트 타이핑 효과
-      const data = await res.json();
-      const fullText = data.response || data.error || "응답을 받지 못했습니다.";
-
-      // 타이핑 효과: 코드포인트 단위로 점진적으로 표시
-      const codePoints = Array.from(fullText);
-      const chunkSize = 2;
-
+      // fullText를 저장하면 useEffect가 타이핑 효과 처리
       setMessages((prev) => [
         ...prev,
-        { role: "bot", content: "", timestamp: new Date(), streaming: true },
+        { role: "bot", content: "", fullContent: fullText, timestamp: new Date(), typing: true },
       ]);
-
-      let displayed = "";
-      for (let i = 0; i < codePoints.length; i += chunkSize) {
-        displayed += codePoints.slice(i, i + chunkSize).join("");
-        const snapshot = displayed;
-        setMessages((prev) => {
-          const updated = [...prev];
-          const lastIdx = updated.length - 1;
-          if (updated[lastIdx]?.streaming) {
-            updated[lastIdx] = { ...updated[lastIdx], content: snapshot };
-          }
-          return updated;
-        });
-        await new Promise((r) => setTimeout(r, 30));
-      }
-
-      // 타이핑 완료
-      setMessages((prev) => {
-        const updated = [...prev];
-        const lastIdx = updated.length - 1;
-        if (updated[lastIdx]?.streaming) {
-          updated[lastIdx] = { ...updated[lastIdx], content: fullText, streaming: false };
-        }
-        return updated;
-      });
     } catch (err) {
       console.error("Chat error:", err);
       setMessages((prev) => [
@@ -108,7 +109,11 @@ export default function ChatbotWidget() {
         { role: "bot", content: "네트워크 오류가 발생했습니다.", timestamp: new Date() },
       ]);
     } finally {
-      setIsLoading(false);
+      // 타이핑 효과 중이면 useEffect에서 isLoading 해제
+      const lastMsg = messages[messages.length - 1];
+      if (!lastMsg?.typing) {
+        setIsLoading(false);
+      }
     }
   };
 
