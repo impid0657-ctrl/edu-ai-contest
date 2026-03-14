@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { flushSync } from "react-dom";
 
 /**
  * ChatbotEmbed — OpenAI-style inline chatbot section.
  * Evalo design tokens + clean modern UI.
- * SSE streaming via /api/chat.
+ * JSON response + flushSync typing effect.
  */
 
 function generateSessionId() {
@@ -18,6 +19,32 @@ const DEFAULT_QUESTIONS = [
   "작품 접수 마감일은 언제인가요?",
   "팀으로 참가할 수 있나요?",
 ];
+
+// 마크다운 링크 [텍스트](URL)를 클릭 가능한 <a> 태그로 변환
+function renderLinkedContent(text) {
+  if (!text) return text;
+  const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+    parts.push(
+      <a key={match.index} href={match[2]} target="_blank" rel="noopener noreferrer"
+        style={{ color: "#1a6dd4", fontWeight: 700, textDecoration: "underline", cursor: "pointer" }}>
+        {match[1]}
+      </a>
+    );
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+  return parts.length > 0 ? parts : text;
+}
 
 export default function ChatbotEmbed() {
   const [messages, setMessages] = useState([]);
@@ -80,61 +107,40 @@ export default function ChatbotEmbed() {
         return;
       }
 
-      const contentType = res.headers.get("content-type") || "";
-      if (contentType.includes("application/json")) {
-        const data = await res.json();
+      const data = await res.json();
+      const fullText = data.response || data.error || "응답을 받지 못했습니다.";
+
+      // 빈 봇 메시지 추가
+      flushSync(() => {
         setMessages((prev) => [
           ...prev,
-          { role: "bot", content: data.response || data.error, timestamp: new Date() },
+          { role: "bot", content: "", timestamp: new Date(), streaming: true },
         ]);
-        setIsLoading(false);
-        return;
+      });
+
+      // flushSync 기반 타이핑 효과 — React 18 배칭 강제 해제
+      const codePoints = Array.from(fullText);
+      for (let i = 0; i < codePoints.length; i += 3) {
+        const displayed = codePoints.slice(0, i + 3).join("");
+        flushSync(() => {
+          setMessages((prev) => {
+            const updated = [...prev];
+            const lastIdx = updated.length - 1;
+            if (updated[lastIdx]?.streaming) {
+              updated[lastIdx] = { ...updated[lastIdx], content: displayed };
+            }
+            return updated;
+          });
+        });
+        await new Promise((r) => setTimeout(r, 15));
       }
 
-      // SSE Streaming
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let botMessage = "";
-
-      setMessages((prev) => [
-        ...prev,
-        { role: "bot", content: "", timestamp: new Date(), streaming: true },
-      ]);
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split("\n");
-
-        for (const line of lines) {
-          if (line.startsWith("data: ")) {
-            const data = line.slice(6).trim();
-            if (data === "[DONE]") continue;
-            try {
-              const parsed = JSON.parse(data);
-              if (parsed.content) {
-                botMessage += parsed.content;
-                setMessages((prev) => {
-                  const updated = [...prev];
-                  const lastIdx = updated.length - 1;
-                  if (updated[lastIdx]?.streaming) {
-                    updated[lastIdx] = { ...updated[lastIdx], content: botMessage };
-                  }
-                  return updated;
-                });
-              }
-            } catch { /* skip malformed */ }
-          }
-        }
-      }
-
+      // 타이핑 완료 — 전체 텍스트 확정
       setMessages((prev) => {
         const updated = [...prev];
         const lastIdx = updated.length - 1;
         if (updated[lastIdx]?.streaming) {
-          updated[lastIdx] = { ...updated[lastIdx], streaming: false };
+          updated[lastIdx] = { ...updated[lastIdx], content: fullText, streaming: false };
         }
         return updated;
       });
@@ -206,7 +212,7 @@ export default function ChatbotEmbed() {
                       fontSize: "15px", lineHeight: "1.6",
                       whiteSpace: "pre-wrap", wordBreak: "break-word",
                     }}>
-                      {msg.content}
+                      {renderLinkedContent(msg.content)}
                       {msg.streaming && (
                         <span style={{
                           display: "inline-block", width: "8px", height: "16px",
