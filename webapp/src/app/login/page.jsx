@@ -43,10 +43,23 @@ function LoginContent() {
       });
 
       if (authError) {
+        // 로그인 실패 기록 (비동기, 실패해도 무시)
+        fetch("/api/admin/security/log", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ event_type: "login_fail", email }),
+        }).catch(() => {});
         setError("아이디 또는 비밀번호가 올바르지 않습니다.");
         setLoading(false);
         return;
       }
+
+      // 로그인 성공 기록 (비동기, 실패해도 무시)
+      fetch("/api/admin/security/log", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event_type: "login_success", email }),
+      }).catch(() => {});
 
       router.push(redirectTo);
       router.refresh();

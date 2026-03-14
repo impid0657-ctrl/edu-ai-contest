@@ -61,6 +61,11 @@ const ADMIN_MENU = [
     path: "/admin/settings",
     icon: "solar:settings-outline",
   },
+  {
+    label: "보안",
+    path: "/admin/security",
+    icon: "solar:shield-keyhole-outline",
+  },
 ];
 
 export default function AdminSidebar({ sidebarActive, mobileMenu, onMobileMenuClose }) {
