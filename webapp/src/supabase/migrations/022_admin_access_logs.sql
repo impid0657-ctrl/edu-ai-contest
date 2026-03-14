@@ -3,7 +3,7 @@
 
 CREATE TABLE IF NOT EXISTS admin_access_logs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  event_type TEXT NOT NULL CHECK (event_type IN ('login_success', 'login_fail', 'page_access')),
+  event_type TEXT NOT NULL CHECK (event_type IN ('login_success', 'login_fail', 'page_access', 'attack_detected')),
   ip_address TEXT,
   user_agent TEXT,
   email TEXT,

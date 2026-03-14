@@ -2,9 +2,38 @@ import { updateSession } from "@/lib/supabase/middleware";
 import { formatKST } from "@/lib/dateUtils";
 import { NextResponse } from "next/server";
 
+// 공격 패턴 (SQL Injection, XSS, 경로 탐색)
+const ATTACK_PATTERNS = [
+  // SQL Injection
+  { pattern: /('\s*(OR|AND)\s+[\d'"])/i, type: "sql_injection" },
+  { pattern: /(UNION\s+(ALL\s+)?SELECT)/i, type: "sql_injection" },
+  { pattern: /(DROP\s+(TABLE|DATABASE))/i, type: "sql_injection" },
+  { pattern: /(INSERT\s+INTO|DELETE\s+FROM)/i, type: "sql_injection" },
+  { pattern: /(\bEXEC(\s|UTE))/i, type: "sql_injection" },
+  // XSS
+  { pattern: /(<script[\s>])/i, type: "xss" },
+  { pattern: /(javascript\s*:)/i, type: "xss" },
+  { pattern: /(on(error|load|click|mouseover)\s*=)/i, type: "xss" },
+  { pattern: /(<iframe[\s>])/i, type: "xss" },
+  // 경로 탐색
+  { pattern: /(\.\.\/|\.\.\\)/i, type: "path_traversal" },
+  { pattern: /(\/etc\/passwd|\/windows\/)/i, type: "path_traversal" },
+];
+
+function detectAttack(url) {
+  const fullUrl = decodeURIComponent(url);
+  for (const { pattern, type } of ATTACK_PATTERNS) {
+    if (pattern.test(fullUrl)) {
+      return { detected: true, type, matched: fullUrl.match(pattern)?.[0] || "" };
+    }
+  }
+  return { detected: false };
+}
+
 /**
  * Next.js Middleware
  * - Refreshes Supabase auth session on every request
+ * - Detects attack patterns (SQL injection, XSS, path traversal) — log only
  * - Logs requests with KST timestamp (doc 12.7 Rule 5)
  * - Protects /admin/* routes (requires admin role — queries public.users)
  * - If Supabase connection fails, /admin routes are BLOCKED (fail-secure)
@@ -17,6 +46,37 @@ export async function middleware(request) {
     const kstTimestamp = formatKST(new Date(), "yyyy-MM-dd HH:mm:ss");
     console.log(`[${kstTimestamp} KST] ${request.method} ${pathname}`);
   } catch { /* logging failure should never block requests */ }
+
+  // 공격 패턴 감지 (기록만, 차단 안함)
+  try {
+    const fullUrl = request.nextUrl.href;
+    const attack = detectAttack(fullUrl);
+    if (attack.detected) {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+      if (supabaseUrl && serviceKey) {
+        const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
+          || request.headers.get("x-real-ip") || "unknown";
+        fetch(`${supabaseUrl}/rest/v1/admin_access_logs`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": serviceKey,
+            "Authorization": `Bearer ${serviceKey}`,
+          },
+          body: JSON.stringify({
+            event_type: "attack_detected",
+            ip_address: ip,
+            user_agent: (request.headers.get("user-agent") || "").slice(0, 500),
+            email: null,
+            path: pathname,
+            severity: attack.type === "path_traversal" ? "warning" : "critical",
+            details: { attack_type: attack.type, matched: attack.matched.slice(0, 200) },
+          }),
+        }).catch(() => {});
+      }
+    }
+  } catch { /* 감지 실패는 무시 */ }
 
   // Protect /admin/* routes — MUST block before anything else
   if (pathname.startsWith("/admin")) {
@@ -93,15 +153,9 @@ export async function middleware(request) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public assets (images, css, js, etc.)
-     * - original-template/ (Evalo static files)
-     * - evalo-*/ (legacy Evalo asset dirs)
-     */
+    // Match all request paths except:
+    // _next/static, _next/image, favicon.ico, public assets,
+    // original-template/, evalo-* (legacy Evalo asset dirs)
     "/((?!_next/static|_next/image|favicon.ico|assets/|original-template/|evalo-css/|evalo-fonts/|evalo-images/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js)$).*)",
   ],
 };

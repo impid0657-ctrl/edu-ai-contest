@@ -46,6 +46,7 @@ export default function SecurityPage() {
       if (tab === "login") {
         filtered = filtered.filter(l => l.event_type === "login_success" || l.event_type === "login_fail");
       } else if (tab === "alerts") {
+        // 이상 징후: severity warning/critical + 공격 감지 이벤트
         filtered = filtered.filter(l => l.severity === "warning" || l.severity === "critical");
       }
 
@@ -92,6 +93,7 @@ export default function SecurityPage() {
       case "login_success": return <span style={{ ...badge, background: "#d4edda", color: "#155724" }}>로그인 성공</span>;
       case "login_fail": return <span style={{ ...badge, background: "#f8d7da", color: "#721c24" }}>로그인 실패</span>;
       case "page_access": return <span style={{ ...badge, background: "#d1ecf1", color: "#0c5460" }}>페이지 접근</span>;
+      case "attack_detected": return <span style={{ ...badge, background: "#dc3545", color: "#fff" }}>⚠️ 공격 감지</span>;
       default: return <span style={badge}>{type}</span>;
     }
   };
