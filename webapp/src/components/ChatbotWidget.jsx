@@ -168,6 +168,44 @@ export default function ChatbotWidget() {
     });
   };
 
+  // 마크다운 링크 [텍스트](URL)를 클릭 가능한 <a> 태그로 변환
+  const renderMessageContent = (text) => {
+    const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = linkRegex.exec(text)) !== null) {
+      // 링크 앞 텍스트
+      if (match.index > lastIndex) {
+        parts.push(text.slice(lastIndex, match.index));
+      }
+      // 링크
+      parts.push(
+        <a
+          key={match.index}
+          href={match[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            color: "#1a6dd4",
+            fontWeight: 700,
+            textDecoration: "underline",
+            cursor: "pointer",
+          }}
+        >
+          {match[1]}
+        </a>
+      );
+      lastIndex = match.index + match[0].length;
+    }
+    // 남은 텍스트
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+    return parts.length > 0 ? parts : text;
+  };
+
   return (
     <>
       {/* Floating Button */}
@@ -205,7 +243,7 @@ export default function ChatbotWidget() {
                 key={idx}
                 className={`chatbot-msg ${msg.role === "user" ? "chatbot-msg-user" : "chatbot-msg-bot"}`}
               >
-                <div className="chatbot-msg-content">{msg.content}</div>
+                <div className="chatbot-msg-content">{renderMessageContent(msg.content)}</div>
                 <div className="chatbot-msg-time">{formatTime(msg.timestamp)}</div>
               </div>
             ))}
