@@ -64,82 +64,40 @@ export default function ChatbotWidget() {
         return;
       }
 
-      // Check if blocked (non-streaming JSON response)
-      const contentType = res.headers.get("content-type") || "";
-      if (contentType.includes("application/json")) {
-        const data = await res.json();
-        setMessages((prev) => [
-          ...prev,
-          { role: "bot", content: data.response || data.error, timestamp: new Date() },
-        ]);
-        setIsLoading(false);
-        return;
-      }
+      // JSON 응답 수신 + 클라이언트 타이핑 효과
+      const data = await res.json();
+      const fullText = data.response || data.error || "응답을 받지 못했습니다.";
 
-      // Streaming SSE response
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let botMessage = "";
+      // 타이핑 효과: 코드포인트 단위로 점진적으로 표시
+      const codePoints = Array.from(fullText);
+      const chunkSize = 5;
 
-      // Add empty bot message placeholder
       setMessages((prev) => [
         ...prev,
         { role: "bot", content: "", timestamp: new Date(), streaming: true },
       ]);
 
-      let sseBuffer = "";
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = decoder.decode(value, { stream: true });
-        sseBuffer += chunk;
-
-        // 완전한 SSE 이벤트 단위로 처리 (빈 줄 = \n\n 으로 구분)
-        const events = sseBuffer.split("\n\n");
-        // 마지막 요소는 아직 불완전할 수 있으므로 버퍼에 유지
-        sseBuffer = events.pop() || "";
-
-        for (const event of events) {
-          const lines = event.split("\n");
-          for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              const data = line.slice(6).trim();
-              if (data === "[DONE]") continue;
-
-              try {
-                const parsed = JSON.parse(data);
-                if (parsed.content) {
-                  botMessage += parsed.content;
-                  setMessages((prev) => {
-                    const updated = [...prev];
-                    const lastIdx = updated.length - 1;
-                    if (updated[lastIdx]?.streaming) {
-                      updated[lastIdx] = {
-                        ...updated[lastIdx],
-                        content: botMessage,
-                      };
-                    }
-                    return updated;
-                  });
-                }
-              } catch {
-                // Skip malformed JSON
-              }
-            }
+      let displayed = "";
+      for (let i = 0; i < codePoints.length; i += chunkSize) {
+        displayed += codePoints.slice(i, i + chunkSize).join("");
+        const snapshot = displayed;
+        setMessages((prev) => {
+          const updated = [...prev];
+          const lastIdx = updated.length - 1;
+          if (updated[lastIdx]?.streaming) {
+            updated[lastIdx] = { ...updated[lastIdx], content: snapshot };
           }
-        }
+          return updated;
+        });
+        await new Promise((r) => setTimeout(r, 15));
       }
 
-      // Finalize streaming message
+      // 타이핑 완료
       setMessages((prev) => {
         const updated = [...prev];
         const lastIdx = updated.length - 1;
         if (updated[lastIdx]?.streaming) {
-          updated[lastIdx] = {
-            ...updated[lastIdx],
-            streaming: false,
-          };
+          updated[lastIdx] = { ...updated[lastIdx], content: fullText, streaming: false };
         }
         return updated;
       });

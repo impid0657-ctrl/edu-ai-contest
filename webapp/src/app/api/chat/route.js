@@ -210,7 +210,7 @@ async function tryGeminiCascade({ settings, systemPrompt, message, session_id, s
         const estimatedTokens = Math.ceil((message.length + fullResponse.length) / 4);
         logConversation({ sessionId: session_id, userQuery: message, aiResponse: fullResponse, isBlocked: false, tokensUsed: estimatedTokens, provider: "google", model, latencyMs: Date.now() - startTime }).catch(() => { });
 
-        return createSSEResponse(stripMarkdown(fullResponse));
+        return NextResponse.json({ response: stripMarkdown(fullResponse) });
       } catch (err) {
         console.warn(`[chat] ${model} failed: ${err.message}, trying next`);
       }
@@ -244,7 +244,7 @@ async function handleOpenRouter({ settings, model, systemPrompt, message, sessio
   const estimatedTokens = Math.ceil((message.length + fullResponse.length) / 4);
   logConversation({ sessionId: session_id, userQuery: message, aiResponse: fullResponse, isBlocked: false, tokensUsed: estimatedTokens, provider: "openrouter", model, latencyMs: Date.now() - startTime }).catch(() => { });
 
-  return createSSEResponse(stripMarkdown(fullResponse));
+  return NextResponse.json({ response: stripMarkdown(fullResponse) });
 }
 
 /**
