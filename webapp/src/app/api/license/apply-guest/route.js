@@ -4,6 +4,7 @@ import { rateLimit } from "@/lib/rateLimit";
 
 const limiter = rateLimit({ interval: 60_000, limit: 20 });
 
+const LICENSE_QUOTA = 800; // 총 이용권 수량
 const VALID_CATEGORIES = ["elementary", "secondary", "general"];
 const VALID_REGIONS = [
   "서울특별시", "부산광역시", "대구광역시", "인천광역시", "광주광역시", "대전광역시", "울산광역시",
@@ -97,6 +98,19 @@ export async function POST(request) {
       studentVerificationId = studentRecord.id;
     }
     // naver auth_method → 쿠키 세션 기반 (별도 DB 검증 불요)
+
+    // ── 수량 체크 (마감 확인) ──
+    const { count: currentCount, error: countError } = await adminClient
+      .from("license_applications")
+      .select("id", { count: "exact", head: true })
+      .neq("status", "rejected");
+
+    if (!countError && currentCount >= LICENSE_QUOTA) {
+      return NextResponse.json({
+        error: "AI 이용권 신청이 마감되었습니다. 준비된 수량이 모두 소진되었습니다.",
+        closed: true,
+      }, { status: 410 });
+    }
 
     // ── Duplicate check ──
     const { data: existing } = await adminClient

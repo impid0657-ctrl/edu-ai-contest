@@ -67,6 +67,7 @@ export default function LicenseApplyPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [quotaClosed, setQuotaClosed] = useState(false);
 
   // Auth provider toggle (관리자 설정)
   const [authProviders, setAuthProviders] = useState({
@@ -139,6 +140,19 @@ export default function LicenseApplyPage() {
   useEffect(() => {
     async function init() {
       try {
+        // 수량 마감 확인
+        try {
+          const quotaRes = await fetch("/api/license/quota");
+          if (quotaRes.ok) {
+            const quotaData = await quotaRes.json();
+            if (quotaData.closed) {
+              setQuotaClosed(true);
+              setLoading(false);
+              return;
+            }
+          }
+        } catch { /* 실패 시 계속 진행 */ }
+
         // 인증 제공자 토글 설정 조회 (공개 API)
         try {
           const settingsRes = await fetch("/api/settings/auth-providers");
@@ -549,6 +563,41 @@ export default function LicenseApplyPage() {
   }
 
   // ════════════════════════════════════════════
+  // RENDER: 이용권 마감 — 수량 소진
+  // ════════════════════════════════════════════
+  if (quotaClosed) {
+    return (
+      <>
+        {heroSection}
+        <div className="pt-135 pb-120 over-hidden">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-xl-7 col-lg-8 col-md-10 col-sm-12 col-12">
+                <div className="contact-form-wrapper secondary-border01 pt-60 pb-60 pl-60 pr-60 text-center">
+                  <div className="display-1 mb-20">🔒</div>
+                  <h3 className="f-700 mb-20">AI 이용권 신청이 마감되었습니다</h3>
+                  <p className="text-muted mb-30" style={{ fontSize: "16px", lineHeight: "1.8" }}>
+                    준비된 이용권 수량이 모두 소진되어 더 이상 신청을 받지 않습니다.<br />
+                    추가 문의사항은 이메일로 연락해 주시기 바랍니다.
+                  </p>
+                  <p className="mb-30">
+                    <a href="mailto:gongmo@stunning.kr" className="theme-color f-700" style={{ fontSize: "16px" }}>
+                      gongmo@stunning.kr
+                    </a>
+                  </p>
+                  <div className="my-btn">
+                    <a href="/" className="btn theme-bg text-uppercase f-18 f-700">홈으로 돌아가기</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  // ════════════════════════════════════════════
   // RENDER: Already has application (OAuth user)
   // ════════════════════════════════════════════
   if (existingApp && !submitted) {
@@ -819,7 +868,7 @@ export default function LicenseApplyPage() {
                 <div className="title text-center mb-50">
                   <span className="theme-color f-700">AI 이용권 신청</span>
                   <h3 className="f-700 mb-20">에듀핏(EduFit) AI 학습 플랫폼</h3>
-                  <p>선착순 500명까지 무료로 제공 (2개월 이용권: 4월 1일 ~ 5월 31일)</p>
+                  <p>선착순 800명까지 무료로 제공 (2개월 이용권: 4월 1일 ~ 5월 31일)</p>
                 </div>
 
                 {/* 신청 현황 조회 */}

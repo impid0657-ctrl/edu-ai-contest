@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 
+const LICENSE_QUOTA = 800;
 const VALID_CATEGORIES = ["elementary", "secondary", "general"];
 const VALID_REGIONS = [
   "서울특별시", "부산광역시", "대구광역시", "인천광역시", "광주광역시", "대전광역시", "울산광역시",
@@ -77,6 +78,19 @@ export async function POST(request) {
     const memberCount = parseInt(member_count, 10) || 1;
     if (memberCount < 1 || memberCount > 3)
       return NextResponse.json({ error: "팀원 수는 1~3명이어야 합니다." }, { status: 400 });
+
+    // ── 수량 체크 (마감 확인) ──
+    const { count: currentCount, error: countError } = await admin
+      .from("license_applications")
+      .select("id", { count: "exact", head: true })
+      .neq("status", "rejected");
+
+    if (!countError && currentCount >= LICENSE_QUOTA) {
+      return NextResponse.json({
+        error: "AI 이용권 신청이 마감되었습니다. 준비된 수량이 모두 소진되었습니다.",
+        closed: true,
+      }, { status: 410 });
+    }
 
     // Duplicate check
     const { data: existing } = await supabase
