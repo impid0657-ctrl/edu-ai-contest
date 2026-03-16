@@ -179,7 +179,7 @@ export default function ContestInfoPage() {
                                             </div>{/* /ser-icon */}
                                             <div className="service-text">
                                                 <h6 className="f-700 mb-15">에듀핋 AI 이용권</h6>
-                                                <p>선착순 500개 생성형 AI 플랫폼 이용권을 무료 지원합니다 (학생 400개, 일반 100개)</p>
+                                                <p>선착순 800개 생성형 AI 플랫폼 이용권을 무료 지원합니다 (학생 400개, 일반 100개)</p>
                                             </div>
                                         </div>{/* /single-service-content */}
                                     </div>{/* /col */}
