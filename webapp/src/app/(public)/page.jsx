@@ -191,7 +191,7 @@ export default function HomePage() {
                                                         </div>{/* /ser-icon */}
                                                         <h6 className="f-700 mb-0">에듀핏 AI 이용권</h6>
                                                     </div>{/* /feature-ser-heading */}
-                                                    <p>선착순 800개 생성형 AI 플랫폼 이용권 무료 제공</p>
+                                                    <p>선착순 500개 생성형 AI 플랫폼 이용권 무료 제공</p>
                                                 </div>{/* /single-feature-service */}
                                             </div>{/* /col */}
                                             <div className="col-xl-6  col-lg-6 col-md-6  col-sm-6 col-12">

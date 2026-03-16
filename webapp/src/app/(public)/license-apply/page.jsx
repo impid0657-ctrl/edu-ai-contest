@@ -868,7 +868,7 @@ export default function LicenseApplyPage() {
                 <div className="title text-center mb-50">
                   <span className="theme-color f-700">AI 이용권 신청</span>
                   <h3 className="f-700 mb-20">에듀핏(EduFit) AI 학습 플랫폼</h3>
-                  <p>선착순 800명까지 무료로 제공 (2개월 이용권: 4월 1일 ~ 5월 31일)</p>
+                  <p>선착순 500명까지 무료로 제공 (2개월 이용권: 4월 1일 ~ 5월 31일)</p>
                 </div>
 
                 {/* 신청 현황 조회 */}
