@@ -293,7 +293,7 @@ export default function AdminLicensePage() {
   const [total, setTotal] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
   const [approvedCount, setApprovedCount] = useState(0);
-  const [remainingSeats, setRemainingSeats] = useState(500);
+  const [remainingSeats, setRemainingSeats] = useState(800);
   const [loading, setLoading] = useState(true);
   const [selectedIds, setSelectedIds] = useState([]);
   const [actionLoading, setActionLoading] = useState(false);
@@ -339,7 +339,7 @@ export default function AdminLicensePage() {
       setApplications(data.applications || []);
       setTotal(data.total || 0);
       setApprovedCount(data.approved_count || 0);
-      setRemainingSeats(data.remaining_seats ?? 500);
+      setRemainingSeats(data.remaining_seats ?? 800);
       setPendingCount(data.pending_count ?? (data.applications || []).filter(a => a.status === "pending").length);
     } catch (err) {
       console.error("Fetch applications error:", err);
@@ -593,7 +593,7 @@ export default function AdminLicensePage() {
           <div className="card shadow-none border mb-0">
             <div className="card-body py-8 px-16 d-flex align-items-center gap-2">
               <span className="text-muted fw-medium">잔여</span>
-              <span className="fw-bold text-primary-600">{remainingSeats} / 500</span>
+              <span className="fw-bold text-primary-600">{remainingSeats} / 800</span>
             </div>
           </div>
         </div>

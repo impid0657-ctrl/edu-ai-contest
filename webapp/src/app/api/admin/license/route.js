@@ -72,7 +72,7 @@ export async function GET(request) {
         applications: [],
         total: 0,
         approved_count: 0,
-        remaining_seats: 500,
+        remaining_seats: 800,
       });
     }
 
@@ -165,7 +165,7 @@ export async function GET(request) {
       total: count || 0,
       approved_count: approvedCount || 0,
       pending_count: pendingCount || 0,
-      remaining_seats: 500 - activeCount,
+      remaining_seats: 800 - activeCount,
     });
   } catch (err) {
     console.warn("GET /api/admin/license error:", err.message);
@@ -173,7 +173,7 @@ export async function GET(request) {
       applications: [],
       total: 0,
       approved_count: 0,
-      remaining_seats: 500,
+      remaining_seats: 800,
     });
   }
 }

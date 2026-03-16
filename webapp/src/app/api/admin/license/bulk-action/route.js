@@ -127,10 +127,10 @@ export async function POST(request) {
 
       const currentApproved = approvedCount || 0;
 
-      if (currentApproved + ids.length > 500) {
+      if (currentApproved + ids.length > 800) {
         return NextResponse.json(
           {
-            error: `승인 시 500명 한도 초과 (현재 ${currentApproved}명 승인, ${ids.length}명 추가 시 ${currentApproved + ids.length}명)`,
+            error: `승인 시 800명 한도 초과 (현재 ${currentApproved}명 승인, ${ids.length}명 추가 시 ${currentApproved + ids.length}명)`,
           },
           { status: 400 }
         );
@@ -178,7 +178,7 @@ export async function POST(request) {
     return NextResponse.json({
       updated: updated?.length || 0,
       approved_count: newApprovedCount || 0,
-      remaining_seats: 500 - activeCount,
+      remaining_seats: 800 - activeCount,
     });
   } catch (err) {
     console.error("POST /api/admin/license/bulk-action error:", err);
