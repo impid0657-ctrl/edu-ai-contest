@@ -50,7 +50,7 @@ export default function HomePage() {
                         <div className="row align-items-center">
                             <div className="col-xl-6  col-lg-6  col-md-6  col-sm-12 col-12  d-flex align-items-center">
                                 <div className="slider-content mt--30 position-relative">
-                                    <span className="f-700 theme-color d-block pb-1" style={{ fontSize: "25px" }} data-aos="fade-right" data-aos-duration="2000" data-aos-delay="40">교육 분야의 공공데이터와 생성형 AI의 만남!</span>
+                                    <span className="f-700 theme-color d-block pb-1" style={{ fontSize: "28px" }} data-aos="fade-right" data-aos-duration="2000" data-aos-delay="40">교육 분야의 공공데이터와 생성형 AI의 만남!</span>
                                     <h1 className="f-700 pb-22" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="150">제8회 교육 공공데이터<br />AI 활용대회</h1>
                                     <p data-aos="fade-right" data-aos-duration="2000">교육 공공데이터와 AI 기술의 융합으로<br />교육 현장의 실제 문제를 해결하는 창의적인 아이디어를 발굴합니다.<br />당신의 아이디어로 혁신을 꿈꾸세요!</p>
                                     <div className="video-player-btn d-none align-items-center z-index11 mt-45">
